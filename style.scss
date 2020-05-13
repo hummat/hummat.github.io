@@ -18,7 +18,7 @@ html {
 }
 
 body {
-	background: $white;
+  background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
 }
@@ -68,6 +68,10 @@ p {
   margin: 15px 0;
 }
 
+.entry p {
+  display: block;
+}
+
 a {
   color: $blue;
   text-decoration: none;
@@ -113,6 +117,13 @@ img {
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
+}
+
+.entry img {
+  margin-left: 15px;
+  float: right;
+  max-width: 500px;
+  height: auto;
 }
 
 .date {
