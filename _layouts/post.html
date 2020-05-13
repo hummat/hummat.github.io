@@ -4,7 +4,16 @@ layout: default
 
 <article class="post">
   {% if page.image %}
-    <img src="{{ page.image }}" alt="">
+    <style>
+    div {
+        background-image: url("{{ page.image }}");
+        height: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+    <style>
   {% endif %}
   <h1>{{ page.title }}</h1>
 
