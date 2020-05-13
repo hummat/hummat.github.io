@@ -10,6 +10,9 @@ layout: default
 
       <div class="entry">
         {{ post.excerpt }}
+        {% if post.image %}
+          <img src="{{ post.image }}" alt="" style="float: right; width 500; height: 250;">
+        {% endif %}
       </div>
 
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
