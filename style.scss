@@ -30,6 +30,11 @@ body {
   width: 100%;
 }
 
+.column {
+  width: 50%;
+  padding: 20px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: $helveticaNeue;
   color: $darkerGray;
@@ -116,9 +121,7 @@ img {
 }
 
 .column img {
-  float: right;
-  padding: 20px;
-  max-width: 250px;
+  max-width: 300px;
   height: auto;
 }
 
