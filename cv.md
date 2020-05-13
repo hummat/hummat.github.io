@@ -1,4 +1,4 @@
 ---
-style: post
+layout: page
 title: Curriculum vitae
 ---
