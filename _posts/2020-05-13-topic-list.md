@@ -2,9 +2,6 @@
 layout: post
 title: PhD topic list
 permalink: /blog/topics
-data: 2020-05-13
-category: phd
-tags: phd topics
 ---
 
 Here I would like to collect potential topics for my PhD which are of great interest to me. This is mostly written for myself, to order and collect my thoughts. But maybe you are interested in similar topics in which case let’s explore this exciting landscape together. Whatever ends up in this list will have a really high chance to be machine learning related though. Definitely feel free to drop me a comment if you have other cool ideas.
