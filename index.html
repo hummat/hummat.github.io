@@ -10,7 +10,7 @@ layout: default
 
       <div class="entry">
         {% if post.image %}
-          <p>{{ post.excerpt }}</p>
+          {{ post.excerpt }}
           <img src="{{ post.image }}" alt="">
         {% else %}
           {{ post.excerpt }}
