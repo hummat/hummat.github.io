@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "Hello World!"
+title: Hello World!
+image: /images/hello_world.png
 comments: false
 ---
 
