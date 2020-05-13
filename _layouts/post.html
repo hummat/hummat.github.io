@@ -4,11 +4,7 @@ layout: default
 
 <article class="post">
   {% if page.image %}
-    <style>
-    div {
-        background-image: url("{{ page.image }}");
-    }
-    </style>
+    <img src="{{ page.image }}" alt="">
   {% endif %}
   <h1>{{ page.title }}</h1>
 
