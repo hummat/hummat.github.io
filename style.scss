@@ -25,15 +25,30 @@ body {
 
 .container {
   margin: 0 auto;
-  max-width: 740px;
+  max-width: 984px;
   padding: 0 10px;
   width: 100%;
 }
 
-.column {
-  margin: 0;
-  width: 50%;
-  padding: 20px;
+.metadata {
+  font-size: 12px;
+  float: left;
+  width: 15%;
+}
+
+.thumbnail {
+  float: right;
+  width: 35%;
+}
+
+.narrow-description {
+  float: left;
+  width: 40%;
+}
+
+.wide-description {
+  float: left;
+  width: 75%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -58,6 +73,7 @@ h1 {
 }
 
 h2 {
+  margin: 0 0 1em 0;
   font-size: 24px;
 }
 
@@ -77,10 +93,15 @@ p {
 a {
   color: $blue;
   text-decoration: none;
-	cursor: pointer;
+  cursor: pointer;
   &:hover, &:active {
     color: $blue;
   }
+}
+
+article a {
+  color: inherit;
+  &:hover, &:active {}
 }
 
 ul, ol {
@@ -119,11 +140,6 @@ img {
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
-}
-
-.column img {
-  max-width: 300px;
-  height: auto;
 }
 
 .date {
@@ -253,6 +269,7 @@ nav {
 //
 
 .posts > .post {
+  overflow: hidden;
   padding-bottom: 2em;
   border-bottom: 1px solid $lightGray;
 }
