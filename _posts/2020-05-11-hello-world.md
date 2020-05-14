@@ -2,6 +2,9 @@
 layout: post
 title: Hello World!
 image: /images/hello_world.png
+abstract: Welcome to my blog!
+tags: hello!
+category: thought
 comments: false
 ---
 

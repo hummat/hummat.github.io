@@ -30,9 +30,16 @@ body {
   width: 100%;
 }
 
+.metadata {
+  margin-top: 8px;
+  font: 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 1.4em;
+  font-size: 12px;
+}
+
 @media (min-width: 768px) {
 .metadata {
-  font-size: 12px;
   float: left;
   width: 15%;
 }
@@ -51,6 +58,33 @@ body {
   float: left;
   width: 75%;
 }
+}
+
+.metadata .date {
+  margin-right: 1em;
+}
+
+.metadata .tags {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.tags .tag {
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.67);
+    padding: 0.3em 0.5em;
+    margin: 0.1em;
+    font-size: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.tag.category {
+    background-color: #0F2E3DE0;
+    color: white;
+    border-color: #0F2E3D;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -75,8 +109,15 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 1em 0;
   font-size: 24px;
+}
+
+.wide-description h2 {
+  margin: 0 0 0.5em 0;
+}
+
+.narrow-description h2 {
+  margin: 0 0 0.5em 0;
 }
 
 h3 {
@@ -101,9 +142,8 @@ a {
   }
 }
 
-article a {
-  color: inherit;
-  &:hover, &:active {}
+.index-a {
+  color: inherit !important;
 }
 
 ul, ol {
