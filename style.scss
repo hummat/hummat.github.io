@@ -30,6 +30,7 @@ body {
   width: 100%;
 }
 
+@media (min-width: 768px) {
 .metadata {
   font-size: 12px;
   float: left;
@@ -49,6 +50,7 @@ body {
 .wide-description {
   float: left;
   width: 75%;
+}
 }
 
 h1, h2, h3, h4, h5, h6 {
