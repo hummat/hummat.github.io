@@ -4,6 +4,8 @@
 
 # Name of your site (displayed in the header)
 title: Matthias Humt
+author: Matthias Humt
+tagline: Blog of Matthias Humt, PhD studen at DLR, writing about machine learning.
 
 # Short bio or description (displayed in the header)
 description: PhD student at the German Aerospace Center (DLR)
