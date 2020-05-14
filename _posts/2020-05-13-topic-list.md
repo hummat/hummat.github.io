@@ -1,14 +1,17 @@
 ---
 layout: post
-title: PhD topic list
-abstract: An ongoing list of potential PhD topics. Feel free to comment if you have other great ideas!
-tags: [phd, deep learning, machine learning]
+title: Phd? Yes! But what about?
+abstract: An ongoing list of potential PhD topics. I thought it might be helpful to put this list here to motivate me but also to be able to easily share it and potentially to get some input from elsewhere. So feel free to comment if you have any great ideas!
+tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
+update: 2020-05-14
 ---
+
+# A robotics & machine learning PhD topics list
 
 Here I would like to collect potential topics for my PhD which are of great interest to me. This is mostly written for myself, to order and collect my thoughts. But maybe you are interested in similar topics in which case let’s explore this exciting landscape together. Whatever ends up in this list will have a really high chance to be machine learning related though. Definitely feel free to drop me a comment if you have other cool ideas.
 
-## 1. Bayesian Deep Learning
+## 1. Field: Bayesian Deep Learning
 
 This is of course a super large field already, but also an extremely interesting one. I’ve been working on a technique called _Laplace Approximation_ during my Masters’ thesis where I applied it to deep neural networks to transform them post hoc into Bayesian neural networks.
 
@@ -25,7 +28,13 @@ There are a myriad of other methods to achieve this, like _Monte Carlo dropout_,
 
 * Too large. You can’t just study “Bayesian Deep Learning”. I would have to focus on a much smaller subfield, but I’ve no idea yet what that could be.
 
-## 2. Combining model and data driven methods
+### Topics:
+
+* Reliable and fast uncertainty estimation for robotics
+
+* Uncertainty estimation for robust robotic perception
+
+## 2. Field: Combining model and data driven methods
 
 I’ve studied robotics for my Masters’ degree and consequently now work with robots. A robot is a very complex system, combining mechanical, electrical and software engineering. A lot of this is well studied and deterministic, following established physical rules. For example, knowing all the parameters of a robotic arm like joint friction, motor torque and the initial position, one can easily compute the motion of the arm when applying voltage to the motors, or reversely, the voltage required to perform a desired motion.
 
@@ -46,3 +55,7 @@ This is a lot like an adult solving a problem vs a baby. While the baby first ne
 
 * Difficult because one needs in depth knowledge of machine learning _and_ physics.
 * Also by far too large. I would have to find a concrete use case or much smaller subtask.
+
+### Topics:
+
+* Bayesian motion learning through model priors
