@@ -14,6 +14,7 @@
 /**************/
 
 html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 100%;
 }
 
@@ -21,6 +22,7 @@ body {
   padding-left: calc(100vw - 100%); 
   background: $white;
   font: 16px/1.4 $helvetica;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   color: $darkGray;
 }
 
