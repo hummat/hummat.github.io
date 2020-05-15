@@ -39,6 +39,18 @@ article {
   line-height: 1.7em;
 }
 
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+article p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .container {
   margin: 0 auto;
   max-width: 984px;
