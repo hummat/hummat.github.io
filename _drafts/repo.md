@@ -9,7 +9,7 @@ mathjax: true
 
 # {{ page.title }}
 
-Inline math $ 3+3=5 $ with some text and some more inline math \( x_i=3 \). 
+Inline math $ 3+3=5 $ with some text and some more inline math \\( x_i=3 \\). 
 
 Display math:
 
@@ -19,7 +19,7 @@ $$
 
 More display math
 
-\[
+\\[
 p(x|y)=\sum_{i=1}^N \frac{1}{N}
-\]
+\\]
 
