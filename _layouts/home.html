@@ -30,18 +30,18 @@ layout: default
 	<div class="narrow-description">
 	  <h2>{{ post.title }}</h2>
 	  {% if post.abstract %}
-          {{ post.abstract }}
+	  <p>{{ post.abstract }}</p>
 	  {% else %}
-	  {{ post.excerpt }}
+	  <p>{{ post.excerpt }}</p>
 	  {% endif %}
         </div>
 	{% else %}
 	<div class="wide-description">
           <h2>{{ post.title }}</h2>
 	  {% if post.abstract %}
-          {{ post.abstract }}
+	  <p>{{ post.abstract }}</p>
 	  {% else %}
-	  {{ post.excerpt }}
+	  <p>{{ post.excerpt }}</p>
 	  {% endif %}
 	</div>
         {% endif %}

@@ -14,16 +14,29 @@
 /**************/
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.6em;
+    /* font-family: "Libre Franklin", "Helvetica Neue", sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
+  margin: 0;
   padding-left: calc(100vw - 100%); 
   background: $white;
-  font: 16px/1.4 $helvetica;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   color: $darkGray;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
 }
 
 .container {
@@ -36,13 +49,29 @@ body {
 .metadata {
   margin-top: 8px;
   margin-right: 8px;
-  font: 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.4em;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 @media (min-width: 768px) {
+html {
+  font-size: 16px;
+}
+
+.wide-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.5em;
+  font-size: 16px;
+}
+
+.narrow-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.5em;
+  font-size: 16px;
+}
+
+
 .metadata {
   float: left;
   width: 15%;
@@ -87,7 +116,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $helveticaNeue;
   color: $darkerGray;
   font-weight: bold;
 
@@ -130,8 +158,16 @@ h4 {
   color: $gray;
 }
 
-p {
-  margin: 15px 0;
+.wide-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.narrow-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
 }
 
 a {
@@ -352,7 +388,9 @@ nav {
 }
 
 .wrapper-footer {
-  margin-top: 50px;
+  width: 100%;
+  height: 84px;
+  margin-top: auto;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   background-color: $lightGray;
