@@ -186,6 +186,8 @@ img {
 }
 
 .date {
+  max-width: 700px;
+  margin: auto;
   font-style: italic;
   color: $gray;
 }
@@ -311,6 +313,11 @@ nav {
 // .main
 //
 
+.entry {
+  max-width: 700px;
+  margin: auto;
+}
+
 .posts > .post {
   overflow: hidden;
   padding-bottom: 2em;
@@ -333,6 +340,8 @@ nav {
   }
 
   .comments {
+    max-width: 700px;
+    margin: auto;
     margin-top: 10px;
   }
 

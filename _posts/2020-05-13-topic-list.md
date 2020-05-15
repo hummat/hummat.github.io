@@ -4,7 +4,7 @@ title: Phd? Yes! But what about?
 abstract: An ongoing list of potential PhD topics. I thought it might be helpful to put this list here to motivate me but also to be able to easily share it and potentially to get some input from elsewhere. So feel free to comment if you have any great ideas!
 tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
-update: 2020-05-14
+update: 2020-05-15
 ---
 
 # A robotics & machine learning PhD topics list
@@ -59,3 +59,19 @@ This is a lot like an adult solving a problem vs a baby. While the baby first ne
 ### Topics:
 
 * Bayesian motion learning through model priors
+
+### 3. Field: AI Safety
+
+From the paper [Concrete Problems in AI Safety](https://arxiv.org/pdf/1606.06565.pdf): _Rapid progress in machine learning and artificial intelligence (AI) has brought increasing attention to the potential impacts of AI technologies on society. In this paper we discuss one such potential impact: the problem of accidents in machine learning systems, defined as unintended and harmful behavior that may emerge from poor design of real-world AI systems. We present a list of five practical research problems related to accident risk, categorized according to whether the problem originates from having the wrong objective function ("avoiding side effects" and "avoiding reward hacking"), an objective function that is too expensive to evaluate frequently ("scalable supervision"), or undesirable behavior during the learning process ("safe exploration" and "distributional shift"). We review previous work in these areas as well as suggesting research directions with a focus on relevance to cutting-edge AI systems. Finally, we consider the high-level question of how to think most productively about the safety of forward-looking applications of AI._
+
+I think AI safety is an extremely important field of research, particularly now, while we still have some time to get it right _before_ we deploy more and more machine learning solutions into the real world. It is also highly relevant for robotics, especially if those robots are to be used alongside humans. The authors discuss the following topics:
+
+### Topics
+
+- **Safe exploration.** *Can [reinforcement learning](http://karpathy.github.io/2016/05/31/rl/) (RL) agents learn about their environment without executing catastrophic actions?* For example, can an RL agent learn to navigate an environment without ever falling off a ledge?
+- **Robustness to distributional shift.** *Can machine learning systems be robust to changes in the data distribution, or at least fail gracefully?* For example, can we build [image classifiers](https://www.tensorflow.org/versions/r0.9/tutorials/deep_cnn/index.html) that indicate appropriate uncertainty when shown new kinds of images, instead of confidently trying to use its [potentially inapplicable](http://arxiv.org/abs/1412.6572) learned model? -> Bayesian Deep Learning!
+- **Avoiding negative side effects.** *Can we transform an RL agent’s [reward function](https://webdocs.cs.ualberta.ca/~sutton/book/ebook/node9.html) to avoid undesired effects on the environment?* For example, can we build a robot that will move an object while avoiding knocking anything over or breaking anything, without manually programming a separate penalty for each possible bad behavior?
+- **Avoiding “reward hacking” and “[wireheading](http://www.agroparistech.fr/mmip/maths/laurent_orseau/papers/ring-orseau-AGI-2011-delusion.pdf)”.** *Can we prevent agents from “gaming” their reward functions, such as by distorting their observations?* For example, can we train an RL agent to minimize the number of dirty surfaces in a building, without causing it to avoid looking for dirty surfaces or to create new dirty surfaces to clean up?
+- **Scalable oversight.** *Can RL agents efficiently achieve goals for which feedback is very expensive?* For example, can we build an agent that tries to clean a room in the way the user would be happiest with, even though feedback from the user is very rare and we have to use cheap approximations (like the presence of visible dirt) during training? The divergence between cheap approximations and what we actually care about is an important source of accident risk.
+
+Reinforcement learning, while super interesting, is not really my cup of tea so the second topic might be most interesting to me, especially as it plays nicely with Bayesian approaches. The last topic can also be applied to non-RL scenarios where it is usually called _active learning_ but with limited data.
