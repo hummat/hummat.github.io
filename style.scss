@@ -18,8 +18,9 @@ html {
 }
 
 body {
+  padding-left: calc(100vw - 100%); 
   background: $white;
-  font: 18px/1.4 $helvetica;
+  font: 16px/1.4 $helvetica;
   color: $darkGray;
 }
 
@@ -36,7 +37,7 @@ body {
   font: 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.4em;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 @media (min-width: 768px) {
@@ -62,12 +63,7 @@ body {
 }
 
 .metadata .date {
-  margin-right: 1em;
-}
-
-.metadata .tags {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 .tags .tag {
@@ -93,8 +89,8 @@ h1, h2, h3, h4, h5, h6 {
   color: $darkerGray;
   font-weight: bold;
 
-  line-height: 1.7;
-  margin: 1em 0 15px;
+  line-height: 1.1em;
+  margin: 0.5em 0 15px;
   padding: 0;
 
   @include mobile {
@@ -103,22 +99,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 50px;
   a {
     color: inherit;
   }
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 36px;
 }
 
 .wide-description h2 {
-  margin: 0 0 0.5em 0;
+  font-size: 26px;
+  margin: 0 0 0.2em 0;
 }
 
 .narrow-description h2 {
-  margin: 0 0 0.5em 0;
+  font-size: 26px;
+  margin: 0 0 0.2em 0;
 }
 
 h3 {
@@ -126,7 +124,7 @@ h3 {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 14px;
   color: $gray;
 }
 
@@ -263,7 +261,7 @@ img {
 }
 
 .site-name {
-  margin: 0;
+  margin: 10px 0 0 0;
   color: $darkGray;
   cursor: pointer;
   font-family: $helveticaNeue;
@@ -273,7 +271,7 @@ img {
 }
 
 .site-description {
-  margin: -5px 0 0 0;
+  margin: 0;
   color: $gray;
   font-size: 16px;
 
