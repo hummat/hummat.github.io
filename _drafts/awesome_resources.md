@@ -9,4 +9,6 @@ category: resource
 # {{ page. title }}
 
 * [Distill](https://distill.pub/)
-* 
+* https://ncase.me
+* https://eater.net/quaternions
+* https://eater.net
