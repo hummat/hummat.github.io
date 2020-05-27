@@ -4,14 +4,14 @@ title: Phd? Yes! But what about?
 abstract: An ongoing list of potential PhD topics. I thought it might be helpful to put this list here to motivate me but also to be able to easily share it and potentially to get some input from elsewhere. So feel free to comment if you have any great ideas!
 tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
-update: 2020-05-15
+update: 2020-05-27
 ---
 
 # A robotics & machine learning PhD topics list
 
-Here I would like to collect potential topics for my PhD which are of great interest to me. This is mostly written for myself, to order and collect my thoughts. But maybe you are interested in similar topics in which case let’s explore this exciting landscape together. Whatever ends up in this list will have a really high chance to be machine learning related though. Definitely feel free to drop me a comment if you have other cool ideas.
+This is an ongoing list of potential topics for my PhD. This is mostly written for myself, to order and collect my thoughts. But maybe you are interested in similar topics in which case we can explore this exciting landscape together. Whatever ends up in this list will have a really high chance to be machine learning related though. Definitely feel free to drop me a comment if you have other cool ideas.
 
-## 1. Field: Bayesian Deep Learning
+## 1. Bayesian Deep Learning
 
 This is of course a super large field already, but also an extremely interesting one. I’ve been working on a technique called _Laplace Approximation_ during my Masters’ thesis where I applied it to deep neural networks to transform them post hoc into Bayesian neural networks.
 
@@ -34,7 +34,7 @@ There are a myriad of other methods to achieve this, like _Monte Carlo dropout_,
 
 * Uncertainty estimation for robust robotic perception
 
-## 2. Field: Combining model and data driven methods
+## 2. Combining model and data driven methods
 
 I’ve studied robotics for my Masters’ degree and consequently now work with robots. A robot is a very complex system, combining mechanical, electrical and software engineering. A lot of this is well studied and deterministic, following established physical rules. For example, knowing all the parameters of a robotic arm like joint friction, motor torque and the initial position, one can easily compute the motion of the arm when applying voltage to the motors, or reversely, the voltage required to perform a desired motion.
 
@@ -60,7 +60,7 @@ This is a lot like an adult solving a problem vs a baby. While the baby first ne
 
 * Bayesian motion learning through model priors
 
-### 3. Field: AI Safety
+## 3. AI Safety
 
 From the paper [Concrete Problems in AI Safety](https://arxiv.org/pdf/1606.06565.pdf): _Rapid progress in machine learning and artificial intelligence (AI) has brought increasing attention to the potential impacts of AI technologies on society. In this paper we discuss one such potential impact: the problem of accidents in machine learning systems, defined as unintended and harmful behavior that may emerge from poor design of real-world AI systems. We present a list of five practical research problems related to accident risk, categorized according to whether the problem originates from having the wrong objective function ("avoiding side effects" and "avoiding reward hacking"), an objective function that is too expensive to evaluate frequently ("scalable supervision"), or undesirable behavior during the learning process ("safe exploration" and "distributional shift"). We review previous work in these areas as well as suggesting research directions with a focus on relevance to cutting-edge AI systems. Finally, we consider the high-level question of how to think most productively about the safety of forward-looking applications of AI._
 
@@ -75,3 +75,18 @@ I think AI safety is an extremely important field of research, particularly now,
 - **Scalable oversight.** *Can RL agents efficiently achieve goals for which feedback is very expensive?* For example, can we build an agent that tries to clean a room in the way the user would be happiest with, even though feedback from the user is very rare and we have to use cheap approximations (like the presence of visible dirt) during training? The divergence between cheap approximations and what we actually care about is an important source of accident risk.
 
 Reinforcement learning, while super interesting, is not really my cup of tea so the second topic might be most interesting to me, especially as it plays nicely with Bayesian approaches. The last topic can also be applied to non-RL scenarios where it is usually called _active learning_ but with limited data.
+
+## 4. 3D Deep Learning
+
+The main difference (and problem) compared to 2D data like images is the permutation invariance of individual 3D data like point clouds. So given $N$ points, there are $N!$ ways to feed those to the learning algorithm while all should result in the same classification or segmentation result.
+
+Several ideas have been proposed to deal with this problem from taking multiple _views_ of the object and using a standard CNN on those to transforming the point cloud into a graph structure or working directly on the point cloud but making use of local neighborhoods.
+
+### Pros
+
+* Very young field so probably lots of opportunities to improve upon existing approaches.
+
+### Cons
+
+* It is not entirely clear to me if 3D data will actually be important in the near future because it might be that RGB based approaches (i.e. cameras) are enough for doing everything we care about (“humans don’t use depth sensors”).
+
