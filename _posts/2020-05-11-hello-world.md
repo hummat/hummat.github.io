@@ -6,6 +6,8 @@ abstract: Welcome to my blog! Here I'll be posting about all kinds of topics tha
 tags: [1st post, is this thing on]
 category: thought
 comments: false
+time: 1
+words: 196
 ---
 
 # {{ page.title }}

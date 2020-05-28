@@ -61,15 +61,23 @@ article p {
 }
 
 .metadata {
-  margin-top: 8px;
   margin-right: 8px;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.4em;
   font-size: 12px;
 }
 
+.date {
+  max-width: 700px;
+  margin: auto;
+  font-style: italic;
+  color: $gray;
+  font-size: 13px;
+}
+
 .metadata .date {
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 
 .tags .tag {
@@ -274,13 +282,6 @@ img {
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
-}
-
-.date {
-  max-width: 700px;
-  margin: auto;
-  font-style: italic;
-  color: $gray;
 }
 
 // Specify the color of the selection

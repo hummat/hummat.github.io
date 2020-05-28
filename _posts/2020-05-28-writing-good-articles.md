@@ -4,8 +4,8 @@ title: What makes a good article?
 abstract: Some thoughts on writing useful articles. Those are mainly things I saw elsewhere and would like to incorporate into my own writing but also things I often miss in otherwise great texts.
 tags: [writing, explanation]
 category: [thought]
-time: 10
-words: 1226
+time: 5
+words: 1431
 ---
 
 # {{ page.title }}
@@ -20,11 +20,11 @@ While the latter is probably simply due to laziness or an oversight, the former 
 
 _Information is often presented without structure due to laziness or because the author didn’t notice. Additionally, complicated structure or choice of words is sometimes used in an attempt to hide a lack of novelty or rigor._ It’s a bit longer and less elegant but easier to parse. I’m not saying that everything should be written like a computer program, that would undermine any joy you might gain from reading a good novel. But when trying to explain a difficult subject, your goal is to help other people understand and to make potential flaws or mistakes obvious so that they can be spotted (either by yourself while writing or by someone else reading it) and fixed easily. An explanation needs to be easy to follow and correct, not inspiring (except for its content maybe).
 
-## 2. Time
+## 2. Time & Words
 
 Ever started reading an interesting article and stopped half way because you didn’t expect it to take so long and you have a million other things to do? Right, but how could you have anticipated this? While you might have been able to make an educated guess by checking its length and approximately knowing your reading speed, this is a cumbersome and imprecise. And you’d probably just forget to do it.
 
-That’s why I really like the idea to put an approximate reading time at the top of an article. Of course this time is affected by your reading speed and understanding of the presented material, but it’s for sure a lot better than nothing.
+That’s why I really like the idea to put an approximate reading time at the top of an article. Of course this time is affected by your reading speed and understanding of the presented material, but it’s for sure a lot better than nothing. Alternatively (or additionally) a word count can already be useful if you have a rough idea of your own reading speed and is usually quite straight forward to incorporate for the author, as most writing programs already provide a word count.
 
 ## 3. Visualization
 
@@ -46,6 +46,12 @@ Luckily the situation is improving due to the internet, where one can add as man
 Everyone makes mistakes. Especially if the topic is difficult, relies on a lot of background knowledge or is still in it’s infancy. While four eyes see more than two, a million see even more (a bit of wishful thinking here from my side; very unlikely that a million eyes will ever see this page). And some of those eyes pass their information on to brains which are trained on very specific fields which might only appear in a single sentence of an entire article. If I, for example, write about Deep Learning, there is so much to get wrong. The subject is difficult, relies on in depth knowledge of probability theory, statistic, linear algebra and calculus and is also still a very young field of research.
 
 All this is to say: There has to be a way do discuss articles with the author or between readers. While the author can get valuable feedback and iron out typos and other mistakes, the reader can ask about specific points that remain unclear which might help others who stumble upon the article later in time. This is also why I think it is much more useful to have an open format for discussion which is directly linked to each article instead of just providing an email address.
+
+## 5. Resources
+
+Adding a footnote or link to additional resources can be really helpful in a article if the author didn’t have enough space, time or motivation to explain a topic in a way that you could understand it. The same is true for further reading material, even though it always gives me some anxiety because I feel like I have to read everything provided.
+
+If the article is long and there are lots of resources given, it can be difficult to find that one sentence again where the link to a specific paper or video was provided. I therefore like to have a dedicated resource section at the end of an article collecting and sorting everything that was previously mentioned to make it easy to keep exploring after your done reading. Of course this only makes sense if there are actually a lot of references and they are not already bundled in a dedicated section (e.g. _Related Work_ in a paper).
 
 ## Closing thoughts
 

@@ -5,7 +5,9 @@ abstract: An ongoing list of potential PhD topics. I thought it might be helpful
 tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
 mathjax: true
-update: 2020-05-27
+update: 2020-05-28
+time: 5
+words: 1490
 ---
 
 # A robotics & machine learning PhD topics list

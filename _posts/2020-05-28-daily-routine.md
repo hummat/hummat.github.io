@@ -4,6 +4,8 @@ title: My daily routine
 abstract: An overview of how I imagine my work days to be. In the hope to remember and to keep myself accountable.
 tags: [life, work, habits]
 category: [thought]
+time: 3
+words: 828
 ---
 
 # {{ page.title }}
