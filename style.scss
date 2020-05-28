@@ -32,11 +32,13 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  //display: block;
 }
 
 article {
   font-size: 1.06rem;
   line-height: 1.7em;
+  padding-bottom: 72px;
 }
 
 p {
@@ -64,57 +66,6 @@ article p {
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.4em;
   font-size: 12px;
-}
-
-@media (min-width: 768px) {
-html {
-  font-size: 16px;
-}
-
-h1 {
-  font-size: 50px;
-}
-
-h2 {
-  font-size: 36px;
-}
-
-h3 {
-  font-size: 20px;
-}
-
-.wide-description p {
-  margin: 0 0 12px 0;
-  line-height: 1.5em;
-  font-size: 16px;
-}
-
-.narrow-description p {
-  margin: 0 0 12px 0;
-  line-height: 1.5em;
-  font-size: 16px;
-}
-
-
-.metadata {
-  float: left;
-  width: 15%;
-}
-
-.thumbnail {
-  float: right;
-  width: 35%;
-}
-
-.narrow-description {
-  float: left;
-  width: 40%;
-}
-
-.wide-description {
-  float: left;
-  width: 75%;
-}
 }
 
 .metadata .date {
@@ -167,20 +118,22 @@ h2 {
   font-size: 24px;
   line-height: 1.25em;
   margin: 2rem 0 1.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .wide-description h2 {
   font-size: 26px;
   margin: 0 0 0.2em 0;
   padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .narrow-description h2 {
   font-size: 26px;
   margin: 0 0 0.2em 0;
   padding-bottom: 0;
+  border-bottom: 0;
 }
 
 h3 {
@@ -198,15 +151,6 @@ h4 {
   line-height: 1.4em;
 }
 
-h5 {
-  font-size: 0.83em;
-  margin-block-start: 1.67em;
-  margin-block-end: 1.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-}
-
 .wide-description p {
   margin: 0 0 12px 0;
   line-height: 1.4em;
@@ -217,6 +161,68 @@ h5 {
   margin: 0 0 12px 0;
   line-height: 1.4em;
   font-size: 16px;
+}
+
+@media (min-width: 768px) {
+html {
+  font-size: 16px;
+}
+
+article {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.wide-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.5em;
+  font-size: 16px;
+}
+
+.narrow-description p {
+  margin: 0 0 12px 0;
+  line-height: 1.5em;
+  font-size: 16px;
+}
+
+
+.metadata {
+  float: left;
+  width: 15%;
+}
+
+.thumbnail {
+  float: right;
+  width: 35%;
+}
+
+.narrow-description {
+  float: left;
+  width: 40%;
+}
+
+.wide-description {
+  float: left;
+  width: 75%;
+}
+}
+
+@media (min-width: 1024px) {
+h2 {
+  font-size: 36px;
+}
+
+article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+}
 }
 
 a {
@@ -407,10 +413,11 @@ nav {
   overflow: hidden;
   padding-bottom: 2em;
   border-bottom: 1px solid $lightGray;
+  padding: 24px 0;
 }
 
 .posts > .post:last-child {
-  padding-bottom: 1em;
+  padding-bottom: 72px;
   border-bottom: none;
 }
 
@@ -437,12 +444,12 @@ nav {
 }
 
 .wrapper-footer {
-  width: 100%;
+  width: calc(200% - 100vw);
   height: 84px;
   margin-top: auto;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  background-color: $lightGray;
+  background-color: $white;
 }
 
 footer {
