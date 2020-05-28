@@ -4,6 +4,7 @@ title: Phd? Yes! But what about?
 abstract: An ongoing list of potential PhD topics. I thought it might be helpful to put this list here to motivate me but also to be able to easily share it and potentially to get some input from elsewhere. So feel free to comment if you have any great ideas!
 tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
+mathjax: true
 update: 2020-05-27
 ---
 
