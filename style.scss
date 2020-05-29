@@ -60,7 +60,7 @@ article p {
 .container {
   margin: 0 auto;
   max-width: 984px;
-  padding: 0 10px;
+  //padding: 0 10px;
   width: 100%;
 }
 
@@ -175,6 +175,37 @@ h4 {
   font-size: 16px;
 }
 
+/* The hero image */
+.banner {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 50px;
+  overflow: hidden;
+  vertical-align: middle;
+  position: relative;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
 @media (min-width: 768px) {
 html {
   font-size: 16px;
@@ -212,12 +243,12 @@ h3 {
 
 .thumbnail {
   float: right;
-  width: 35%;
+  width: 40%;
 }
 
 .narrow-description {
   float: left;
-  width: 40%;
+  width: 35%;
 }
 
 .wide-description {

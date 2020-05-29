@@ -24,9 +24,9 @@ layout: default
 	<div class="date">{{ post.time }} min read, {{ post.words }} words</div>
       </div>
       <a class=index-a href="{{ site.baseurl }}{{ post.url }}">
-        {% if post.image %}
+        {% if post.thumbnail %}
         <div class="thumbnail">
-          <img src="{{ post.image }}">
+          <img src="{{ post.thumbnail }}">
         </div>
 	<div class="narrow-description">
 	  <h2>{{ post.title }}</h2>

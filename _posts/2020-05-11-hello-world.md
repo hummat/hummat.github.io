@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Hello World!
-image: /images/hello_world.png
+thumbnail: /images/traktor.jpg
+banner: /images/towers.jpg
 abstract: Welcome to my blog! Here I'll be posting about all kinds of topics that interest me like biking, hiking, baking and building. And MACHINE LEARNING! There is probably not much here yet, but I promise there will be soon :)
 tags: [1st post, is this thing on]
 category: thought
