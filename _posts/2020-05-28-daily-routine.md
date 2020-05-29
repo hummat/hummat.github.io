@@ -5,7 +5,7 @@ abstract: An overview of how I imagine my work days to be. In the hope to rememb
 tags: [life, work, habits]
 category: [thought]
 time: 3
-words: 828
+words: 887
 ---
 
 # {{ page.title }}
@@ -29,7 +29,7 @@ Those morning hours are really valuable to me so I should try to do the most dif
 
 _Léon_ is an awesome movie. And the main protagonist (with the same name) does some exercise every morning to keep fit. Yes, he is a killer so his life depends on being agile and you are what again, a PhD student? You might rightfully ask and you would be right, but come to think of it, my life also depends on keeping fit as it probably will be much shorter otherwise. It also just feels good when sitting in front of a screen all day.
 
-I’m not a morning sports person though, I’ve tried. And after breakfast I’m too lazy as well. So I’ve decided to do some exercises every day at 11 am.
+I’m not a morning sports person though, I’ve tried. And after breakfast I’m too lazy as well. So I’ve decided to do some exercises every day at 11 am. Afterwards I try to mediate for 10 minutes. I use the [_Waking Up_](https://wakingup.com/) app by _Sam Harris_. If you think meditation is weird and only for monks I invite you to read [_The Mindful Geek_](https://themindfulgeek.com/) by _Michael W. Taft_ or, if you have less time, [this article](https://samharris.org/how-to-meditate/) by _Sam Harris_.
 
 ## 3. Lunch
 
@@ -48,7 +48,8 @@ So there you (and I) are, my daily routine. I might come back here once in a whi
 1. Wake up at around 7 am.
 2. Do cognitively demanding work.
 3. Do some exercises.
-4. Prepare a nice lunch, eat, take a short nap.
-5. Get less demanding menial or manual stuff done.
-6. Organize your progress and plan for the next day.
-7. Forget about work for the day.
+4. Meditate.
+5. Prepare a nice lunch, eat, take a short nap.
+6. Get less demanding menial or manual stuff done.
+7. Organize your progress and plan for the next day.
+8. Forget about work for the day.

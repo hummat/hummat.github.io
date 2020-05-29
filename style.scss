@@ -7,6 +7,9 @@
 
 @import "reset";
 @import "variables";
+@import "classic";
+//@import "solarized";
+@import "initialize";
 // Syntax highlighting @import is at the bottom of this file
 
 /**************/
@@ -33,6 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   //display: block;
+  overflow-wrap: break-word;
 }
 
 article {
@@ -458,7 +462,108 @@ footer {
   text-align: center;
 }
 
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+  margin-bottom: $spacing-unit / 2;
+}
+
+/**
+ * Code formatting
+ */
+pre,
+code {
+  font-family: $code-font-family;
+//  font-size: 0.9375em;
+//  border: 1px solid $border-color-01;
+  line-height: 1.2em;
+  border-radius: 3px;
+  background-color: $code-background-color;
+}
+
+code {
+  padding: 1px 5px;
+}
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto;
+
+  > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.highlight {
+  border-radius: 3px;
+  background: $code-background-color;
+  @extend %vertical-rhythm;
+
+  .highlighter-rouge & {
+    background: $code-background-color;
+  }
+}
+
+/**
+ * Tables
+ */
+table {
+  margin-bottom: $spacing-unit;
+  width: 100%;
+  text-align: $table-text-align;
+  color: $table-text-color;
+  border-collapse: collapse;
+  border: 1px solid $table-border-color;
+  tr {
+    &:nth-child(even) {
+      background-color: $table-zebra-color;
+    }
+  }
+  th, td {
+    padding: ($spacing-unit / 3) ($spacing-unit / 2);
+  }
+  th {
+    background-color: $table-header-bg-color;
+    border: 1px solid $table-header-border;
+  }
+  td {
+    border: 1px solid $table-border-color;
+  }
+
+  @include media-query($on-laptop) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+}
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  color: $brand-color;
+  border-left: 4px solid $border-color-01;
+  padding-left: $spacing-unit / 2;
+  @include relative-font-size(1.125);
+  font-style: italic;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  i, em {
+    font-style: normal;
+  }
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
-@import "highlights";
+//@import "highlights";
 @import "svg-icons";

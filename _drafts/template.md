@@ -6,6 +6,8 @@ tags: [tag1, tag2, tag3]
 category: [category]
 mathjax: false
 update: 01-01-0000
+time: 0
+words: 0
 ---
 
 # {{ page.title }}

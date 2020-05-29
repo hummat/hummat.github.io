@@ -60,7 +60,25 @@ baseurl: ""
 # The release of Jekyll Now that you're using
 version: v1.2.0
 
-# Jekyll 3 now only supports Kramdown for Markdown
+# Jekyll a now only supports Kramdown for Markdown
+markdown: CommonMarkGhPages
+#markdown: kramdown 
+highlighter: rouge
+
+commonmark:
+  input: GFM
+  options: ["SMART", "FOOTNOTES"]
+  extensions: ["strikethrough", "autolink", "table"]
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
+CommonMarkGhPages:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
 kramdown:
   # Use GitHub flavored markdown, including triple backtick fenced code blocks
   input: GFM
