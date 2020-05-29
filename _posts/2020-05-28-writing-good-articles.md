@@ -5,7 +5,8 @@ abstract: Some thoughts on writing useful articles. Those are mainly things I sa
 tags: [writing, explanation]
 category: [thought]
 time: 5
-words: 1431
+words: 1426
+update: 2020-05-29
 ---
 
 # {{ page.title }}
@@ -18,7 +19,7 @@ This might sound obvious, but the most important variable that decides if an art
 
 While the latter is probably simply due to laziness or an oversight, the former is often used deliberately in an attempt to give the content credibility beyond what is warranted by its inherent information. See this last sentence? I sounds great and really deep due to the use of scholarly words and complicated structure. Here is what it would sound like if the primary goal was to bring across your point:
 
-_Information is often presented without structure due to laziness or because the author didn’t notice. Additionally, complicated structure or choice of words is sometimes used in an attempt to hide a lack of novelty or rigor._ It’s a bit longer and less elegant but easier to parse. I’m not saying that everything should be written like a computer program, that would undermine any joy you might gain from reading a good novel. But when trying to explain a difficult subject, your goal is to help other people understand and to make potential flaws or mistakes obvious so that they can be spotted (either by yourself while writing or by someone else reading it) and fixed easily. An explanation needs to be easy to follow and correct, not inspiring (except for its content maybe).
+_Information is often presented without structure due to laziness or because the author didn’t notice. Additionally, complicated structure or choice of words is sometimes used in an attempt to hide a lack of novelty or rigor._ It’s a bit longer and less elegant but easier to parse. I’m not saying that everything should be written like a computer program, that would horrible fate for any good novel. But when trying to explain a difficult subject, your goal is to help other people understand and to make potential flaws or mistakes obvious so that they can be spotted (either by yourself while writing or by someone else reading it) and fixed easily. An explanation needs to be easy to follow and correct, not inspiring (except for its content maybe).
 
 ## 2. Time & Words
 
@@ -34,7 +35,7 @@ Sometimes I get the impression that there is a hidden agreement to not visualize
 
 Luckily the situation is improving due to the internet, where one can add as many large color images as one likes or even put animations which can even be interactive! Here are some outstanding examples:
 
-* **[3b1b](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw/featured)**: _Three blue one brown_ is the artistic name of _Grant Sanderson_ and his YouTube channel where he explains math (and other topics, though mostly math) using amazing visualization (which he programs in Python which is insane).
+* **[3Blue1Brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw/featured)**: _Three blue one brown_ is the artistic name of _Grant Sanderson_ and his YouTube channel where he explains math (and other topics, though mostly math) using amazing visualization (which he programs in Python which is insane).
   * Check out this explanation of [Neural Networks](https://www.3blue1brown.com/neural-networks)
   * Or this [interactive explanation of quaternions](https://eater.net/quaternions) he did with _Ben Eater_
 * **[Distill](https://distill.pub/)**: The first peer-reviewed online journal with focus on visualization.

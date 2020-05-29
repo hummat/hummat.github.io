@@ -6,6 +6,7 @@ tags: [life, work, habits]
 category: [thought]
 time: 3
 words: 887
+update: 2020-05-29
 ---
 
 # {{ page.title }}
@@ -14,8 +15,8 @@ I like a daily routine when working. In helps me to focus on _what_ I need to do
 
 Of course the idea that such a routine could help in getting things done and even be happy while doing so is not mine. There are two books that put me on this path (though there are probably hundreds of these and millions of blog posts on the topic), both of which I’d like to summarize in a separate post later on:
 
-1. [_Deep Work_ by Cal Newport](https://www.calnewport.com/books/deep-work/)
-2. [_Atomic Habits_ by James Clear](https://jamesclear.com/atomic-habits)
+1. [Deep Work](https://www.calnewport.com/books/deep-work/) by Cal Newport
+2. [Atomic Habits](https://jamesclear.com/atomic-habits) by James Clear
 
 So why should you read this if it’s mostly for myself? I have no idea. Yet here you are, so let’s continue.
 
