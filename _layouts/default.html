@@ -37,6 +37,17 @@
       </div>
     </div>
 
+   {% if page.banner %}
+   <div class="banner">
+     <img src="{{ page.banner }}">
+   </div>
+   {% elsif page.gradient %}
+   <section class="page-header">
+   </section>
+   {% else %}
+   <div style="margin-bottom: 50px"></div>
+   {% endif %}
+
     <div id="main" role="main" class="container">
       {{ content }}
     </div>

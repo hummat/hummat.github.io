@@ -29,7 +29,6 @@ html {
 
 body {
   margin: 0;
-  padding-left: calc(100vw - 100%); 
   background: $white;
   color: $darkGray;
   height: 100%;
@@ -100,6 +99,14 @@ article p {
   background-color: #0F2E3DE0;
   color: white;
   border-color: #0F2E3D;
+}
+
+.page-header {
+  color: #fff;
+  text-align: center;
+  background-color: #159957;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  padding: 5rem 6rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -178,7 +185,8 @@ h4 {
 /* The hero image */
 .banner {
   width: 100%;
-  height: 300px;
+  height: 100%;
+  min-height: 30%;
   margin-bottom: 50px;
   overflow: hidden;
   vertical-align: middle;
@@ -350,7 +358,8 @@ img {
 //
 
 .wrapper-masthead {
-  margin-bottom: 50px;
+///  margin-bottom: 50px;
+  padding-left: calc(100vw - 100%);
 }
 
 .masthead {
@@ -480,7 +489,7 @@ nav {
 }
 
 .wrapper-footer {
-  width: calc(200% - 100vw);
+  width: 100%;
   height: 84px;
   margin-top: auto;
   border-top: 1px solid #ddd;
