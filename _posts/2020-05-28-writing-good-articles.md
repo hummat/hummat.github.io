@@ -6,7 +6,7 @@ tags: [writing, explanation]
 category: [thought]
 time: 5
 words: 1426
-update: 2020-05-29
+update: 2020-06-01
 ---
 
 # {{ page.title }}
@@ -50,9 +50,9 @@ All this is to say: There has to be a way do discuss articles with the author or
 
 ## 5. Resources
 
-Adding a footnote or link to additional resources can be really helpful in a article if the author didn’t have enough space, time or motivation to explain a topic in a way that you could understand it. The same is true for further reading material, even though it always gives me some anxiety because I feel like I have to read everything provided.
+Adding a footnote or link to additional resources can be really helpful in an article if the author didn’t have enough space, time or motivation to explain a topic in a way that you could understand it. The same is true for further reading material, even though it always gives me some anxiety because I feel like I have to read everything provided.
 
-If the article is long and there are lots of resources given, it can be difficult to find that one sentence again where the link to a specific paper or video was provided. I therefore like to have a dedicated resource section at the end of an article collecting and sorting everything that was previously mentioned to make it easy to keep exploring after your done reading. Of course this only makes sense if there are actually a lot of references and they are not already bundled in a dedicated section (e.g. _Related Work_ in a paper).
+If the article is long and there are lots of resources given, it can be difficult to find that one sentence again where the link to a specific paper or video was provided. I therefore like to have a dedicated resource section at the end of an article, collecting and sorting everything that was previously mentioned to make it easy to keep exploring after you’re done reading. Of course this only makes sense if there are actually a lot of references and they are not already bundled in a dedicated section (e.g. _Related Work_ in a paper).
 
 ## Closing thoughts
 
