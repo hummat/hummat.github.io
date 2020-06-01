@@ -252,6 +252,7 @@ h3 {
 .thumbnail {
   float: right;
   width: 40%;
+  height: 200px;
 }
 
 .narrow-description {
@@ -320,6 +321,10 @@ strong, b {
 
 img {
   max-width: 100%;
+}
+
+.thumbnail img {
+  max-height: 100%
 }
 
 // Fixes images in popup boxes from Google Translate
@@ -467,15 +472,6 @@ nav {
 }
 
 .post {
-  blockquote {
-    margin: 1.8em .8em;
-    border-left: 2px solid $gray;
-    padding: 0.1em 1em;
-    color: $gray;
-    font-size: 22px;
-    font-style: italic;
-  }
-
   .comments {
     max-width: 700px;
     margin: auto;

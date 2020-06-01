@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Phd? Yes! But what about?
+title: Robotics & machine learning PhD topics list
 abstract: An ongoing list of potential PhD topics. I thought it might be helpful to put this list here to motivate me but also to be able to easily share it and potentially to get some input from elsewhere. So feel free to comment if you have any great ideas!
 tags: [phd, deep learning, machine learning, robotics]
 category: brainstorming
@@ -10,7 +10,7 @@ time: 5
 words: 1490
 ---
 
-# A robotics & machine learning PhD topics list
+# {{ page.title }}
 
 This is an ongoing list of potential topics for my PhD. This is mostly written for myself, to order and collect my thoughts. But maybe you are interested in similar topics in which case we can explore this exciting landscape together. Whatever ends up in this list will have a really high chance to be machine learning related though. Definitely feel free to drop me a comment if you have other cool ideas.
 
