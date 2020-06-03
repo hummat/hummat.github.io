@@ -62,7 +62,7 @@ version: v1.2.0
 
 # Jekyll a now only supports Kramdown for Markdown
 markdown: CommonMarkGhPages
-#markdown: kramdown 
+# markdown: kramdown 
 highlighter: rouge
 
 commonmark:
