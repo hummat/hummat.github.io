@@ -28,6 +28,30 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
+@media print {
+  .noprint {display: none;}
+  .wrapper-footer {display: none;}
+  .wrapper-masthead {display: none;}
+  .footnotes {display: none;}
+  .nobanner {display: none;}
+}
+
+input {
+  max-width: 650px;
+}
+
+.long {
+  width: 50em;
+}
+
+.mid {
+  width: 40em;
+}
+
+.short {
+  width: 20em
+}
+
 body {
   margin: 0;
   background: $white;
