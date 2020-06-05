@@ -37,19 +37,19 @@ html {
 }
 
 input {
-  max-width: 350px;
+  max-width: 300px;
 }
 
 .long {
-  width: 50em;
+  width: 55em;
 }
 
 .mid {
-  width: 40em;
+  width: 45em;
 }
 
 .short {
-  width: 20em
+  width: 30em
 }
 
 body {
@@ -90,6 +90,10 @@ article p {
   margin-bottom: 0.7em;
   margin-left: 0;
   margin-right: 0;
+}
+
+.mjx-chtml {
+  font-size: 100% !important;
 }
 
 .container {
@@ -178,7 +182,28 @@ article p {
   text-align: center;
   background-color: #159957;
   background-image: linear-gradient(120deg, #155799, #159957);
-  padding: 5rem 6rem;
+  padding: 3rem 4rem;
+  margin-bottom: 2rem;
+}
+
+.project-name {
+  margin: 0.5em 0 15px;
+  font-size: 2.25rem;
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -305,6 +330,18 @@ h3 {
 
 input {
   max-width: 650px;
+}
+
+.page-header {
+  padding: 5rem 6rem;
+}
+
+.project-name {
+  font-size: 3.25rem;
+}
+
+.btn {
+  padding: 0.75rem 1rem;
 }
 
 .wide-description p {
