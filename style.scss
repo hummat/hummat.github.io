@@ -41,7 +41,7 @@ input {
 }
 
 .mid {
-  width: 100%; 
+  width: 90%; 
 }
 
 body {
@@ -82,6 +82,15 @@ article p {
   margin-bottom: 0.7em;
   margin-left: 0;
   margin-right: 0;
+}
+
+.circle {
+  background-color: #F80;
+  border: 3px solid #FFF;
+  border-radius: 18px;
+  box-shadow: 0 0 2px #888;
+  height: 30px;
+  width: 30px;
 }
 
 .mjx-chtml {
