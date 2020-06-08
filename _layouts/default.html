@@ -41,8 +41,17 @@
    <div class="banner">
      <img src="{{ page.banner }}">
    </div>
+   {% elsif page.dark-banner %}
+   <section class="banner">
+     <img src="{{ page.dark-banner }}">
+     <h1 class="hero-text">{{ page.title }}</h1>
+   </section>
    {% elsif page.gradient %}
-   <section class="page-header">
+   {% if page.github %}
+   <section class="page-header-github">
+   {% else %}
+   <section class="page-header-timeline">
+   {% endif %}
      <h1 class="project-name">{{ page.title }}</h1>
      {% if page.github %}
      <a href="{{ page.github }}" class="btn">View on GitHub</a>

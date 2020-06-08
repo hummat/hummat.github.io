@@ -60,11 +60,20 @@ Let’s start by the topics I won’t cover but for which I’ll supply some res
 
 ## 1. A sense of uncertainty
 
+* why uncertainty?
+  * The world is inherently uncertain
+  * Agents operating in it must take it into account
+  * Two types of uncertainty: : Aleatoric (data) and epistemic (model)
 * notation
+  * Give everything a name
+  * input, output, NN, parameters/weights
+  * unknown data
+
 * neural nets
-* why uncertainty?: Aleatoric and epistemic uncertainty
+  * classification and regression
 * placing a probability distribution on a variable: from variable to random variable
 * from NN to BNN
+  * Bayesian learning
 
 ## 2. Being normal around the extreme
 

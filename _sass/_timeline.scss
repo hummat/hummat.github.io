@@ -1,0 +1,63 @@
+$black: #34435E;
+$white: #ffffff;
+
+.tl-node {
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, black, indigo, #743ad5, #d53a9d, red, orange, yellow);
+  border-image-slice: 1;
+  border-width: 3px;
+  margin: 0;
+  padding: 40px;
+  counter-increment: section;
+  position: relative;
+  color: $black;
+  
+  //numbers
+  &:before {
+    content: counter(section);
+    position: absolute;
+    border-radius: 50%;
+    //padding: 10px;
+    height: 2em;
+    width: 2em;
+    background-color: $black;
+    text-align: center;
+    line-height: 2em;
+    color: $white;
+    font-size: 1.2em;
+  }
+}
+//odd number borders
+.tl-node:nth-child(odd) {
+  border-right: 3px solid;
+  padding-left: 0;
+  
+  &:before {
+    left: 100%; 
+    margin-left: -18px;
+  }
+}
+//even number borders
+.tl-node:nth-child(even) {
+  border-left: 3px solid;
+  padding-right: 0;
+  
+  &:before {
+    right: 100%; 
+    margin-right: -18px;
+  }
+}
+//handle first and last
+.tl-node:first-child {
+  border-top: 0;
+  border-top-right-radius:0;
+  border-top-left-radius:0;
+}
+.tl-node:last-child {
+  border-bottom-right-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.tl-node h3 {
+  margin-top: 0;
+}
