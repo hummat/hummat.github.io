@@ -6,7 +6,7 @@ tags: [writing, explanation]
 category: [thought]
 time: 5
 words: 1426
-update: 2020-06-01
+update: 2020-06-09
 ---
 
 # {{ page.title }}
@@ -53,6 +53,12 @@ All this is to say: There has to be a way do discuss articles with the author or
 Adding a footnote or link to additional resources can be really helpful in an article if the author didn’t have enough space, time or motivation to explain a topic in a way that you could understand it. The same is true for further reading material, even though it always gives me some anxiety because I feel like I have to read everything provided.
 
 If the article is long and there are lots of resources given, it can be difficult to find that one sentence again where the link to a specific paper or video was provided. I therefore like to have a dedicated resource section at the end of an article, collecting and sorting everything that was previously mentioned to make it easy to keep exploring after you’re done reading. Of course this only makes sense if there are actually a lot of references and they are not already bundled in a dedicated section (e.g. _Related Work_ in a paper).
+
+## 6. Surprise
+
+Wouldn’t it be great if every article you read had, next to it’s hopefully interesting content, some sort of surprise up it’s sleeve? It doesn’t have to be something completely mind blowing, just a little twist that makes your article stand out. And this isn’t only to impress your readership, but can also motivate you to put that extra bit of effort in which is often needed to elevate something from merely good to truly worthwhile.
+
+In shameless self promotion, I’ll give you an example from my blog which sparked the idea for this insight: I’d been planning to write an article on [important academic conferences](https://hummat.github.io/resource/2020/06/08/conferences.html), compiling them into some sort of list for easy lookup of topics and deadlines. When I started, I suddenly realized, that the extra bit of effort to arrange those conferences on a timeline instead of simple list would not only improve the endeavor visually, but could actually help to make it more useful at the same time. It also motivated me to improve the overall quality of the article so that the visual appearance would fit the content.
 
 ## Closing thoughts
 

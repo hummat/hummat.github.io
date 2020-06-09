@@ -434,6 +434,11 @@ ol {
 
 ul ul, ol ul {
   list-style-type: circle;
+  margin-top: 0;
+}
+
+li p {
+  margin-bottom: 0;
 }
 
 em, i {

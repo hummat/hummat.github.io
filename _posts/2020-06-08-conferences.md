@@ -4,7 +4,7 @@ title: Important conferences
 abstract: I'm still exploring what it means to be a researcher. Here I'll take a look at conferences, which play an important role in my field. I'll also provide a timeline of the most important MACHINE/DEEP LEARNING, ROBOTICS, COMPUTER VISION and ARTIFICIAL INTELLIGENCE conferences including paper submission deadlines. Work in progress!
 tags: [deep learning, machine learning, artificial intelligence, robotics, computer vision, conference]
 category: resource
-update: 09-06-2020
+update: 2020-06-09
 time: 2
 words: 673
 ---
