@@ -51,13 +51,26 @@ It was first held in 1980 in Pittsburgh (USA) and then moved to Germany, France,
 </div>
 
 <div class="tl-node">
+<div class="tags" style="float: right;"><div class="tag">robotics</div></div>
+
+### October 25 - 28: IROS
+#### Paper submission deadline: March 1<div class="date">Acceptance rate: 45.6%</div>
+
+The _International Conference on Intelligent Robots and Systems_, similarly to ICML and NeurIPS in machine learning, competes with ICRA for the distinction of _"most prestigious conference in its field"_ . Held annually, in 2020 it will take place in Paris (France) from May 31 to August 31.
+
+It _"provides an international forum for world-wide robotics community to explore the frontier of science and technology in intelligent robots and smart machines"_.
+
+It was first held in 1988 in Tokyo (Japan), then moved to the USA, Germany, France, Canada, Korea, Switzerland, China, Taiwan, Portugal and Spain.
+</div>
+
+<div class="tl-node">
 <div class="tags" style="float: right;"><div class="tag">Machine Learning</div></div>
 
 ### December 5 - 12: NeurIPS (aka NIPS)
 
 #### Paper submission deadline: June 5<div class="date">Acceptance rate: 24.8%</div>
 
-The Neural Information Processing Systems conference is one of the most, if not _the_ most prestigious conference for machine learning. This year (2020) it comes in its 34th incarnation and will take place in December 5th through 12th at the Vancouver Convention Center.
+The _Neural Information Processing Systems_ conference is one of the most, if not _the_ most prestigious conference for machine learning. This year (2020) it comes in its 34th incarnation and will take place in December 5th through 12th at the Vancouver Convention Center.
 
 It was first proposed in 1986 by _The California Institute of Technology_ and the infamous _Bell Laboratories_ and was an invitation only event. It was introduced as an interdisciplinary approach to biological and artificial neural networks though nowadays the latter is certainly much more prominent with a strong focus on machine learning, artificial intelligence and statistics.
 
@@ -68,17 +81,14 @@ Born in Snowbird, Utah (USA) it has since been held in Denver (USA), Vancouver (
 
 ### Coming soon!
 
-3. ICRA
-4. ICPR
-5. ICAI
-6. IROS
-7. CVPR
-8. CVPR
-9. ECCV
-10. AAAI
-11. UAI
-12. RSS
-13. ML Conference
+* ICPR
+* ICAI
+* CVPR
+* ECCV
+* AAAI
+* UAI
+* RSS
+* ML Conference
 </div>
 
 ---
