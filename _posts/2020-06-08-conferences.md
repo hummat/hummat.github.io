@@ -56,7 +56,7 @@ It was first held in 1980 in Pittsburgh (USA) and then moved to Germany, France,
 ### October 25 - 29: IROS
 #### Paper submission deadline: March 1<div class="date">Acceptance rate: 45.6%</div>
 
-The _International Conference on Intelligent Robots and Systems_, similarly to ICML and NeurIPS in machine learning, competes with ICRA for the distinction of _"most prestigious conference in its field"_ . Held annually, in 2020 it will take place in Paris (France) from May 31 to August 31.
+The _International Conference on Intelligent Robots and Systems_, similarly to ICML and NeurIPS in machine learning, competes with ICRA for the distinction of _"most prestigious conference in its field"_ . It is held annually and with its 2020 incarnation taking place in Las Vegas (USA) from October 25th to 29th.
 
 It _"provides an international forum for world-wide robotics community to explore the frontier of science and technology in intelligent robots and smart machines"_.
 
