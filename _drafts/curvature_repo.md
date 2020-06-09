@@ -62,17 +62,25 @@ Let’s start by the topics I won’t cover but for which I’ll supply some res
 
 * why uncertainty?
   * The world is inherently uncertain
+  
   * Agents operating in it must take it into account
+  
   * Two types of uncertainty: : Aleatoric (data) and epistemic (model)
+  
+    epistemic uncertainty which captures the model’s lack of knowledge about the data. It is important to distinguish it from aleatoric uncertainty, which is uncertainty inherent in the data, for example caused by sensor noise
+  
+    Aleatoric uncertainty is irreducible, while epistemic uncertainty decreases as we observe more data. Therefore, we can use epistemic uncertainty estimation to find out of distribution data
 * notation
   * Give everything a name
   * input, output, NN, parameters/weights
   * unknown data
 
 * neural nets
+  
   * classification and regression
 * placing a probability distribution on a variable: from variable to random variable
 * from NN to BNN
+  
   * Bayesian learning
 
 ## 2. Being normal around the extreme
