@@ -4,13 +4,19 @@ title: Awesome Resources
 abstract: A list of awesome things on the web I've stumbled upon or have been directed to.
 tags: [learning, inspirational, awesome]
 category: resource
+update: 2020-06-10
+thumbnail: /images/awesome.jpg
+banner: /images/awesome-banner.jpg
+banner-text: Awesome Resources
+words: 857
+time: 2
 ---
-
-# {{ page.title }}
 
 If I had to give one reason for writing this blog, it would be to end up in a list like the one I intend to compile below. Like I’ve already mentioned [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html), I’m astonished and amazed at the amount of great resources one can access online for free. It helped me tremendously during my studies (and still does when I need to understand a new topic) and really gives everyone the possibility to learn almost anything. There are, of course, different shades of awesomeness.
 
 While there is a mind boggling amount of great stuff out there, it is hidden by an even greater amount of, to put it euphemistically, less than inspiring content. This is why I decided to share whatever great resources I’ve encountered during my time on the Internet in the hope to help or inspire one or another of you. I’ll try to come up with an intuitive way of grouping similar things together. Let’s see how that goes. For now I’ll group by content instead of, e.g., by source or medium and I’ll keep adding stuff till I die or lose interest.
+
+#### If you know of anything awesome that’s not yet in the list please comment!
 
 <style>
     ol {
@@ -38,7 +44,6 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
     }
 </style>
 
-
 ## Science
 
 1. [Kurzgesagt – In a Nutshell](https://www.youtube.com/kurzgesagt) - _Videos explaining things with optimistic nihilism._
@@ -54,7 +59,7 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 5. [Domain of Science](https://www.youtube.com/domainofscience) - _Aiming for the clearest explanations of science and mathematics._
 6. [Two Minute Papers](https://www.youtube.com/user/keeroyz) - _Awesome research for everyone._
 7. [Seeing Theory](https://seeing-theory.brown.edu/) - _A visual introduction to probability and statistics._
-8. [Slate Star Codex](https://slatestarcodex.com/) - _Welcome to Slate Star Codex, a blog about science, medicine, philosophy, politics, and futurism._
+8. [Slate Star Codex](https://slatestarcodex.com/) - _A blog about science, medicine, philosophy, politics, and futurism._
 9. [Khan Academy](https://www.khanacademy.org/) - _Free, world‑class education for anyone, anywhere._
 
 ## Machine Learning
@@ -73,20 +78,34 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
    * [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/index.html)
 7. [Ben Frederickson](https://www.benfrederickson.com/blog/) - _Blog on programming topics_
    * [An Interactive Tutorial on Numerical Optimization](https://www.benfrederickson.com/numerical-optimization/)
-8. [ConvNetJS](https://cs.stanford.edu/people/karpathy/convnetjs/index.html) - _Javascript library for training Deep Learning models (Neural Networks) entirely in your browser._
+8. [ConvNetJS](https://cs.stanford.edu/people/karpathy/convnetjs/index.html) - _Javascript library for training Deep Learning models entirely in your browser._
 9. [Neural Network Playground](https://playground.tensorflow.org/) - _Tinker With a Neural Network Right Here in Your Browser._
+10. [fast.ai](https://www.fast.ai/) - _Making deep learning easier to use._
+11. [OpenAI: Spinning Up as a Deep Reinforcement Learning Researcher](https://spinningup.openai.com/en/latest/spinningup/spinningup.html)
 
-## Others
+## Career
+
+5. [80,000 hours](https://80000hours.org/) - _Providing research and support to help people switch into careers that effectively tackle the world’s most pressing problems._
+
+## Rationality
+
+1. [Less Wrong](https://www.lesswrong.com/) - _We work to develop and practice the art of human rationality._
+2. [Change My View](https://www.reddit.com/r/changemyview/) - _A place to post an opinion you accept may be flawed, in an effort to understand other perspectives on the issue._
+3. [Wikipedia: List of common misconceptions](https://en.wikipedia.org/wiki/List_of_common_misconceptions)
+4. [Spurious Correlations](https://www.tylervigen.com/spurious-correlations) - _A fun way to look at correlations and to think about data_
+
+## Tools
+
+1. [Detexify](https://detexify.kirelabs.org/classify.html) - _LaTeX handwritten symbol recognition._
+
+## Privacy & Security
+
+1. [Tristan Harris](https://www.tristanharris.com/) - _The closest thing Silicon Valley has to a consciousness._
+2. [Restore Privacy](https://restoreprivacy.com/) - _Your online privacy and security resource center._
+    * [Alternatives to Google Products](https://restoreprivacy.com/google-alternatives/)
+
+## Fun
 
 1. [Simone Giertz](https://www.youtube.com/simonegiertz) - _Maker/robotics enthusiast/non-engineer._
 2. [Phil Vandelay](https://www.youtube.com/channel/UCchU2gYo5UunA6uh6JVOd9A) - _Maker. I like to build cargo bikes, furniture, and more._
 3. [Primitive Technology](https://www.youtube.com/channel/UCAL3JXZSzSm8AlZyD3nQdBA) - _A hobby where you build things in the wild completely from scratch using no modern tools or materials._
-4. [Spurious Correlations](https://www.tylervigen.com/spurious-correlations) - _A fun way to look at correlations and to think about data_
-5. [80,000 hours](https://80000hours.org/) - _Providing research and support to help people switch into careers that effectively tackle the world’s most pressing problems._
-6. [Detexify](https://detexify.kirelabs.org/classify.html) - _LaTeX handwritten symbol recognition._
-7. [Tristan Harris](https://www.tristanharris.com/) - _The closest thing Silicon Valley has to a consciousness._
-8. [Less Wrong](https://www.lesswrong.com/) - _We work to develop and practice the art of human rationality._
-9. [Change My View](https://www.reddit.com/r/changemyview/) - _A place to post an opinion you accept may be flawed, in an effort to understand other perspectives on the issue._
-10. [Restore Privacy](https://restoreprivacy.com/) - _Your online privacy and security resource center._
-     * [Alternatives to Google Products](https://restoreprivacy.com/google-alternatives/)
-11. [Wikipedia: List of common misconceptions](https://en.wikipedia.org/wiki/List_of_common_misconceptions)

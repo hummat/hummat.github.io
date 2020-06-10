@@ -1,6 +1,6 @@
 ---
 layout: page
-title: about
+title: About
 banner: /images/tree.jpg
 ---
 

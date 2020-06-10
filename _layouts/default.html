@@ -38,20 +38,14 @@
     </div>
 
    {% if page.banner %}
-   <div class="banner">
-     <img src="{{ page.banner }}">
-   </div>
-   {% elsif page.dark-banner %}
    <section class="banner">
-     <img src="{{ page.dark-banner }}">
+     <img src="{{ page.banner }}">
+     {% if page.banner-text %}
      <h1 class="hero-text">{{ page.title }}</h1>
+     {% endif %}
    </section>
    {% elsif page.gradient %}
-   {% if page.github %}
    <section class="page-header-github">
-   {% else %}
-   <section class="page-header-timeline">
-   {% endif %}
      <h1 class="project-name">{{ page.title }}</h1>
      {% if page.github %}
      <a href="{{ page.github }}" class="btn">View on GitHub</a>
