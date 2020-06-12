@@ -5,8 +5,8 @@ abstract: I'm still exploring what it means to be a researcher. Here I'll take a
 tags: [deep learning, machine learning, artificial intelligence, robotics, computer vision, conference]
 category: resource
 update: 2020-06-10
-time: 6
-words: 1520
+time: 7
+words: 1890
 ---
 
 # {{ page.title }}
@@ -23,7 +23,24 @@ Most conferences consist of a number of presentations, highlighting the key insi
 [^2]: _“In academia […] [a] conference proceeding is a collection of academic papers published in the context of an academic conference or workshop.”_ – Wikipedia
 
 ## Conference Timeline[^3]
-[^3]: Almost all conferences taking place in 2020 will be virtual conferences due to Covid-19.
+[^3]: Almost all conferences taking place in 2020 will postponed or held virtually due to Covid-19.
+
+<div class="tl-node">
+<div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
+
+### February 7 - 12: AAAI
+#### Paper submission deadline: September 5<div class="date">Acceptance rate: 25.7%[^aaai]</div>
+
+[^aaai]: Average 2012 - 2020
+
+The conference of the _Association for the Advancement of Artificial Intelligence_ is the primary conference on AI together with [IJCAI](#july-11---17-ijcai). The 34th of it's kind took place in New York from February 7th to 12th.
+
+> The purpose of the AAAI conference series is to promote research in artificial intelligence (AI) and foster scientific exchange between researchers, practitioners, scientists, students, and engineers in AI and its affiliated disciplines.
+
+It _"welcomes submissions reporting research that advances artificial intelligence"_ such as "_search, planning, knowledge representation, reasoning, natural language processing, robotics and perception, multiagent systems, statistical learning, and deep learning_".
+
+It has been held almost annually starting from 1980 in California and subsequently moved through most of the US, though never outside of it.
+</div>
 
 <div class="tl-node">
 <div class="tags" style="float: right;"><div class="tag">robotics</div></div>
@@ -49,7 +66,21 @@ The _Conference on Computer Vision and Pattern Recognition_ is the primary confe
 
 _"CVPR is the premier annual computer vision event comprising the main conference and several co-located workshops and short courses."_ It features content from a wide range of topics related to computer vision and pattern recognition and consists of the main conference with talks and presentations as well as tutorials and workshops.
 
-It was first held in Washington (USA) in 1983 and since then has rotated around the U.S.
+It was first held in Washington (USA) in 1983 and since then has rotated around the US.
+</div>
+
+<div class="tl-node">
+<div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
+
+### July 11 - 17: IJCAI
+#### Paper submission deadline: January 21<div class="date">Acceptance rate: 22.5%[^ijcai]</div>
+[^ijcai]: Average 2013 - 2020
+
+The _International Joint Conference on Artificial Intelligence_ shares it's place as most prestigious conference on AI with the [AAAI](#february-7---12-aaai). It's 29th incarnation takes place in Yokohama (Japan) on July 11th to 17th.
+
+The goal of the IJCAI is the _"dissemination of information on Artificial Intelligence"_ and of _"cutting-edge scientific results"_. Judging from the accepted papers of 2020, AI still mostly means machine learning though. With an average acceptance rate of 22.5%, declining from 20.5% in 2018 to only 12.6% in 2020, it is probably the most selective conference in this list and even more selective than some highly ranked journals.
+
+While it was only held every other year from 1969--it's date of birth--till 2015, it has since been held annually in various countries like Japan, Canada and Italy.
 </div>
 
 <div class="tl-node">
@@ -88,7 +119,7 @@ It was first held in France in 1990 and then moved to Italy, Sweden, the UK, Ger
 
 [^5]: Average 2000 - 2018
 
-The _European Conference on Artificial Intelligence_ is the leading conference on artificial intelligence in Europe and mentioned in the same breath with [IJCAI](#coming-soon) and [AAAI](#coming-soon) as one of three major conferences on general AI in the world. It is held annually and takes place in Santiago de Compostella (Spain) in 2020 in its 24th incarnation from August 29th to September 5th.
+The _European Conference on Artificial Intelligence_ is the leading conference on artificial intelligence in Europe and mentioned in the same breath with [IJCAI](#july-11---17-ijcai) and [AAAI](#february-7---12-aaai) as one of three major conferences on general AI in the world. It is held annually and takes place in Santiago de Compostella (Spain) in 2020 in its 24th incarnation from August 29th to September 5th.
 
 > Under the motto “Paving the way towards Human-Centric AI” *ECAI* provides an opportunity for researchers to present and discuss about the best AI research, developments, applications and results.
 
@@ -142,12 +173,8 @@ Born in Snowbird, Utah (USA) it has since been held in Denver (USA), Vancouver (
 
 ### Coming soon!
 
-* IJCAI
-* AAAI
 * UAI
 * RSS
 * ML Conference
-
 </div>
-
 ---
