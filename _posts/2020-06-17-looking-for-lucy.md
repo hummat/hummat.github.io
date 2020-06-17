@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Looking for Lucy
-abstract: A short text explaining what this post is about.
+abstract: My own take on explaining some fundamentals of probability theory, intended as a primer for probabilistic machine learning.
 tags: [probability, statistics]
 category: learning
 mathjax: true
