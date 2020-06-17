@@ -61,23 +61,23 @@ baseurl: ""
 version: v1.2.0
 
 # Jekyll a now only supports Kramdown for Markdown
-markdown: CommonMarkGhPages
-# markdown: kramdown 
+# markdown: CommonMarkGhPages
+markdown: kramdown 
 highlighter: rouge
 
-commonmark:
-  input: GFM
-  options: ["SMART", "FOOTNOTES"]
-  extensions: ["strikethrough", "autolink", "table"]
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: 'highlight'
+#commonmark:
+#  input: GFM
+#  options: ["SMART", "FOOTNOTES", "LIBERAL_HTML_TAG"]
+#  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+#  syntax_highlighter: rouge
+#  syntax_highlighter_opts:
+#    css_class: 'highlight'
 
-CommonMarkGhPages:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: 'highlight'
+#CommonMarkGhPages:
+#  input: GFM
+#  syntax_highlighter: rouge
+#  syntax_highlighter_opts:
+#    css_class: 'highlight'
 
 kramdown:
   # Use GitHub flavored markdown, including triple backtick fenced code blocks

@@ -9,6 +9,12 @@ time: 7
 words: 1890
 ---
 
+<style>
+h4 {
+  margin: 0;
+}
+</style>
+
 # {{ page.title }}
 
 Now that I’m a PhD candidate, I need to do real research. Come to think of it, it’s really quite amazing that one can make a living by exploring reality in my opinion. I also need to publish my research so it can get peer-reviewed and added to the great knowledge pool of humanity.
@@ -25,11 +31,12 @@ Most conferences consist of a number of presentations, highlighting the key insi
 ## Conference Timeline[^3]
 [^3]: Almost all conferences taking place in 2020 will be postponed or held virtually due to Covid-19.
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
 
 ### February 7 - 12: AAAI
-#### Paper submission deadline: September 5<div class="date">Acceptance rate: 25.7%[^aaai]</div>
+#### Paper submission deadline: September 5
+*Acceptance rate: 25.7%[^aaai]*
 
 [^aaai]: Average 2012 - 2020
 
@@ -42,11 +49,13 @@ It _"welcomes submissions reporting research that advances artificial intelligen
 It has been held almost annually starting from 1980 in California and subsequently moved through most of the US, though never outside of it.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Machine Learning</div></div>
 
 ### April 26 - May 1: ICLR
-#### Paper submission deadline: September 25<div class="date">Acceptance rate: 33.3%[^iclr]</div>
+#### Paper submission deadline: September 25
+*Acceptance rate: 33.3%[^iclr]*
+
 [^iclr]: Average 2017 - 2020
 
 The _International Conference on Learning Representations_ is a double-track annual conference on machine and deep learning. It describes itself as _"the premier gathering of professionals dedicated to the advancement of the branch of artificial intelligence called representation learning, but generally referred to as deep learning."_ Though it has to share this spot with [ICML](#july-12-18-icml) and [NeurIPS](#december-5-12-neurips-aka-nips). In 2020 it was supposed to take place in Addis Ababa, Ethopia but had to be moved online due to COVID-19.
@@ -56,11 +65,12 @@ The _International Conference on Learning Representations_ is a double-track ann
 Since its inception in 2013 in the US it has been held in Canada, Puerto Rico and France.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">robotics</div></div>
 
 ### May 31-August 31: ICRA
-#### Paper submission deadline: September 15<div class="date">Acceptance rate: 42.1%</div>
+#### Paper submission deadline: September 15
+*Acceptance rate: 42.1%*
 
 The _International Conference on Robotics and Automation_ is the worlds largest robotics research conference together with [IROS](#october-25-29-iros). Held annually, in 2020 it will take place in Paris (France) from May 31 to August 31.
 
@@ -69,11 +79,13 @@ Next to robotics it also covers advances in the fields of automation and artific
 First held in 1984 in Atlanta (USA) it since took place in Japan, Belgium, China, France, Korea, Spain, Italy, Germany, Sweden, Australia, Singapore and Canada.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Computer Vision</div></div>
 
 ### June 14-19: CVPR
-#### Paper submission deadline: November 15<div class="date">Acceptance rate: 27.5%[^cvpr]</div>
+#### Paper submission deadline: November 15
+*Acceptance rate: 27.5%[^cvpr]*
+
 [^cvpr]: Average 2010 - 2019
 
 The _Conference on Computer Vision and Pattern Recognition_ is the primary conference in its field. It is held annually, taking place in Seattle from June 14th to 19th in 2020.
@@ -83,11 +95,13 @@ _"CVPR is the premier annual computer vision event comprising the main conferenc
 It was first held in Washington (USA) in 1983 and since then has rotated around the US.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
 
 ### July 11 - 17: IJCAI
-#### Paper submission deadline: January 21<div class="date">Acceptance rate: 22.5%[^ijcai]</div>
+#### Paper submission deadline: January 21
+*Acceptance rate: 22.5%[^ijcai]*
+
 [^ijcai]: Average 2013 - 2020
 
 The _International Joint Conference on Artificial Intelligence_ shares it's place as most prestigious conference on AI with the [AAAI](#february-7---12-aaai). It's 29th incarnation takes place in Yokohama (Japan) on July 11th to 17th.
@@ -97,11 +111,12 @@ The goal of the IJCAI is the _"dissemination of information on Artificial Intell
 While it was only held every other year from 1969--it's date of birth--till 2015, it has since been held annually in various countries like Japan, Canada and Italy.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Machine Learning</div></div>
 
 ### July 12-18: ICML
-#### Paper submission deadline: February 5<div class="date">Acceptance rate: 29.1%</div>
+#### Paper submission deadline: February 5
+*Acceptance rate: 29.1%*
 
 The _International Conference on Machine Learning_ competes together with [NeurIPS](#december-5-12-neurips-aka-nips) for the first place of all conferences on machine learning. In 2020 it is held in Vienna (Austria) from July 12th to 18th in its 37th incarnation.
 
@@ -110,11 +125,13 @@ It touts itself as _“[…] the premier gathering of professionals dedicated to
 It was first held in 1980 in Pittsburgh (USA) and then moved to Germany, France, Sweden, Austria, China, Israel, Canada, Australia, Scotland and Finland.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Computer Visison</div></div>
 
 ### August 23-28: ECCV
-#### Paper submission deadline: March 5<div class="date">Acceptance rate: 28.3%[^eccv]</div>
+#### Paper submission deadline: March 5
+*Acceptance rate: 28.3%[^eccv]*
+
 [^eccv]: Average 2010 - 2018
 
 The _European Conference on Computer Vision_ is the European counterpart to the [ICCV](#october-27---november-2-iccv) and is held in those years where ICCV is not. In 2020 it takes place in Glasgow (Scotland) from August 23rd to 28th in its 16th incarnation.
@@ -124,11 +141,13 @@ Like [CVPR](#june-14-19-cvpr) and ICCV, it is a double-track conference with tal
 It was first held in France in 1990 and then moved to Italy, Sweden, the UK, Germany, Ireland, Denmark, the Czech Republic, Austria and Scotland.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
 
 ### August 29 - September 5: ECAI
-#### Paper submission deadline: November 19<div class="date">Acceptance rate: 26.3%[^ecai]</div>
+#### Paper submission deadline: November 19
+*Acceptance rate: 26.3%[^ecai]*
+
 [^ecai]: Average 2000 - 2018
 
 The _European Conference on Artificial Intelligence_ is the leading conference on artificial intelligence in Europe and mentioned in the same breath with [IJCAI](#july-11---17-ijcai) and [AAAI](#february-7---12-aaai) as one of three major conferences on general AI in the world. It is held annually and takes place in Santiago de Compostella (Spain) in 2020 in its 24th incarnation from August 29th to September 5th.
@@ -140,11 +159,12 @@ It is a double-track conference featuring talks, presentations, workshops and tu
 First held in 1974 in Brighton (UK) it subsequently moved through all of Europe including Germany, France, Italy, Sweden, Austria, the Netherlands, Hungary, Spain, Greece, Portugal and the Czech Republic.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">robotics</div></div>
 
 ### October 25-29: IROS
-#### Paper submission deadline: March 1<div class="date">Acceptance rate: 45.6%</div>
+#### Paper submission deadline: March 1
+*Acceptance rate: 45.6%*
 
 The _International Conference on Intelligent Robots and Systems_, similarly to [ICML](#july-12-18-icml) and [NeurIPS](#december-5-12-neurips-aka-nips) in machine learning, competes with [ICRA](#may-31-august-31-icra) for the distinction of _"most prestigious conference in its field"_ . It is held annually and with its 2020 incarnation taking place in Las Vegas (USA) from October 25th to 29th.
 
@@ -153,11 +173,13 @@ It _"provides an international forum for world-wide robotics community to explor
 It was first held in 1988 in Tokyo (Japan), then moved to the USA, Germany, France, Canada, Korea, Switzerland, China, Taiwan, Portugal and Spain.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Computer Visison</div></div>
 
 ### October 27 - November 2: ICCV
-#### Paper submission deadline: March 22<div class="date">Acceptance rate: 26.1%[^iccv]</div>
+#### Paper submission deadline: March 22
+*Acceptance rate: 26.1%[^iccv]*
+
 [^iccv]: Average 2001 - 2019
 
 The _International Conference on Computer Vision_ is the second major computer vision conference next to [CVPR. Contrary to most other conferences, it only takes place every other year. In 2019 it was held in Seoul (Korea) from October 27th to November 2nd in its 13th incarnation.
@@ -168,11 +190,13 @@ ICCV was first held in London (UK) in 1987 and moved to the US, India, Greece, C
 [^4]: Or is it _multi-track_ then? Don't know if that exists...
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">robotics</div></div>
 
 ### November 16 - 18: CoRL
-#### Paper submission deadline: July 28<div class="date">Acceptance rate: <30%[^corl]</div>
+#### Paper submission deadline: July 28*
+*Acceptance rate: <30%[^corl]*
+
 [^corl]: There is only limited data available yet for this conference due to its youth.
 
 The _Conference on Robot Learning_ is a young annual international conference aiming at becoming the top venue for robot learning research. In 2020 it will be held entirely virtually from November 16th to 18th due to COVID-19.
@@ -182,11 +206,12 @@ The focus lies _"on the intersection of robotics and machine learning. [...] CoR
 First held in 2017 in the US it has since taken place in Switzerland and Japan.
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Machine Learning</div></div>
 
 ### December 5-12: NeurIPS (aka NIPS)
-#### Paper submission deadline: June 5<div class="date">Acceptance rate: 24.8%</div>
+#### Paper submission deadline: June 5
+*Acceptance rate: 24.8%*
 
 The _Neural Information Processing Systems_ conference is one of the most, if not _the_ most prestigious conference for machine learning. This year (2020) it comes in its 34th incarnation and will take place in December 5th through 12th at the Vancouver Convention Center.
 
@@ -195,7 +220,7 @@ It was first proposed in 1986 by _The California Institute of Technology_ and th
 Born in Snowbird, Utah (USA) it has since been held in Denver (USA), Vancouver (Canada), Granada (Spain), Lake Tahoe (USA), Montreal (Canada), Barcelona (Spain) and Long Beach (USA).
 </div>
 
-<div class="tl-node">
+<div class="tl-node" markdown="1">
 
 ### Coming soon!
 
