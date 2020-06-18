@@ -4,7 +4,7 @@
 
 <script>
 function getFootnoteContent(index) {
-    const id = "fn" + index;
+    const id = "fn:" + index;
     const fn = document.getElementById(id);
     return fn.innerHTML.trim();
 };
@@ -45,7 +45,7 @@ function footnotePopup(showIndex, showCloseBtn) {
         parent.removeChild(fnReturn);
     });
 
-    const fnRefs = document.querySelectorAll("a[id^='fnref']");
+    const fnRefs = document.querySelectorAll("sup[id^='fnref:']");
     fnRefs.forEach(function(fnRef) {
         fnRef.addEventListener("mouseover", handler("refs", fnRef));
     });
@@ -65,7 +65,7 @@ function footnotePopup(showIndex, showCloseBtn) {
             if (type === "refs") {
                 event.preventDefault();
 
-                const index = node.id.substring(5);
+                const index = node.id.substring(6);
 
                 if (showIndex) {
                     popupIndex.innerHTML = index + ".";
