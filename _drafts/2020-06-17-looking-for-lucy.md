@@ -11,10 +11,14 @@ words: 838
 
 # {{ page.title }}
 
-You are on large ship looking for your friend Lucy. You already have some suspicion as to her whereabouts:
+You are on large ship looking for your friend Lucy[^1]. You already have some suspicion as to her whereabouts:
+
+[^1]: I know, this is not the ship I had in mind, but it’s the best I could find, so just imagine something pretty and logical.
 
 1. You expect her to be on the ship and not in the water (though possible, you deem it unlikely)
 2. It is 1 am, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship.
+
+{% include figures/ship.html %}
 
 In probability theory, we call such beliefs for which we don’t have seen any evidence yet _prior beliefs_ or simply _priors_. We’ve also implicitly established the parameter or variable we are trying to estimate: Lucy’s location. Let’s call it $\ell$. We can then write “_I think Lucy is more likely to be on the ship than in the water_” as $p(\ell=\mathrm{ship})=0.9$  and $p(\ell=\mathrm{water})=0.1$
 
