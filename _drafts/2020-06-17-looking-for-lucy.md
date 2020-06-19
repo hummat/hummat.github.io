@@ -48,6 +48,6 @@ Now there is actually a better way to represent our two beliefs $e$ and $\ell$, 
 
 Yellow values are likely areas while purple values are unlikely. The lines connect coordinates of equal density.
 
-The code for the visualizations is available [here]() and you can play with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Flooking-for-lucy.ipynb)
+The code for the visualizations is available [here](https://github.com/hummat/hummat.github.io/blob/master/notebooks/looking-for-lucy.ipynb) and you can play with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Flooking-for-lucy.ipynb)
 
 ---

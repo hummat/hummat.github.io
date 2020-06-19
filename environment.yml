@@ -1,7 +1,6 @@
 name: blog
 channels:
   - plotly
-  - conda-forge
   - open3d-admin
 dependencies:
   - numpy
