@@ -16,7 +16,7 @@ You are on large ship looking for your friend Lucy[^1]. You already have some su
 [^1]: I know, this is not the ship I had in mind, but it’s the best I could find, so just imagine something pretty and logical.
 
 1. You expect her to be on the ship and not in the water (though possible, you deem it unlikely)
-2. It is 1 am, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship.
+2. It is 1 pm, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship.
 
 {% include figures/ship.html %}
 
@@ -34,12 +34,20 @@ What do you think this means: $p(e\|\ell=\mathrm{ship})$? It’s the probability
 
 To understand this, think about forecasting the temperature for the next day. What’s the probability that it will be between $-40^\circ C$ and $+40^\circ C$? Probably close to $100\\%$ (though never _actually_ $100\\%$). Between $0^\circ C$ and $30^\circ C$? Still quite high, say $70\\%$ (the exact numbers don’t matter here). Between $25$ and $27$? Okay, that’s much, much less likely, let’s go with $2\\%$. $25.1$ and $25.2$? Almost zero. $25.345363$ and $25.345364$? You get the point. So when talking about probabilities in the continuous case, always think in intervals. If we belief that Lucy is somewhere in the middle of the ship _and_ that she in fact is on the ship, we could write it like this: $p(20\leq e<30\|\ell=\mathrm{ship})=0.8$.
 
+{% include figures/ship_1dgauss.html %}
+
 What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply it! If we’re $90\\%$ certain that she’s on the ship and $80\\%$ certain that she’s in the middle of the ship ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^2]
 
 [^2]: Always take prior probabilities into account when dealing with conditionals, otherwise you will fall pray to the _base rate fallacy_.
 
 > **Choosing a team:** There is another interesting observation to be made here: Those probabilities we’ve chosen are _beliefs_ about how the world is rather than facts. We therefore make use of _Bayesian statistics_ instead of _Frequentist statistics_, where probabilities are seen as properties of the world to be measured. A fair coin for example has a $50\\%$ chance of landing either `head` or `tail` and you can find out about this fact through observation of repeated experiments. We’ll come back to the distinction between those two views on probabilities later when talking about _calibration_.
 
-Let’s now try to visualize all of this.
-{% include figures/figure.html %}
-This is what’s meant when we talk about _modeling_ in statistics.
+Now there is actually a better way to represent our two beliefs $e$ and $\ell$, namely in a unified manner using a two dimensional probability distribution! This it what it looks like from above:
+
+{% include figures/ship_2dgauss.html %}
+
+Yellow values are likely areas while purple values are unlikely. The lines connect coordinates of equal density.
+
+The code for the visualizations is available [here]() and you can play with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Flooking-for-lucy.ipynb)
+
+---
