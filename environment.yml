@@ -2,6 +2,7 @@ name: blog
 channels:
   - plotly
   - open3d-admin
+  - conda-forge
 dependencies:
   - numpy
   - pandas
