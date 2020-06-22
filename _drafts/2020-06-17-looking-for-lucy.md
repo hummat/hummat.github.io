@@ -2,51 +2,143 @@
 layout: post
 title: Looking for Lucy
 abstract: My own take on explaining some fundamentals of probability theory, intended as a primer for probabilistic machine learning.
+thumbnail: /images/ship_static.png
 tags: [probability, statistics]
 category: learning
 mathjax: true
+slideshow: true
 time: 2
 words: 838
 ---
 
 # {{ page.title }}
 
-You are on large ship looking for your friend Lucy[^1]. You already have some suspicion as to her whereabouts:
+You are on large ship looking for your friend Lucy. You already have some suspicion as to her whereabouts:
 
 [^1]: I know, this is not the ship I had in mind, but it’s the best I could find, so just imagine something pretty and logical.
 
 1. You expect her to be on the ship and not in the water (though possible, you deem it unlikely)
-2. It is 1 pm, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship.
+2. It is 1 pm, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship[^1].
 
-{% include figures/ship.html %}
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    {% include figures/ship.html %}
+    <div class="text"></div>
+  </div>
 
-In probability theory, we call such beliefs for which we don’t have seen any evidence yet _prior beliefs_ or simply _priors_. We’ve also implicitly established the parameter or variable we are trying to estimate: Lucy’s location. Let’s call it $\ell$. We can then write “_I think Lucy is more likely to be on the ship than in the water_” as $p(\ell=\mathrm{ship})=0.9$  and $p(\ell=\mathrm{water})=0.1$
+  <div class="mySlides fade">
+    <img src="/images/ship_bars.png" style="width: 100%;">
+    <div class="text"></div>
+  </div>
+  
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
 
-This reads: _“The probability of  $\ell$ taking the value `ship` is $90\\%$“_ (and $10\\%$ for `water` respectively). Two more things to note here:
+### Probabilities and Priors
 
-1. We’ve just defined a _probability distribution_ of $\ell$, written $p(\ell)$, which maps each possible state of $\ell$ (`ship`, `water`) to a discrete probability. In doing so, we promoted $\ell$ from mere variable to _random_ variable. Why random? Because it doesn’t take only one deterministic value like $5$, but different values with different probability. And because Lucy can only either be on the ship or not, the probabilities of these two states need to sum to 1 (or $100\\%$).
+In probability theory, we call such beliefs for which we don’t have seen any evidence yet _prior beliefs_ or simply _priors_. We’ve also implicitly established the parameter or variable we are trying to estimate: Lucy’s location. Let’s call it $\ell$. We can then write “_I think Lucy is more likely to be on the ship than in the water_” as $p(\ell=\mathrm{ship})=0.99$  and $p(\ell=\mathrm{water})=0.01$
+
+This reads: _“The probability of  $\ell$ taking the value `ship` is $99\\%$“_ (and $1\\%$ for `water` respectively). We can often drop the variable name whenever it takes on a specific value, like `ship` , so $p(\ell=\mathrm{ship})$ simply becomes $p(\mathrm{ship})$, to reduce clutter. Two more things to note here:
+
+1. We’ve just defined a _probability distribution_ of $\ell$, written $p(\ell)$, which maps each possible state of $\ell$ (`ship`, and `water`) to a discrete probability ($99\\%$ and $1\\%$). In doing so, we promoted $\ell$ from mere variable to _random_ variable. Why random? Because it’s value is not deterministic like $x=2+2$, but probabilistic, determined by some underlying random (or random seeming) cause. And because Lucy can only either be on the ship or not, the probabilities of these two states need to sum to 1 (or $100\\%$).
 
 2. She also can’t be a little bit on the ship and a little bit in the water (well, technically she probably could, but let’s keep it simple) which is why we call it a _discrete_ probability distribution rather than a _continuous_ one, where everything in between certain values is also possible.
 
-Let’s define such a continuous probability distribution for Lucy’s location _on the ship_. We could of course start enumerating all locations (`restaurant`, `toilet`, `her room`, `sun deck`, …), but because she could be _everywhere_ on the ship,  it’s tedious at best and impossible otherwise. We want to keep using $\ell$ to distinguish between `ship` and `water` so let’s use $e$ to talk about Lucy’s _exact_ location on the ship.
+### Continuous, discrete, conditional
 
-What do you think this means: $p(e\|\ell=\mathrm{ship})$? It’s the probability distribution of Lucy’s exact location _given_ she is on the ship. We call this a _conditional_ probability distribution, because it depends on Lucy being on the ship. Therefore $p(e\|\ell=\mathrm{water})=0$. No point in establishing an exact location if she’s in the ocean. Let’s say the ship is $50$ meters long, so Lucy could be anywhere between $e=0$ and $e=50$. So what’s $p(e=27\|\ell=\mathrm{ship})$? Maybe surprisingly, it’s $0$. Why? Because for a continuous random variable, no exact values exist.
+Let’s define such a continuous probability distribution for Lucy’s location _on the ship_. We could of course start enumerating all locations (`restaurant`, `toilet`, `her room`, `sun deck`, …) as shown below, but because she could be _everywhere_ on the ship,  it’s tedious at best and impossible otherwise. We want to keep using $\ell$ to distinguish between `ship` and `water` so let’s use $e$ to talk about Lucy’s _exact_ location on the ship.
 
-To understand this, think about forecasting the temperature for the next day. What’s the probability that it will be between $-40^\circ C$ and $+40^\circ C$? Probably close to $100\\%$ (though never _actually_ $100\\%$). Between $0^\circ C$ and $30^\circ C$? Still quite high, say $70\\%$ (the exact numbers don’t matter here). Between $25$ and $27$? Okay, that’s much, much less likely, let’s go with $2\\%$. $25.1$ and $25.2$? Almost zero. $25.345363$ and $25.345364$? You get the point. So when talking about probabilities in the continuous case, always think in intervals. If we belief that Lucy is somewhere in the middle of the ship _and_ that she in fact is on the ship, we could write it like this: $p(20\leq e<30\|\ell=\mathrm{ship})=0.8$.
+Todo: Add figure showing bars for all scenarios.
 
-{% include figures/ship_1dgauss.html %}
+What do you think this means: $p(e\vert \mathrm{ship})$? It’s the probability distribution of Lucy’s exact location _given_ she’s on the ship. The little bar $\vert$ means _given_ or _if_ as in: _”The probability that it will rain if there are clouds”_ $p(\mathrm{rain}\vert \mathrm{clouds})$. We call this a _conditional_ probability distribution, because it depends on Lucy being on the ship. Therefore $p(e\vert \mathrm{water})=0$. No point in establishing an exact location if she’s in the ocean. Let’s say the ship is $50$ meters long, so Lucy could be anywhere between $e=0$ and $e=50$. So what’s $p(e=27\vert \mathrm{ship})$? Maybe surprisingly, it’s $0$. Why? Because for a continuous random variable, no exact values exist.
 
-What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply it! If we’re $90\\%$ certain that she’s on the ship and $80\\%$ certain that she’s in the middle of the ship ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^2]
+**Interluding intervals:** To understand this, think about forecasting the temperature for the next day. What’s the probability that it will be between $-40^\circ C$ and $+40^\circ C$? Probably close to $100\\%$ (though never _actually_ $100\\%$). Between $0^\circ C$ and $30^\circ C$? Still quite high, say $70\\%$ (the exact numbers don’t matter here). Between $25$ and $27$? Okay, that’s much, much less likely, let’s go with $2\\%$. $25.1$ and $25.2$? Almost zero. $25.345363$ and $25.345364$? You get the point. So when talking about probabilities in the continuous case, always think in intervals.
 
+If we belief that Lucy is somewhere in the middle of the ship _if_ she in fact is on it, we could write it like this, $p(20\leq e\leq30\vert \mathrm{ship})=0.8$ but because this looks daunting lets call it $p(\mathrm{middle}\vert \mathrm{ship})$ instead.
+
+{% include figures/ship_1dgauss.html %} Todo: Add shaded area, change to middle.
+
+The red line is called a _probability density function_ and it describes our continuous probability distribution $p(e\vert\mathrm{ship})$. If the area under the curve between $e=20$ and $e=30$ is Lucys probability to be in the middle of the ship, what’s on the vertical axis then, you might think. It’s where the _density_ comes into play. Like with a physical object, where the mass is determined by it’s volume and density[^3], so is _probability mass_ determined by it’s area (in 2D) or volume (3D)[^4] and it’s density on the vertical axis.
+
+If you are familiar with sums and integrals, it might be helpful to look a it this way: In the discrete case, where you simply enumerate all possible locations and attach your belief to each of them, you sum them up to get an overall estimate which can be written like this: $p(\mathrm{restaurant}\cap\mathrm{room})=p(\mathrm{restaurant})+p(\mathrm{room})$ where the flipped U means _or_. Imagine now you discretize the ship into smaller and smaller parts. In the limit, you have covered every micrometer of the ship through an infinite amount of discrete probabilities which is exactly how you can estimate the integral of a function, i.e. the area under the curve. Todo: add button to activate bars in figure above.
+
+[^4]: Or _“hypervolume”_ in 4D and above.
+[^3]: Provided it is made out of one material with the same density everywhere.
+
+What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply! If we’re $90\\%$ certain that she’s on the ship *and* $80\\%$ certain that she’s in the middle of it ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^2] We call this a _joint probability distribution_ and write it as
+
+$$p(\mathrm{middle},\mathrm{ship})=p(\mathrm{middle}\vert\mathrm{ship})\cdot p(\mathrm{ship})$$.
+
+See the little comma? That’s all there is to it. Why is this useful? Because often you only have information (or beliefs) about the individual statements but not about both of them together or the the other way round. For example, what’s the probability that Lucy is in the ships restaurant _and_ eating pizza? That’s kind of hard to reason about. It’s easier to think about her being in the restaurant, which you deem likely, say $70\\%$, and that she’s eating pizza _if_ shes indeed in the restaurant. Say there are two different meals, `pizza` and `spaghetti` and you know Lucy has a slight preference for the former, so $p(\mathrm{pizza})=0.6$ (and therefore $p(\mathrm{spaghetti})=0.4$ as those are the only two options). Now you can say:
+
+$$\begin{aligned}p(\mathrm{restaurant},\mathrm{pizza})&=p(\mathrm{pizza}\vert\mathrm{restaurant})\cdot p(\mathrm{restaurant})\\&=0.6\cdot0.7=0.42\end{aligned}$$
+
+### Independence
+
+In our example, Lucy can’t be in the middle of the ship if she’s in the ocean. Therefore, both statements depend on each other, i.e. having a belief about one influences the other. That’s not always the case though. Saturn is in line with Venus. What can you derive from this knowledge for your personal life? Nothing. Those statements are _independent_, so your probability of being happy $p(\mathrm{happy})$ stays the same, regardless of what Saturn and Venus are up to. This also means we are allowed to do the following:
+
+$$\begin{aligned}p(\mathrm{happy},\mathrm{Saturn}\leftrightarrow\mathrm{Venus})&=p(\mathrm{happy}\vert\mathrm{Saturn}\leftrightarrow\mathrm{Venus})\cdot p(\mathrm{Saturn}\leftrightarrow\mathrm{Venus})\\&=p(\mathrm{happy})\cdot p(\mathrm{Saturn}\leftrightarrow\mathrm{Venus})\end{aligned}$$
+
+The important part is the transition from the first to the second line.[^5] There is no conditional probability involved[^6], which is very useful, e.g. in machine learning, as it makes many calculations a lot easier.
+
+[^5]: Note again: Even if the first line were true, your happiness wouldn’t be _exclusively_ determined by the planetary constellation, but also by your general inclination to be happy.
 [^2]: Always take prior probabilities into account when dealing with conditionals, otherwise you will fall pray to the _base rate fallacy_.
+[^6]: There is another form of independence though, called _conditional independence_, involving conditional probabilities.
 
-> **Choosing a team:** There is another interesting observation to be made here: Those probabilities we’ve chosen are _beliefs_ about how the world is rather than facts. We therefore make use of _Bayesian statistics_ instead of _Frequentist statistics_, where probabilities are seen as properties of the world to be measured. A fair coin for example has a $50\\%$ chance of landing either `head` or `tail` and you can find out about this fact through observation of repeated experiments. We’ll come back to the distinction between those two views on probabilities later when talking about _calibration_.
+> **Choosing a team:** There is another interesting observation to be made here: Those probabilities we’ve chosen are _beliefs_ about how the world is rather than facts. We therefore make use of _Bayesian statistics_ instead of _Frequentist statistics_, where probabilities are seen as properties of the world to be measured. A fair coin for example has a $50\\%$ chance of landing either `head` or `tail` and you can find out about this fact through observation of repeated experiments. We’ll come back to the distinction between those two views on probabilities in future posts when talking about _calibration_.
 
-Now there is actually a better way to represent our two beliefs $e$ and $\ell$, namely in a unified manner using a two dimensional probability distribution! This it what it looks like from above:
+### More dimensions and variance
 
-{% include figures/ship_2dgauss.html %}
+Now there is actually a better way to represent our beliefs of Lucys exact location on the ship using a two dimensional probability distribution! Instead of only saying where we expect her to be from back to front, i.e. _rear_ to _bow_, we can now also express our belief about her position from left to right, i.e. _port_ to _starboard_. Let’s call them $e_x$ for rear-bow and $e_y$ for port-starboard position.
 
-Yellow values are likely areas while purple values are unlikely. The lines connect coordinates of equal density.
+Because the ship is longer than wide, there are more possible locations for Lucy to be in that direction.[^8] This can clearly be seen in the _spread_ of the distribution, being more stretched out in $e_x$ direction. This spread is also called the _variance_ of the probability distribution. The variance directly translate into our _uncertainty_ about Lucys location. This it what it looks like from above:
+
+{% include figures/ship_2dgauss.html %} Todo: Add axes, move distribution down, make ship transparent.
+
+Yellow signifies likely areas while purple values are unlikely.[^9] The lines connect coordinates of equal density, just as the lines on a map connect coordinates of equal altitude. Try rotating the figure to get a better understanding.
+
+[^9]: To be precise: areas of low probability density.
+
+Another side effect of our new 2D distribution is, that we now simultaneously express our belief about Lucy being in the ocean, so we can do away with our additional variable $\ell$! You can also think about what it means that there is more probability mass near the ship than further away from it.
+
+[^8]: If we had another, albeit less reasonable, belief about Lucys location, the distribution could of course look very different, e.g. wider in $e_y$ than in $e_x$ direction. You can think about what this would mean.
+
+### Bayes’ Theorem
+
+The final story I’d like to tell is this one: Suppose you ask another passenger if he has seen a hungry looking woman recently and he tells you that, while he couldn’t tell if she was hungry, he did speak to a women called Lucy at the rear of the ship! What a coincidence.  Such information is called _evidence_ as it tells us something about the parameters we want to model and estimate, namely Lucys location.
+
+How should you deal with the new information? Intuitively you might think it’s a settled case. You are looking for Lucy and there is a Lucy at the rear of the ship. This however would only be true, if you were $100\\%$ certain that the Lucy in question is in fact your friend.
+
+Todo: make this transition clearer.
+
+Instead you need to ask the question: How likely is it to obtain this evidence _given_ my hypothesis is true? In our case, how likely is it that someone might have encountered a Lucy at the rear of the ship (evidence) if the Lucy I’m looking for is in the restaurant in the middle of the ship (prior)? This special conditional probability is called _likelihood_, and we’ll soon see how it’s used. First, we need to estimate it though.
+
+**The Evidence:** You conveniently know that there are 100 people on the ship and that the name Lucy is quite common, say $2\%$ of all people share this name.[^10] This means you’d expect a second Lucy to be on the ship. How likely is it that she’s in the back? You don’t know anything about her and you assume, for simplicity, that all 100 people are spread out equally around the ship. We already established the ships length to be 50 meters and let’s say the rear is 5 meters long. If the ship has approximately equal width everywhere, the rear makes up $10\%$ of the entire ship. Therefore, you would expect around $10\\%$ of all people (i.e. 10 people) to be there. You further assume $50\\%$ of the passengers are women.
+
+[^10]: Of course this is an exaggeration.
+
+If there are 5 women at the rear and $2\\%$ of all women are called Lucy, there is a $5\cdot0.02$ chance to meet one of them back there, so $10\\%$. This quantity is also called _evidence_, though it actually is the probability of seeing the evidence, and we write it as $p(I)$.
+
+**The Likelihood:** If your friend Lucy is in the restaurant however, there is just one Lucy left, so the probability to meet a Lucy at the back is cut in half to only $5\\%$. This is the likelihood we were looking for and we write it as $p(I\vert\mathrm{middle})=0.05$.[^11]
+
+[^11]: This is a 2D `middle` now!
+
+**The Prior:** There is another important quantity we’ve already estimated, which is our joint belief that she is on the ship _and_ in the middle of it ($72\\%$). While this was for the one dimensional case, it doesn’t really matter, so let’s stick with it to make those previous efforts feel more meaningful.
+
+Let’s make this our new _prior_, because it was our belief before we obtained the new information from the other passenger. We can write it as $p(\mathrm{middle})=0.72$.
+
+**The Posterior:** What we are actually after is the probability that Lucy is in the restaurant _given_ the new information, but so far we only have the opposite, namely, the probability of getting the information, assuming she is indeed in the restaurant. This final quantity is called the _posterior_ and we write it as $p(\mathrm{middle}\vert I)$.
+
+Can you guess how to compute this? We’ve already seen, that one can write a joint distribution as the product of its marginal and conditional distribution such that $p(\mathrm{middle},I)=p(\mathrm{middle}\vert I)\cdot p(I)$. Solving this for our desired posterior we get:
+
+$$p(\mathrm{middle}\vert I)=\frac{p(\mathrm{middle},I)}{p(I)}$$
+
+Now we can use the same trick as before, but this time we factorize $p(\mathrm{middle},I)$ into $p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})$. Putting it back into the equation above, we have found a way of expressing the posterior by the _likelihood_, _prior_ and _evidence_ which are all known quantities:
+
+$$\begin{aligned}p(\mathrm{middle}\vert I)&=\frac{p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})}{p(I)}\\&=\frac{0.05\cdot0.72}{0.1}=0.36\end{aligned}$$
+
+And there you have it, **Bayes’ theorem**! The result, as you might have guessed, is a reduction of our confidence to find Lucy in the restaurant by half to $36\\%$. Note that, while this is a lot less than before, it is still a lot more than the $10\\%$ probability of finding one of the Lucys at the rear if you didn’t know anything about her and therefore didn’t (and shouldn’t) have any preferences. Play with the numbers if you like, to get an intuition about how things change.
 
 The code for the visualizations is available [here](https://github.com/hummat/hummat.github.io/blob/master/notebooks/looking-for-lucy.ipynb) and you can play with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Flooking-for-lucy.ipynb)
 
