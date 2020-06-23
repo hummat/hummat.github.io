@@ -30,7 +30,7 @@ You are on large ship looking for your friend Lucy. You already have some suspic
     <img src="/images/ship_bars.png" style="width: 100%;">
     <div class="text"></div>
   </div>
-  
+
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
   <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
@@ -57,20 +57,18 @@ What do you think this means: $p(e\vert \mathrm{ship})$? It’s the probability 
 
 If we belief that Lucy is somewhere in the middle of the ship _if_ she in fact is on it, we could write it like this, $p(20\leq e\leq30\vert \mathrm{ship})=0.8$ but because this looks daunting lets call it $p(\mathrm{middle}\vert \mathrm{ship})$ instead.
 
-{% include figures/ship_1dgauss.html %} Todo: Add shaded area, change to middle.
+{% include figures/ship_1dgauss.html %} Todo: Add shaded area.
 
-The red line is called a _probability density function_ and it describes our continuous probability distribution $p(e\vert\mathrm{ship})$. If the area under the curve between $e=20$ and $e=30$ is Lucys probability to be in the middle of the ship, what’s on the vertical axis then, you might think. It’s where the _density_ comes into play. Like with a physical object, where the mass is determined by it’s volume and density[^3], so is _probability mass_ determined by it’s area (in 2D) or volume (3D)[^4] and it’s density on the vertical axis.
+The red line is called a _probability density function_ and it describes our continuous probability distribution $p(e\vert\mathrm{ship})$. If the area under the curve between $e=20$ and $e=30$ is Lucys probability to be in the middle of the ship, what’s on the vertical axis then, you might think? It’s where the _density_ comes into play. Like with a physical object, where the mass is determined by its volume and density[^3], so is _probability mass_ determined by its area (in 2D) or volume (3D)[^4] and its density on the vertical axis.
 
 If you are familiar with sums and integrals, it might be helpful to look a it this way: In the discrete case, where you simply enumerate all possible locations and attach your belief to each of them, you sum them up to get an overall estimate which can be written like this: $p(\mathrm{restaurant}\cap\mathrm{room})=p(\mathrm{restaurant})+p(\mathrm{room})$ where the flipped U means _or_. Imagine now you discretize the ship into smaller and smaller parts. In the limit, you have covered every micrometer of the ship through an infinite amount of discrete probabilities which is exactly how you can estimate the integral of a function, i.e. the area under the curve. Todo: add button to activate bars in figure above.
 
 [^4]: Or _“hypervolume”_ in 4D and above.
 [^3]: Provided it is made out of one material with the same density everywhere.
 
-What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply! If we’re $90\\%$ certain that she’s on the ship *and* $80\\%$ certain that she’s in the middle of it ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^2] We call this a _joint probability distribution_ and write it as
+What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply! If we’re $90\\%$ certain that she’s on the ship *and* $80\\%$ certain that she’s in the middle of it ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^2] We call this a _joint probability distribution_ because it expresses our beliefs about two quantities at the same time: That Lucy is on the ship _and_ in the middle of it. Using the quantities introduced earlier we can write it as $p(\mathrm{middle},\mathrm{ship})=p(\mathrm{middle}\vert\mathrm{ship})\cdot p(\mathrm{ship})$.
 
-$$p(\mathrm{middle},\mathrm{ship})=p(\mathrm{middle}\vert\mathrm{ship})\cdot p(\mathrm{ship})$$.
-
-See the little comma? That’s all there is to it. Why is this useful? Because often you only have information (or beliefs) about the individual statements but not about both of them together or the the other way round. For example, what’s the probability that Lucy is in the ships restaurant _and_ eating pizza? That’s kind of hard to reason about. It’s easier to think about her being in the restaurant, which you deem likely, say $70\\%$, and that she’s eating pizza _if_ shes indeed in the restaurant. Say there are two different meals, `pizza` and `spaghetti` and you know Lucy has a slight preference for the former, so $p(\mathrm{pizza})=0.6$ (and therefore $p(\mathrm{spaghetti})=0.4$ as those are the only two options). Now you can say:
+See the little comma? That’s all there is to it. Why is this useful? Because often you only have information (or beliefs) about the individual statements but not about both of them together, or the the other way round. For example, what’s the probability that Lucy is in the ships restaurant _and_ eating pizza? That’s kind of hard to reason about. It’s easier to think about her being in the restaurant, which you deem likely, say $70\\%$, and that she’s eating pizza _if_ shes indeed in the restaurant. Say there are two different meals, `pizza` and `spaghetti` and you know Lucy has a slight preference for the former, so $p(\mathrm{pizza})=0.6$ (and therefore $p(\mathrm{spaghetti})=0.4$ as those are the only two options). Now you can say:
 
 $$\begin{aligned}p(\mathrm{restaurant},\mathrm{pizza})&=p(\mathrm{pizza}\vert\mathrm{restaurant})\cdot p(\mathrm{restaurant})\\&=0.6\cdot0.7=0.42\end{aligned}$$
 
@@ -86,7 +84,7 @@ The important part is the transition from the first to the second line.[^5] Ther
 [^2]: Always take prior probabilities into account when dealing with conditionals, otherwise you will fall pray to the _base rate fallacy_.
 [^6]: There is another form of independence though, called _conditional independence_, involving conditional probabilities.
 
-> **Choosing a team:** There is another interesting observation to be made here: Those probabilities we’ve chosen are _beliefs_ about how the world is rather than facts. We therefore make use of _Bayesian statistics_ instead of _Frequentist statistics_, where probabilities are seen as properties of the world to be measured. A fair coin for example has a $50\\%$ chance of landing either `head` or `tail` and you can find out about this fact through observation of repeated experiments. We’ll come back to the distinction between those two views on probabilities in future posts when talking about _calibration_.
+> **Choosing a team:** There is another interesting observation to be made here: Those probabilities we’ve chosen are, for the most part, _beliefs_ about how the world is. We therefore make use of _Bayesian statistics_ instead of _Frequentist statistics_, where probabilities are exclusively seen as intrinsic properties of the world to be measured. A fair coin for example has a $50\\%$ chance of landing either `head` or `tail` and you can find out about this fact through the observation of repeated experiments. We’ll come back to the distinction between those two views on probabilities in future posts when talking about _calibration_.
 
 ### More dimensions and variance
 
@@ -110,35 +108,60 @@ The final story I’d like to tell is this one: Suppose you ask another passenge
 
 How should you deal with the new information? Intuitively you might think it’s a settled case. You are looking for Lucy and there is a Lucy at the rear of the ship. This however would only be true, if you were $100\\%$ certain that the Lucy in question is in fact your friend.
 
-Todo: make this transition clearer.
+Instead you need to ask the question: _If_ this new information were true, how should it influence my belief? We can’t answer this question right away, so let’s first ask another question: How likely is it to obtain this new information _if_ my current belief about the world is true? In our case, how likely is it that someone might have encountered a Lucy at the rear of the ship (evidence or information) if the Lucy I’m looking for is in the restaurant in the middle of the ship (prior or current belief)? The quantity we are talking about is a special kind of conditional probability and is called _likelihood_. We’ll soon see how it’s used, but first we need to estimate it.
 
-Instead you need to ask the question: How likely is it to obtain this evidence _given_ my hypothesis is true? In our case, how likely is it that someone might have encountered a Lucy at the rear of the ship (evidence) if the Lucy I’m looking for is in the restaurant in the middle of the ship (prior)? This special conditional probability is called _likelihood_, and we’ll soon see how it’s used. First, we need to estimate it though.
+Let’s start by visualizing the total space of possibilities by a square with side length 1:
 
-**The Evidence:** You conveniently know that there are 100 people on the ship and that the name Lucy is quite common, say $2\%$ of all people share this name.[^10] This means you’d expect a second Lucy to be on the ship. How likely is it that she’s in the back? You don’t know anything about her and you assume, for simplicity, that all 100 people are spread out equally around the ship. We already established the ships length to be 50 meters and let’s say the rear is 5 meters long. If the ship has approximately equal width everywhere, the rear makes up $10\%$ of the entire ship. Therefore, you would expect around $10\\%$ of all people (i.e. 10 people) to be there. You further assume $50\\%$ of the passengers are women.
+Todo: add square
+
+**The Prior:** Now there are two possibilities: Either your friend Lucy is in the restaurant or not. The former is a quantity we’ve already estimated, which is our joint belief that she is on the ship _and_ in the middle of it ($72\\%$).
+
+Let’s make this our new _prior_, because it was our belief before we obtained the new information from the other passenger. We can write it as $p(\mathrm{middle})=0.72$ and put it in our possibility square:
+
+Todo: add prior to square
+
+**The Likelihood:** You conveniently know that there are 100 people on the ship and that the name Lucy is quite common, say $2\%$ of all women share this name.[^10] This means you’d expect a second Lucy to be on the ship. How likely is it that she’s at the back? You don’t know anything about her and you assume, for simplicity, that all 100 people are spread out equally around the ship. We already established the ships length to be 50 meters and let’s say the rear is 5 meters long. If the ship has approximately equal width everywhere, the rear makes up $10\%$ of the entire ship. Therefore, you would expect around $10\\%$ of all people to be there. As there are 100 people on board, that’s also conveniently $10\\%$ of those, so the proportion of the area of the ship is the same as the probability to encounter any one specific person there. As there are two Lucys, you would have a $10\\%$ chance to meet each of them, so $2\cdot0.1=0.2$, $20\\%$.
 
 [^10]: Of course this is an exaggeration.
 
-If there are 5 women at the rear and $2\\%$ of all women are called Lucy, there is a $5\cdot0.02$ chance to meet one of them back there, so $10\\%$. This quantity is also called _evidence_, though it actually is the probability of seeing the evidence, and we write it as $p(I)$.
+But wait, you’re convinced that your friend Lucy is in the restaurant, so in fact, according to your belief, there is at most _one_ Lucy left strolling around. This means that the probability to meet a woman named Lucy at the rear _if_ your friend Lucy is at the restaurant is only half of what we estimated, so only $10\\%$. We call this quantity—the probability that to see the evidence given your hypothesis is true—_likelihood_ and write it as $p(I\vert\mathrm{middle})=0.1$. If we want to add this quantity to our probability square, we need to put it in the space where our hypothesis is true:
 
-**The Likelihood:** If your friend Lucy is in the restaurant however, there is just one Lucy left, so the probability to meet a Lucy at the back is cut in half to only $5\\%$. This is the likelihood we were looking for and we write it as $p(I\vert\mathrm{middle})=0.05$.[^11]
+Todo: add likelihood to square
 
-[^11]: This is a 2D `middle` now!
+**Evidence:** You might be worried, even though you are quite certain, that Lucy didn’t go to the restaurant. What’s the probability then that someone encountered a Lucy at the rear of the ship? You might be tempted to use our $20\\%$ estimate from before, after all, there are now two Lucys running around, right? Not quite. Because you now assume that she is _not_ in the middle of the ship, there is now a higher probability to encounter your friend Lucy elsewhere, e.g. at the back, compared to the other Lucy. How much higher? We defined the middle as the area between 20 and 30 meters, so there are 40 meters of ship left where your friend Lucy could be. Following you calculation from before, the 5 meter rear is now $12.5\\%$ of the possible space.
 
-**The Prior:** There is another important quantity we’ve already estimated, which is our joint belief that she is on the ship _and_ in the middle of it ($72\\%$). While this was for the one dimensional case, it doesn’t really matter, so let’s stick with it to make those previous efforts feel more meaningful.
+Todo: Add figure of ship with areas
 
-Let’s make this our new _prior_, because it was our belief before we obtained the new information from the other passenger. We can write it as $p(\mathrm{middle})=0.72$.
+So the probability to meet at least one Lucy at the rear _if_ one of them is not in the middle is $p(I\vert\neg\mathrm{middle})=0.1+0.125=0.225$, i.e. $22.5\\%$. The funny looking elbow thingy $\neg$ means _not_ in probability lingo.
 
-**The Posterior:** What we are actually after is the probability that Lucy is in the restaurant _given_ the new information, but so far we only have the opposite, namely, the probability of getting the information, assuming she is indeed in the restaurant. This final quantity is called the _posterior_ and we write it as $p(\mathrm{middle}\vert I)$.
+Todo: Add not likelihood to square.
 
-Can you guess how to compute this? We’ve already seen, that one can write a joint distribution as the product of its marginal and conditional distribution such that $p(\mathrm{middle},I)=p(\mathrm{middle}\vert I)\cdot p(I)$. Solving this for our desired posterior we get:
+If we know the probability to meet a Lucy at the rear if your friend Lucy _is_ in the restaurant, and also if she’s _not_, we can now also say what the total probability of meeting a Lucy at the rear is. We only need to add up the _areas_ from our probability square! Just like any rectangular area, they are defined by a width and a height.
+
+The first area, the one on the left, is defined by the prior (width) and the likelihood (height) while the second area is defined by “not prior” prior and “not likelihood”.
+$$
+\begin{aligned}
+p(I)&=\sum_{e\in(\mathrm{middle},\neg\mathrm{middle})}p(I,e)\\
+    &=\sum_{e\in(\mathrm{middle},\neg\mathrm{middle})}p(I\vert e)p(e)\\
+    &=p(I\vert\mathrm{middle})p(\mathrm{middle})+p(I\vert\neg\mathrm{middle})p(\neg\mathrm{middle})\\
+    &=0.1\cdot0.72+0.225\cdot0.28=0.135
+\end{aligned}
+$$
+This quantity, $p(I)$, is _also_ called _evidence_, even though it is the probability of _seeing_ the evidence and the process of removing one of the random variables, in this case the exact position $e$, is called _marginalization_.
+
+**The Posterior:** Now we’re final in a position to answer the questions from the beginning: The probability that Lucy is in the restaurant _given_ the new information. So far we only had the opposite, namely, the probability of getting the information, assuming she is indeed in the restaurant. This final quantity is called the _posterior_ and we write it as $p(\mathrm{middle}\vert I)$.
+
+Can you guess how to compute this? We’ve already seen that one can write a joint distribution as the product of its marginal and conditional distribution such that $p(\mathrm{middle},I)=p(\mathrm{middle}\vert I)\cdot p(I)$. Solving this for the desired posterior we get:
 
 $$p(\mathrm{middle}\vert I)=\frac{p(\mathrm{middle},I)}{p(I)}$$
 
-Now we can use the same trick as before, but this time we factorize $p(\mathrm{middle},I)$ into $p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})$. Putting it back into the equation above, we have found a way of expressing the posterior by the _likelihood_, _prior_ and _evidence_ which are all known quantities:
+Now we can use the same trick again, but this time we factorize $p(\mathrm{middle},I)$ into $p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})$. Putting it back into the equation above, we have found a way of expressing the posterior by the _likelihood_, _prior_ and _evidence_ which are all known quantities:
 
-$$\begin{aligned}p(\mathrm{middle}\vert I)&=\frac{p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})}{p(I)}\\&=\frac{0.05\cdot0.72}{0.1}=0.36\end{aligned}$$
+$$\begin{aligned}\mathrm{posterior}&=\frac{\mathrm{likelihood}\cdot\mathrm{prior}}{\mathrm{evidence}}\\p(\mathrm{middle}\vert I)&=\frac{p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})}{p(I)}\\&=\frac{0.1\cdot0.72}{0.135}=0.53\end{aligned}$$
 
-And there you have it, **Bayes’ theorem**! The result, as you might have guessed, is a reduction of our confidence to find Lucy in the restaurant by half to $36\\%$. Note that, while this is a lot less than before, it is still a lot more than the $10\\%$ probability of finding one of the Lucys at the rear if you didn’t know anything about her and therefore didn’t (and shouldn’t) have any preferences. Play with the numbers if you like, to get an intuition about how things change.
+And there you have it, **Bayes’ theorem**! The result might be surprising and, in my opinion, couldn’t have been guessed without doing the calculations. Note that, while $52\\%$ is a lot less than the $72\\%$ you assigned in the beginning, it is still a lot more than the $20\\%$ probability of finding one of the Lucys at the rear if you didn’t know anything about them and therefore didn’t (and shouldn’t) have any preferences. Play with the numbers if you like, to get an intuition about how things change. Finally, the YouTuber 3Blue1Brown made a [fantastic video](https://www.youtube.com/watch?v=HZGCoVF3YvM) about Bayes’ theorem in a visual manner, so I highly recommend checking it out if you’re still a bit confused.
+
+Todo: make equation interactive.
 
 The code for the visualizations is available [here](https://github.com/hummat/hummat.github.io/blob/master/notebooks/looking-for-lucy.ipynb) and you can play with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Flooking-for-lucy.ipynb)
 
