@@ -5,9 +5,9 @@ abstract: My own take on explaining some fundamentals of probability theory, int
 thumbnail: /images/ship_static.png
 tags: [probability, statistics]
 category: learning
-mathjax: true
-time: 20
+mathjax: true 
 words: 3657
+time: 14 
 update: 2020-06-24
 ---
 

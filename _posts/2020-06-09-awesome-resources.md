@@ -8,7 +8,7 @@ update: 2020-06-10
 banner: /images/awesome-banner.jpg
 banner-text: Awesome Resources
 words: 857
-time: 2
+time: 3
 ---
 
 If I had to give one reason for writing this blog, it would be to end up in a list like the one I intend to compile below. Like I’ve already mentioned [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html), I’m astonished and amazed at the amount of great resources one can access online for free. It helped me tremendously during my studies (and still does when I need to understand a new topic) and really gives everyone the possibility to learn almost anything. There are, of course, different shades of awesomeness.

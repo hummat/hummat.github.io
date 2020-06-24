@@ -6,7 +6,7 @@ tags: [phd, deep learning, machine learning, robotics]
 category: resource
 mathjax: true
 update: 2020-05-28
-time: 5
+time: 6
 words: 1490
 ---
 
