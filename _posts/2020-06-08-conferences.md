@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Important Conferences
-abstract: I'm still exploring what it means to be a researcher. Here I'll take a look at conferences, which play an important role in my field. I'll also provide a timeline of the most important MACHINE/DEEP LEARNING, ROBOTICS, COMPUTER VISION and ARTIFICIAL INTELLIGENCE conferences including paper submission deadlines. Work in progress!
+abstract: I'm still exploring what it means to be a researcher. Here I'll take a look at conferences, which play an important role in my field. I'll also provide a timeline of the most important MACHINE/DEEP LEARNING, ROBOTICS, COMPUTER VISION and ARTIFICIAL INTELLIGENCE conferences including paper submission deadlines.
 tags: [deep learning, machine learning, artificial intelligence, robotics, computer vision, conference]
 category: resource
 update: 2020-06-16
-time: 7
-words: 1890
+time: 10
+words: 2469
 ---
 
 <style>
@@ -126,6 +126,41 @@ It was first held in 1980 in Pittsburgh (USA) and then moved to Germany, France,
 </div>
 
 <div class="tl-node" markdown="1">
+<div class="tags" style="float: right;"><div class="tag">Robotics</div></div>
+### July 12-18: RSS
+
+#### Paper submission deadline: January 31
+
+*Acceptance rate: 28.6%[^rss]*
+
+[^rss]: Average 2005 - 2017
+
+The _Robotics: Science and Systems_ conference is an annual gathering for researchers and practitioners in the field of robotics. In 2020 will be held entirely virtually from from July 12th to 18th.
+
+> The aim of the Robotics: Science and Systems (RSS) Conference is to bring together researchers working on algorithmic or mathematical foundations of robotics, robotics applications, and analysis of robotic systems.
+
+It is a relatively young conference, first held in 2005 in the US and subsequently in Switzerland, Spain, Australia, Germany and Italy.
+
+</div>
+
+<div class="tl-node" markdown="1">
+<div class="tags" style="float: right;"><div class="tag">Artificial Intelligence</div></div>
+### August 3-6: UAI
+#### Paper submission deadline: February 20
+
+*Acceptance rate: 30.8%[^uai]*
+
+[^uai]: Average 2014 - 2019
+
+_"The Conference on Uncertainty in Artificial Intelligence (UAI) is one of the premier international conferences on research related to knowledge representation, learning, and reasoning in the presence of uncertainty."_ It will take place from August 3rd to 6th in Toronto (Canada) in its 36th incarnation.
+
+This topic is dear to me, as I've been working on it for my Masters thesis, but its also likely the next big thing in deep learning. As learning systems are being deployed more and more in the real world, they have to cope with its inherent unpredictability.
+
+First held in 1985 in the US, it later moved to Canada, Sweden, Mexico, Scotland, Finland, Spain, the Netherlands, Australia and Israel.
+
+</div>
+
+<div class="tl-node" markdown="1">
 <div class="tags" style="float: right;"><div class="tag">Computer Visison</div></div>
 
 ### August 23-28: ECCV
@@ -194,7 +229,7 @@ ICCV was first held in London (UK) in 1987 and moved to the US, India, Greece, C
 <div class="tags" style="float: right;"><div class="tag">robotics</div></div>
 
 ### November 16 - 18: CoRL
-#### Paper submission deadline: July 28*
+#### Paper submission deadline: July 28
 *Acceptance rate: <30%[^corl]*
 
 [^corl]: There is only limited data available yet for this conference due to its youth.
@@ -218,15 +253,6 @@ The _Neural Information Processing Systems_ conference is one of the most, if no
 It was first proposed in 1986 by _The California Institute of Technology_ and the infamous _Bell Laboratories_ and was an invitation only event. It was introduced as an interdisciplinary approach to biological and artificial neural networks though nowadays the latter is certainly much more prominent with a strong focus on machine learning, artificial intelligence and statistics.
 
 Born in Snowbird, Utah (USA) it has since been held in Denver (USA), Vancouver (Canada), Granada (Spain), Lake Tahoe (USA), Montreal (Canada), Barcelona (Spain) and Long Beach (USA).
-</div>
-
-<div class="tl-node" markdown="1">
-
-### Coming soon!
-
-* UAI
-* RSS
-* ML Conference
 </div>
 
 ---
