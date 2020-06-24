@@ -1,14 +1,13 @@
 ---
 layout: post
 title: Looking for Lucy
-abstract: My own take on explaining some fundamentals of probability theory, intended as a primer for probabilistic machine learning. We have a look at joint, conditional and marginal probabilities, continuous and discrete as well as multivariate distributions, independence and Bayes' Theorem.
+abstract: My own take on explaining some fundamentals of probability theory, intended as a primer for probabilistic machine learning.
 thumbnail: /images/ship_static.png
 tags: [probability, statistics]
 category: learning
 mathjax: true
 time: 20
-words: 3657
-update: 2020-06-24
+words: 3489
 ---
 
 # {{ page.title }}
@@ -162,11 +161,7 @@ $$
 \begin{aligned}\mathrm{posterior}&=\frac{\mathrm{likelihood}\cdot\mathrm{prior}}{\mathrm{evidence}}=\frac{\color{yellow}{\rule{1.44cm}{0.2cm}}}{\color{yellow}{\rule{1.44cm}{0.2cm}}\color{black}\ +\ \color{red}{\rule{0.56cm}{0.45cm}}}\\p(\mathrm{middle}\vert I)&=\frac{p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})}{p(I)}\\&=\frac{0.1\cdot0.72}{0.135}=0.53\end{aligned}
 $$
 
-And there you have it, **Bayes’ theorem**! The result might be surprising and, in my opinion, couldn’t have been guessed without doing the calculations. Note that, while $53\\%$ is a lot less than the $72\\%$ you assigned in the beginning, it is still a lot more than the $20\\%$ probability of finding one of the Lucys at the rear if you didn’t know anything about them and therefore didn’t (and shouldn’t) have any preferences. You have a new belief about Lucys whereabouts now, but what should you do if another passenger tells you that she has talked to a Lucy moments ago at the middle of the ship? You simply make your current belief, the posterior probability we have calculated above, the new prior and begin again!
-
-What’s so great about this simple formula is that it tells you how to update your belief in light of new information. This is a very general problem which you also face in your own life all the time and finding the appropriate response based on the strength of your conviction and the evidence is a non-trivial task.
-
-Play with the numbers if you like, to get an intuition about how things change:
+And there you have it, **Bayes’ theorem**! The result might be surprising and, in my opinion, couldn’t have been guessed without doing the calculations. Note that, while $53\\%$ is a lot less than the $72\\%$ you assigned in the beginning, it is still a lot more than the $20\\%$ probability of finding one of the Lucys at the rear if you didn’t know anything about them and therefore didn’t (and shouldn’t) have any preferences. Play with the numbers if you like, to get an intuition about how things change:
 
 <div>
     <input type="text" id="likelihood" placeholder="likelihood"/>
@@ -185,6 +180,8 @@ Play with the numbers if you like, to get an intuition about how things change:
         document.getElementById('posterior').innerHTML = posterior.toFixed(2);
 	};
 </script>
+
+
 Finally, the YouTuber 3Blue1Brown made a [fantastic video](https://www.youtube.com/watch?v=HZGCoVF3YvM) about Bayes’ theorem in a visual manner[^10], so I highly recommend checking it out if you’re still a bit confused.
 
 [^10]: From where I’ve shamelessly stolen the idea of the probability square.
