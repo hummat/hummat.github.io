@@ -7,7 +7,7 @@ category: resource
 mathjax: True
 slideshow: True
 thumbnail: /images/github.png
-update: 2020-06-18
+update: 2020-06-24
 time: 10-20
 words: 3221-4202
 ---
@@ -18,7 +18,7 @@ If you’ve read my [first article](https://hummat.github.io/thought/2020/05/11/
 
 ## Choosing a platform
 
-Sites like [Medium](https://medium.com/) and [towards data science](https://towardsdatascience.com/) have helped me a good deal in understanding difficult to grasp subjects, because the authors often rely on a simplified language and lot’s of visualizations. Further, there is a discussion section at the end of each article (a vital component for a blog discussing technical topics, as I’ve suggested [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html)) to interact with your audience and to answer questions, explain parts in more detail and iron out mistakes in the article.
+Sites like [Medium](https://medium.com/) have helped me a good deal in understanding difficult to grasp subjects, because the authors often rely on a simplified language and lot’s of visualizations. Further, there is a discussion section at the end of each article (a vital component for a blog discussing technical topics, as I’ve suggested [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html)) to interact with your audience and to answer questions, explain parts in more detail and iron out mistakes in the article.
 
 The downside of these and similar sites is, that you don’t have as much freedom to design your post or add functionality (to which we come in the final section), you are dependent on the site operator and its policies (like financing it through adds) and it’s yet another account you need to create. Finally, you’ll probably not learn as much compared to setting it up yourself.
 
