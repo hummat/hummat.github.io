@@ -33,7 +33,7 @@ Let’s start by the topics I won’t cover but for which I’ll supply some res
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of calculus</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLSQl0a2vh4HC5feHa6Rc5c0wbRTx56nF7">Multivariate calculus</a></li>
 </ul>
-<li><b>Probability theory:</b> As you might have expected from the title, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to understand what’s going on.</li>
+<li><b>Probability theory:</b> As you might have expected from the title, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to understand what’s going on. Consider having a look at <a href="https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html">my article</a> on the topic, which is intented specifically as a primer to probabilistic machine learning.</li>
 <ul>
 <li><a href="https://seeing-theory.brown.edu/">Seeing theory</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLC58778F28211FA19">Probability explained</a></li>
@@ -44,6 +44,7 @@ Let’s start by the topics I won’t cover but for which I’ll supply some res
 <li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
 </ol>
 </details>
+
 
 ## B. What to expect
 
@@ -74,25 +75,38 @@ The real world is ambiguous and uncertain in all sorts of ways due to extremely 
 
 ### Flavors of uncertainty
 
-Usually, uncertainty is put into two broad categories which makes it easier to think about it and model it. The first, often called _model uncertainty_ is inherent to the model (or agent) and describes its ignorance towards its own stupidity. A standard neural net is maximally ignorant in that it chooses one, most likely way of explaining everything—which translates into one specific set of parameters or weights—and then runs with it. This is equivalent to an old person having figured out the answers to all important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking a the problem (within the limited pool of possibilities granted to it during its design) and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later.
+Usually, uncertainty is put into two broad categories which makes it easier to think about it and model it. The first, often called _model uncertainty_[^2] is inherent to the model (or agent) and describes its ignorance towards its own stupidity. A standard neural net is maximally ignorant in that it chooses one, most likely way of explaining everything—which translates into one specific set of parameters or weights—and then runs with it.
 
-The second type of uncertainty is commonly referred to as _“data uncertainty”_ and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and form multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
+[^2]: Or _epistemic uncertainty_.
 
-Finally, both uncertainty flavors can be combined into an overall uncertainty about you decision: the _predictive uncertainty_. This is usually what one refers to when speaking about the topic and often simpler to obtain than the previous two.
+<b style="color: red;">Todo: Add image of simple neural net with weights</b>
+
+This is equivalent to an old person having figured out the answers to all important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking a the problem (within the limited pool of possibilities granted to it during its design) and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later.
+
+<b style="color: red;">Todo: Add image of simple Bayesian neural net </b>
+
+The second type of uncertainty is commonly referred to as _data uncertainty_[^3] and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and from multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
+
+[^3]: Or _aleatoric uncertainty_.
+
+<b style="color: red;">Todo: Think of a way to visualize both kinds of uncertainty in an image</b>
+
+Finally, both uncertainty flavors can be combined into an overall uncertainty about you decision: the _predictive uncertainty_. This is usually what one refers to when speaking about the topic of uncertainty and it is often simpler to obtain than the former two.
 
 ### Modeling uncertainty
 
-Now that we are certain about our need of uncertainty, we need to express it somehow. The only reason a human being doesn’t need a blueprint to do so is, that it has been indirectly hammered in by evolution and experience. Fortunately, we can bridge the gap from biological to artificial through this (admittedly slightly contrived) example:
+Now that we are certain about our need of uncertainty, we need to express it somehow. The only reason a human being doesn’t need a blueprint to do so is, that it has been indirectly hammered in by evolution and experience. In the sciences, this is done through the language of [probability theory](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html).
 
-* notation
-  * Give everything a name
-  * input, output, NN, parameters/weights
-  * unknown data
+Before we can go any further, we need to sharpen up our vocabulary used to refer to specific things. Let's first introduce our main protagonist: The neural network. It's getting a bit more technical now, so feel free to review some of the necessary [background knowledge](#a-some-background) if you're struggling to follow.
 
-* neural nets
-  
-  * classification and regression
-  
+**Notation:** A neural network is a non-linear mapping from _input_ $\boldsymbol{x}$ to (predicted) _output_ (or target) $\boldsymbol{\hat{y}}=f_W(\boldsymbol{x})$, parameterized by _model parameters_ (or _weights_) $W$, where we assume the true target $\boldsymbol{y}$ was generated from our deterministic function $f$ plus noise $\epsilon$ such that $\boldsymbol{y}=f_W(\boldsymbol{x})+\epsilon$. The entirety of inputs and outputs is our data $$\mathcal{D}=\{(\boldsymbol{x}_i,\boldsymbol{y}_i)\}_{i=1}^N=X,Y$$, i.e we have $N$ pairs of input and output where all the inputs are summarized in $X$ and all the outputs are summarized in $Y$. **Bold** symbols denote vectors while UPPERCASE symbols are matrices.
+
+In our case, the inputs are images and the outputs are vectors of scalars, one for each possible class (or label) the network can predict (e.g. `cat` and `dog`), so our network provides a mapping from a bunch of real numbers (the RGB values of the pixels of the image) to a number of classes. This means we are dealing with a _classification_ rather than a _regression_ problem.
+
+<b style="color: red;">Todo: Image in RGB layers with pixel raster and mapping to output vector</b>
+
+So far, everything has been deterministic, which includes the weights $W$ of the neural network.
+
 * placing a probability distribution on a variable: from variable to random variable
 
 * from NN to BNN
