@@ -48,7 +48,7 @@ If we belief that Lucy is somewhere in the middle of the ship _if_ she in fact i
 
 The red line is called a _probability density function_ and it describes our continuous probability distribution $p(e\vert\mathrm{ship})$. If the area under the curve between $e=20$ and $e=30$ is Lucys probability to be in the middle of the ship, what’s on the vertical axis then, you might think? It’s where the _density_ comes into play. Like with a physical object, where the mass is determined by its volume and density[^2], so is _probability mass_ determined by its area (in 2D) or volume (in 3D)[^3] and its density on the vertical axis.
 
-If you are familiar with sums and integrals, it might be helpful to look a it this way: In the discrete case, where you simply enumerate all possible locations and attach your belief to each of them, you sum them up to get an overall estimate which can be written like this: $p(\mathrm{restaurant}\cap\mathrm{room})=p(\mathrm{restaurant})+p(\mathrm{room})$ where the flipped U means _or_. Imagine now you discretize the ship into smaller and smaller parts. In the limit, you have covered every micrometer of the ship through an infinite amount of discrete probabilities which is exactly how you can estimate the integral of a function, i.e. the area under the curve. Todo: add button to activate bars in figure above.
+If you are familiar with sums and integrals, it might be helpful to look a it this way: In the discrete case, where you simply enumerate all possible locations and attach your belief to each of them, you sum them up to get an overall estimate which can be written like this: $p(\mathrm{restaurant}\cap\mathrm{room})=p(\mathrm{restaurant})+p(\mathrm{room})$ where the flipped U means _or_. Imagine now you discretize the ship into smaller and smaller parts. In the limit, you have covered every micrometer of the ship through an infinite amount of discrete probabilities which is exactly how you can estimate the integral of a function, i.e. the area under the curve.
 
 [^2]: Provided it is made out of one material with the same density everywhere.
 [^3]: Or _“hypervolume”_ in 4D and above.
@@ -95,7 +95,7 @@ Another side effect of our new 2D distribution is, that we now simultaneously ex
 
 ### Bayes’ Theorem
 
-The final story I’d like to tell is this one: Suppose you ask another passenger if he has seen a hungry looking woman recently and he tells you that, while he couldn’t tell if she was hungry, he did speak to a women called Lucy at the rear of the ship! What a coincidence.  Such information is called _evidence_ as it tells us something about the parameters we want to model and estimate, namely Lucys location.
+The final story I’d like to tell is this one: Suppose you ask another passenger if he has seen a hungry looking woman recently and he tells you that, while he couldn’t tell if she was hungry, he did speak to a women called Lucy at the rear of the ship! What a coincidence.  Such information is called _evidence_ as it tells us something about the parameters we want to model and estimate, namely Lucys location. Let's give this particular piece of information a name: $I$.
 
 How should you deal with the new information? Intuitively you might think it’s a settled case. You are looking for Lucy and there is a Lucy at the rear of the ship. This however would only be true, if you were $100\\%$ certain that the Lucy in question is in fact your friend.
 
@@ -127,7 +127,7 @@ But wait, you’re convinced that your friend Lucy is in the restaurant, so in f
 
 [^9]: $5/40\cdot100=12.5$
 
-Therefore the probability to meet at least one Lucy at the rear if _none_ of them is in the middle is $p(I\vert\neg\mathrm{middle})=0.1+0.125=0.225$, i.e. $22.5\\%$. The funny looking elbow thingy $\neg$ means _not_ in probability lingo, though, especially in programming, ‘!’ is also often used.
+Therefore the probability to meet at least one Lucy at the rear if one of them is certainly _not_ in the middle is $p(I\vert\neg\mathrm{middle})=0.1+0.125=0.225$, i.e. $22.5\\%$. The funny looking elbow thingy $\neg$ means _not_ in probability lingo, though, especially in programming, ‘!’ is also often used.
 
 {% include figures/not_likelihood.html %}
 
