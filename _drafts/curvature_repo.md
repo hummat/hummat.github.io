@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Laplace Approximation for Bayesian Deep Learning
-abstract: Making a deep neural network Bayesian is a difficult task. For my Masters' thesis I've been using Laplace Approximation to achieve this and developed a plug & play PyTorch implementation I would like to showcase in this post. Let's dive in!
+abstract: Making a deep neural network Bayesian is a difficult task. For my Masters' thesis I've been using Laplace Approximation to achieve this and developed a plug & play PyTorch implementation I would like to showcase in this post. This is the final part of my informal 3 part mini-series on probabilistic machine learning, part 1 and 2 being "Looking for Lucy" and "A sense of uncertainty".
 category: repository
 tags: [laplace approximation, Bayesian inference, deep learning]
 gradient: true
 github: https://hummat.github.io/curvature
 mathjax: true
-time: 0
-words: 869
+time: 12
+words: 3150
 ---
 
 This article, like every other in the category _repository_, showcases the theory behind and usage of some code I’ve written and made public on GitHub. Still, this post is somewhat special, because the topic is what I’ve been working on during my [Masters’ thesis](https://elib.dlr.de/131938/1/Humt_thesis.pdf), so expect an especially detailed (and long) explanation.
@@ -58,68 +58,13 @@ Let’s start by the topics I won’t cover but for which I’ll supply some res
 </ol>
 </details>
 
-## 1. A sense of uncertainty
-
-### What does it mean and why do we need it?
-
-The first question coming to mind if confronted with the concept of a Bayesian Neural Network is, why even bother? _My standard Neural Networks are working just fine, thank you!_ The answer is, that the world itself is inherently uncertain and a run-of-the-mill Neural Net has no idea what it’s talking about when it classifies your dog as a cat with $99.9\\%$ certainty.
-
-When confronted with a difficult problem like “_What did you eat on Monday two weeks ago?_” you will probably preface whatever answer comes to mind with a _“I’m not quite sure but I think…”_ or _“It could have been…”_. A standard Neural Net can’t do this. It’s more like _“She often eats spaghetti, so that’s what it was!”_
-
-**A note for the critical among you:** You might object that even a standard Neural Network returns a score for each class it’s predicting and you might be tempted to treat those numbers as probabilities of being correct, but there are at least two problems:
-
-1. Theoretical: Simply squishing an arbitrary collection of numbers through a Softmax function doesn’t magically produce real probabilities.
-2. Practical: It has been observed time-and-again now, that modern deep Neural Networks are overconfident (a notion we will come back to soon) such that the “confidence” expressed by the “probabilities” of the output layer don’t match the networks empirical frequency of being correct. In other words: A prediction of $0.7$ or $70\\%$ for the class `cat` does not translate into $70$ out of $100$ cat images being classified correctly.
-
-The real world is ambiguous and uncertain in all sorts of ways due to extremely complex interactions of a large number of factors (think, e.g., weather forecasting) and because we only ever observe it through some kind of interface: a camera, a microphone, our eyes. Those interfaces, usually called “sensors” in robotics, have their own problems like struggling with low light or transmitting corrupted information. An agent, be it a biological or artificial, must takes those uncertainties into account when operating within such an environment.
-
-### Flavors of uncertainty
-
-Usually, uncertainty is put into two broad categories which makes it easier to think about it and model it. The first, often called _model uncertainty_[^2] is inherent to the model (or agent) and describes its ignorance towards its own stupidity. A standard neural net is maximally ignorant in that it chooses one, most likely way of explaining everything—which translates into one specific set of parameters or weights—and then runs with it.
-
-[^2]: Or _epistemic uncertainty_.
-
-<b style="color: red;">Todo: Add image of simple neural net with weights</b>
-
-This is equivalent to an old person having figured out the answers to all important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking a the problem (within the limited pool of possibilities granted to it during its design) and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later.
-
-<b style="color: red;">Todo: Add image of simple Bayesian neural net </b>
-
-The second type of uncertainty is commonly referred to as _data uncertainty_[^3] and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and from multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
-
-[^3]: Or _aleatoric uncertainty_.
-
-<b style="color: red;">Todo: Think of a way to visualize both kinds of uncertainty in an image</b>
-
-Finally, both uncertainty flavors can be combined into an overall uncertainty about you decision: the _predictive uncertainty_. This is usually what one refers to when speaking about the topic of uncertainty and it is often simpler to obtain than the former two.
-
-### Modeling uncertainty
-
-Now that we are certain about our need of uncertainty, we need to express it somehow. The only reason a human being doesn’t need a blueprint to do so is, that it has been indirectly hammered in by evolution and experience. In the sciences, this is done through the language of [probability theory](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html).
-
-Before we can go any further, we need to sharpen up our vocabulary used to refer to specific things. Let's first introduce our main protagonist: The neural network. It's getting a bit more technical now, so feel free to review some of the necessary [background knowledge](#a-some-background) if you're struggling to follow.
-
-**Notation:** A neural network is a non-linear mapping from _input_ $\boldsymbol{x}$ to (predicted) _output_ (or target) $\boldsymbol{\hat{y}}=f_W(\boldsymbol{x})$, parameterized by _model parameters_ (or _weights_) $W$, where we assume the true target $\boldsymbol{y}$ was generated from our deterministic function $f$ plus noise $\epsilon$ such that $\boldsymbol{y}=f_W(\boldsymbol{x})+\epsilon$. The entirety of inputs and outputs is our data $$\mathcal{D}=\{(\boldsymbol{x}_i,\boldsymbol{y}_i)\}_{i=1}^N=X,Y$$, i.e we have $N$ pairs of input and output where all the inputs are summarized in $X$ and all the outputs are summarized in $Y$. **Bold** symbols denote vectors while UPPERCASE symbols are matrices.
-
-In our case, the inputs are images and the outputs are vectors of scalars, one for each possible class (or label) the network can predict (e.g. `cat` and `dog`), so our network provides a mapping from a bunch of real numbers (the RGB values of the pixels of the image) to a number of classes. This means we are dealing with a _classification_ rather than a _regression_ problem.
-
-<b style="color: red;">Todo: Image in RGB layers with pixel raster and mapping to output vector</b>
-
-So far, everything has been deterministic, which includes the weights $W$ of the neural network.
-
-* placing a probability distribution on a variable: from variable to random variable
-
-* from NN to BNN
-  
-  * Bayesian learning
-
-## 2. Being normal around the extreme
+## 3. Being normal around the extreme
 
 * Which distribution? Expressiveness vs computational capacity
 * Laplace’s method
 * Applying it to NNs to get BNNs
 
-## 3. Into the wild
+## 4. Into the wild
 
 * Getting the Gaussian
 * Go Gaussian, go!

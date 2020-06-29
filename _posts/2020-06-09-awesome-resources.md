@@ -60,6 +60,7 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 7. [Seeing Theory](https://seeing-theory.brown.edu/) - _A visual introduction to probability and statistics._
 8. [Slate Star Codex](https://slatestarcodex.com/) - _A blog about science, medicine, philosophy, politics, and futurism._
 9. [Khan Academy](https://www.khanacademy.org/) - _Free, world‑class education for anyone, anywhere._
+10. [from Data to Viz](https://www.data-to-viz.com/#explore) - _Decision tree that leads you to the most appropriate graph for your data._
 
 ## Machine Learning
 
