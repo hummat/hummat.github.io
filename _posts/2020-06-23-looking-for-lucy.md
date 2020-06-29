@@ -174,7 +174,7 @@ Play with the numbers if you like, to get an intuition about how things change:
     <input type="text" id="evidence" placeholder="evidence"/>
     <button onclick="compare()">Calculate</button>
 </div>
-<p>Posterior: <a id="posterior">53</a>%</p>
+<p>Posterior: <span id="posterior">53</span>%</p>
 
 <script>
     function compare(){
