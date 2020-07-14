@@ -62,11 +62,11 @@ In our case, the inputs are images and the outputs are vectors of scalars, one f
 
 So far, everything has been deterministic, which includes the weights $W$ of the neural network. But how do we actually know that those are the best possible weights? Actually, we don't. We hope that they are reasonable by minimizing the loss during training. [As you know](#a-some-background), this is achieved by following the negative gradient (i.e. going in the direction of steepest _decent_) of the loss w.r.t. to the weights, using the _backpropagation_ (i.e. the chain rule from calculus) algorithm to compute this gradient. _Gradient descent optimization_ puts this aptly and succinctly.
 
-<b style="color: red;">Todo: Image of the loss landscape</b>
+{% include figures/loss3d.html %}
 
-What you might not know, if you haven't been exposed to probabilistic machine learning, is, that this is equivalent to _maximum likelihood estimation_ in statistical inference. Imagine you want to [find a friend on large ship](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html). You don't know where she is but you think some locations, like the restaurant or the sun deck, are more likely than others, like the rear or the engine room. To quantify your uncertainty, you can use the tools of probability theory and model your world view as a probability distribution. If locations you deem likely are in the middle of the ship and less likely once are at the front and rear, you could, for example, use a normal distribution (aka _Gaussian distribution_ or simply _Gaussian_ in the machine learning community) centered at the middle of the ship to reflect this. What we just did is called _modeling_ of a parameter, the location of your friend, and the probability you assigned to each possible location is called _prior probability_ (or just _prior_), because it is your belief about the world before having observed any evidence (or information, or data) was observed.
+What you might not know, if you haven't been exposed to probabilistic machine learning, is, that this is equivalent to _maximum likelihood estimation_ in statistical inference. Imagine you want to [find a friend on a large ship](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html). You don't know where she is but you think some locations, like the restaurant or the sun deck, are more likely than others, like the rear or the engine room. To quantify your uncertainty, you can use the tools of probability theory and model your world view as a probability distribution. If locations you deem likely are in the middle of the ship and less likely once are at the front and rear, you could, for example, use a normal distribution (aka _Gaussian distribution_ or simply _Gaussian_ in the machine learning community) centered at the middle of the ship to reflect this. What we just did is called _modeling_ of a parameter, the location of your friend, and the probability you assigned to each possible location is called _prior probability_ (or just _prior_), because it is your belief about the world before having observed any evidence (or information, or data) was observed.
 
-<b style="color: red;">Todo: Image of the 1D Gaussian with ship</b>
+{% include figures/ship_1dgauss.html %}
 
 Now imagine someone told you she was seen at the rear of the ship. This is a new piece of information which you should incorporate into your belief in order to maximize your likelihood of finding your friend efficiently. As the explanation already gave away, the probability to obtain this new information _given_ your current belief about the parameter(s) you are trying to estimate is correct, is called _likelihood_.
 
@@ -75,6 +75,7 @@ Both of these terms, _prior_ and _likelihood_, also appear in the probabilistic 
 Why is this identical to gradient descent optimization now? Because, as it turns out, the typical loss functions used in neural network training, which are the cross entropy loss for classification and mean-squared error loss for regression problems, both have a probabilistic interpretation as the _negative log likelihood_, i.e. the negative logarithm of the likelihood! And because the logarithm preserves critical points and we _minimize_ the _negative_ likelihood in gradient descent optimization, this is the same as _maximizing_ the actual likelihood in maximum likelihood estimation.
 
 **Mean-squared error:**
+
 $$
 E(W)=\frac{1}{2}(\boldsymbol{y}-\boldsymbol{\hat{y}})^T(\boldsymbol{y}-\boldsymbol{\hat{y}})=-\ln\mathcal{N}\left(\boldsymbol{y}\vert\boldsymbol{\hat{y}},\beta^{-1}I\right)
 $$
@@ -87,7 +88,7 @@ $$
 
 As you might have glimpsed from these equations, the mean-squared error can be interpreted as the negative logarithm of an isotropic multivariate normal distribution of the true labels centered around the predictions with precision $\beta$ while the cross entropy has an interpretation as the negative logarithm of a categorical distribution of the predictions.
 
-<b style="color: red;">Todo: Image of the loss landscape together with 2D Gaussian</b>
+{% include figures/loss_vs_gauss.html %}
 
 We have discussed the loss-likelihood relation so let's turn to the prior. As the prior encompasses all assumptions about the parameters we want to estimate, almost everything that is known as _regularizers_ in standard machine learning lingo can be cast into this framework. Those are basic things like the choice and design of our model, i.e. using a neural network and giving it a specific number of layers and other architectural decision but also, more explicitly, regularization of possible values we allow the weights to take on, the most common being _weight decay_, aka $L_2$-regularization, where larger values are penalized. Especially this last example, again, has a specific probabilistic interpretation, becoming a Gaussian prior in the probabilistic context.
 

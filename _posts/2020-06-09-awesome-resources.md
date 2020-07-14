@@ -82,6 +82,7 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 9. [Neural Network Playground](https://playground.tensorflow.org/) - _Tinker With a Neural Network Right Here in Your Browser._
 10. [fast.ai](https://www.fast.ai/) - _Making deep learning easier to use._
 11. [OpenAI: Spinning Up as a Deep Reinforcement Learning Researcher](https://spinningup.openai.com/en/latest/spinningup/spinningup.html)
+12. [losslandscapes](https://losslandscape.com/) - _Very neat visualizations of neural network loss landscapes._
 
 ## Career
 
