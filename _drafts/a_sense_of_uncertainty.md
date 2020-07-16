@@ -56,7 +56,7 @@ A neural network is a non-linear mapping from _input_ $\boldsymbol{x}$ to (predi
 
 In our case, the inputs are images and the outputs are vectors of scalars, one for each possible class (or label) the network can predict (e.g. `cat` and `dog`), so our network provides a mapping from a bunch of real numbers (the RGB values of the pixels of the image) to a number of classes. This means we are dealing with a _classification_ rather than a _regression_ problem.
 
-<b style="color: red;">Todo: Image in RGB layers with pixel raster and mapping to output vector</b>
+{% include figures/image.html %}
 
 ### Becoming Bayesian
 
