@@ -75,7 +75,7 @@ This is equivalent to an old person having figured out the answers to all the im
 
 The second type of uncertainty is commonly referred to as _data uncertainty_[^3] and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and from multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
 
-Below are some examples of data with low data uncertainty---the images are of good quality and the animals are clearly visible---but with a great potential for data uncertainty---though different, the animals look very similar, so we would need many examples to learn to differentiate between them.
+Below are some examples of data with low data uncertainty---the images are of good quality and the animals are clearly visible---but with a great potential for model uncertainty---though different, the animals look very similar, so we would need many examples to learn to differentiate between them.
 
 [^3]: Or _aleatoric uncertainty_.
 
