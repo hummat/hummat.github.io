@@ -2,6 +2,7 @@
 layout: post
 title: A sense of uncertainty
 abstract: See what happens when probability theory and deep learning have a little chat. Part 2/3 of my informal mini-series on probabilistic machine learning ("Looking for Lucy" being the first).
+thumbnail: /images/loss3d_static.png
 category: learning
 tags: [probability, Bayesian inference, deep learning]
 mathjax: true
