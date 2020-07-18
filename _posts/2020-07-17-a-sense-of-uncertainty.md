@@ -13,14 +13,14 @@ words: 4044
 
 # {{ page.title }}
 
-In this second part of my informal three part mini-series on probabilistic machine learning, we will be looking at _Bayesian Neural Networks_, i.e. the result of probability theory taking an interest in deep learning. Be sure to also have a look at [the first part](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html), especially if you are unfamiliar with the basics of probability theory. As usual, you can have a look at the [code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/a-sense-of-uncertainty.ipynb) I used to generate the figures for this article and also play around with it here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=a-sense-of-uncertainty.ipynb)
-
-Let’s start with the topics that won’t cover but for which I’ll supply some resources so you can brush up your knowledge if needed. If you are like me and long resource lists give you anxiety because you feel obliged to read, watch and understand all of it _before_ you can even start reading the article (which often results in an infinite regression into the depth of the Internet), don’t. Just pick whatever looks interesting or especially unclear or simply start reading the article and come back to the resources if something doesn’t make sense.
+In this second part of my informal three part mini-series on probabilistic machine learning, we will be looking at _Bayesian Neural Networks_, i.e. the result of probability theory taking an interest in deep learning. Be sure to also have a look at [the first part](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html), especially if you are unfamiliar with the basics of probability theory. As usual, you can have a look at the [code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/a-sense-of-uncertainty.ipynb) I used to generate the figures for this article and also play around with it [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=a-sense-of-uncertainty.ipynb).
 
 ## Some background
 
+Let’s start with the topics that won’t be covered but for which I’ll supply some resources so you can brush up your knowledge if needed (just click on the small black arrow below). If you are like me and long resource lists give you anxiety because you feel obliged to read, watch and understand all of it _before_ you can even start reading the article (which often results in an infinite regression into the depth of the Internet), don’t. Just pick whatever looks interesting or especially unclear or simply start reading the article and come back to the resources if something doesn’t make sense.
+
 <details>
-<summary>Read</summary>
+<summary>Show resources</summary>
 <ol>
 <li><p><b>Linear algebra & calculus:</b> Okay, I know, you see this everywhere and for me at least, it always feels discomforting. What is it supposed to mean anyway? Do I need to know <i>all</i> of linear algebra and calculus to understand anything? And what does <i>“know”</i> mean? That I can solve matrix multiplications, determinants, Eigenvectors and 10th degree derivatives by hand in a few seconds? That I can proof the fundamental equations that underly those fields? I don’t think so.</p>
 <p>Usually, and this is also true here, it just means that you have an <em>intuitive</em> understanding   of what is happening when multiplying a vector and a matrix or what a 2nd order derivative represents. Luckily, this kind of understanding can be obtained conveniently and even enjoyably by watching the following three video series (by one of my YouTube idols <a href="https://www.youtube.com/c/3blue1brown">3Blue1Brown</a> who we will probably encounter again and again throughout this section and even throughout this blog):</p></li>
@@ -40,6 +40,7 @@ Let’s start with the topics that won’t cover but for which I’ll supply som
 <li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
 </ol>
 </details>
+
 
 ## What is this and why bother?
 
@@ -188,7 +189,7 @@ Bot the maximum a posteriori and the maximum likelihood estimate are so called _
 
 We can now simply plug those weights into our network and perform _inference_: Making predictions on new, unobserved data. This final step however can also be performed in a proper probabilistic way, through _marginalization_: removing the influence of a random variable by summing (if discrete) or integrating (if continuous) over all of its possible values. Suppose we are given a new datum, e.g. an unobserved image of an animal $\boldsymbol{x}^\star$, for which we would like to predict the class $\boldsymbol{y}^\star$. Using deterministic inference, we would simply use our neural network with trained weights:[^6]
 
-[^6]: Not the $\approx$ because [a neural network doesn't provide actual class _probabilities_](#what-does-it-mean-and-why-do-we-need-it) in general.
+[^6]: Not the $\approx$ because [a neural network doesn't provide actual class _probabilities_](#what-is-this-and-why-bother) in general.
 
 $$
 \boldsymbol{y}^\star=f_{W^\star}(\boldsymbol{x}^\star)\approx p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W^\star)
@@ -204,4 +205,9 @@ Both deterministic as well as Bayesian inference finally use the most likely cla
 
 ## Going further
 
-So far we have looked at different kinds of uncertainty and why they are important, similarities and differences between deterministic and Bayesian neural networks, the relationship between the shape of the loss landscape and our uncertainty about the optimal parameters and how to make predictions the Bayesian way. What's left now to put all of this into praxis is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. This is the topic of the next and final article of this series, where we will explore Laplace approximation for deep neural networks, how to use it and some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
+So far we have looked at different kinds of uncertainty and why they are important, similarities and differences between deterministic and Bayesian neural networks, the relationship between the shape of the loss landscape and our uncertainty about the optimal parameters and how to make predictions the Bayesian way.
+
+What's left now to put all of this into praxis is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. This is the topic of the next and final article of this series, where we will explore Laplace approximation for deep neural networks, how to use it and some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
+
+---
+
