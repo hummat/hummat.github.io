@@ -10,3 +10,7 @@ dependencies:
   - plotly
   - scipy
   - open3d
+  - Pillow
+  - pip
+  - pip:
+    - nbimporter

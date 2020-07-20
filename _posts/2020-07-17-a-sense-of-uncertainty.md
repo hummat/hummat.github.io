@@ -13,7 +13,7 @@ words: 4044
 
 # {{ page.title }}
 
-In this second part of my informal three part mini-series on probabilistic machine learning, we will be looking at _Bayesian Neural Networks_, i.e. the result of probability theory taking an interest in deep learning. Be sure to also have a look at [the first part](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html), especially if you are unfamiliar with the basics of probability theory. As usual, you can have a look at the [code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/a-sense-of-uncertainty.ipynb) I used to generate the figures for this article and also play around with it [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=a-sense-of-uncertainty.ipynb).
+In this second part of my informal three part mini-series on probabilistic machine learning, we will be looking at _Bayesian Neural Networks_, i.e. the result of probability theory taking an interest in deep learning. Be sure to also have a look at [the first part](https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html), especially if you are unfamiliar with the basics of probability theory. As usual, you can have a look at the [code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/a-sense-of-uncertainty.ipynb) I used to generate the figures for this article and also play around with it [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fa-sense-of-uncertainty.ipynb).
 
 ## Some background
 
