@@ -141,11 +141,11 @@ Below is a _loss landscape_ obtained by exploring a small area around the minimu
 
 <br>
 
-{% include figures/loss3d.html %}
+{% include figures/googlenet_cifar10_loss_3d.html %}
 
 <br><br>
 
-{% include figures/loss_acc2d.html %}
+{% include figures/googlenet_cifar10_loss_acc_2d.html %}
 
 <br>
 
@@ -173,11 +173,11 @@ $$
 
 As you might have glimpsed from these equations, the mean-squared error can be interpreted as the negative logarithm of an isotropic multivariate normal distribution of the true labels centered around the predictions with precision $\beta$ while the cross entropy has an interpretation as the negative logarithm of a categorical distribution of the predictions.
 
-To obtain the likelihood given the loss, we can simply solve the equation $E(W)=-\ln p(\mathcal{D}\vert W)$ for this quantity to obtain $p(\mathcal{D}\vert W)=\exp(-E(W))$. Below, on the left, you see a visualization of taking the exponential of the negative loss while on the right,  a two-dimensional normal distribution is shown. Interestingly, they are extremely similar, suggesting to use such distributions when trying to model the likelihood functions of neural networks, a fact we will come back to in the final article of this series when talking about _Laplace approximation_.
+To obtain the likelihood given the loss, we can simply solve the equation $E(W)=-\ln p(\mathcal{D}\vert W)$ for this quantity to obtain $p(\mathcal{D}\vert W)=\exp(-E(W))$. Below, on the left, you see a visualization of taking the exponential of the negative loss while on the right,  a fitted two-dimensional normal distribution is shown. Interestingly, they are extremely similar, suggesting to use such distributions when trying to model the likelihood functions of neural networks, a fact we will come back to in the final article of this series when talking about _Laplace approximation_.
 
 For now, simply have a look at (and play with) the figures and try to understand the relationship between loss and likelihood. For example, regions of low loss indicate parameters (network weights) of high likelihood and flat regions of the loss translate to high uncertainty about the correct parameter values, as many different configurations are equally likely to have generated the data.
 
-{% include figures/loss_vs_gauss.html %}
+{% include figures/googlenet_cifar10_loss_vs_gauss.html %}
 
 We have discussed the loss-likelihood relation so let's turn to the prior. As the prior encompasses all assumptions about the parameters we want to estimate, almost everything that is known as _regularizers_ in standard machine learning lingo can be cast into this framework. Those are basic things like the choice and design of our model, i.e. using a neural network and giving it a specific number of layers and other architectural decision but also, more explicitly, regularization of possible values we allow the weights to take on, the most common being _weight decay_, aka $L_2$-regularization, where larger values are penalized. Especially this last example, again, has a specific probabilistic interpretation, becoming a Gaussian prior in the probabilistic context.
 
@@ -195,7 +195,7 @@ $$
 \boldsymbol{y}^\star=f_{W^\star}(\boldsymbol{x}^\star)\approx p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W^\star)
 $$
 
-In Bayesian inference, we are not using the best weights, instead we are using _all possible_ weights. This means we don't need to keep them around any longer, having extracted all the information we could, so we end up with just $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star)$. How can we obtain this? We can start by adding everything else we are given, apart from the new input, namely the rest of the data and our neural network, i.e. the weights. Now we have $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W,\mathcal{D})$. But the predicted class of the new image doesn't depend on the data we've received so far, so we can split the expression into $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W)\cdot p(W\vert\mathcal{D})$. The first term is our neural network: Given an image and a set of weights, it can predict class probabilities. The second term is the posterior: Given the data, it tells us the likelihood of all possible weights we might choose. If we want to get rid of the influence of the weights, which, after all, are just an arbitrary choice we've made to model the problem, we can integrate them out:
+In Bayesian inference, we are not using the best weights, instead we are using _all possible_ weights. This means we don't need to keep them around any longer, having extracted all the information we could, so we end up with just $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star)$. How can we obtain this? We can start by adding everything else we are given, apart from the new input, namely the rest of the data and our neural network, i.e. the weights. Now we have $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W,\mathcal{D})$. But the predicted class of the new image doesn't depend on the data we've received so far, so we can split the expression into $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W)\cdot p(W\vert\mathcal{D})$. The first term is our neural network: Given an image and a set of weights, it can predict class probabilities. The second term is the posterior: Telling us how well our chosen model parameters (the weights) can explain the evidence we have seen (the data). If we want to get rid of the influence of the weights, which, after all, are just an arbitrary choice we've made to model the problem, we can integrate them out:
 
 $$
 p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star)=\int p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W)p(W\vert\mathcal{D})\mathrm{d}W
@@ -207,7 +207,7 @@ Both deterministic as well as Bayesian inference finally use the most likely cla
 
 So far we have looked at different kinds of uncertainty and why they are important, similarities and differences between deterministic and Bayesian neural networks, the relationship between the shape of the loss landscape and our uncertainty about the optimal parameters and how to make predictions the Bayesian way.
 
-What's left now to put all of this into praxis is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. This is the topic of the next and final article of this series, where we will explore Laplace approximation for deep neural networks, how to use it and some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
+What's left now to put all of this into praxis is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. As this involves solving the—unfortunately intractable—integral above, we will also look at Monte Carlo integration as a feasible approximation. Those are the topics of the next and final article of this series. More specifically, we will explore Laplace approximation for deep neural networks, how it is used and finally some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
 
 ---
 
