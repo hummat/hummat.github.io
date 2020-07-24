@@ -141,11 +141,11 @@ Below is a _loss landscape_ obtained by exploring a small area around the minimu
 
 <br>
 
-{% include figures/googlenet_cifar10_loss_3d.html %}
+{% include figures/loss/googlenet_cifar10_loss_3d.html %}
 
 <br><br>
 
-{% include figures/googlenet_cifar10_loss_acc_2d.html %}
+{% include figures/loss/googlenet_cifar10_loss_acc_2d.html %}
 
 <br>
 
@@ -177,7 +177,7 @@ To obtain the likelihood given the loss, we can simply solve the equation $E(W)=
 
 For now, simply have a look at (and play with) the figures and try to understand the relationship between loss and likelihood. For example, regions of low loss indicate parameters (network weights) of high likelihood and flat regions of the loss translate to high uncertainty about the correct parameter values, as many different configurations are equally likely to have generated the data.
 
-{% include figures/googlenet_cifar10_loss_vs_gauss.html %}
+{% include figures/loss/googlenet_cifar10_loss_vs_gauss.html %}
 
 We have discussed the loss-likelihood relation so let's turn to the prior. As the prior encompasses all assumptions about the parameters we want to estimate, almost everything that is known as _regularizers_ in standard machine learning lingo can be cast into this framework. Those are basic things like the choice and design of our model, i.e. using a neural network and giving it a specific number of layers and other architectural decision but also, more explicitly, regularization of possible values we allow the weights to take on, the most common being _weight decay_, aka $L_2$-regularization, where larger values are penalized. Especially this last example, again, has a specific probabilistic interpretation, becoming a Gaussian prior in the probabilistic context.
 
@@ -207,7 +207,7 @@ Both deterministic as well as Bayesian inference finally use the most likely cla
 
 So far we have looked at different kinds of uncertainty and why they are important, similarities and differences between deterministic and Bayesian neural networks, the relationship between the shape of the loss landscape and our uncertainty about the optimal parameters and how to make predictions the Bayesian way.
 
-What's left now to put all of this into praxis is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. As this involves solving the—unfortunately intractable—integral above, we will also look at Monte Carlo integration as a feasible approximation. Those are the topics of the next and final article of this series. More specifically, we will explore Laplace approximation for deep neural networks, how it is used and finally some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
+What's left now to put all of this into practice is a way to precisely estimate the likelihood (or posterior) of our network and then, using this knowledge, to make reliable predictions with reasonable confidence. As this involves solving the—unfortunately intractable—integral above, we will also look at Monte Carlo integration as a feasible approximation. Those are the topics of the next and final article of this series. More specifically, we will explore Laplace approximation for deep neural networks, how it is used and finally some results from the work I did for my Master's thesis including some code examples to bridge the gap between theory and application. See you there!
 
 ---
 

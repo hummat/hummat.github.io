@@ -370,7 +370,6 @@ h3 {
   font-size: 16px;
 }
 
-
 .metadata {
   float: left;
   width: 15%;
@@ -379,7 +378,7 @@ h3 {
 .thumbnail {
   float: right;
   width: 40%;
-  height: 200px;
+  height: 300px;
 }
 
 .narrow-description {
@@ -456,6 +455,8 @@ img {
 }
 
 .thumbnail img {
+  display: block;
+  margin: 0 auto;
   max-height: 100%
 }
 
