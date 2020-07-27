@@ -39,7 +39,7 @@ We know that we need to model it probabilistically, i.e. we need to find a proba
 
 ### Landscapes of loss
 
-To get an intuitive understanding, let's actually look at a (low dimensional) representation of the likelihood. The likelihood function $L(W)=p(\mathcal{D}\vert W)$ is, as the name suggests, just a function and we can evaluate it at different inputs $W$[^2]. We can, for example, evaluate it at $W^\star$, the weights obtained after training the network. This should yield the highest likelihood and conversely the lowest loss. We can then explore the space around this minimum by taking small steps in one or two (randomly chosen) directions, evaluating $L(W+\alpha\cdot W_R)$ or $L(W+\alpha W_{R1}+\beta W_{R2})$ along the way. $W_R$ is a random vector of the same size as $W$ and $\alpha$ and $\beta$ are the step sizes. This is what you see below, though we start by visualizing $-\log L(W)$, the loss $E(W)$, first and then move on to the likelihood which is $\exp(-E(W))$.
+To get an intuitive understanding, let's actually look at a (low dimensional) representation of the likelihood. The likelihood function $L(W)=p(\mathcal{D}\vert W)$ is, as the name suggests, just a function and we can evaluate it at different inputs $W$[^2]. We can, for example, evaluate it at $W^\star$, the weights obtained after training the network. This should yield the highest likelihood and conversely the lowest loss. We can then explore the space around this minimum by taking small steps in one or two (randomly chosen) directions, evaluating $L(W+\alpha W_R)$ or $L(W+\alpha W_{R1}+\beta W_{R2})$ along the way. $W_{R1,2}$ are random vectors of the same size as $W$ and $\alpha$ and $\beta$ are the step sizes. This is what you see below, though we start by visualizing $-\log L(W)$, the loss $E(W)$, first and then move on to the likelihood which is $\exp(-E(W))$.
 
 [^1]: Please refer to [part two](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#notation) for an introduction of the notation.
 [^2]: Make no mistake, even though the likelihood is the probability distribution over the data (given the weights), we are still trying to find the _weights_ that best explain the data and not the other way round.
@@ -65,6 +65,7 @@ It gets a bit crowded, but what we can make out is, that, at least for low loss/
 ### Getting the Gaussian
 
 Back to the topic: How can we estimate the shape of a function in general? Exactly, we can use _Taylor expansion_. Here is what that looks like:
+
 $$
 \ln p(W\vert\mathcal{D})\approx\ln p(W^\star\vert\mathcal{D})-\frac{1}{2}(W-W^\star)^TH(W-W^\star)
 $$
@@ -85,12 +86,51 @@ $$
 F=\mathbb{E}\left[\nabla_W\ln p(\mathcal{D}\vert W)\nabla_W\ln p(\mathcal{D}\vert W)^T\right]
 $$
 
-In other words, it is the expected value[^7] of the outer product of the negative gradient of the loss w.r.t. the weights. In one sense, this is easy to compute, because we already have the required gradients from network training, but another problem persists: the size. Just like the Hessian, the Fisher of a deep neural network is of size `#weights x #weights` which is prohibitively large to compute, store and invert.
+In other words, it is the expected value[^7] of the outer product of the negative gradient of the loss w.r.t. the weights. In one sense, this is easy to compute, because we already have the required gradients from network training, but another problem persists: the size. Just like the Hessian, the Fisher of a deep neural network is of size `number of weights x number of weights` (which we can also write as $\vert W\vert\times\vert W \vert$) which is prohibitively large to compute, store and invert.
 
 [^7]: The expectation is taken w.r.t. the output distribution of the network. If the data distribution is used instead, one obtains the _empirical Fisher_ which doesn't come with the same equality properties to the Hessian compared to the _"true"_ Fisher.
 [^6]: This is only the case for networks that use piece-wise linear activation functions (like ReLU) and exponential family loss functions (like least-squares or cross-entropy).
 
 ### KFC
+
+There are several ways to shrink the size of our curvature matrix[^8] of which the simplest is to chop it into layer-sized bits. Instead of one gigantic matrix, we end up with $L$ smaller matrices of size $\vert W_\ell\vert\times\vert W_\ell\vert$ where $L$ is the number of layers in our network and $\ell=\{1,2,3,...,L\}$.
+
+{% include /figures/hessian.html %}
+
+[^8]: I'll be using this term instead of Hessian or Fisher (or _Generalized Gauss-Newton_ for that matter), because for our purposes they are equivalent and can all be interpreted as the curvature of the function they represent.
+
+In the figure above you can immediately see the immense reduction in size by comparing the total area of the red squares to that of the initial one. Conceptually, this simplification says, that we assume the layers of the network to be independent from one another. This becomes clearer if you think about the _inverse_ curvature instead, representing the covariance matrix of the multivariate Gaussian we want to estimate, where the off-diagonal terms correspond to the covariances while the diagonal terms are the variances. However, this is still not good if enough.
+
+This brings us to the next simplification, where we also toss out the covariances _within_ each layer, so that we are left with only the diagonal elements of the initial matrix. The first simplification step is referred to as _block-wise_ approximation while the second is called _diagonal_ approximation.
+
+But what if we want to keep some of the covariances? Let's first think about why this could be helpful. Have a look at the two-dimensional Gaussian below. By changing the diagonal values of the $2\times2$ covariance matrix, we can change the spread, or variance, in $x$ and $y$ direction. But what if the network posterior we are trying to model places probability mass somewhere between those axes? For that, we need to _rotate_ the distribution by changing the _covariance_, which you can try out by using the third slider.
+
+{% include /figures/gaussian_covariance.html %}
+
+Now, as I mentioned before, we cannot simply keep the covariances, as the resulting matrices, even using the block-wise approximation, would still be too unwieldy. What we can do though, is an additional decomposition of each curvature block into two smaller matrices called the _Kronecker factors_ using the _Kronecker product_. The mathematical definition is
+
+$$
+A\otimes B = \begin{bmatrix}a_{11}B & ... & a_{1n}B\\\vdots & \ddots & \vdots\\a_{m1}B & ... & a_{mn}B\end{bmatrix}
+$$
+
+but it's easier to think about it visually. For example, if $A$ is a $2\times2$ matrix, we can color $a_{11}$ to $a_{22}$ with a different color and then, each of the colored squares is multiplied with every of the four gray squares representing $B$ and placed in the corresponding corner of the resulting matrix.
+
+{% include /figures/kronecker_product.html %}
+
+Even for this toy example you can see that we have reduced the $4\times4$ matrix with $16$ elements to two $2\times2$ matrices with $4+4=8$ elements. Once we use the curvature matrices as covariance matrices, we will have to invert them though, but very conveniently, the inverse of the Kronecker product is the same as the Kronecker product of the inverse factors: $(A\otimes B)^{-1}=A^{-1}\otimes B^{-1}$![^9]
+
+[^9]: Unfortunately, this equality can not generally be maintained in expectation s.t. $\mathbb{E}[A\otimes B]\neq\mathbb{E}[A]\otimes\mathbb{E}[B]$.
+
+This final approximation is called _Kronecker factored curvature_, KFC, and yields a substantially better approximation to the entire curvature matrix compared to a simple diagonal approximation at only a moderate increase in memory requirements.
+
+### Looking confident while being uncertain
+
+There is one last obstacle we need to clear before we can use our newly obtained curvature approximation. While in theory a matrix computed by an outer product like the Fisher should always be invertible, in reality this might not necessarily be the case for numerical reasons. But there are two more reasons why we might want to alter those matrices:
+
+1. Our approximations, while necessary to render the problem tractable, could have introduced an unwarranted amount of uncertainty in some directions. 
+2. The idea to approximate the weight posterior of our network by a multivariate Gaussian distribution could be flawed, which could happen if the true posterior is not bell shaped or only so in certain directions but not in others. If you have another look at the comparison of the exponential negative loss and the Gaussian above, you can already see that they are only similar, but not identical.
+
+To combat these problems, we can use regularization.
 
 ### Integration with Monte Carlo
 
