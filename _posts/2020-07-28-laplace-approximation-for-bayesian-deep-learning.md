@@ -8,8 +8,8 @@ thumbnail: /images/loss_vs_gauss.png
 gradient: true
 github: https://hummat.github.io/curvature
 mathjax: true
-time: 8
-words: 2171
+time: 15
+words: 3882
 ---
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
@@ -187,6 +187,18 @@ It’s time to put this Gaussian to work now. As mentioned in the beginning, the
 
 ### 2.1 Wait, is that really a Ferrari?
 
-Coming soon! 
+To become better calibrated, we first need to know where we stand. In the previous article, we defined good calibration as the notion, that the networks confidence and accuracy should match, meaning that high and low confidence should go along with high and low accuracy respectively.
+
+If you think back at the first article, good calibration is actually the magic wand that can appease the two opposing factions in probability land—the Bayesians and the Frequentists—because it only occurs if the empirical frequency of being correct (accuracy) matches the belief about it (confidence).
+
+Let’s see how we can put this more quantitatively. With the (average) accuracy defined as the fraction of correctly classified examples and the confidence simply being the probability our network assigned to the predicted class, the _average calibration error_ is the difference between accuracy and confidence averaged over all examples, usually the validation or test images from our dataset.
+
+If it is greater than zero, the network is _overconfident_ while a value smaller than zero indicates _underconfidence_. This metric can be misleading though, because a classifier which is overconfident on one half of the inputs and underconfident on the other could appear to be perfectly calibrated.
+
+Instead, we can partition the predictions into bins, as is done in histograms, based on their assigned confidence. Then, we compute an average calibration error for each bin and weigh it by the number of examples in it. Averaging these weighted errors results in the so called _expected calibration error_ which you see visualized below.
+
+{% include /figures/curvature/densenet121_imagenet_sgd_reliability.html %}
+
+
 
 ---
