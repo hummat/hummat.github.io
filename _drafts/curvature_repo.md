@@ -76,7 +76,7 @@ $$
 p(W\vert\mathcal{D})\approx\ p(W^\star\vert\mathcal{D})\exp\left(-\frac{1}{2}(W-W^\star)^TH(W-W^\star)\right)\approx\mathcal{N}\left(W^\star,H^{-1}\right)
 $$
 
-Boom, the right hand side becomes the (unnormalized[^5]) _probability density function_ of a multivariate Gaussian distribution!
+Boom, the right hand side becomes the (unnormalized[^5]) _probability density function_ of a multivariate normal distribution!
 
 [^5]: In practice, we don't care much about the normalization factor, because under most conditions, the posterior distribution is asymptotically normally distributed as the number of data points goes to infinity.
 
@@ -123,14 +123,14 @@ Even for this toy example you can see that we have reduced the $4\times4$ matrix
 
 This final approximation is called _Kronecker factored curvature_, KFC, and yields a substantially better approximation to the entire curvature matrix compared to a simple diagonal approximation at only a moderate increase in memory requirements.
 
-### Looking confident while being uncertain
+### Appearing more confident than you are
 
 There is one last obstacle we need to clear before we can use our newly obtained curvature approximation. While in theory a matrix computed by an outer product like the Fisher should always be invertible, in reality this might not necessarily be the case for numerical reasons. But there are two more reasons why we might want to alter those matrices:
 
 1. Our approximations, while necessary to render the problem tractable, could have introduced an unwarranted amount of uncertainty in some directions. 
 2. The idea to approximate the weight posterior of our network by a multivariate Gaussian distribution could be flawed, which could happen if the true posterior is not bell shaped or only so in certain directions but not in others. If you have another look at the comparison of the exponential negative loss and the Gaussian above, you can already see that they are only similar, but not identical.
 
-To combat these problems, we can use regularization.
+To combat these problems, we can use regularization. In deep learning, the most well known form of regularization is _weight decay_ aka $L_2$-regularization. In the previous article, we have already seen that it has a probabilistic interpretation as a Gaussian prior. This can be easily extended to our case, by 
 
 ### Integration with Monte Carlo
 

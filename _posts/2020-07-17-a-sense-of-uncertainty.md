@@ -61,20 +61,20 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
 
 [^1]: Or _epistemic uncertainty_.
 
-<figure text-align="center">
+<div text-align="center">
   <img src="/images/deterministic_nn.png">
   <figcaption>A standard neural network with specific weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
-</figure>
+</div>
 
 
 This is equivalent to an old person having figured out the answers to all the important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking a the problem[^2] and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later. You can think about this as having a probability distribution for each weight (the little squiggly lines in yellow below) which determines the likely and less likely values each weight can take on. Usually, we have one multi-dimensional probability distribution for the entire network (where the number of dimensions equals the number of weights), also capturing (some of) the _covariances_ between the weights.
 
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
 
-<figure text-align="center">
+<div text-align="center">
   <img src="/images/bayesian_nn.png">
   <figcaption>A Bayesian neural network with distributions over weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
-</figure>
+</div>
 
 
 The second type of uncertainty is commonly referred to as _data uncertainty_[^3] and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and from multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
