@@ -33,7 +33,7 @@ In life as in probabilistic machine learning we are confronted with many open qu
 
 The answer to the first question is: By modeling it probabilistically. We have already seen this in part one, where we modeled our assumptions and the obtained evidence about the location of a friend on a large ship and I’ve also hinted at it in the second part, where we observed, that the (low dimensional) weight posterior distribution of a neural network has a distinctly Gaussian appearance.
 
-Let’s quickly revisit this second fact here. We already know that the loss function used to train the network has a probabilistic interpretation as the negative logarithm of the _likelihood_: $E(W)=-\ln p(\mathcal{D}\vert W)$[^1]. When using some form of regularization to prevent overfitting ([which we almost always do](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#becoming-bayesian)), it becomes the _prior_ $p(W)$ in the probabilistic framework, and we start working with the _posterior_ instead of the likelihood thanks to _Bayes Theorem_: $p(W\vert\mathcal{D})\propto p(\mathcal{D}\vert W)p(W)$. In other words, the unregularized loss corresponds to the negative log likelihood while a regularized loss corresponds to the negative log posterior. This posterior is what we need to perform _Bayesian inference_, i.e. to make predictions on new data, like an unseen image of an animal we want to classify. How can we obtain it?
+Let’s quickly revisit this second fact here. We already know that the loss function used to train the network has a probabilistic interpretation as the negative logarithm of the _likelihood_: $E(W)=-\ln p(\mathcal{D}\vert W)$[^1]. When using some form of regularization to prevent overfitting ([which we almost always do](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#becoming-bayesian)), it becomes the _prior_ $p(W)$ in the probabilistic framework, and we start working with the _posterior_ instead of the likelihood thanks to _Bayes’ Theorem_: $p(W\vert\mathcal{D})\propto p(\mathcal{D}\vert W)p(W)$. In other words, the unregularized loss corresponds to the negative log likelihood while a regularized loss corresponds to the negative log posterior. This posterior is what we need to perform _Bayesian inference_, i.e. to make predictions on new data, like an unseen image of an animal we want to classify. How can we obtain it?
 
 We know that we need to model it probabilistically, i.e. we need to find a probability distribution which captures the important properties of the true, underlying, latent distribution of our model parameters (the weights). Probability distributions come in all kinds of flavors, and we need to strike a balance between _expressiveness_, which determines how well we can model the true distribution, and _practicality_, i.e. how mathematically and computationally feasible our choice is.
 
@@ -130,7 +130,21 @@ There is one last obstacle we need to clear before we can use our newly obtained
 1. Our approximations, while necessary to render the problem tractable, could have introduced an unwarranted amount of uncertainty in some directions. 
 2. The idea to approximate the weight posterior of our network by a multivariate Gaussian distribution could be flawed, which could happen if the true posterior is not bell shaped or only so in certain directions but not in others. If you have another look at the comparison of the exponential negative loss and the Gaussian above, you can already see that they are only similar, but not identical.
 
-To combat these problems, we can use regularization. In deep learning, the most well known form of regularization is _weight decay_ aka $L_2$-regularization. In the previous article, we have already seen that it has a probabilistic interpretation as a Gaussian prior. This can be easily extended to our case, by 
+To combat these problems, we can use regularization. In deep learning, the most well known form of regularization is _weight decay_ aka $L_2$-regularization. In the previous article, we have already seen that it has a probabilistic interpretation as a Gaussian prior. This can be easily extended to our case, by adding a multiple of the identity matrix to the curvature matrix. Here is why: Through the introduction of a prior, we are now dealing with the posterior instead of the likelihood. So far, we have been computing the Fisher of the log likelihood, i.e. $F[\ln p(\mathcal{D}\vert W)]$, as [explained before](#getting-the-gaussian).
+
+If we now want to compute the Fisher of the log posterior, $F[\ln p(W\vert\mathcal{D})]$, we can make use of Bayes’ theorem and write
+
+$$
+F[\ln p(W\vert \mathcal{D})]\propto F[\ln p(\mathcal{D}\vert W)+\ln p(W)]=F[\ln p(\mathcal{D}\vert W)]+F[\ln p(W)]
+$$
+
+Due to the logarithm, the prior is added instead of multiplied and we end up with a sum of the known curvature of the log likelihood (the first term) and the curvature of the log prior, which we will replace by an isotropic Gaussian, i.e. a Gaussian with identical variance in all dimensions and zero covariance. To get rid of the proportionality factor, we can simply add a multiplicative constant an arrive at
+
+$$
+\hat{F}=NF+\tau I
+$$
+
+
 
 ### Integration with Monte Carlo
 

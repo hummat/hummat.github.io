@@ -61,7 +61,7 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
 
 [^1]: Or _epistemic uncertainty_.
 
-<div text-align="center">
+<div style="text-align:center">
   <img src="/images/deterministic_nn.png">
   <figcaption>A standard neural network with specific weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
@@ -71,7 +71,7 @@ This is equivalent to an old person having figured out the answers to all the im
 
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
 
-<div text-align="center">
+<div style="text-align:center">
   <img src="/images/bayesian_nn.png">
   <figcaption>A Bayesian neural network with distributions over weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
