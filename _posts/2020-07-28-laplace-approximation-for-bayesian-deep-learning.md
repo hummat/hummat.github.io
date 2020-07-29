@@ -8,8 +8,8 @@ thumbnail: /images/loss_vs_gauss.png
 gradient: true
 github: https://hummat.github.io/curvature
 mathjax: true
-time: 15
-words: 3882
+time: 17
+words: 4612
 ---
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
@@ -195,10 +195,34 @@ Let’s see how we can put this more quantitatively. With the (average) accuracy
 
 If it is greater than zero, the network is _overconfident_ while a value smaller than zero indicates _underconfidence_. This metric can be misleading though, because a classifier which is overconfident on one half of the inputs and underconfident on the other could appear to be perfectly calibrated.
 
-Instead, we can partition the predictions into bins, as is done in histograms, based on their assigned confidence. Then, we compute an average calibration error for each bin and weigh it by the number of examples in it. Averaging these weighted errors results in the so called _expected calibration error_ which you see visualized below.
+Instead, we can partition the predictions into bins, as is done in histograms, based on their assigned confidence. Then, we compute an average calibration error for each bin and weigh it by the number of examples in it. Averaging these weighted (absolute) errors results in the so called _expected calibration error_ all of which you see visualized below.
 
 {% include /figures/curvature/densenet121_imagenet_sgd_reliability.html %}
 
+On the horizontal axis, you see the confidence, partitioned into 10 equally spaced bins. The blue bars represent the average accuracy in each bin while the average calibration error is shown on top as red bars, signifying the calibration gap to perfect calibration. If you hover over each bin, you see the average accuracy and average calibration error. You can also disable parts of the plots by clicking on the legend items. For example, if you disable the accuracy bars, the average calibration error becomes more visible, with values below zero showing underconfidence and those above zero denoting overconfidence as explained above. A perfectly calibrated network would follow the black dashed line.
 
+This type of visualization is useful to study a single network in detail, but comparing multiple networks or calibration techniques is difficult. To do so, we can replace the accuracy on the vertical axis by the average calibration error and plot it for each confidence interval. The networks calibration can then easily be identified as underconfident for values  below the horizontal line at zero and overconfident for those above.
+
+{% include /figures/curvature/densenets_sgd_imagenet_calibration.html %}
+
+Here, we are comparing some networks from the _DenseNet_ family with increasing depth. The horizontal axis is shown in _logit_ scale s.t. there is more space for the lower confidence intervals which helps to highlight the differences, as most networks exhibit low calibration error in high confidence intervals where they also tend to by quite accurate.
+
+Now let’s see what happens if we use the same networks but use our Bayesian approach introduced before.
+
+{% include /figures/curvature/densenets_kfac_imagenet_calibration.html %}
+
+This looks a lot better! Especially the overconfident behavior could be significantly reduced from a worst case average calibration error of more than $11\\%$ to around $3.5\\%$. Overconfidence is especially critical to fix, as it can result in dangerous behavior when exhibited by autonomous systems like robots and cars. The underconfident behavior could be slightly reduced, though.
+
+The final comparison we can make is between the different curvature estimators. Remember that we introduced the simple diagonal estimator (DIAG) that ignored all covariances and a second one that used Kronecker factored approximate curvature (KFAC) where covariances within each layer were retained. SGD, referring to _stochastic gradient descent_, is the standard neural network.
+
+{% include /figures/curvature/densenet161_imagenet_calibration.html %}
+
+In this example we can see, that KFAC slightly outperforms DIAG, though this is not always the case and the reason for this is still an open research question. Intuitively one would expect, that a better posterior approximation should also always yield more accurate Bayesian inference which in turn should result in increased performance across different tasks. Here are some more uncalibrated network architectures compared, just for fun.
+
+{% include /figures/curvature/all_sgd_imagenet_calibration.html %}
+
+### 2.2 Knowing when you don’t know
+
+Coming soon!
 
 ---
