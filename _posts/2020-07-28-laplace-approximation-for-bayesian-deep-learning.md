@@ -236,6 +236,17 @@ Well calibrated uncertainty estimates are useful in and of itself but can also b
 
 What we want in these settings is an algorithm that provides correct predictions with high confidence on familiar inputs and low confidence predictions on unfamiliar ones it cannot classify correctly.
 
+<div style="text-align: center;">
+<figure style="width: 35%; display: inline-block;">
+    <img src='/images/imagenet.jpg'/>
+    <figcaption>A "normal" input.</figcaption>
+</figure>
+<figure style="width: 30%; display: inline-block">
+    <img src='/images/art.jpg'/>
+    <figcaption>A strange input.</figcaption>
+</figure>
+</div>
+
 To test this, we can for example train a neural network on photographs of objects and then serve it some photographs of new objects. Or, we can replace the photographs by paintings or artistic impressions of objects, which is the approach I've chosen in my work. Such unknown data comes from a so called _out-of-domain_ distribution which is not part of the domain the network was trained on, in this case photographs vs paintings.
 
 #### 2.2.1 Entropy histogram
