@@ -1,15 +1,16 @@
 ---
 layout: post
 title: Laplace Approximation for Bayesian Deep Learning
-abstract: Making a deep neural network Bayesian is a difficult task. For my Masters' thesis I've been using Laplace Approximation to achieve this and developed a plug & play PyTorch implementation I would like to showcase in this post. This is the final part of my informal 3 part mini-series on probabilistic machine learning, part 1 and 2 being "Looking for Lucy" and "A sense of uncertainty".
+abstract: A deep look into Bayesian neural networks from a practical point of view and from theory to application. This is the final part of my informal 3 part mini-series on probabilistic machine learning, part 1 and 2 being "Looking for Lucy" and "A sense of uncertainty".
 category: repository
 tags: [laplace approximation, Bayesian inference, deep learning]
 thumbnail: /images/loss_vs_gauss.png
 gradient: true
 github: https://hummat.github.io/curvature
 mathjax: true
-time: 22
-words: 5729
+time: 23
+words: 6141
+update: 2020-07-30
 ---
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
@@ -282,6 +283,23 @@ Interestingly, deeper networks seem to exhibit greater overconfidence in the _Re
 
 ## Under attack
 
-Coming soon!
+The final application I'd like to showcase is the increased resilience of Bayesian neural networks to adversarial attacks.
+
+An adversarial attack tries to alter the algorithms output either arbitrarily away from the intended one or even steered into the direction of  a desired output. Those attacks are usually divided into _white_ and _black box_ attacks, depending on the access the attacker has to the internal workings of the algorithm.
+
+For neural networks, a simple attack mechanism is the _Fast Gradient Sign Method_. While we follow the negative gradient of the loss w.r.t. the weights of the network during training in order to minimize it, the FGSM computes the gradient of the loss w.r.t. the pixels of the input image to find which pixels altered by what amount would result in the greatest _increase_ of the loss.
+
+For each color channel of each pixel we thus obtain a value which, multiplied by a _step size_ can be added to the image in order to mislead the network. Often, very small changes, imperceptible to the human eye, are sufficient to reduce a networks predictions to random noise.
+
+In essence, we create a form of _out-of-domain_ data, as in the previous section, but we can control its _"differentness"_ by adjusting the step size. The question is then, how quickly we can detect such an attack, by looking at the increase of network uncertainty.
+
+{% include /figures/curvature/resnet18_imagenet_fgsm.html %}
+
+<br>
+While both the standard network as well as the Bayesian variants show an increased uncertainty with increasing change, the Bayesian networks rise faster and to a higher level, resulting in higher sensitivity to malicious tempering of the inputs. This could be exploited by comparing the predictive entropy of a new input to the average uncertainty of the network on previous inputs to determine the likelihood of an attack.
+
+## Wrapping up
+
+You have made it till here and I would like to congratulate you for this feat! There has been a lot of highly condensed information in this article in an attempt to summarize most of the important insights I gained while working on the topic. I hope it wasn't too hard to follow and you were able to take something away for your on projects. If you are eager to get your fingers dirty after all this theory definitely check out the [GitHub repository](https://hummat.github.io/curvature). Have a pleasant day feel free to drop me a comment if anything was left unclear or you spot a mistake. Cheers!
 
 ---
