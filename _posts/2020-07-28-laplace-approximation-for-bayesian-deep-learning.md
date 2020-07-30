@@ -8,8 +8,8 @@ thumbnail: /images/loss_vs_gauss.png
 gradient: true
 github: https://hummat.github.io/curvature
 mathjax: true
-time: 17
-words: 4612
+time: 22
+words: 5729
 ---
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
@@ -37,7 +37,7 @@ Let’s quickly revisit this second fact here. We already know that the loss fun
 
 We know that we need to model it probabilistically, i.e. we need to find a probability distribution which captures the important properties of the true, underlying, latent distribution of our model parameters (the weights). Probability distributions come in all kinds of flavors, and we need to strike a balance between _expressiveness_, which determines how well we can model the true distribution, and _practicality_, i.e. how mathematically and computationally feasible our choice is.
 
-### Landscapes of loss
+### 1.1 Landscapes of loss
 
 To get an intuitive understanding, let's actually look at a (low dimensional) representation of the likelihood. The likelihood function $L(W)=p(\mathcal{D}\vert W)$ is, as the name suggests, just a function and we can evaluate it at different inputs $W$[^2]. We can, for example, evaluate it at $W^\star$, the weights obtained after training the network. This should yield the highest likelihood and conversely the lowest loss. We can then explore the space around this minimum by taking small steps in one or two (randomly chosen) directions, evaluating $L(W+\alpha W_R)$ or $L(W+\alpha W_{R1}+\beta W_{R2})$ along the way. $W_{R1,2}$ are random vectors of the same size as $W$ and $\alpha$ and $\beta$ are the step sizes. This is what you see below, though we start by visualizing $-\log L(W)$, the loss $E(W)$, first and then move on to the likelihood which is $\exp(-E(W))$.
 
@@ -62,7 +62,7 @@ A bit off topic but still interesting: See the lines below the loss landscape? T
 
 It gets a bit crowded, but what we can make out is, that, at least for low loss/high accuracy regions, the loss contour levels align remarkably well with specific accuracy levels, meaning the loss is a good predictor of classification accuracy. Nice!
 
-### Getting the Gaussian
+### 1.2 Getting the Gaussian
 
 Back to the topic: How can we estimate the shape of a function in general? Exactly, we can use _Taylor expansion_. Here is what that looks like:
 
@@ -91,7 +91,7 @@ In other words, it is the expected value[^7] of the outer product of the negativ
 [^7]: The expectation is taken w.r.t. the output distribution of the network. If the data distribution is used instead, one obtains the _empirical Fisher_ which doesn't come with the same equality properties to the Hessian compared to the _"true"_ Fisher.
 [^6]: This is only the case for networks that use piece-wise linear activation functions (like ReLU) and exponential family loss functions (like least-squares or cross-entropy).
 
-### KFC
+### 1.3 KFC
 
 There are several ways to shrink the size of our curvature matrix[^8] of which the simplest is to chop it into layer-sized bits. Instead of one gigantic matrix, we end up with $L$ smaller matrices of size $\vert W_\ell\vert\times\vert W_\ell\vert$ where $L$ is the number of layers in our network and $\ell=\{1,2,3,...,L\}$.
 
@@ -123,7 +123,7 @@ Even for this toy example you can see that we have reduced the $4\times4$ matrix
 
 This final approximation is called _Kronecker factored curvature_, KFC, and yields a substantially better approximation to the entire curvature matrix compared to a simple diagonal approximation at only a moderate increase in memory requirements.
 
-### Appearing more confident than you are
+### 1.4 Appearing more confident than you are
 
 There is one last obstacle we need to clear before we can use our newly obtained curvature approximation. While in theory a matrix computed by an outer product like the Fisher should always be invertible, in reality this might not necessarily be the case for numerical reasons. But there are two more reasons why we might want to alter those matrices:
 
@@ -156,7 +156,7 @@ At fist glance, both parameters seem to do a very similar thing. But while both 
 
 This is an important observation, as we can loose all of the potential benefit of modeling the covariances using, for example, the Kronecker factorization, by then adding  a large multiple of the identity matrix to it. In the limit, i.e. when setting the hyperparameters to very large values, we recover the deterministic network, as we have effectively reduced the Gaussian to its mean, which we set to $W^\star$ from the beginning.
 
-### Integration with Monte Carlo
+### 1.5 Integration with Monte Carlo
 
 Now that we finally have the posterior $p(W\vert\mathcal{D})=\mathcal{N}(W^\star,\hat{F}^{-1})$ we can perform inference on new unseen data $\boldsymbol{x}^\star$. In the probabilistic context, this is done through _marginalization_:
 
@@ -164,7 +164,7 @@ $$
 p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star)=\int p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W)p(W\vert\mathcal{D})\mathrm{d}W
 $$
 
-Here, we run into another problem: This integral is intractable. While we are fortunate to have chosen a Gaussian as posterior, which we could integrate if needed, the neural network $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star, W)$ doesn’t provide this courtesy. So is was all our hard work so far in vain? By no means! Thanks to Monte Carlo, we can perform approximate Bayesian inference through sampling.
+Here, we run into another problem: This integral is intractable. While we are fortunate to have chosen a Gaussian as posterior, which we could integrate if needed, the neural network $p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star, W)$ doesn’t provide this courtesy. Was all our hard work in vain then? By no means! Thanks to Monte Carlo, we can perform _approximate Bayesian inference_ through sampling.
 
 $$
 \int p(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W)p(W\vert\mathcal{D})\mathrm{d}W\approx\frac{1}{T}\sum_{t=1}^Tp(\boldsymbol{y}^\star\vert\boldsymbol{x}^\star,W_t)
@@ -191,6 +191,8 @@ To become better calibrated, we first need to know where we stand. In the previo
 
 If you think back at the first article, good calibration is actually the magic wand that can appease the two opposing factions in probability land—the Bayesians and the Frequentists—because it only occurs if the empirical frequency of being correct (accuracy) matches the belief about it (confidence).
 
+#### 2.1.1 Reliability diagram
+
 Let’s see how we can put this more quantitatively. With the (average) accuracy defined as the fraction of correctly classified examples and the confidence simply being the probability our network assigned to the predicted class, the _average calibration error_ is the difference between accuracy and confidence averaged over all examples, usually the validation or test images from our dataset.
 
 If it is greater than zero, the network is _overconfident_ while a value smaller than zero indicates _underconfidence_. This metric can be misleading though, because a classifier which is overconfident on one half of the inputs and underconfident on the other could appear to be perfectly calibrated.
@@ -199,29 +201,86 @@ Instead, we can partition the predictions into bins, as is done in histograms, b
 
 {% include /figures/curvature/densenet121_imagenet_sgd_reliability.html %}
 
-On the horizontal axis, you see the confidence, partitioned into 10 equally spaced bins. The blue bars represent the average accuracy in each bin while the average calibration error is shown on top as red bars, signifying the calibration gap to perfect calibration. If you hover over each bin, you see the average accuracy and average calibration error. You can also disable parts of the plots by clicking on the legend items. For example, if you disable the accuracy bars, the average calibration error becomes more visible, with values below zero showing underconfidence and those above zero denoting overconfidence as explained above. A perfectly calibrated network would follow the black dashed line.
+<br>On the horizontal axis, you see the confidence, partitioned into 10 equally spaced bins. The blue bars represent the average accuracy in each bin while the average calibration error is shown on top as red bars, signifying the calibration gap to perfect calibration. If you hover over each bin, you see the average accuracy and average calibration error. You can also disable parts of the plots by clicking on the legend items. For example, if you disable the accuracy bars, the average calibration error becomes more visible, with values below zero showing underconfidence and those above zero denoting overconfidence as explained above. A perfectly calibrated network would follow the black dashed line.[^10]
+
+[^10]: To get meaningful results, all evaluations where made on a held-out test set that was neither used for training nor hyperparameter optimization, in other words, the network hasn't seen the images before.
+
+#### 2.1.2 Calibration curve
 
 This type of visualization is useful to study a single network in detail, but comparing multiple networks or calibration techniques is difficult. To do so, we can replace the accuracy on the vertical axis by the average calibration error and plot it for each confidence interval. The networks calibration can then easily be identified as underconfident for values  below the horizontal line at zero and overconfident for those above.
 
 {% include /figures/curvature/densenets_sgd_imagenet_calibration.html %}
 
-Here, we are comparing some networks from the _DenseNet_ family with increasing depth. The horizontal axis is shown in _logit_ scale s.t. there is more space for the lower confidence intervals which helps to highlight the differences, as most networks exhibit low calibration error in high confidence intervals where they also tend to by quite accurate.
+<br>Here, we are comparing some networks from the _DenseNet_ family with increasing depth[^11]. The horizontal axis is shown in _logit_ scale which provides more space for the critical high-confidence regime. You can enable the _error range_ to see the minimum and maximum calibration error to expect from the shown networks.
 
-Now let’s see what happens if we use the same networks but use our Bayesian approach introduced before.
+[^11]: Double click on an item in the legend to disable all others. Double click on the plot afterwards to adjust the axes ranges to the data currently shown.
+
+Now let’s see what happens if we use the same networks but employ our Bayesian approach from the previous section.
 
 {% include /figures/curvature/densenets_kfac_imagenet_calibration.html %}
 
-This looks a lot better! Especially the overconfident behavior could be significantly reduced from a worst case average calibration error of more than $11\\%$ to around $3.5\\%$. Overconfidence is especially critical to fix, as it can result in dangerous behavior when exhibited by autonomous systems like robots and cars. The underconfident behavior could be slightly reduced, though.
+<br>This looks a lot better! Especially the overconfident behavior could be reduced significantly from a worst case average calibration error of more than $11\\%$ to around $3.5\\%$, which you can also see in the much narrower error range. This could be used to give a confidence interval of, say, $\pm4\\%$ when making predictions and taken into account when deciding whether human intervention is necessary. Overconfidence is especially critical to fix, as it can result in dangerous behavior when exhibited by autonomous systems like robots and cars. The underconfident behavior could also be slightly reduced, though.
 
 The final comparison we can make is between the different curvature estimators. Remember that we introduced the simple diagonal estimator (DIAG) that ignored all covariances and a second one that used Kronecker factored approximate curvature (KFAC) where covariances within each layer were retained. SGD, referring to _stochastic gradient descent_, is the standard neural network.
 
 {% include /figures/curvature/densenet161_imagenet_calibration.html %}
 
-In this example we can see, that KFAC slightly outperforms DIAG, though this is not always the case and the reason for this is still an open research question. Intuitively one would expect, that a better posterior approximation should also always yield more accurate Bayesian inference which in turn should result in increased performance across different tasks. Here are some more uncalibrated network architectures compared, just for fun.
+<br>In this example we can see, that KFAC slightly outperforms DIAG, though this is not always the case and the reason for this is still an open research question. Intuitively one would expect, that a better posterior approximation should also always yield more accurate Bayesian inference which in turn should result in increased performance across different tasks. Here are some more uncalibrated network architectures compared, just for fun.
 
 {% include /figures/curvature/all_sgd_imagenet_calibration.html %}
 
 ### 2.2 Knowing when you don’t know
+
+Well calibrated uncertainty estimates are useful in and of itself but can also be seen as a stepping stone to more elaborate applications like _anomaly detection_. An anomaly can be anything out of the ordinary, where _ordinary_ is defined by the data used for training the network. In a medical setting, this could be a change in the measured body functions which an algorithm trained to recognize diseases didn't encounter before or an animal crossing the road observed by the object recognition subsystem of an autonomous vehicle which doesn't fit in the known categories like `car`, `road` and `pedestrian`.
+
+What we want in these settings is an algorithm that provides correct predictions with high confidence on familiar inputs and low confidence predictions on unfamiliar ones it cannot classify correctly.
+
+To test this, we can for example train a neural network on photographs of objects and then serve it some photographs of new objects. Or, we can replace the photographs by paintings or artistic impressions of objects, which is the approach I've chosen in my work. Such unknown data comes from a so called _out-of-domain_ distribution which is not part of the domain the network was trained on, in this case photographs vs paintings.
+
+#### 2.2.1 Entropy histogram
+
+An intuitive way to visualize the networks behavior is to produce a histogram of the networks _predictive uncertainty_, one for the known and one for the unknown data, and overlay them. We've talked about predictive uncertainty in the previous article, but you can simply think about it as the opposite of confidence, but on a solid information theoretic footing, as it is measured as the _entropy_ of the networks output distribution.
+
+The entropy of a probability distribution (and keep in mind that a neural network provides a (uncalibrated) categorical probability distribution over the object classes as its output) can be interpreted as the average amount of information it provides, which can be understood as the level to which the outcome of an experiment would surprise the observer.
+
+When flipping a fair coin, the expectation to see `heads` is identical to that of `tails`, which is why a fair coin gets assigned maximum entropy. But if the coin is biased, having e.g. a much higher probability to show `heads` than `tails`, a knowing observer would be surprised to see it land `tails` when flipping it. Consequently, the entropy of a biased coin is lower than that of a fair one.
+
+{% include /figures/curvature/resnet50_sgd_imagenet_hist.html %}
+
+<br>As can be seen, a standard network is not able to separate the known and unknown data. While the average and maximum entropy for the unknown data is higher, there is a large overlapping area where separation is impossible. Again, let's see how our Bayesian neural network performs.
+
+{% include /figures/curvature/resnet50_kfac_imagenet_hist.html %}
+
+<br>And again, the Bayesian approach saves the day, achieving almost perfect separation of known and unknown examples. What that means is, that we could now use a threshold slightly above $4$ to raise the alarm for any prediction producing a higher value.
+
+#### 2.2.2 The empirical cumulative distribution function
+
+As was the case for the calibration experiments, this is a great approach to scrutinize a single network, but unsuited for comparing several architectures or curvature estimators. To do so, we need a employ a slightly more complex procedure. We keep the predictive entropy on the vertical but use the _inverse empirical cumulative distribution function_ (ECDF) on the horizontal.
+
+This sounds scary, but let's break it down.  First, we need to understand the _cumulative distribution function_. The CDF of a random variable expresses the probability (on the vertical axis) that this random variable will take on a value less than or equal to any value on the horizontal axis. For example, imagine we are modeling the temperature of tomorrow. Having gathered the data of last week and modeled it by a probability distribution, using its CDF we can answer the question _"What's the probability that it won't get warmer than 30 degrees Celsius?"_ by looking for the function value at 30. We could also have sticked to the probability mass function of our probability distribution and integrated between absolute zero and 30 degrees.
+
+The _empirical_ version of the CDF simply provides the empirical frequency instead of the probability of an event happening. Finally, the _inverse_ allows us to ask the for the probability (or frequency) that our probability distribution takes on a value _greater_ instead of less or equal the value on the horizontal axis. Let's have a look at it now.
+<br>
+
+{% include /figures/curvature/resnet50_imagenet_ecdf.html %}
+
+<br>
+What you see is the same data as in the histogram shown before. Focusing on the solid lines, we see that the Bayesian approach (DIAG) exhibits high uncertainty for all of the unknown examples (i.e. an inverse ECDF value of $1$ for entropy values of at least around $4.7$)  while the standard network (SGD) only classifies around $6\\%$ of the unknown data with such a high uncertainty.
+
+This new visualization allows us additionally to look at the uncertainty on the known data (the dashed lines), which should correspond to the networks accuracy (so no under- or overconfidence). We see that it is a lot lower compared to the unknown data for both the standard and Bayesian network. This is important, as we don't want to achieve high uncertainty on the unknown data simply by raising the bar everywhere s.t. our network predicts all kind of data with high uncertainty. Finally, we can also see that the KFAC estimator again slightly outperforms the DIAG estimator.
+
+Similar to the calibration experiments, we can also directly compare different networks. Let's first have a look at the non-Bayesian variants.
+<br>
+
+{% include /figures/curvature/resnets_sgd_imagenet_ecdf.html %}
+
+<br>
+Interestingly, deeper networks seem to exhibit greater overconfidence in the _ResNet_ family, hindering them to properly separate the known from the unknown data, a trend we see continued after having applied our Bayesian transformation. However, regardless of depth, all networks substantially benefit from the Bayesian treatment.
+<br>
+
+{% include /figures/curvature/resnets_kfac_imagenet_ecdf.html %}
+
+## Under attack
 
 Coming soon!
 
