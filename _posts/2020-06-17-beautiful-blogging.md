@@ -91,7 +91,7 @@ I’ll assume a couple of things before moving forward:
 
 #### Setup
 
-Now, follow the official Jekyll Ubuntu or other Linux distros [installation guide](#https://jekyllrb.com/docs/installation/). If you haven’t cloned or forked a template like mentioned in step 5 above, you can also clone your basic GitHub page repository, change into its directory and run `bundle exec jekyll new .` (note the dot in the end). 
+Now, follow the official Jekyll Ubuntu or other Linux distros [installation guide](https://jekyllrb.com/docs/installation/). If you haven’t cloned or forked a template like mentioned in step 5 above, you can also clone your basic GitHub page repository, change into its directory and run `bundle exec jekyll new .` (note the dot in the end). 
 
 There are a couple of interesting files in your GitHub page repository/directory. For now, the most important is the [Gemfile](https://github.com/hummat/hummat.github.io/blob/master/Gemfile). Here you need to change `gem “jekyll”` into `gem "github-pages", "~> 206", group: :jekyll_plugins`.  You can also go ahead and add some plugins we will use later:
 
@@ -113,7 +113,7 @@ Afterwards, or if you have used a template, run `bundle exec jekyll serve`. If y
 Something I found confusing in the beginning is the rather complicated [file and directory structure](https://github.com/hummat/hummat.github.io). Here’s a quick overview of what’s what:
 
 1. [`index.md`](https://github.com/hummat/hummat.github.io/blob/master/index.md): Your landing page. It’s empty except for its layout, which is defined in [`_layouts/home.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html).
-2. [`about.md`](https://github.com/hummat/hummat.github.io/blob/master/about.md): Jekyll differentiates between _pages_ and _posts_. I’m using pages a self contained units, like the landing page and this _About_ page and posts for, well, posts.
+2. [`about.md`](https://github.com/hummat/hummat.github.io/blob/master/about.md): Jekyll differentiates between _pages_ and _posts_. I’m using pages as self contained units, like the landing page and the _About_ page and posts for, well, posts.
 3. [`style.scss`](https://github.com/hummat/hummat.github.io/blob/master/style.scss): Together with the files in [`_sass`](https://github.com/hummat/hummat.github.io/tree/master/_sass), this determines the look of your HMTL elements.
 4. [`_posts`](https://github.com/hummat/hummat.github.io/tree/master/_posts): This is where your blog posts go. It’s just a bunch of markdown files, one for each post with a date in front which gets added to the `page.date` variable automatically. I’ll come back to those variables in the [next section](#liquid-templating).
 5. [`_drafts`](https://github.com/hummat/hummat.github.io/tree/master/_drafts): Here you can put unfinished posts which you can render locally using `bundle exec jekyll serve --draft` and which don’t show up in the online version of your page.

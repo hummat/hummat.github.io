@@ -4,7 +4,7 @@ title: Awesome Resources
 abstract: A list of awesome things on the web I've stumbled upon or have been directed to. Those include great (visual) explanations of complicated topics in machine learning and science in general, software tools and other fun stuff.
 tags: [learning, inspirational, awesome]
 category: resource
-update: 2020-06-10
+update: 2020-10-04
 banner: /images/awesome-banner.jpg
 banner-text: Awesome Resources
 words: 857
@@ -61,8 +61,9 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 8. [Slate Star Codex](https://slatestarcodex.com/) - _A blog about science, medicine, philosophy, politics, and futurism._
 9. [Khan Academy](https://www.khanacademy.org/) - _Free, world‑class education for anyone, anywhere._
 10. [from Data to Viz](https://www.data-to-viz.com/#explore) - _Decision tree that leads you to the most appropriate graph for your data._
+11. [Arxiv-Sanity](http://arxiv-sanity.com/) - _Arxive in better: Search and find research relevant to you._
 
-## Machine Learning
+## Machine Learning, Data Science & AI
 
 1. [Distill](https://distill.pub/) - _Machine Learning Research Should Be Clear, Dynamic and Vivid. Distill Is Here to Help._
    * [Feature Visualization](https://distill.pub/2017/feature-visualization/)
@@ -82,7 +83,7 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 9. [Neural Network Playground](https://playground.tensorflow.org/) - _Tinker With a Neural Network Right Here in Your Browser._
 10. [fast.ai](https://www.fast.ai/) - _Making deep learning easier to use._
 11. [OpenAI: Spinning Up as a Deep Reinforcement Learning Researcher](https://spinningup.openai.com/en/latest/spinningup/spinningup.html)
-12. [losslandscapes](https://losslandscape.com/) - _Very neat visualizations of neural network loss landscapes._
+12. [losslandscapes](https://losslandscape.com/) - _Very neat visualizations of neural network loss landscapes.
 
 ## Career
 
@@ -110,3 +111,16 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 1. [Simone Giertz](https://www.youtube.com/simonegiertz) - _Maker/robotics enthusiast/non-engineer._
 2. [Phil Vandelay](https://www.youtube.com/channel/UCchU2gYo5UunA6uh6JVOd9A) - _Maker. I like to build cargo bikes, furniture, and more._
 3. [Primitive Technology](https://www.youtube.com/channel/UCAL3JXZSzSm8AlZyD3nQdBA) - _A hobby where you build things in the wild completely from scratch using no modern tools or materials._
+
+## "The rest"
+
+1. Reddit - _Great place to find like minded people._
+   - [Machine Learning](https://www.reddit.com/r/MachineLearning)
+   - [Learn Machine Learning](https://www.reddit.com/r/learnmachinelearning)
+   - [Deep Learning](https://www.reddit.com/r/deeplearning/)
+   - [Data Science](https://www.reddit.com/r/datascience/)
+   - [Artificial](https://www.reddit.com/r/artificial)
+2. Blogs
+   - [Deep Mind](https://deepmind.com/blog/)
+   - [Apple - Machine Learning](https://machinelearning.apple.com/)
+   - [Open AI](https://openai.com/blog/)
