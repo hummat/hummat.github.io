@@ -22,21 +22,27 @@ As the name suggests, a point cloud is an agglomeration of points in three dimen
 
 {% include figures/happy_buddha.html %}
 
-From the given perspective, there is not a lot to see or understand. If you haven't already, try zooming out now using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/). Here is an image of it from the front:
+From the given perspective, there is not a lot to see or understand. Now, if you haven't already, try zooming out using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/). Here is an image of it from the front:
 
 <div style="text-align:center;">
   <img src="/images/happy_buddha.jpg" style="max-height:700px">
 </div>
+### Images vs. point clouds
 
-Here we can already notice the first major differences between the image and point cloud data type: While an image only provides a single _view_ of the object, e.g. from the front, a point cloud can be observed from an arbitrary viewpoint. You can try this by clicking and dragging the point cloud.
+At first glance, images and point clouds seem to be two very different things. Actually though, the underlying concept is the same, they are usually just _represented_ in a different way. It all begins with a bunch of points. A point can be completely defined by its position in a coordinate frame. For images, this coordinate frame is usually two dimensional, while for point clouds it usually has three dimensions. Below on the left you see a (slightly pixelated version) of the happy Buddha image from before. If you hover over it, you’ll see, for each point, its position in the grid and its RGB color value.[^1] A point defined by a position in a two-dimensional grid, i.e. by it’s position _relative_ to its neighbors rather than by _coordinates_ in 2D space, is called a _pixel_[^2]. For example, a pixel with position $(10, 51)$ is the pixel coming _after_ pixel $9$ and _before_ pixel $11$ in horizontal (or $x$) direction and identically so for the vertical (or $y$) direction.
 
-Another thing we can notice immediately is the difference in _resolution_ of the image and point cloud. While the image only delivers a single view, it is high quality, showing lots of details. The point cloud on the other hand is more coarse and further doesn't provide any color information[^1]
+{% include figures/image_vs_pcd.html %}
 
-[^1]: It is possible though to provide each point of a point cloud with color information just like a pixel in an image. This is generally an additional non-trivial step though, and is not directly provided by the sensor, as is the case for most cameras.
+In contrast, the second image (right), shows _the same data_, but now represented as a 2D point cloud. Here, each point is defined by a two-dimensional coordinate, independent from its neighbors. To highlight the difference, I’ve removed _“empty”_ space, i.e. (almost) black pixels, _“converted”_ the grid positions into coordinates (by arbitrarily dividing them by 10) and changed the shape to points instead of squares which are typically chosen to represent pixels. Here, the point at coordinates $(1.0,5.1)$ (the same as the example _pixel_ from before) doesn’t care about its neighbors and doesn’t tell us anything about them. Maybe there is another point at $(1.1, 5.2)$, maybe not, we can’t tell just by knowing about the coordinates of the current point. You can zoom in on both representations (by clicking and dragging a rectangle) to further explore the representational differences.
 
-The point cloud consist of roughly 30 thousand points, while the image with its $372\times 935$ resolution has a whooping 350 thousand pixels. Interestingly, an image can also be interpreted as a point cloud, but in two dimensional space, as I've shown [here](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images). The main difference is, that a pixel in an image is defined by its position on a regular grid, meaning it can be identified by an index, so referring to the pixel at position $(104,517)$ in $x$ and $y$ direction is meaningful. This is not true for a point cloud, where each point can have an arbitrary position and distance to its surrounding points in three dimensional space. This usually leads to point clouds having a larger file size than images, because we need to store three decimal numbers (the $x$, $y$ and $z$ coordinates) for each point, while a pixel only requires two integers[^2]. We usually refer to point clouds as _unordered data_, because if we load the data from a file, it doesn't matter which point we load first or
+[^1]: I’ve introduced this kind of image representation [here](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) if you would like to explore this further.
+[^2]: Apparently originating from _picture element_.
 
-[^2]: Or even just a single integer---the index of pixel in the array---if we define an order from, e.g., top left to bottom right.
+Of course we might wonder now: if an image can become a point cloud, can a point cloud become something more akin to an image? The answer is, absolutely! Enter _the voxel grid_. A voxel[^3] is for a point in three dimensions, what a pixel is for a point in two dimensions. Just as with images, the position of a voxel in 3D space is defined by its position in the underlying data structure, a 3D grid, relative to its neighbors.
+
+[^3]: _volume_ or _volumetric_ _element_
+
+Both representations have their advantages and disadvantages. While grid data ()
 
 ## General stuff
 
