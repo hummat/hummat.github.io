@@ -57,6 +57,8 @@ For voxel grids we have already discussed that they are more structured than poi
 
 What about meshes then?
 
+{% include figures/pcd_as_mesh.html %}
+
 ## General stuff
 
 * Problem: How to use deep learning on three dimensional data like point clouds?
