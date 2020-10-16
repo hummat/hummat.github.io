@@ -50,15 +50,13 @@ Of course we might wonder now: if an image can become a point cloud, can a point
 
 To create it, we simply divide the space into cubes of equal size (the voxel grid) and only display those cubes (voxels) which consume at least a single point from our point cloud.
 
-The final 3D data representation I want to introduce in this post is the _mesh_. 
-
 Each representation has its advantages and disadvantages. Point clouds are closest to the raw data we receive from our depth sensors, so no postprocessing (often including hyperparameters like voxel size) is required. They occupy little memory because of their efficient representation as points in 3D space and their natural _sparsity_, where empty space is signified by the absence of points in contrast with voxel grids (as well as images for that matter), where emptiness needs to be explicitly encoded to preserve the grid structure.
 
 Downsides of this representation include the irregularity of which the points occupy the space, i.e. distances between points are generally not identical. Further, point clouds are _unordered_, in contrast to images or voxel grids, where knowing about one voxel (or pixel) provides information about its neighbors.
 
 For voxel grids we have already discussed that they are more structured than point clouds (which means we can use the extension of 2D convolutions when training neural networks on them) but are significantly less memory efficient. Another obvious downside is the loss of information when discretizing the space into cubes (compare the point cloud representation of our happy Buddha to its voxel representation to see this effect).
 
-What about meshes then? More precisely, we are usually talking about _triangle_ meshes, which might be familiar to you through 3D graphics and video games, though they are often called _polygons_ instead of triangles in this context. Let's first have a look at an example before discussing the properties of this type of representation.
+The last missing representation---at least which I'll cover in this post as there are numerous more---is the _mesh_. More precisely, we are usually talking about _triangle_ meshes, which might be familiar to you through 3D graphics and video games, though they are often called _polygons_ instead of triangles in this context. Let's first have a look at an example before discussing the properties of this type of representation.
 
 {% include figures/pcd_as_mesh.html %}
 
