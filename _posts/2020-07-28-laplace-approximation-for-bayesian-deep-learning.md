@@ -10,7 +10,7 @@ github: https://hummat.github.io/curvature
 mathjax: true
 time: 23
 words: 6141
-update: 2020-07-30
+update: 2020-10-16
 ---
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
@@ -23,7 +23,7 @@ The mathematical language of uncertainty is probability theory, for which I prov
 
 More precisely, we will be looking at a practical yet powerful way to model a deep neural network probabilistically, thereby transforming it into a Bayesian neural network using a technique called _Laplace Approximation_. Once we are done with that, we will see how to make use of the newly obtained Bayesian superpowers to solve, or at least mitigate, some problems arising from poor calibration, i.e. being over- or underconfident in ones predictions. I’ll show some results I’ve obtained during the work on my [Masters’ thesis](https://elib.dlr.de/131938/1/thesis.pdf) through a plethora of interesting figures and visualizations.
 
-Incidentally, the article will also serve as a tutorial to the [GitHub repository](https://hummat.github.io/curvature/) featuring the code used to obtain all the presented results. If you are uncertain (no pun intended) about your level of background knowledge (of which you certainly need some), head over to the [background section of part two](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) to verify or brush up your knowledge, or just press on and see if you get stuck at some point.
+Incidentally, the article will also serve as a tutorial to the [GitHub repository](https://hummat.github.io/curvature/) featuring the code used to obtain all the presented results. If you are uncertain (no pun intended) about your level of background knowledge (of which you certainly need some), head over to the [background section of part two](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) to verify or brush up your knowledge, or just press on and see if you get stuck at some point. Also, check out the code that generated all figures in this post: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fcurvature.ipynb)
 
 ## 1. Being normal around the extreme
 
