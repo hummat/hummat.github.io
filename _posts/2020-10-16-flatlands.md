@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Flatlands
-abstract: I've recently started working with DLRs robots which perceive their environment not only with cameras but also with depth sensors. Working with the 3D data obtained from these sensors is quite different from working with images and this is the summary of what I've learned so far. How to do deep learning on this data will be covered in the next post.
+abstract: I've recently started working with the institutes robots which perceive their environment not only with cameras but also with depth sensors. Working with the 3D data obtained from these sensors is quite different from working with images and this is the summary of what I've learned so far. How to do deep learning on this data will be covered in the next post.
 tags: [point clouds, voxel grids, meshes, 3D]
 category: learning
 thumbnail: /images/happy_buddha.png
 mathjax: true
 time: 7
 words: 1903
+update: 2020-10-23
 ---
 
 # {{ page.title }}
@@ -22,7 +23,7 @@ As the name suggests, a point cloud is an agglomeration of points in three dimen
 
 {% include figures/happy_buddha.html %}
 
-From the given perspective, there is not a lot to see or understand. Now, if you haven't already, try zooming out using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/). Here is an image of it from the front:
+From the given perspective, there is not a lot to see or understand. Now, if you haven't already, try zooming out using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/), where the color of each point encodes the distance from the viewer (depth). Here is an image of it from the front:
 
 <div style="text-align:center;">
   <img src="/images/happy_buddha.jpg" style="max-height:700px">
@@ -72,13 +73,17 @@ However, if we succeed in producing a high quality mesh from a point cloud, we a
 
 ## Going beyond images
 
-Looking at the amazing results of deep learning techniques on RGB images one might wonder whether we even need anything else. Popular skeptics of 3D data in machine learning like Elon Musk point out, that we humans do just fine without it, so we should focus on brining our machines around to accomplish the same.
+Looking at the amazing results of deep learning techniques on RGB images one might wonder whether we even need anything else. Popular skeptics of 3D data in machine learning like Elon Musk point out, that we humans do just fine without it, so we should focus on bringing our machines around to accomplish the same.
 
 Apart from financial considerations that probably drive Musks view on the subject[^6] I see at least one other flaw in his line of argument. Just because a biologically evolved entity doesn't feature some specific capability doesn't mean that it wouldn't be beneficial. After all, we didn't evolve by design but by trial and error.
 
 This brings us to the numerous advantages 3D data potentially holds over its flatlandish sibling. The first is _scale invariance_. Images are produced through light reflecting from a surface and reaching a lens (be it in a human eye or a camera). This has numerous implications, the most obvious being that objects further away _appear smaller_ than objects closer to the observer, even though they don't actually change their size. An algorithm therefore needs to _learn_ scale invariance, i.e. that a small car and a large car can actually both be the same car; or it could be that the small car is just a toy. In three dimensions, this hassle disappears by itself, as 3D data is inherently scale invariant by way of its acquisition.
 
-Closely related are viewpoint effects, where only parts of the object can appear overly large by virtue of being much closer to the lens as the rest of the object. No issue in 3D as well. There can also arise problems through adverse or insufficient illumination. Too much light can wash out details and occlude information lying in dark areas, too little light can render image based techniques completely blind. The same is true for dense fog, which is especially critical for autonomous vehicles. As an aside: Ultimately, we naturally want our algorithms to outperform us and not just to level off at our capabilities, especially in areas like autonomous driving. An easy way to get closer to that goal is to simply equip them with better senses.
+Closely related are viewpoint effects, where only parts of the object can appear overly large by virtue of being much closer to the lens as the rest of the object. No issue in 3D as well. There can also arise problems through adverse or insufficient illumination. Too much light can wash out details and occlude information lying in dark areas, too little light can render image based techniques completely blind. The same is true for dense fog, which is especially critical for autonomous vehicles[^7]
+
+[^7]: To be completely honest, lighting and especially surface properties like reflectance can also adversely affect depth sensors, but usually to a lesser extend.
+
+As an aside: Ultimately, we naturally want our algorithms to outperform us and not just to level off at our capabilities, especially in areas like autonomous driving. An easy way to get closer to that goal is to simply equip them with better senses.
 
 The aforementioned advantages translate directly into algorithmic benefits, which I'll try to cover in the upcoming post on 3D deep learning. Stay tuned!
 

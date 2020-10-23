@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Flatlands
-abstract: I've recently started working with DLRs robots which perceive their environment not only with cameras but also with depth sensors. Working with the 3D data obtained from these sensors is quite different from working with images and this is the summary of what I've learned so far. How to do deep learning on this data will be covered in the next post.
-tags: [point clouds, voxel grids, meshes, 3D]
+title: 3D Deep Learning
+abstract: 
+tags: [point clouds, voxel grids, meshes, 3D, deep learning]
 category: learning
 mathjax: true
 time: 0
