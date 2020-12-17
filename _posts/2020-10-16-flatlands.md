@@ -28,6 +28,7 @@ From the given perspective, there is not a lot to see or understand. Now, if you
 <div style="text-align:center;">
   <img src="/images/happy_buddha.jpg" style="max-height:700px">
 </div>
+
 ## Images vs. point clouds
 
 At first glance, images and point clouds seem to be two very different things. Actually though, the underlying concept is the same, they are usually just _represented_ in a different way. It all begins with a bunch of points[^1]. A point can be completely defined by its position in a coordinate frame. For images, this coordinate frame is usually two dimensional, while for point clouds it usually has three dimensions. Below on the left you see a (slightly pixelated version) of the happy Buddha image from before. If you hover over it, you’ll see, for each point, its position in the grid and its RGB color value.[^2] A point defined by a position in a two-dimensional grid, i.e. by it’s position _relative_ to its neighbors rather than by _coordinates_ in 2D space, is called a _pixel_[^3]. For example, a pixel with position $(10, 51)$ is the pixel coming _after_ pixel $9$ and _before_ pixel $11$ in horizontal (or $x$, row) direction and identically so for the vertical (or $y$, column) direction.
@@ -69,7 +70,7 @@ This is of course bad news if we want to use them for further processing, for ex
 
 However, if we succeed in producing a high quality mesh from a point cloud, we also gain some great advantages. If you look closely, a mesh is basically a graph, connecting the points of the point cloud (or a subset/subsample thereof) through edges. This means, that points are no longer individuals, but part of a network of neighbors, similar to a voxel grid, but without (or at least reduced) loss of information through discretization as well as smaller file sizes, as empty space can remain empty and unaccounted for. In essence, a mesh provides many of the advantages of voxel grids[^5] but without their downsides.
 
-[^5]: Yes, even the ability to perform convolution operations on them, or, more precisely, on their edges, as we will see in the next post.
+[^5]: Yes, even the ability to perform convolution operations on them, or, more precisely, on their edges, as we will see in an upcoming post.
 
 ## Going beyond images
 

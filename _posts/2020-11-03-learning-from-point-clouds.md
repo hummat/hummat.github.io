@@ -24,7 +24,7 @@ And then there is the computational overhead. Adding a dimension to our data inc
 
 As discussed in the previous article, point clouds are great, as they are the most natural data representation, directly obtained from our sensors. They are inherently sparse and therefore space-saving, but they also come with some problems. The first is _varying density_, i.e. some regions feature significantly more points than others, and secondly _lack of order_. Both effects are visualized below. Contrary to images, the shape of the point clouds, and therefore the object it represents, is preserved no matter in which order its points are stored and presented. Were we to reverse the order of pixels in an image we would flip it horizontally (i.e. perform a $180°$ clockwise rotation), while shuffling the pixels would results in garbage (noise).
 
-<a name="bunny"><a/>
+<a name="bunny"></a>
 {% include /figures/bunny_pcd.html %}
 
 On the left, you see the point cloud of the [Stanford Bunny](http://graphics.stanford.edu/data/3Dscanrep/)[^1]. Points are distributed uniformly over its entire surface. On the right you see the same bunny, but with two important differences: 
@@ -88,7 +88,7 @@ If we now have a look at the entire network architecture as presented in the pap
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
   <img src="/images/pointnet.png">
-  <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 4:</b> PointNet as presented in the original paper. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
+  <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 4:</b> PointNet as presented in the original paper. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
 ### 1.3 Solving permutation invariance
@@ -189,6 +189,8 @@ The most interesting results in my eyes are obtained on corrupted and thinned da
 
 ## Wrapping up
 
-That's all for now. Next we'll take a look at graph neural networks, which try to exploit dynamically generated local graph structures or global graph information in the form of meshes to learn from 3D data. However, this post will be updated whenever I come across an interesting new architecture which can extract meaning directly from point clouds. Thanks for reading and see you soon in the next article.
+That's all for now. Next we'll take a look at learning from structured data (voxel grids), graph neural networks, which try to exploit dynamically generated local graph structures or global graph information in the form of meshes to learn from 3D data and multi-view as well as projection-based approaches learning from the 2D domain. However, this post will be updated whenever I come across an interesting new architecture which can extract meaning directly from point clouds. Thanks for reading and see you soon in the next article.
+
+[Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/learning-from-point-clouds.ipynb): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Flearning-from-point-clouds.ipynb)
 
 ---
