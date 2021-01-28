@@ -47,9 +47,9 @@ The advantage of this approach compared to the spatial domain is the applicabili
 With the necessary theoretical background under our belly, it's now time to investigate how researchers made use of the added structure provided by graphs and how they overcame the difficulties still present in this representation. We already head _PointNet_ for learning on point clouds and _VoxNet_ for learning on voxels so I guess we shouldn't be surprised to now see
 
 ### MeshNet
-As the name aptly conveys, _MeshNet_ is a deep neural network architectures tailored to meshes. In images, pixels form the basic building blocks and in point clouds this role is played by the points. For meshes though, the are several possibilities. Discarding all edges, we are left with a point cloud with additional neighborhood information. One can also only use the edges and extract features like length or angles. The triangle formed by three edges and vertices is called a _face_, which forms a third possibility. And then of course one can use subsets of those three.
+As the name aptly conveys, _MeshNet_ is a deep neural network architecture tailored to meshes. In images, pixels form the basic building blocks and in point clouds this role is played by the points. For meshes though, the are several possibilities. Ignoring the edges, we are left with a point cloud, possibly with additional neighborhood information. One can also only use the edges and extract features like lengths or angles. The triangle formed by three edges and vertices is called a _face_, which forms a third possibility. And then of course one can use subsets of those three.
 
-To take advantage of the structure inherent in meshes, the authors divide the input features into structural and spatial ones. They define the center of gravity of each face as spatial feature, and the vector from the center to each corner, the normal vector at the center and the index of the three neighboring faces as structural features. Chosen to be effective and efficient, these features are nonetheless hand-crafted, meaning they can't be learned from data and might be suboptimal.
+To take advantage of the structure inherent in meshes, the creators of MeshNet divide the input features into structural and spatial ones. They define the center of gravity of each face as spatial feature, and the vector from the center to each corner, the normal vector at the center and the index of the three neighboring faces as structural features. Chosen to be effective and efficient, these features are nonetheless hand-crafted, meaning they aren’t learned from data and might be suboptimal.
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
@@ -63,7 +63,7 @@ A convolution-like operation is then defined on the center-to-corner vectors, bu
 Building up a deep architecture around this new operator, MeshNet outperforms [Multi-View CNN](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Su_Multi-View_Convolutional_Neural_ICCV_2015_paper.pdf) and [PointNet++](https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf), two of the strongest baselines at the time of publication. It is also almost as fast as PointNet and very robust to changes in mesh structure and density.
 
 ### MeshCNN
-Similar to the previous architecture, this one is also specifically designed to handle the peculiarities of meshes, but the basic building blocks are now edges instead of faces. Each edge in a mesh takes part in two triangles on which both a novel convolution and pooling operation is designed.
+Similar to the previous architecture, this one is also specifically designed to handle the peculiarities of meshes, but the basic building blocks are now edges instead of faces. Each edge in a mesh takes part in two triangles on which both a novel convolution and pooling operation is defined.
 
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
@@ -88,10 +88,10 @@ The convolution is defined similarly to MeshNet over the participating edges. To
 </figure>
 </div>
 
-Because both convolutions and pooling are implemented, MeshCNN behaves much like a "normal" CNN, building hierarchical features with increasing depth while increasing the receptive field. And because the pooling operation can be reversed, we can even build fully convolutional networks for semantic segmentation. Unfortunately, the authors didn't evaluate their model on the de facto standard benchmark datasets ModelNet40 for classification, and ShapeNet for semantic segmentation, but quick look online revealed, that both datasets are not _manifold_, meaning there could be edges with more than two adjacent triangles, which breaks the assumption made in designing MeshCNN.
+Because both convolutions and pooling are implemented, MeshCNN behaves much like a "normal" CNN, building hierarchical features with increasing depth while increasing the receptive field. And because the pooling operation can be reversed, we can even build fully convolutional networks for semantic segmentation. Unfortunately, the authors didn't evaluate their model on the de facto standard benchmark datasets ModelNet40 for classification, and ShapeNet for semantic segmentation, but a quick look online revealed, that both datasets are not _manifold_, meaning there could be edges with more than two adjacent triangles, which breaks the assumption made in designing MeshCNN.
 
 ### DGCNN
-The final work I want to discuss in this article could just as well have appeared in a previous post on point cloud learning, as this is the what the _Dynamic Graph CNN_ takes as input, but I decided to flout the conventions and discuss it hear, because in name and at heart its a real graph approach.
+The final work I want to discuss in this article could just as well have appeared in a previous post on point cloud learning, as this is what the _Dynamic Graph CNN_ takes as input, but I decided to flout the conventions and discuss it hear, because in name and at heart its a real graph approach.
 
 In contrast to other works, including those featured above, DGCNN creates its own dynamic graph on the fly during execution. To do so, for each input point, the $k$ nearest neighbors are found in each layer, which means that proximity is defined in feature space as opposed to Euclidean space for all but the very first layer. Instead of using the features attached to each point, like position, color or normals, new pair-wise _edge features_ are computed.
 
@@ -102,7 +102,7 @@ In contrast to other works, including those featured above, DGCNN creates its ow
 </figure>
 </div>
 
-For the input, these are simply the difference between the position of each pair of points as well as the position of the center point. The former is multiplied by the networks weights, while the latter is multiplied by a bias and added to the product. Passing everything through a ReLU non-linearity and we obtain our edge features. Adding those up yields the standard convolution operation---now dubbed _EdgeConv_---were the output is used as input features for the subsequent layer.
+For the input, these are simply the difference between the position of each pair of points as well as the position of the center point. The former is multiplied by the networks weights, while the latter is multiplied by a bias and added to the product. Passing everything through a ReLU non-linearity we obtain our edge features. Adding those up yields the standard convolution operation---now dubbed _EdgeConv_---were the output is used as input features for the subsequent layer.
 
 You might wonder why we need to use pairs of points to compute our features instead of directly using the features of individual points, which, as it turns out, is what PointNet and PointNet++ do. The downside of this approach is, that local neighborhood information is ignored as every point is processed individually. As we know from learning on images though, local information is crucial for building up more complex representations from simple primitives. Using both pairs of points and individual points, we can capture both local and global information at the same time.
 
