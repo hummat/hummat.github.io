@@ -6,7 +6,7 @@ category: repository
 tags: [laplace approximation, Bayesian inference, deep learning]
 thumbnail: /images/loss_vs_gauss.png
 gradient: true
-github: https://hummat.github.io/curvature
+github: https://github.com/DLR-RM/curvature
 mathjax: true
 time: 23
 words: 6186
@@ -23,7 +23,7 @@ The mathematical language of uncertainty is probability theory, for which I prov
 
 More precisely, we will be looking at a practical yet powerful way to model a deep neural network probabilistically, thereby transforming it into a Bayesian neural network using a technique called _Laplace Approximation_. Once we are done with that, we will see how to make use of the newly obtained Bayesian superpowers to solve, or at least mitigate, some problems arising from poor calibration, i.e. being over- or underconfident in ones predictions. I’ll show some results I’ve obtained during the work on my [Masters’ thesis](https://elib.dlr.de/131938/1/thesis.pdf) through a plethora of interesting figures and visualizations.
 
-Incidentally, the article will also serve as a tutorial to the [GitHub repository](https://hummat.github.io/curvature/) featuring the code used to obtain all the presented results. If you are uncertain (no pun intended) about your level of background knowledge (of which you certainly need some), head over to the [background section of part two](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) to verify or brush up your knowledge, or just press on and see if you get stuck at some point. Also, check out the code that generated all figures in this post if you are interested: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fcurvature.ipynb)
+Incidentally, the article will also serve as a tutorial to the [GitHub repository](https://github.com/DLR-RM/curvature) featuring the code used to obtain all the presented results. If you are uncertain (no pun intended) about your level of background knowledge (of which you certainly need some), head over to the [background section of part two](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) to verify or brush up your knowledge, or just press on and see if you get stuck at some point. Also, check out the code that generated all figures in this post if you are interested: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fcurvature.ipynb)
 
 ## 1. Being normal around the extreme
 
@@ -311,6 +311,6 @@ While both the standard network as well as the Bayesian variants show an increas
 
 ## Wrapping up
 
-You have made it till here and I would like to congratulate you for this feat! There has been a lot of highly condensed information in this article in an attempt to summarize most of the important insights I gained while working on the topic. I hope it wasn't too hard to follow and you were able to take something away for your on projects. If you are eager to get your fingers dirty after all this theory definitely check out the [GitHub repository](https://hummat.github.io/curvature). Have a pleasant day feel free to drop me a comment if anything was left unclear or you spot a mistake. Cheers!
+You have made it till here and I would like to congratulate you for this feat! There has been a lot of highly condensed information in this article in an attempt to summarize most of the important insights I gained while working on the topic. I hope it wasn't too hard to follow and you were able to take something away for your on projects. If you are eager to get your fingers dirty after all this theory definitely check out the [GitHub repository](https://github.com/DLR-RM/curvature). Have a pleasant day feel free to drop me a comment if anything was left unclear or you spot a mistake. Cheers!
 
 ---
