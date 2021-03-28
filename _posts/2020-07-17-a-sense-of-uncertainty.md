@@ -22,14 +22,14 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 <details>
 <summary>Show resources</summary>
 <ol>
-<li><p><b>Linear algebra & calculus:</b> Okay, I know, you see this everywhere and for me at least, it always feels discomforting. What is it supposed to mean anyway? Do I need to know <i>all</i> of linear algebra and calculus to understand anything? And what does <i>“know”</i> mean? That I can solve matrix multiplications, determinants, Eigenvectors and 10th degree derivatives by hand in a few seconds? That I can proof the fundamental equations that underly those fields? I don’t think so.</p>
+<li><p><b>Linear algebra & calculus:</b> Okay, I know, you see this everywhere and for me at least, it always feels discomforting. What is it supposed to mean anyway? Do I need to know <i>all</i> of linear algebra and calculus to understand anything? And what does <i>“know”</i> mean? That I can solve matrix multiplications, determinants, Eigenvectors and 10th degree derivatives by hand in a few seconds? That I can proof the fundamental equations that underlie those fields? I don’t think so.</p>
 <p>Usually, and this is also true here, it just means that you have an <em>intuitive</em> understanding   of what is happening when multiplying a vector and a matrix or what a 2nd order derivative represents. Luckily, this kind of understanding can be obtained conveniently and even enjoyably by watching the following three video series (by one of my YouTube idols <a href="https://www.youtube.com/c/3blue1brown">3Blue1Brown</a> who we will probably encounter again and again throughout this section and even throughout this blog):</p></li>
 <ul>
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Essence of linear algebra</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of calculus</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLSQl0a2vh4HC5feHa6Rc5c0wbRTx56nF7">Multivariate calculus</a></li>
 </ul>
-<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to grasp what’s going on. Consider having a look at <a href="https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html">my article</a> on the topic, which is intented specifically as a primer to probabilistic machine learning.</li>
+<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to grasp what’s going on. Consider having a look at <a href="https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html">my article</a> on the topic, which is intended specifically as a primer to probabilistic machine learning.</li>
 <ul>
 <li><a href="https://seeing-theory.brown.edu/">Seeing theory</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLC58778F28211FA19">Probability explained</a></li>
@@ -46,7 +46,7 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 
 The first question coming to mind if confronted with the concept of a Bayesian Neural Network is, why even bother? _My standard Neural Networks are working just fine, thank you!_ The answer is, that the world itself is inherently uncertain and a run-of-the-mill Neural Net has no idea what it’s talking about when it classifies your cat as a Ferrari with $99.9\\%$ certainty.
 
-When confronted with a difficult problem like “_What did you eat on Monday two weeks ago?_” you will probably preface whatever answer comes to mind with a _“I’m not quite sure but I think…”_ or _“It could have been…”_. A standard Neural Net can’t do this. It’s more likely to conclude _“She often eats spaghetti, so that’s what it was!”_
+When confronted with a difficult problem like _“What did you eat on Monday two weeks ago?”_ you will probably preface whatever answer comes to mind with a _“I’m not quite sure but I think…”_ or _“It could have been…”_. A standard Neural Net can’t do this. It’s more likely to conclude _“She often eats spaghetti, so that’s what it was!”_
 
 **A note for the critical among you:** You might object that even a standard Neural Network returns a score for each class it’s predicting and you might be tempted to treat those numbers as probabilities of being correct, but there are at least two problems:
 
@@ -67,7 +67,7 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
 </div>
 
 
-This is equivalent to an old person having figured out the answers to all the important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking a the problem[^2] and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later. You can think about this as having a probability distribution for each weight (the little squiggly lines in yellow below) which determines the likely and less likely values each weight can take on. Usually, we have one multi-dimensional probability distribution for the entire network (where the number of dimensions equals the number of weights), also capturing (some of) the _covariances_ between the weights.
+This is equivalent to an old person having figured out the answers to all the important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking at the problem[^2] and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later. You can think about this as having a probability distribution for each weight (the little squiggly lines in yellow below) which determines the likely and less likely values each weight can take on. Usually, we have one multi-dimensional probability distribution for the entire network (where the number of dimensions equals the number of weights), also capturing (some of) the _covariances_ between the weights.
 
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
 
