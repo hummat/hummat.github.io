@@ -14,8 +14,7 @@ words: 0
 
 ## Code & References
 
-|:----:|:---------------------------:|
-| [Code](/url/to/notebook.ipynb) |           [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb)            |
-
-|:---:|:---------------------------:|
-| [1] | [Title of a Reference Paper](/url/to/paper)  |
+| [Code](/url/to/notebook.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb) |
+|:------------------------------:|:-------------------------------------------------------------------------------:|
+|                                |                                                                                 |
+|              [1]               |                    [Title of a Reference Paper](/url/to/paper)                  |
