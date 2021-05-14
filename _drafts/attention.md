@@ -2,10 +2,10 @@
 layout: post
 title: Attention
 abstract: A short text explaining what this post is about.
-tags: [tag1, tag2, tag3]
-category: category
-mathjax: false
-update: 0000-01-01 
+tags: [attention, transformer, context]
+category: learnig
+mathjax: true
+update: 0000-01-01
 time: 0
 words: 0
 ---
@@ -42,7 +42,7 @@ words: 0
 - Self-attention advantages: Parallel computation and long-range dependencies
 - Basic self-attention: Output is weighted sum over the input: $y_i=\sum_j w_{ij}x_j$
 - Difference to FC feed-forward NN: $w_{ij}$ is not a learnable parameter but an attention score between two input tokens ($w_{ij}=softmax(x_i^Tx_j)$)
-- Dot-product self-atttention: softmax(key.query)*value
+- Dot-product self-atttention: softmax(key.query)\*value
 - Vectorize: $W=softmax(X^TX)$ (row-wise softmax); $Y^T=WX^T$
 - Diagonal of W is largest in this basic setup; no parameters
 - Linear computation between X and Y (strong gradients)
@@ -56,26 +56,38 @@ words: 0
 - Multi-head self-attention (multiple self-attention operations applied in parallel): A token can relate to another in more than one way
 - Down-project input with one linear transformation per head, concatenate outputs, apply a single linear transformation
 - Same number of parameters: Linear transforms/output is simply cut into head-sized pieces
+- Transformer: A model that primarily uses self-attention to model input element dependencies
+- Transformer block: input -> layer norm -> self-attention -> residual -> layer norm -> feed-forward -> residual -> output
+- Layer norm similar to batch norm, except that the normalization is along the input feature dimension instead the batch dimension
+- In autoregressive models, self-attention weights $X^TX$ upper diagonal matrix is set to -infinity (becomes zero after softmax) to prevent lookahead in time)
+- Position embedding: Each element gets an ID (learned or hand-crafted); fixed maximum length
+- Position encodings: Each element gets an ID of multiple values from overlayed frequencies (e.g. sine/cosine)
+- Relative position: Distance to current element
+- Transformer: Attention is all you need (no other bells and whistles required), translation model (encoder-decoder)
+- BERT: Spiritual successor to ELMo (unsupervised pre-training, supervised finetuning), encoder only
+- Trained on two tasks: Masked/corrupted word prediction (bi-directional language model task), sentence entailment (classification)
+- GPT-2: Autoregressive model (generative); can produce long-range coherence
+- Encoder-decoder architecture used in translation to cross-attend between input and output (e.g. to deal with different word order)
 
 ## Code & References
 
-| [Code](/url/to/notebook.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb)                                                         |   |
-|:------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------|:-:|
-|                                |                                                                                                                                         |   |
-|              [1]               | [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)                                                       |   |
-|              [2]               | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |   |
-|              [3]               | [Transformer Neural Networks](https://www.youtube.com/watch?v=TQQlZhbC5ps)                                                              |   |
-|              [4]               | [Bert Neural Network](https://www.youtube.com/watch?v=xI0HHN5XKDo)                                                                      |   |
-|              [5]               | [Attention in Neural Networks](https://www.youtube.com/watch?v=W2rWgXJBZhU)                                                             |   |
-|              [6]               | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           | x |
-|              [7]               | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |   |
-|              [8]               | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |   |
-|              [9]               | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |   |
-|              [10]              | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |   |
-|              [11]              | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |   |
-|              [12]              | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |   |
-|              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |   |
-|              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |   |
-|              [15]              | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |   |
-|              [16]              | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |   |
-|              [17]              | [An Introduction to Attention](https://wandb.ai/authors/under-attention/reports/An-Introduction-to-Attention--Vmlldzo1MzQwMTU)          |   |
+| [Code](/url/to/notebook.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb)                                                         | Check |
+| :----------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- | :---: |
+|                                |                                                                                                                                         |       |
+|              [1]               | [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)                                                       |       |
+|              [2]               | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |       |
+|              [3]               | [Transformer Neural Networks](https://www.youtube.com/watch?v=TQQlZhbC5ps)                                                              |   x   |
+|              [4]               | [Bert Neural Network](https://www.youtube.com/watch?v=xI0HHN5XKDo)                                                                      |   x   |
+|              [5]               | [Attention in Neural Networks](https://www.youtube.com/watch?v=W2rWgXJBZhU)                                                             |   x   |
+|              [6]               | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           |   x   |
+|              [7]               | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |   x   |
+|              [8]               | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |   x   |
+|              [9]               | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |       |
+|              [10]              | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |       |
+|              [11]              | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |       |
+|              [12]              | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |       |
+|              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |       |
+|              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |       |
+|              [15]              | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |       |
+|              [16]              | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |       |
+|              [17]              | [An Introduction to Attention](https://wandb.ai/authors/under-attention/reports/An-Introduction-to-Attention--Vmlldzo1MzQwMTU)          |       |
