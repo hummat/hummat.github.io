@@ -12,6 +12,33 @@ words: 0
 
 # {{ page.title }}
 
+## Why?
+- Incorporate context; (long-range) dependencies
+- Examples from NLP and vision (image, video, depth data)
+- NLP: Winograd schemas
+- Vision: Classification/Detection/Segmentation (zoomed in and out, object with scene)
+- RL: Experience replay (memory)?
+
+## How?
+- Traditionally:
+- Context in conv = receptive field
+1. In NLP (time, 1D)
+  - RNN
+  - LSTM
+  - 1D dilated conv (wavenet, Google Translate/Assistant)
+2. image/video (width and height, 2D)
+  - MLP
+  - 2D conv (kernel size, depth, dilated, seperable, deformable)
+  - Attention + conv
+3. depth data (width, height, depth, 3D)
+  - (Shared MLP)
+  - 3D conv
+  - Graphs
+  - FPS/kNN/Ball query/SOM
+* SOTA: Attention (is all you need)
+
+## Where?
+
 - Sequence-to-sequence (seq2seq): Input is a sequence of vectors (or tensors), output is also a sequence of vectors (or tensors) of the same length
 - Model can adapt to varying sequence length
 - Autoregressive training: Unsupervised training where the target is to predict the next element in a sequence (target sequence is input sequence shifted one (time) step to the left)
@@ -42,8 +69,9 @@ words: 0
 - Self-attention advantages: Parallel computation and long-range dependencies
 - Basic self-attention: Output is weighted sum over the input: $y_i=\sum_j w_{ij}x_j$
 - Difference to FC feed-forward NN: $w_{ij}$ is not a learnable parameter but an attention score between two input tokens ($w_{ij}=softmax(x_i^Tx_j)$)
-- Dot-product self-atttention: softmax(key.query)\*value
+- Dot-product self-atttention: softmax(key.query)*value
 - Vectorize: $W=softmax(X^TX)$ (row-wise softmax); $Y^T=WX^T$
+- $softmax(KQ^T)$: A probability distribution over keys with modes where key and query are similar
 - Diagonal of W is largest in this basic setup; no parameters
 - Linear computation between X and Y (strong gradients)
 - Same distance from every input to every output (pair-wise self-attention): Different form RNNs where distance grows
@@ -68,6 +96,7 @@ words: 0
 - Trained on two tasks: Masked/corrupted word prediction (bi-directional language model task), sentence entailment (classification)
 - GPT-2: Autoregressive model (generative); can produce long-range coherence
 - Encoder-decoder architecture used in translation to cross-attend between input and output (e.g. to deal with different word order)
+- Multi-head attention like convolution
 
 ## Code & References
 
@@ -75,7 +104,7 @@ words: 0
 | :----------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- | :---: |
 |                                |                                                                                                                                         |       |
 |              [1]               | [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)                                                       |       |
-|              [2]               | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |       |
+|              [2]               | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |   x   |
 |              [3]               | [Transformer Neural Networks](https://www.youtube.com/watch?v=TQQlZhbC5ps)                                                              |   x   |
 |              [4]               | [Bert Neural Network](https://www.youtube.com/watch?v=xI0HHN5XKDo)                                                                      |   x   |
 |              [5]               | [Attention in Neural Networks](https://www.youtube.com/watch?v=W2rWgXJBZhU)                                                             |   x   |
@@ -86,7 +115,7 @@ words: 0
 |              [10]              | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |       |
 |              [11]              | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |       |
 |              [12]              | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |       |
-|              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |       |
+|              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |   x   |
 |              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |       |
 |              [15]              | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |       |
 |              [16]              | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |       |
