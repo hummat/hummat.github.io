@@ -44,6 +44,7 @@ words: 0
   - FPS/kNN/Ball query/SOM
 * SOTA: Attention (is all you need)
 - Explain self-attention (dot product (movie example from "Transformers from Scratch", recommender systems, matrix factorization), illustrations from "Illustrated Transformer")
+- Use visuals from [1, 6, 9, 20] and notation from [14] 
 - Use code? (Feynman: "What I cannot create I do not understand")
 - Explain relation to MLP: How is weighing by input (self-attention score) different from weighing by FC weight matrix? Example: Hard-coding connection strength to verbs, nouns and articles (only works with the exact same sentence structure) vs. ordering the input (self-attention) and passing it to specialized parts of the model afterwards
 - Explain relation to CNN: convolution as multi-head self-attention with identity key, query and value matrices, difference between weighing input locations with (kernel) weights (only change during training) and modulating those connections during inference through attention (reduced redundancy of channels: +-45° edge detector can become one?)   
@@ -90,7 +91,7 @@ words: 0
 - Permutation equivariant: p(sa(X)) = sa(p(X))
 - Power of dot-product: Respects magnitude and sign (recommender systems)
 - Scaled dot-product by sqrt(k) where k is the number of elements: Prevents vanishing gradient in softmax
-- Attention as "soft" dict (key, value): Every key matches the query to some extent and a mixture of values is returned
+- Attention as "soft" dict (key, value): Every key matches the query to some extent and a mixture of values is returned (image from [20])
 - Liner transformations on X: K, Q, V allow the key, query and value to play different roles
 - Multi-head self-attention (multiple self-attention operations applied in parallel): A token can relate to another in more than one way
 - Down-project input with one linear transformation per head, concatenate outputs, apply a single linear transformation
@@ -126,12 +127,44 @@ words: 0
 - Works for words in embedding space (distributional hypothesis) but not in input space (words with similar characters have no semantic similarity)
 - correlation = cosine similarity
 - covariance = dot product similarity
-- Encoder-decoder architecture needed to handle differing input/output sequence length?
+- Encoder-decoder architecture needed to handle differing input/output sequence length?: No, only output length <= max input length required
+- Because RNNs are sequential but the entire context (e.g. sentence) is needed to produce the output (e.g. translation), the input sequence first needs to be encoded entirely (encoder) to then be decoded. Not needed with Transformers as they can encode the entire input in parallel)
 - Using convolutions or RNNs, the distance of two inputs in the input spaces determines their distance in feature space, thus long-range dependencies are treated inherently differently, which is usually not semantically warranted
 - The transformer sacrifices resolution (due to averaging of attention-weighted positions) for constant distance which is mitigated through the multi-head design
 - Self-attention in original paper = scaled dot-product attention
 - Dot-product and additive attention [18] have similar theoretical complexity, but dot-product is much faster due to highly optimized matrix multiplication on GPUs
 - Three types of attention in original transformer: encoder-decoder, self, decoder (masked)
+- $Y=softmax(KQ^T)V$ is permutation _equivariant_ for each element in $Y$ and permutation _invariant_ for each element in $y$ (e.g. bgr=rgb)
+- Without K, Q, V, self-attention produces outputs entirely determined by the input embeddings (word2vec representation of mary and susan is probably quite similar wrt "gave" so the output will be ambiguous wrt who is doing the giving and who is receiving, i.e $w_{susan,gave}=w_{mary,gave}$)
+- Adding Q, K, V, self-attention can produce $w_{susan,gave}=q_{susan}^Tk_{gave}>w_{mary,gave}=q_{mary}^Tk_{gave}$ but:
+- Without multiple heads, "mary gave roses to susan" = "susan gave roses to mary" wrt. $y_{gave}$, because $y_i=\sum_jw_{ij}x_j$ in self-attention is permutation _invariant_
+- This simple problem can also be solved by using positional embeddings, but "The animal didn't cross the road because it was too tired/wide." can't (meaning of $y_{it}$ can't be parsed by position)
+- Multiple heads: Split dimensionality of Q (and K, V) from d x q into d x q/h, compute $Y_1...Y_H$ with $Q_1...K_H$ (and K, V), concat Ys, project back to d x N with W_O (paper p. 5)
+- With average pooling in the end (e.g. for classification) the Transformer becomes permutation invariant
+- Decoder-only used as synonym for autoregressive model with masking (generative model), encoder only as synonym for classification model (language model)
+- So far, performance is limited by hardware not model design
+- GPT-X is decoder-only (language model, masked self-attention: left-to-right context only) and thus can do NMT (no encoder required)
+- BERT is encoder-only (predict masked/wrong words: Cloze task, self-attention: bi-directional context)
+- Attention originally used as connection between encoder and decoder
+- "Time" step in RNNs is one token
+- Attention: A mapping from query to a set of key-value pairs; the output is their weighted sum
+- Weights are computed by a compatibility function between query and key
+- Self-attention has no parameters, they are introduced in the multi-head design, but an activation function (softmax)
+- $1/\sqrt(d_k)$ scaling: Large values of dot product push the softmax in regions of small gradient [20]; dimensionality of query, key (d_k) would influence output, scaling by $1/\sqrt(d_k)$ removes this [9]
+- Multi-head attention has parameters, but no non-linearity
+- The shorter the path between input and corresponding output elements (in computation steps), the easier it is to learn their relation (due to vanishing gradients)
+- Using RNNs, the distance grows linearly with length and with length/kernel size for convolutions ($\log_k(n)$ for dilated convs); Using self-attention it's constant
+- Depth-wise separable convolutions have the same complexity as self-attention + shared MLP
+- Sequence length is usually shorter than representation dimensionality (for sentence level problems with word-piece or byte-pair encoding)
+- Initial use of attention: called soft-attention (see soft dict), used in encoder-decoder configuration (not self-attention), a MLP to compute attention weights, used as a way to take burden from fixed-length encoder output, need to use forward and backward LSTM to capture bi-directional context, focused on alignment of source and target
+- Summation of weighted values as _expected correspondence_
+- Alternatives to dot-product attention: _general_ ($q^TWk$), _mlp_
+
+https://marp.app/
+https://github.com/marp-team/marp
+https://github.com/hiroppy/fusuma
+https://github.com/sinedied/backslide
+https://github.com/dadoomer/markdown-slides
 
 ## Code & References
 
@@ -146,14 +179,16 @@ words: 0
 |              [6]               | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           |   x   |
 |              [7]               | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |   x   |
 |              [8]               | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |   x   |
-|              [9]               | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |       |
+|              [9]               | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |   x   |
 |              [10]              | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |   x   |
 |              [11]              | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |   x   |
 |              [12]              | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |   x   |
 |              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |   x   |
-|              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |       |
+|              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |   x   |
 |              [15]              | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |       |
 |              [16]              | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |       |
 |              [17]              | [An Introduction to Attention](https://wandb.ai/authors/under-attention/reports/An-Introduction-to-Attention--Vmlldzo1MzQwMTU)          |       |
-|              [18]              | [Origins of Attention I](https://arxiv.org/abs/1409.0473)                                                                               |       |
-|              [19]              | [Origins of Attention II](https://arxiv.org/abs/1508.04025)                                                                             |       |
+|              [18]              | [Origins of Attention I](htps://arxiv.org/abs/1409.0473)                                                                                |   x   |
+|              [19]              | [Origins of Attention II](https://arxiv.org/abs/1508.04025)                                                                             |   x   |
+|              [20]              | [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2)                                                                    |   x   |
+|              [21]              | [Spatial Attention in Deep Learning](https://arxiv.org/abs/1904.05873)                                                                  |       |
