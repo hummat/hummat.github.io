@@ -66,3 +66,6 @@ geckodriver.log
 
 # Python
 .python-version
+
+# Zettlr
+_posts/.ztr-directory

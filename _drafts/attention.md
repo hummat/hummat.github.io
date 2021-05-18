@@ -51,6 +51,8 @@ words: 0
 
 ## Where?
 
+
+## Notes
 - Sequence-to-sequence (seq2seq): Input is a sequence of vectors (or tensors), output is also a sequence of vectors (or tensors) of the same length
 - Model can adapt to varying sequence length
 - Autoregressive training: Unsupervised training where the target is to predict the next element in a sequence (target sequence is input sequence shifted one (time) step to the left)
