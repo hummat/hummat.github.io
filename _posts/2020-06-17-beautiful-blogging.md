@@ -327,7 +327,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
   [^9]: This assumes you are using `conda`, if you use `pip` or other languages than Python, check out the [Binder documentation](https://mybinder.readthedocs.io/en/latest/config_files.html).
 
-  Over there, you simply fill in the URL of your [GitHub pages repository](https://github.com/hummat/hummat.github.io) and the path to the notebook you want to run—like `/notebooks/the-blog.ipynb`—and copy the markdown generated below. Paste it wherever you want to link to your code to get this: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fbeautiful-blogging.ipynb)
+  Over there, you simply fill in the URL of your [GitHub pages repository](https://github.com/hummat/hummat.github.io) and the path to the notebook you want to run—like `/notebooks/beautiful-blogging.ipynb`—and copy the markdown generated below. Paste it wherever you want to link to your code to get this: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fbeautiful-blogging.ipynb)
 
   An interested reader can now simply click on it to start an interactive version of your code!
 
