@@ -164,7 +164,7 @@ That’s it! You now should have a discussion section similar to the one at the 
 
 ### 4. Math support
 
-If you want to write about math related topics like machine learning, you need to be able to display mathematical equations. While you can get away with simply typing 2+2=4, it is not exactly pretty anything slightly more complex is out of your reach.  The de facto standard to render high quality math in the scientific community is $\LaTeX$. Aha, you see where this is going, right?
+If you want to write about math related topics like machine learning, you need to be able to display mathematical equations. While you can get away with simply typing 2+2=4, it is not exactly pretty and anything slightly more complex is out of your reach.  The de facto standard to render high quality math in the scientific community is $\LaTeX$. Aha, you see where this is going, right?
 
 On the web, Latex, or rather Latex math mode, is supported through the JavaScript library [MathJax](https://www.mathjax.org/). To get it to work inside GitHub pages you need to have an include file like [this one](https://github.com/hummat/hummat.github.io/blob/master/_includes/mathjax.html). There are a few things to note about this file. The first is the Liquid tag {% raw %}{% if page.mathjax %}{% endraw %}, which allows you to only enable MathJax in posts where you need it, similar to the DISQUS approach above[^javascript].
 
@@ -182,7 +182,7 @@ $$
 
 Okay, so this really gets me excited! The ability to add interactive visualizations is my newest achievement and it’s so neat! I’ve already written about why I think visualizations are the best thing that can happen to a complicated topic [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html), so I won’t repeat myself, but interactive visualizations?! That’s like visualizations on steroids. So, how can it be done?
 
-It all starts with [Plotly’s Python graphing library](https://plotly.com/python/). It’s basically Matplotlib for the web, if you know what I mean. You write some visualization code like [this one](https://github.com/hummat/hummat.github.io/blob/master/notebooks/the-blog.ipynb)—play with it on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fthe-blog.ipynb) if you like (might take a while to start)—and then you save the figure in a special way:
+It all starts with [Plotly’s Python graphing library](https://plotly.com/python). It’s basically Matplotlib for the web, if you know what I mean. You write some visualization code like [this one](https://github.com/hummat/hummat.github.io/blob/master/notebooks/beautiful-blogging.ipynb)—play with it on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fbeautiful-blogging.ipynb) if you like (might take a while to start)—and then you save the figure in a special way:
 
 ```python
 import plotly.io as pio
