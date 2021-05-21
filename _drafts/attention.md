@@ -1,58 +1,100 @@
 ---
 layout: post
 title: Attention
-abstract: A short text explaining what this post is about.
+abstract: Yet another article on attention? Yes, but this one is both annotated and illustrated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
 tags: [attention, transformer, context]
 category: learnig
 mathjax: true
-update: 0000-01-01
+slideshow: true
 time: 0
 words: 0
 ---
 
 # {{ page.title }}
 
-- Not a transformer explanation; focus on (self-) attention
+You might be wondering if this article can possible contain anything new for you. You already studied the [illustrated]() and [annotated]() Transformer, the [original paper]() and everything from [GPT-1-2-3]() to [BERT]() and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here, but the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has potential to further clarify and solidify some of these truly interesting and general concepts.
+There story is told in three acts: I. Why, II. How, III. Where. Simple.
 
 ## Why?
-- Incorporate context; (long-range) dependencies
-- Examples from NLP and vision (image, video, depth data)
-- NLP: Winograd schemas, quotes taken from context
-- “I arrived at the bank after crossing the river.”
-- "The animal didn't cross the road because it was too tired/wide."
-- Note: NLP not focus of talk (not as relevant for robotics) but great to explain attention concepts
-- Vision: Classification/Detection/Segmentation (zoomed in and out, object with scene)
-- RL: Experience replay (memory)?
+
+It all begins with a little entity making up most of the (digital) world around you. It takes many names some calling it _word_, _pixel_ or _point_, but we will simply call it _element_. Our little element is secretive, revealing almost nothing about itself in isolation. In that regard, it is like its sibling in the real world, the atom. Both are atomic[^1]. It has emergent properties though: Throw a couple of thousand of them together and you get a story, an image, a 3D model. What has changed? The Context.
+
+> **Context:** The circumstances that form the setting for an event, statement, or idea, and in terms of which it can be fully understood.
+
+Let's look at a couple of examples. The simplest (an therefore the one we will see most frequently throughout the article) is the word. Here is one:
+
+![](/images/attention/bank.gif)
+
+Did you guess the meaning correctly? Or was it the financial institution or place to sit? The point is, of course, that you couldn't have known without the context of the entire sentence, as many words are ambiguous. It doesn't stop there though. Even the sentence is ambiguous if your goal is to determine the book title or author who wrote it. To do so, you might need a paragraph, a page or even an entire chapter of context. In machine learning lingo, such broad context is commonly called a _long-range dependency_. Here is another one. Pay attention to the meaning of the word _"it"_:
+
+![](/images/attention/it.gif)
+
+Seeing _"tired"_, we know _it_ must refer to the animal, as roads are seldom so while it's the opposite for _"wide"_[^2].
+
+Below, there are two more examples of increasing dimensionality (use the little arrows to switch between them). While sentences can be interpreted as one-dimensional sequences of word-elements, an image is a two-dimensional grid of picture-elements (pixels) and a 3D model can be represented by a cloud of point-elements[^3] (or volumetric-elements: voxels). You will notice that you can't discern what is represented by the closeup view of the individual elements but when zooming out (using the "Zoom out" buttons and your mousewheel or fingers) the interpretation becomes trivial.
+
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    {% include figures/image_zoomed.html %}
+  </div>
+
+  <div class="mySlides fade">
+    {% include figures/happy_buddha.html %}
+  </div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+
+Again, context doesn't stop there. To correctly place a pixel as belonging to, say, an eye, you need the surrounding pixels making up the eye. To place the eye as coming from an adult or a child you make use of the information stored in the pixels around the eye. Such inference can potentially go on indefinitely, but it's usually restricted by the size of the depicted scene or the resolution of the image. Okay, you might think, so is more information always better? No.
+
+![](/images/attention/knowledge.gif)
+
+Finding the hidden information in the image above is trivial if the surrounding context is removed (to be precise, it's not the _absence_ of context, as all pixels are still there, but the _contrast_ between signal and noise, percieved as difference between gray and colored pixels). Clearly, it's not a simple as having no context at all or all of it but rather which portion of the provided information we pay _attention_ to.
+
+[^1]: Not really of course, words can be divided into letters, atoms in particles, but let's ignore that.
+[^2]: This, and many more of these (deliberately) ambiguous sentences can be found in the _Winograd schema challenge_.
+[^3]: Also known as a _point cloud_. Take a look at the previous articles on learning from 3D data for other representations.
 
 ## How?
+
 - "Drowning in data, starving for knowledge"
 - High level intuition of what attention tries to achieve
 - Traditionally:
 - Context in conv = receptive field
+
 1. In NLP (time, 1D)
-  - RNN
-  - LSTM
-  - 1D dilated conv (wavenet, Google Translate/Assistant)
+
+- RNN
+- LSTM
+- 1D dilated conv (wavenet, Google Translate/Assistant)
+
 2. image/video (width and height, 2D)
-  - MLP
-  - 2D conv (kernel size, depth, dilated, seperable, deformable)
-  - Attention + conv
+
+- MLP
+- 2D conv (kernel size, depth, dilated, seperable, deformable)
+- Attention + conv
+
 3. depth data (width, height, depth, 3D)
-  - (Shared MLP)
-  - 3D conv
-  - Graphs
-  - FPS/kNN/Ball query/SOM
+
+- (Shared MLP)
+- 3D conv
+- Graphs
+- FPS/kNN/Ball query/SOM
+
 * SOTA: Attention (is all you need)
+
 - Explain self-attention (dot product (movie example from "Transformers from Scratch", recommender systems, matrix factorization), illustrations from "Illustrated Transformer")
-- Use visuals from [1, 6, 9, 20] and notation from [14] 
+- Use visuals from [1, 6, 9, 20] and notation from [14]
 - Use code? (Feynman: "What I cannot create I do not understand")
 - Explain relation to MLP: How is weighing by input (self-attention score) different from weighing by FC weight matrix? Example: Hard-coding connection strength to verbs, nouns and articles (only works with the exact same sentence structure) vs. ordering the input (self-attention) and passing it to specialized parts of the model afterwards
-- Explain relation to CNN: convolution as multi-head self-attention with identity key, query and value matrices, difference between weighing input locations with (kernel) weights (only change during training) and modulating those connections during inference through attention (reduced redundancy of channels: +-45° edge detector can become one?)   
+- Explain relation to CNN: convolution as multi-head self-attention with identity key, query and value matrices, difference between weighing input locations with (kernel) weights (only change during training) and modulating those connections during inference through attention (reduced redundancy of channels: +-45° edge detector can become one?)
 
 ## Where?
 
-
 ## Notes
+
 - Sequence-to-sequence (seq2seq): Input is a sequence of vectors (or tensors), output is also a sequence of vectors (or tensors) of the same length
 - Model can adapt to varying sequence length
 - Autoregressive training: Unsupervised training where the target is to predict the next element in a sequence (target sequence is input sequence shifted one (time) step to the left)
@@ -83,7 +125,7 @@ words: 0
 - Self-attention advantages: Parallel computation and long-range dependencies
 - Basic self-attention: Output is weighted sum over the input: $y_i=\sum_j w_{ij}x_j$
 - Difference to FC feed-forward NN: $w_{ij}$ is not a learnable parameter but an attention score between two input tokens ($w_{ij}=softmax(x_i^Tx_j)$)
-- Dot-product self-atttention: softmax(key.query)*value
+- Dot-product self-atttention: softmax(key.query)\*value
 - Vectorize: $W=softmax(XX^T)$ (row-wise softmax); $Y^T=WX^T$
 - $softmax(KQ^T)$: A probability distribution over keys with modes where key and query are similar
 - Diagonal of W is largest in this basic setup; no parameters
