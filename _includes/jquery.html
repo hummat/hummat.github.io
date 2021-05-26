@@ -1,0 +1,22 @@
+{% if page.jquery %}
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+function toggle(obj) {
+    var originalSrc = obj.attr("src");
+    if (originalSrc.endsWith(".png")) {
+        obj.attr("src", originalSrc.replace(".png", ".gif"));
+    } else {
+        obj.attr("src", originalSrc.replace(".gif", ".png"));
+    }
+}
+
+$(document).ready(function() {
+  $(".img-animate").each(function () {
+	  $(this).on("mouseenter mouseleave click", function() {
+		  toggle($(this));
+	  });
+  });
+});
+</script>
+{% endif %}
