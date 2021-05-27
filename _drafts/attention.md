@@ -2,13 +2,11 @@
 layout: post
 title: Attention
 abstract: Yet another article on attention? Yes, but this one is both annotated and illustrated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
-tags: [attention, transformer, context]
+tags: [attention, context]
 category: learnig
+thumbnail: /images/attention/query_key_value.png
 mathjax: true
 jquery: true
-plotly: true
-slideshow2: true
-slow: false
 time: 0
 words: 0
 ---
@@ -16,142 +14,15 @@ words: 0
 # {{ page.title }}
 
 You might be wondering if this article can possible contain anything new for you. You already studied the [illustrated]() and [annotated]() Transformer, the [original paper]() and everything from [GPT-1-2-3]() to [BERT]() and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here, but the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has potential to further clarify and solidify some of these truly interesting and general concepts.
-There story is told in three acts: I. Why, II. How, III. Where. Simple.
 
-## Why? Conceiving context
+### Notation
 
-It all begins with a little entity making up most of the (digital) world around you. It takes many names some calling it _word_, _pixel_ or _point_, but we will simply call it _element_. Our little element is secretive, revealing almost nothing about itself in isolation. In that regard, it is like its sibling in the real world, the atom. Both are atomic[^1]. It has emergent properties though: Throw a couple of thousand of them together and you get a story, an image, a 3D model. What has changed? The Context.
+Our detailed explanation of the attention mechanism begins with some math which will subsequently be visualized to build an intuitive understanding. A quick word on notation: The attention equation makes use of scalars, vectors and matrices. We will use lowercase letters $x$, bold lowercase letters $\boldsymbol{x}$ and uppercase letters $W$ for these entities respectively. A great way to visualize scalars, vectors and matrices is to represent them by colored squares, where the number of squares represents the dimensionality and the color vibrancy of each square represents the magnitude of the value at this position from small, bright values to large, dark values as shown below.
 
-> **Context:** The circumstances that form the setting for an event, statement, or idea, and in terms of which it can be fully understood.
-
-Let's look at a couple of examples. The simplest (an therefore the one we will see most frequently throughout the article) is the word. Try to guess the meaning of the word below, then hover over it with your cursor or click to reveal the context:
-
-<img class="img-animate" src="/images/attention/bank.png">
-
-Did you guess the meaning correctly? Or was it the financial institution or place to sit? The point is, of course, that you couldn't have known without the context of the entire sentence, as many words are ambiguous. It doesn't stop there though. Even the sentence is ambiguous if your goal is to determine the book title or author who wrote it. To do so, you might need a paragraph, a page or even an entire chapter of context. In machine learning lingo, such broad context is commonly called a _long-range dependency_. Here is another one. Pay attention to the meaning of the word _"it"_:
-
-![](/images/attention/it.gif)
-
-Seeing _"tired"_, we know _it_ must refer to the animal, as roads are seldom so while it's the opposite for _"wide"_[^2].
-
-Below, there are two more examples of increasing dimensionality (use the little arrows to switch between them). While sentences can be interpreted as one-dimensional sequences of word-elements, an image is a two-dimensional grid of picture-elements (pixels) and a 3D model can be represented by a cloud of point-elements[^3] (or volumetric-elements: voxels). You will notice that you can't discern what is represented by the closeup view of the individual elements but when zooming out (using the "Zoom out" buttons and your mousewheel or fingers) the interpretation becomes trivial.
-
-<br/>
-<div id="slideshow1" class="slideshow-container">
-  <div class="mySlides fade">
-    {% include figures/image_zoomed.html %}
-  </div>
-
-  <div class="mySlides fade">
-    {% include figures/happy_buddha.html %}
-  </div>
-
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
-
-</div>
-<br/>
-
-Again, context doesn't stop there. To correctly place a pixel as belonging to, say, an eye, you need the surrounding pixels making up the eye. To place the eye as coming from an adult or a child you make use of the information stored in the pixels around the eye. Such inference can potentially go on indefinitely, but it's usually restricted by the size of the depicted scene or the resolution of the image. Okay, you might think, so is more information always better? No.
-
-![](/images/attention/knowledge.gif)
-
-Finding the hidden information in the image above is trivial if the surrounding context is removed (to be precise, it's not the _absence_ of context, as all pixels are still there, but the _contrast_ between signal and noise, percieved as difference between gray and colored pixels). Clearly, it's not a simple as having no context at all or all of it but rather which portion of the provided information we pay _attention_ to.
-
-[^1]: Not really of course, words can be divided into letters, atoms in particles, but let's ignore that.
-[^2]: This, and many more of these (deliberately) ambiguous sentences can be found in the _Winograd schema challenge_.
-[^3]: Also known as a _point cloud_. Take a look at the previous articles on learning from 3D data for other representations.
-
-## How? Context across dimensions and domains
-
-Now that you are hopefully convinced that context is an important concept across domains, let's start this section off by investigating how how researchers have dealt with it prior to the advent of attention. First up are sequence data in the form of written and spoken language. Then we will look at images and 3D data formats in turn.
-
-### Context without attention
-
-For a long time, the predominant method used to model natural language was the _Recurrent Neural Network_ (RNN), first in a basic fully-connected flavor and later using _Long-Short-Term Memory_ (LSTM) and _Gated Recurrent Units_ (GRU). In this paradigm, context is accumulated over time, one element (word) after another, allowing the model to reference potentially indefinitely into the past. Potentially, because in reality it turns out that the memory is rather short and plagued by vanishing and exploding gradients, a problem addressed to some extend by the LSTM and GRU variants. The recurrent nature, while interesting, also requires sequential computation, resulting in slow training and inference. Additionally, the model can't look into the future,[^4] requiring a complicated encoder-decoder design, first aggregating the entire context of the input to provide the decoder with the necessary global context,[^5] a point we will return to in the last section of this article.
-
-<div style="text-align: center">
-<figure style="width: 90%; display: inline-block;">
-  <img src="/images/attention/rnn_unrolled.png">
-  <figcaption style="text-align: left; line-height: 1.2em;"><b>An unrolled RNN:</b> Input elements $\boldsymbol{x}_t$ are processed sequentially while context is retained in the hidden states $\boldsymbol{h}_t$. [1]</figcaption>
-</figure>
-</div>
-
-[^4]: Except for bi-directional RNNs which read the sequence from left and right.
-[^5]: An example being machine translation: The input sequence (a sentence in English) is first encoded from the first to the last element (word) and then decoded sequentially to produce the translation (the sentence in French).
-
-The shortcomings of RNNs motivated the look into alternatives, one of which was found in a revered companion: the convolution. At first glance, this might seem like a strange choice, considering convolutions as almost synonymous with locality.
-However, there are at least two tricks to aggregate long-range dependencies using convolutions. The first one is to simply stack them. Maybe due to their prevalence in image processing, the range covered by a convolution is called its _receptive field_ and through stacking, it can be grown.
-
-<div style="text-align: center">
-<figure style="width: 90%; display: inline-block;">
-  <img width="400" style="margin-left: auto; margin-right: auto;" src="/images/attention/1d_conv.png">
-  <figcaption style="text-align: left; line-height: 1.2em;"><b>Receptive field:</b> The receptive field (red) is the range of context aggregated into the current representation. It increases with the number of stacked convolutional layers. [1]</figcaption>
-</figure>
-</div>
-
-Now, for large inputs (a long text, a high resolution image, a dense point cloud), this simple way of increasing the receptive field size is inefficient, because we need to stack many layers which bloats the model. A more elegant way is to use _strided_ convolutions, where the convolutional kernel is moved more than a single element, or _dilated_ (atrous) convolutions, where the kernel weights are scattered across the input with perceptive holes (French: _trous_) in between. As we might miss important _in between_ information with this paradigm we can again stack multiple such convolutions with varying strides or dilation factors to efficiently cover the entire input.
-
-<div style="text-align: center">
-<figure style="width: 90%; display: inline-block;">
-  <img src="/images/attention/wavenet.gif">
-  <figcaption style="text-align: left; line-height: 1.2em;"><b>WaveNet:</b> Using dilated convolutions, long sequences can be processed efficiently while retaining a large receptive field. [2]</figcaption>
-</figure>
-</div>
-
-Moving to the image domain, there is no fundamentally new idea here as vision models still largely rely on convolutions with similar characteristics as introduces above, the only change being the added second dimension.
-
-<div style="text-align: center">
-<figure style="width: 90%; display: inline-block;">
-  <img src="/images/attention/dilated.gif">
-  <figcaption style="text-align: left; line-height: 1.2em;"><b>Dilation in 2D:</b> Concepts like strided and dilated convolutions work identically in one, two or three dimensions. [3]</figcaption>
-</figure>
-</div>
-
-Adding a third dimension, things get more interesting again, as the computational complexity of convolutions becomes a major problem. While they can be used successfully, the input usually needs to be downsampled considerably prior to their application. Another approach is to use an element-wise feed-forward neural network[^6]. This approach is extremely efficient, but doesn't consider _any_ context. To resolve this, context aggregation is performed by an additional process like _Farthest Point Sampling_, _k Nearest Neighbor_ search or _Ball Queries_. One exception is the _Graph Neural Network_. As the name implies, it works on graphs as input (either dynamically computed or static ones as found in triangle meshes) and can leverage graph connectivity for context information. I've written an entire mini-series on learning from various 3D data representations which I invite you to check out if the above seems inscrutable.
-
-[^6]: Sometimes referred to as _shared MLP_ (Multi-Layer Perceptron), which in the end boils down to a 1x1 convolution as discussed [here](https://hummat.github.io/learning/2020/10/29/one-by-one-conv.html).
-
-<br/>
-<div id="slideshow2" class="slideshow-container">
-  <div class="mySlides fade">
-    {% if page.slow %}
-      {% include /figures/bunny_with_spheres.html %}
-    {% else %}
-      <img src="/images/bunny.png">
-    {% endif %}
-    <div class="text"><b>Point context:</b> Defining context regions using farthest point sampling and ball queries.</div>
-  </div>
-
-  <div class="mySlides fade">
-    {% if page.slow %}
-      {% include figures/3d_conv.html %}
-    {% else %}
-      <img src="/images/3d_conv.png">
-    {% endif %}
-    <div class="text"><b>Convolutions in 3D:</b> Adding a dimension drastically increases the computational burden of convolutions, making them cumbersome in the 3D domain.</div>
-  </div>
-
-  <div class="mySlides fade">
-    {% if page.slow %}
-      {% include /figures/graph.html %}
-    {% else %}
-      <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="/images/mesh.png">
-    {% endif %}
-    <div class="text"><b>Graph context:</b> A mesh can be interpreted as a graph where context is expressed through connectivity.</div>
-  </div>
-
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
-
-</div>
-<br/>
-
-### <Insert some pun using "attention">
-
-We have finally arrived at the heart of this article: A detailed explanation of the attention mechanism. This involves some math which will subsequently be visualized to build an intuitive understanding. The attention equation makes use of scalars, vectors and matrices. We will use lowercase letters $x$, bold lowercase letters $\boldsymbol{x}$ and uppercase letters $W$ for these entities respectively. A great way to visualize scalars, vectors and matrices is to represent them by colored squares, where the number of squares represents the dimensionality and the color vibrancy of each square represents the magnitude of the value at this position from small, bright values to large, dark values. This is summarized below.
-
+TODO: Add static notation image
 ![](/images/attention/notation.gif)
+
+### The basic attention equation
 
 Making use of this notation, the basic attention equation can be written as
 
@@ -159,23 +30,33 @@ $$
 \boldsymbol{y}_j = \sum_{i=1}^Nw_{ij}\boldsymbol{x}_i
 $$
 
-So what's happening here? In a nutshell: The output of the attention operation $\boldsymbol{y}\_j$ is a weighted sum of the inputs $\boldsymbol{x}\_i$. The inputs are the set elements introduced previously, for example words, pixels or points in 3D space. They are usually vectors, where the dimensions, commonly called input features, can represent various properties like RGB color channels or XYZ Euclidean coordinates. Words are somewhat special in this regard, as they don't have any intrinsic features and are therefore commonly represented by a large vector with values encoding their semantics computed from their co-occurrence with other words called an _embedding_[^7].
+So what's happening here? In a nutshell: The output of the attention operation $\boldsymbol{y}\_j$ is a weighted sum of the inputs $\boldsymbol{x}\_i$. The inputs are the set elements introduced in the [previous article](), for example words, pixels or points in 3D space. They are usually vectors, where the dimensions, commonly called input features, can represent various properties like RGB color channels or XYZ Euclidean coordinates. Words are somewhat special in this regard, as they don't have any intrinsic features and are therefore commonly represented by a large vector with values encoding their semantics computed from their co-occurrence with other words called an _embedding_[^1].
 
-[^7]: Search for _"word2vec"_ if you want further details. I recommend [this blog post](https://jalammar.github.io/illustrated-word2vec).
+[^1]: Search for _"word2vec"_ if you want further details. I recommend [this blog post](https://jalammar.github.io/illustrated-word2vec).
 
-What are those weights $w\_{ij}$ then and how are they determined? Though we employ attention in the deep learning domain, in it's most basic form, it actually doesn't feature any learnable parameters. Instead, the weights are computed from the inputs using the dot product as similarity measure as $w\_{ij}=\boldsymbol{x}\_i^T\boldsymbol{x}\_j$. To understand how this works and why it makes sense, let's take a look at the visualization below.
+### The dot product and softmax
+
+What are those weights $w\_{ij}$ then and how are they determined? Though we employ attention in the deep learning domain, in it's most basic form, it actually doesn't feature any learnable parameters. Instead, the weights are computed from the inputs using the dot product as similarity measure: $w\_{ij}=\boldsymbol{x}\_i^T\boldsymbol{x}\_j$. To understand how this works and why it makes sense, let's take a look at the visualization below.
 
 <img class="img-animate" src="/images/attention/dot_product.png">
 
-The two vectors $\boldsymbol{u}$ and $\boldsymbol{m}$ represent the movie preferences of a user and the movie content respectively with three features each. Now, taking the dot product, we get a score representing the match between user and movie. Note that this takes into account both the magnitude of the values, as multiplying large values results in a large increase of the score, as well as the sign. Imagine a scale between $-1$ and $1$ where the former represent strong dislike (or weak occurance in case of the movie vector) and the latter a strong inclination (or strong occurance). Now, given a user who dislikes action and a movie with little action, the score will still be high as both negative signs cancel out.
+The two vectors $\boldsymbol{u}$ and $\boldsymbol{m}$ represent the movie preferences of a user and the movie content respectively with three features each. Now, taking the dot product, we get a score representing the match between user and movie. Note that this takes into account both the magnitude of the values, as multiplying large values results in a large increase of the score, as well as the sign. Imagine a scale between $-1$ and $1$ where the former represent strong dislike (or weak occurance in case of the movie vector) and the latter a strong inclination (or strong occurance). Now, given a user who dislikes action and a movie with little action, the score will still be high as both negative signs cancel out, which is exactly what we want.
+To make those weights more interpretable and prevent the output from becoming excessively large, we can normalize all weights $\boldsymbol{w}\_j=\{w\_{ij}\}\_{i=1}^N$ to fall between $0$ and $1$ using the _softmax_ function which is reminiscent of its application on the logits in classification tasks. We can think about the resulting normalized weight vector as a categorical probability distribution over the inputs where high probability is assigned to inputs with strong similarity[^2].
 
-To make those weights more interpretable and prevent the output from becoming excessively large, we can normalize all weights $\boldsymbol{w}\_j=\{w\_{ij}\}\_{i=1}^N$ to fall between $0$ and $1$ using the _softmax_ function which is reminiscent of the its application on the logits in classification tasks. We can think about the resulting normalized weight vector as a categorical probability distribution over the inputs where high probability is assigned to inputs with strong similarity[^8]. Once all weights are computed, we multiply them with their corresponding inputs and sum them up to obtain the $j^{th}$ output which, as stated before, is simply a weighted sum of the inputs. The computation graph below visualizes the entire process.
+### Attention visualized
 
-[^8]: Keep in mind though, that this is not a real probability distribution where the probability values correspond to empirical frequencies but rather a miscalibrated approximation.
+Once all weights are computed, we multiply them with their corresponding inputs and sum them up to obtain the $j^{th}$ output which, as stated before, is simply a weighted sum of the inputs[^3]. The computation graph below visualizes the entire process.
+
+[^2]: Keep in mind though, that this is not a real probability distribution where the probability values correspond to empirical frequencies but rather a miscalibrated approximation.
+[^3]: This is omitted in the basic attention equation but we will include it in the upcoming matrix notation.
 
 <img class="img-animate" src="/images/attention/attention.png">
 
-As in the dot product example, think of the transposed vectors (the horizontal ones) as individual users and the vertical ones as movies. The outputs would then represent something akin to an ideal movie, one for each user, stitched toghether from the three individual movies on offer. But wait, we aren't actually dealing with different entities like users and movies in this basic formulation of attention, as all three vectors involved, two of which are used to compute the weight and the remaining one as part of the weighted sum, come from the same set $X$. This also means that output $\boldsymbol{y}\_1$ will be dominated by input $\boldsymbol{x}\_1$ as the dot product between two identical vectors is usually large (after all, they are as similar as it gets). To deal with these issues, we can try to make the attention computation more versatile and expressive through the introduction of three learnable parameter matrices $W^Q$, $W^K$ and $W^V$. Through multiplication with the inputs $\boldsymbol{x}$ we obtain three distinct vectors for the three roles on offer namely the <span style="color: #AB63FA; font-weight: bold;">query $\boldsymbol{q}$</span>, <span style="color: #FECB52; font-weight: bold;">key $\boldsymbol{k}$</span> and <span style="color: #00CC96; font-weight: bold;">value $\boldsymbol{v}$</span>.
+As in the dot product example, think of the transposed vectors (the horizontal ones) as individual users and the vertical ones as movies. The outputs would then represent something akin to an ideal movie, one for each user, stitched together from the three individual movies on offer.
+
+### Queries, keys and values
+
+But wait, we aren't actually dealing with different entities like users and movies in this basic formulation of attention, as all three vectors involved---two of which are used to compute the weight and the remaining one as part of the weighted sum---stem from the same set $X$. This also means that output $\boldsymbol{y}\_1$ will be dominated by input $\boldsymbol{x}\_1$ as the dot product between two identical vectors is usually large (after all, they are as similar as it gets). To deal with these issues, we can try to make the attention computation more versatile and expressive through the introduction of three learnable parameter matrices $W^Q$, $W^K$ and $W^V$. Through multiplication with the inputs $\boldsymbol{x}$ we obtain three distinct vectors for the three roles on offer namely the <span style="color: #AB63FA; font-weight: bold;">query $\boldsymbol{q}$</span>, <span style="color: #FECB52; font-weight: bold;">key $\boldsymbol{k}$</span> and <span style="color: #00CC96; font-weight: bold;">value $\boldsymbol{v}$</span>.
 
 $$
 \boldsymbol{q}=W^Q\boldsymbol{x} \quad \boldsymbol{k}=W^K\boldsymbol{x} \quad \boldsymbol{v}=W^V\boldsymbol{x}
@@ -192,33 +73,88 @@ Returning to our running example, the query takes the role of the user, asking t
 
 <img class="img-animate" src="/images/attention/query_key_value.png">
 
-The terms _key_ and _value_ might remind you of dictionaries used in many programming languages, where values can be stored and retrieved efficiently using a hash of the key. Indeed, dictionaries are nothing but the digital successor of file cabinets where files (values) are stored in folders with labels (keys). Given the task to retrieve a specific file (query) you would find it by comparing the search term to all labels. Using this analogy, we can understand attention as a _soft dictionary_, returning every value to the extend that its key matches the query.
+### Attention as soft dictionary
+
+The terms _key_ and _value_ might remind you of dictionaries used in many programming languages, where values can be stored and retrieved efficiently using a hash of the key. Indeed, such dictionaries are nothing but the digital successor of file cabinets where files (values) are stored in folders with labels (keys). Given the task to retrieve a specific file (query) you would find it by comparing the search term to all labels. Using this analogy, we can understand attention as a _soft dictionary_, returning every value to the extend that its key matches the query.
 
 <img class="img-animate" src="/images/attention/dict.png">
 
-From the visualizations you might get the impression that attention is computed sequentially, one input at a time. Luckily, this is not the case when we move to matrix notation. All we need to do is to stack the inputs $\boldsymbol{x}\_i$ into an input matrix $X$ which we can than directly multiply with the query, key and value parameter matrices.
+### Parallelization using matrices
 
-![](/images/attention/parallel.png)
+From the visualizations you might get the impression that attention is computed sequentially, one input at a time. Luckily, this is not the case when we move to matrix notation. All we need to do is to stack the inputs $\boldsymbol{x}\_i$ into an input matrix $X$ which we can than directly multiply with the query, key and value parameter matrices. $X$ could for example be a color image of dimension $32\times32\times3$ flattened to a matrix of shape $1024\times3$[^5].
 
-The obtained query, key and value _matrices_ $Q$, $K$ and $V$ then simply replace the individual values in the attention equation. Note how this conveniently eliminates the need for summation, an inbuilt feature of matrix multiplication, and that the softmax function can be applied immediately as all weights are computed simultaneously.
+[^5]: Remember, we are dealing with sets of elements, in this case pixels, which are feature vectors, in this case the RGB color values.
 
-![](/images/attention/matrix_attention.png)
+TODO: Animate this
+<img class="img-animate" src="/images/attention/parallel.png">
 
-There are three open questions before we can wrap this up: (1) What is $\sqrt{d\_k}$?, (2) What about _multi-head_ attention? and (3) Is there any relationship to convolutions? Let's look at these in turn.
+The obtained query, key and value _matrices_ $Q$, $K$ and $V$ then simply replace the individual values in the attention equation. Note how this conveniently eliminates the need for summation, an inbuilt feature of matrix multiplication, and that the softmax function can be applied immediately as all weights are computed simultaneously[^6].
 
-Dividing the values inside the softmax function by a scalar is known as _tempering_ and the scalar is referred to as the _temperature_. This is often beneficial as a way of calibrating the result as squishing values into zero-one range doesn't magically produce a probability distribution[^9]. On a more practical note, dividing by $\sqrt{d\_k}$ eliminates the influence of inputs with varying length and keeps values within the region of significant slope of the softmax function, thus preventing vanishing gradients and slow learning during training when attention is used in a deep learning context.
+[^6]: Note that $QK^T$ computes a matrix of weights where each _row_ holds the weights for the weighted sum of each output so the softmax function needs to be applied _row-wise_.
 
-[^9]: Using the Bayesian interpretation of probabilities, good calibration means to be as confident or uncertain in a prediction as is warranted by the empirical frequency of being correct.
+TODO: Animate this
+<img class="img-animate" src="/images/attention/matrix_attention.png">
+
+There are three open questions before we can wrap this up: (1) What is $\sqrt{d\_k}$?, (2) What about _multi-head_ attention? and (3) How does this compare to simple fully-conntected layers and convolutions? Let's look at these in turn.
+
+### Tempering with softmax
+
+Dividing the values inside the softmax function by a scalar is known as _tempering_ and the scalar is referred to as the _temperature_. This is often beneficial as a way of calibrating the result as squishing values into zero-one range doesn't magically produce a probability distribution[^7]. On a more practical note, dividing by $\sqrt{d\_k}$ eliminates the influence of inputs with varying length[^8] and keeps values within the region of significant slope of the softmax function, thus preventing vanishing gradients and slow learning during training when attention is used in a deep learning context.
+
+[^7]: Using the Bayesian interpretation of probabilities, good calibration means to be as confident or uncertain in a prediction as is warranted by the empirical frequency of being correct.
+[^8]: The euclidean length of a vector in $\mathbb{R}^{d\_k}$ with values $v$ is $\sqrt{d\_k}v$.
+
+### Multi-head attention
 
 To understand the need for multiple heads when employing attention, let's consider the following example.
+
+TODO: Add morphing sentence "Susan/Mary gave roses to Susan/Mary"
+
+Focusing at the word _gave_, our single-headed approach will place equal attention on _Susan_ and _Mary_, as per the _distributional hypothesis_ (see below), $\boldsymbol{x}\_{susan}\approx\boldsymbol{x}\_{mary}$ which implies $\boldsymbol{q}\_{susan}\approx\boldsymbol{q}\_{mary}$ bringing us to $w\_{susan,mary}\approx w\_{mary,susan}$.
+
+> **The distributional hypothesis:** You shall know a word by the company it keeps.
+
+In other words, we can't discern the giver from the receiver. Another way to look at this is from the output perspective, where $\boldsymbol{y}\_{gave}$ will be identical for both permutations of Susan and Mary in the sentence. In other words, each individual output vector of attention is _permutation invariant_ with respect to the inputs while the set of outputs $Y$ is permutation _equivariant_, meaning changing the order of the inputs will change the order of the outputs in exactly the same way. Now, this is a simple problem with a simple solution: While it is difficult to discern the function of Mary and Susan in the sentence merely from the dot product similarity of their feature vectors (that is to say, using attention) it becomes trivial when looking at their _position_ in the sentence. In $A$ gave $B$, the name appearing before _gave_ is always the giver while the name after it is always the receiver, which is why architectures making use of attention, like the Transformer, extend the input representation by an additional positional component.
+
+A more challenging problem is depicted below in the form of an ambiguous sentence we have already encountered in the [introductory article]():
+
+<p align="center">
+  <img src="/images/attention/one_head.png">
+</p>
+
+Attention weights between _it_ and all other words in the sentence are shown where darker shades correspond to greater magnitude. The meaning of _it_ is ambiguous, as it can correspond to _animal_ or _road_. Input $\boldsymbol{x}\_{it}$ has only access to a single attention weight vector $\boldsymbol{w}\_{k,it}$ though, where $k$ corresponds to all other words in the sentence (or more precisly, all of their _keys_). Thus we can only pay attention to either _animal_ or _road_ but not both. Technically we could place equal weights on both, but that doesn't help in parsing the meaning of _it_ either. The intuitive solution is to have two attention weight vectors, encoding two different meanings of our ambiguous word. This is precisely what multi-head attention achieves.
+
+<p align="center">
+  <img src="/images/attention/two_heads.png">
+</p>
+
+Multi-head attention is exactly like normal attention, just multiple times. Instead of a single $W^Q$, $W^K$ and $W^V$ matrix we now have $h$. As this would increase the computational complexity by a factor of $h$, we divide the dimensionality of the weight matrices by this factor. Our matrices $W^Q\in\mathbb{R}^{d\times d\_k}$, $W^K\in\mathbb{R}^{d\times d\_k}$ and $W^V\in\mathbb{R}^{d\times d\_v}$ become $h$ matrices $W\_i^Q\in\mathbb{R}^{d\times d\_k/h}$, $W\_i^K\in\mathbb{R}^{d\times d\_k/h}$ and $W\_i^V\in\mathbb{R}^{d\times d\_v/h}$ with inputs $\boldsymbol{x}\in\mathbb{R}^d$, queries and keys $\boldsymbol{q,k}\in\mathbb{R}^{d\_k}$ and values $\boldsymbol{v}\in\mathbb{R}^{d\_v}$. In practise, $d\_k=d\_v=d/h$ so let's ditch $d\_v$ for simplicity.
+
+There remain two things we need to take care of. First, we don't want to apply attention sequentially $h$ times, so we stack the $h$ weight matrices for queries, keys and values respectively and then multiply them with the inputs which results in one query, key and value vector of dimension $hd\_k$ instead of $h$ each of dimension $d\_k$. Second, we want the output to have the same dimensionality as the input, so we introduce a final _output_ weight matrix $W^O\in\mathbb{R}^{hd\_k\times d}$ which transforms our intermediate outputs $\boldsymbol{z}\in\mathbb{R}^{hd\_k}$ into the final output $\boldsymbol{y}\in\mathbb{R}^{d\_k}=\boldsymbol{z}^TW^O$. That's quite a number of vectors, matrices and dimensions to juggle around in you head so hopefully the following visualization helps to clarify the concept.
+
+TODO: Visualize multi-head matrix multiplication
+
+### Putting attention into perspective
+
+To wrap things up, let's try to put attention into a broader context. In particular, let's think about differences and similarities of attention to two mature building blocks of deep learning models: The fully-connected (or _dense_) and the convolutional layer. As both the fully-connected and the attention approach multiply the inputs with learnable weight matrices, you might wonder whether we even need both. While the input is projected once in the fully-connected case, attention projects it three times to obtain query, key and value representations. It then uses the similarity of the resulting queries and keys to construct outputs as weighted sums of inputs. This means that the activations of a fully-connected layer, i.e. the outputs prior to the non-linearity, are purely determined by the learned (fixed) weights during inference, while in attention, they are further modulated through their similarity. We can further see that a fully-connected layer (ignoring the non-linearity) is a special case of multi-head attention where $QK^T=W^V=I$ and $h=N$. That is to say, the _attention matrix_ $A=QK^T$ and the value weight matrix $W^V$ are identity matrices and we use one attention head per input. The output weight matrix $W^O$ then corresponds to the weight matrix of the fully-connected layer.
+
+TODO: Maybe visualize attention as fully-connected layer
+
+For convolutional layers, the case is similar. Again, multi-head attention can be interpreted as a generalization of discrete convolution. Given a convolutional kernel $W\in\mathbb{R}^{k\times k}$ placed on the $i^{th}$ input element we now use $h=k^2$ heads and attention weights $w_{ij}=1$ if $j=i\pm (k^2-1)/2$. This means we only consider keys which are with kernel size distance to the query where the query corresponds to the center of the kernel. With $W^V=I$ the output matrix $W^O$ then corresponds to the convolutional kernel. As the explanation is a little convoluted itself have a look at the visualization below for some intuition.
+
+TODO: Visualize attention as convolution
+
+## Credits
+
+I want to offer my sincere thanks to Jay Alammar and Paul Bloem for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article.
+
+---
 
 - Explain self-attention (dot product (movie example from "Transformers from Scratch", recommender systems, matrix factorization), illustrations from "Illustrated Transformer")
 - Use visuals from [1, 6, 9, 20] and notation from [14]
 - Use code? (Feynman: "What I cannot create I do not understand")
 - Explain relation to MLP: How is weighing by input (self-attention score) different from weighing by FC weight matrix? Example: Hard-coding connection strength to verbs, nouns and articles (only works with the exact same sentence structure) vs. ordering the input (self-attention) and passing it to specialized parts of the model afterwards
 - Explain relation to CNN: convolution as multi-head self-attention with identity key, query and value matrices, difference between weighing input locations with (kernel) weights (only change during training) and modulating those connections during inference through attention (reduced redundancy of channels: +-45° edge detector can become one?)
-
-## Where?
 
 ## Notes
 
@@ -337,30 +273,30 @@ To understand the need for multiple heads when employing attention, let's consid
 
 ## Code & References
 
-| [Code](/url/to/notebook.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb)                                                         | Check |
-| :----------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- | :---: |
-|                                |                                                                                                                                         |       |
-|              [1]               | [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)                                                       |   x   |
-|              [2]               | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |   x   |
-|              [3]               | [Transformer Neural Networks](https://www.youtube.com/watch?v=TQQlZhbC5ps)                                                              |   x   |
-|              [4]               | [Bert Neural Network](https://www.youtube.com/watch?v=xI0HHN5XKDo)                                                                      |   x   |
-|              [5]               | [Attention in Neural Networks](https://www.youtube.com/watch?v=W2rWgXJBZhU)                                                             |   x   |
-|              [6]               | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           |   x   |
-|              [7]               | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |   x   |
-|              [8]               | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |   x   |
-|              [9]               | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |   x   |
-|              [10]              | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |   x   |
-|              [11]              | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |   x   |
-|              [12]              | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |   x   |
-|              [13]              | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |   x   |
-|              [14]              | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |   x   |
-|              [15]              | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |   x   |
-|              [16]              | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |   x   |
-|              [17]              | [An Introduction to Attention](https://wandb.ai/authors/under-attention/reports/An-Introduction-to-Attention--Vmlldzo1MzQwMTU)          |   x   |
-|              [18]              | [Origins of Attention I](htps://arxiv.org/abs/1409.0473)                                                                                |   x   |
-|              [19]              | [Origins of Attention II](https://arxiv.org/abs/1508.04025)                                                                             |   x   |
-|              [20]              | [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2)                                                                    |   x   |
-|              [21]              | [Spatial Attention in Deep Learning](https://arxiv.org/abs/1904.05873)                                                                  |   x   |
+|      |                                                                                                                                         | Check |
+| :--: | :-------------------------------------------------------------------------------------------------------------------------------------- | :---: |
+|      |                                                                                                                                         |       |
+| [1]  | [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)                                                       |   x   |
+| [2]  | [The Narrated Transformer](https://www.youtube.com/watch?v=-QH8fRhqFHM)                                                                 |   x   |
+| [3]  | [Transformer Neural Networks](https://www.youtube.com/watch?v=TQQlZhbC5ps)                                                              |   x   |
+| [4]  | [Bert Neural Network](https://www.youtube.com/watch?v=xI0HHN5XKDo)                                                                      |   x   |
+| [5]  | [Attention in Neural Networks](https://www.youtube.com/watch?v=W2rWgXJBZhU)                                                             |   x   |
+| [6]  | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           |   x   |
+| [7]  | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |   x   |
+| [8]  | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |   x   |
+| [9]  | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |   x   |
+| [10] | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |   x   |
+| [11] | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |   x   |
+| [12] | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |   x   |
+| [13] | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |   x   |
+| [14] | [Attention Is All You Need (paper)](https://arxiv.org/abs/1706.03762)                                                                   |   x   |
+| [15] | [What are Transformers?](https://www.youtube.com/watch?v=XSSTuhyAmnI)                                                                   |   x   |
+| [16] | [Illustrated Guide to Transformers](https://www.youtube.com/watch?v=4Bdc55j80l8)                                                        |   x   |
+| [17] | [An Introduction to Attention](https://wandb.ai/authors/under-attention/reports/An-Introduction-to-Attention--Vmlldzo1MzQwMTU)          |   x   |
+| [18] | [Origins of Attention I](htps://arxiv.org/abs/1409.0473)                                                                                |   x   |
+| [19] | [Origins of Attention II](https://arxiv.org/abs/1508.04025)                                                                             |   x   |
+| [20] | [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2)                                                                    |   x   |
+| [21] | [Spatial Attention in Deep Learning](https://arxiv.org/abs/1904.05873)                                                                  |   x   |
 
 $$
 $$
