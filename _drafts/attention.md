@@ -19,8 +19,7 @@ You might be wondering if this article can possible contain anything new for you
 
 Our detailed explanation of the attention mechanism begins with some math which will subsequently be visualized to build an intuitive understanding. A quick word on notation: The attention equation makes use of scalars, vectors and matrices. We will use lowercase letters $x$, bold lowercase letters $\boldsymbol{x}$ and uppercase letters $W$ for these entities respectively. A great way to visualize scalars, vectors and matrices is to represent them by colored squares, where the number of squares represents the dimensionality and the color vibrancy of each square represents the magnitude of the value at this position from small, bright values to large, dark values as shown below.
 
-TODO: Add static notation image
-![](/images/attention/notation.gif)
+<img class="img-animate" src="/images/attention/notation.png">
 
 ### The basic attention equation
 
@@ -85,14 +84,12 @@ From the visualizations you might get the impression that attention is computed 
 
 [^5]: Remember, we are dealing with sets of elements, in this case pixels, which are feature vectors, in this case the RGB color values.
 
-TODO: Animate this
 <img class="img-animate" src="/images/attention/parallel.png">
 
 The obtained query, key and value _matrices_ $Q$, $K$ and $V$ then simply replace the individual values in the attention equation. Note how this conveniently eliminates the need for summation, an inbuilt feature of matrix multiplication, and that the softmax function can be applied immediately as all weights are computed simultaneously[^6].
 
 [^6]: Note that $QK^T$ computes a matrix of weights where each _row_ holds the weights for the weighted sum of each output so the softmax function needs to be applied _row-wise_.
 
-TODO: Animate this
 <img class="img-animate" src="/images/attention/matrix_attention.png">
 
 There are three open questions before we can wrap this up: (1) What is $\sqrt{d\_k}$?, (2) What about _multi-head_ attention? and (3) How does this compare to simple fully-conntected layers and convolutions? Let's look at these in turn.
@@ -146,7 +143,7 @@ TODO: Visualize attention as convolution
 
 ## Credits
 
-I want to offer my sincere thanks to Jay Alammar and Paul Bloem for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article.
+A huge thanks to Jay Alammar and Paul Bloem for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article. I also want to thank all researchers, authors and creators found in the references for their great ideas and content.
 
 ---
 
