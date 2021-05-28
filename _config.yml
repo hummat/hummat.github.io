@@ -28,7 +28,7 @@ footer-links:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: 
+  twitter:
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
@@ -62,7 +62,7 @@ version: v1.2.0
 
 # Jekyll a now only supports Kramdown for Markdown
 # markdown: CommonMarkGhPages
-markdown: kramdown 
+markdown: kramdown
 highlighter: rouge
 
 #commonmark:

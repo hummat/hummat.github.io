@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Attention
-abstract: Yet another article on attention? Yes, but this one is both annotated and illustrated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
+abstract: Yet another article on attention? Yes, but this one is annotated, illustrated and animated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
 tags: [attention, context]
 category: learnig
 thumbnail: /images/attention/query_key_value.png
@@ -42,7 +42,7 @@ What are those weights $w\_{ij}$ then and how are they determined? Though we emp
 The two vectors $\boldsymbol{u}$ and $\boldsymbol{m}$ represent the movie preferences of a user and the movie content respectively with three features each. Now, taking the dot product, we get a score representing the match between user and movie. Note that this takes into account both the magnitude of the values, as multiplying large values results in a large increase of the score, as well as the sign. Imagine a scale between $-1$ and $1$ where the former represent strong dislike (or weak occurance in case of the movie vector) and the latter a strong inclination (or strong occurance). Now, given a user who dislikes action and a movie with little action, the score will still be high as both negative signs cancel out, which is exactly what we want.
 To make those weights more interpretable and prevent the output from becoming excessively large, we can normalize all weights $\boldsymbol{w}\_j=\{w\_{ij}\}\_{i=1}^N$ to fall between $0$ and $1$ using the _softmax_ function which is reminiscent of its application on the logits in classification tasks. We can think about the resulting normalized weight vector as a categorical probability distribution over the inputs where high probability is assigned to inputs with strong similarity[^2].
 
-### Attention visualized
+### Animated attention
 
 Once all weights are computed, we multiply them with their corresponding inputs and sum them up to obtain the $j^{th}$ output which, as stated before, is simply a weighted sum of the inputs[^3]. The computation graph below visualizes the entire process.
 
@@ -52,6 +52,35 @@ Once all weights are computed, we multiply them with their corresponding inputs 
 <img class="img-animate" src="/images/attention/attention.png">
 
 As in the dot product example, think of the transposed vectors (the horizontal ones) as individual users and the vertical ones as movies. The outputs would then represent something akin to an ideal movie, one for each user, stitched together from the three individual movies on offer.
+
+Following Feynmans _"What I cannot create, I do not understand"_ let's also quickly implement basic attention in Python:
+
+```python
+import numpy as np
+
+# Inputs: Three RGB-D pixels (RGB colors and depth)
+x_1, x_2, x_3 = [np.random.randint(0, 255., 4) for _ in range(3)]
+x_i = [x_1, x_2, x_3]
+
+# First, we compute all "raw" attention weights w_ij
+w_1j = [x_1.dot(x) for x in x_i]
+w_2j = [x_2.dot(x) for x in x_i]
+w_3j = [x_3.dot(x) for x in x_i]
+
+# Then we pass them through the softmax function
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
+w_1j = softmax(w_1j)
+w_2j = softmax(w_2j)
+w_3j = softmax(w_3j)
+
+# Finally, the output is the weighted sum of the inputs
+y_1 = np.sum([w * x for w, x in zip(w_1i, x_i)], axis=0) 
+y_2 = np.sum([w * x for w, x in zip(w_2i, x_i)], axis=0) 
+y_3 = np.sum([w * x for w, x in zip(w_3i, x_i)], axis=0) 
+```
 
 ### Queries, keys and values
 
@@ -72,6 +101,47 @@ Returning to our running example, the query takes the role of the user, asking t
 
 <img class="img-animate" src="/images/attention/query_key_value.png">
 
+We can add these changes to our basic attention implementation with a few lines of code:
+
+```python
+import numpy as np
+
+# Inputs: Three RGB-D pixels (RGB colors and depth)
+x_i = [np.random.randint(0, 255., 4) for _ in range(3)]
+
+# Define query, key and value weight matrices
+# In reality, they would be learned using backprop
+W_Q = np.random.random([4, 3])
+W_K = np.random.random([4, 3])
+W_V = np.random.random([4, 3])
+
+# Compute queries, keys and values
+q_1, q_2, q_3 = [x.dot(W_Q) for x in x_i]
+k_1, k_2, k_3 = [x.dot(W_K) for x in x_i]
+v_1, v_2, v_3 = [x.dot(W_V) for x in x_i]
+v_i = [v_1, v_2, v_3]
+
+# Compute all "raw" attention weights w_ij
+# This time using queries and keys
+w_1j = [q_1.dot(k) for k in [k_1, k_2, k_3]]
+w_2j = [q_2.dot(k) for k in [k_1, k_2, k_3]]
+w_3j = [q_3.dot(k) for k in [k_1, k_2, k_3]]
+
+# Then we pass them through the softmax function
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
+w_1j = softmax(w_1j)
+w_2j = softmax(w_2j)
+w_3j = softmax(w_3j)
+
+# Finally, the output is the weighted sum of the values
+y_1 = np.sum([w * v for w, v in zip(w_1j, v_i)], axis=0) 
+y_2 = np.sum([w * v for w, v in zip(w_2j, v_i)], axis=0) 
+y_3 = np.sum([w * v for w, v in zip(w_3j, v_i)], axis=0) 
+```
+
 ### Attention as soft dictionary
 
 The terms _key_ and _value_ might remind you of dictionaries used in many programming languages, where values can be stored and retrieved efficiently using a hash of the key. Indeed, such dictionaries are nothing but the digital successor of file cabinets where files (values) are stored in folders with labels (keys). Given the task to retrieve a specific file (query) you would find it by comparing the search term to all labels. Using this analogy, we can understand attention as a _soft dictionary_, returning every value to the extend that its key matches the query.
@@ -80,7 +150,7 @@ The terms _key_ and _value_ might remind you of dictionaries used in many progra
 
 ### Parallelization using matrices
 
-From the visualizations you might get the impression that attention is computed sequentially, one input at a time. Luckily, this is not the case when we move to matrix notation. All we need to do is to stack the inputs $\boldsymbol{x}\_i$ into an input matrix $X$ which we can than directly multiply with the query, key and value parameter matrices. $X$ could for example be a color image of dimension $32\times32\times3$ flattened to a matrix of shape $1024\times3$[^5].
+From the visualizations you might get the impression that attention is computed sequentially, one input at a time. Luckily, this is not the case when we move to matrix notation. All we need to do is to stack the (transposed) inputs $\boldsymbol{x}\_i$ into an input _matrix_ $X$ which we can than directly multiply with the query, key and value parameter matrices. $X$ could for example be a color image of dimension $32\times32\times3$ flattened to a matrix of shape $1024\times3$[^5].
 
 [^5]: Remember, we are dealing with sets of elements, in this case pixels, which are feature vectors, in this case the RGB color values.
 
@@ -91,6 +161,30 @@ The obtained query, key and value _matrices_ $Q$, $K$ and $V$ then simply replac
 [^6]: Note that $QK^T$ computes a matrix of weights where each _row_ holds the weights for the weighted sum of each output so the softmax function needs to be applied _row-wise_.
 
 <img class="img-animate" src="/images/attention/matrix_attention.png">
+
+```python
+import numpy as np
+from scipy.special import softmax
+
+# Inputs: Three RGB-D pixels (RGB colors and depth)
+# But this time we stack them into a matrix
+x_i = [np.random.randint(0, 255., 4) for _ in range(3)]
+X = np.vstack(x_i)
+
+# Define query, key and value weight matrices
+W_Q = np.random.random([4, 3])
+W_K = np.random.random([4, 3])
+W_V = np.random.random([4, 3])
+
+# Compute all queries, keys and values in parallel
+Q = X @ W_Q
+K = X @ W_K
+V = X @ W_V
+
+# No need to compute raw attention weights
+# Softmax is applied row-wise
+Y = softmax(Q @ K.T, axis=1) @ V
+```
 
 There are three open questions before we can wrap this up: (1) What is $\sqrt{d\_k}$?, (2) What about _multi-head_ attention? and (3) How does this compare to simple fully-conntected layers and convolutions? Let's look at these in turn.
 
@@ -105,7 +199,7 @@ Dividing the values inside the softmax function by a scalar is known as _temperi
 
 To understand the need for multiple heads when employing attention, let's consider the following example.
 
-TODO: Add morphing sentence "Susan/Mary gave roses to Susan/Mary"
+<img class="img-animate" src="/images/attention/mary_susan.png">
 
 Focusing at the word _gave_, our single-headed approach will place equal attention on _Susan_ and _Mary_, as per the _distributional hypothesis_ (see below), $\boldsymbol{x}\_{susan}\approx\boldsymbol{x}\_{mary}$ which implies $\boldsymbol{q}\_{susan}\approx\boldsymbol{q}\_{mary}$ bringing us to $w\_{susan,mary}\approx w\_{mary,susan}$.
 
@@ -125,11 +219,13 @@ Attention weights between _it_ and all other words in the sentence are shown whe
   <img src="/images/attention/two_heads.png">
 </p>
 
-Multi-head attention is exactly like normal attention, just multiple times. Instead of a single $W^Q$, $W^K$ and $W^V$ matrix we now have $h$. As this would increase the computational complexity by a factor of $h$, we divide the dimensionality of the weight matrices by this factor. Our matrices $W^Q\in\mathbb{R}^{d\times d\_k}$, $W^K\in\mathbb{R}^{d\times d\_k}$ and $W^V\in\mathbb{R}^{d\times d\_v}$ become $h$ matrices $W\_i^Q\in\mathbb{R}^{d\times d\_k/h}$, $W\_i^K\in\mathbb{R}^{d\times d\_k/h}$ and $W\_i^V\in\mathbb{R}^{d\times d\_v/h}$ with inputs $\boldsymbol{x}\in\mathbb{R}^d$, queries and keys $\boldsymbol{q,k}\in\mathbb{R}^{d\_k}$ and values $\boldsymbol{v}\in\mathbb{R}^{d\_v}$. In practise, $d\_k=d\_v=d/h$ so let's ditch $d\_v$ for simplicity.
+Multi-head attention is exactly like normal attention, just multiple times. Instead of a single $W^Q$, $W^K$ and $W^V$ matrix we now have $h$ of each. As this would increase the computational complexity by a factor of $h$, we divide the dimensionality of the weight matrices by this factor. Our matrices $W^Q\in\mathbb{R}^{d\times d\_k}$, $W^K\in\mathbb{R}^{d\times d\_k}$ and $W^V\in\mathbb{R}^{d\times d\_v}$ become $h$ matrices $W\_i^Q\in\mathbb{R}^{d\times d\_k/h}$, $W\_i^K\in\mathbb{R}^{d\times d\_k/h}$ and $W\_i^V\in\mathbb{R}^{d\times d\_v/h}$ with inputs $\boldsymbol{x}\in\mathbb{R}^d$, queries and keys $\boldsymbol{q,k}\in\mathbb{R}^{d\_k}$ and values $\boldsymbol{v}\in\mathbb{R}^{d\_v}$. In practise, $d\_k=d\_v=d/h$ so let's ditch $d\_v$ for simplicity.
 
 There remain two things we need to take care of. First, we don't want to apply attention sequentially $h$ times, so we stack the $h$ weight matrices for queries, keys and values respectively and then multiply them with the inputs which results in one query, key and value vector of dimension $hd\_k$ instead of $h$ each of dimension $d\_k$. Second, we want the output to have the same dimensionality as the input, so we introduce a final _output_ weight matrix $W^O\in\mathbb{R}^{hd\_k\times d}$ which transforms our intermediate outputs $\boldsymbol{z}\in\mathbb{R}^{hd\_k}$ into the final output $\boldsymbol{y}\in\mathbb{R}^{d\_k}=\boldsymbol{z}^TW^O$. That's quite a number of vectors, matrices and dimensions to juggle around in you head so hopefully the following visualization helps to clarify the concept.
 
-TODO: Visualize multi-head matrix multiplication
+<img class="img-animate" src="/images/attention/multi_head_attention.png">
+
+In the illustration above we have two input vectors, $\boldsymbol{x}\_1$ and $\boldsymbol{x}\_2$, both of size $\mathbb{R}^{4\times1}$ stacked into an input matrix (row-wise) of size $X\in\mathbb{R}^{2\times4}$. We transform the inputs using two attention heads ($h=2$) with parameter matrices $W\_i^Q$, $W\_i^K$ and $W\_i^V$ with $i\in[1,2]$ all of size $\mathbb{R}^{4\times3}$. Through stacking of the query, key and value matrices (column-wise) from both heads we obtain three matrices of size $\mathbb{R}^{4\times6}$. We can now multiply the input matrix with the query, key and value matrices of both heads simultaneously and compute an intermediate output matrix $Z\in\mathbb{R}^{2\times6}$ using the dot product between our two-head query and key matrix and multiplying the result with our two-head value matrix. Finally, to transform the intermediate output $Z$ into the final output $Y\in\mathbb{R}^{2\times3}$, we apply the output weight matrix $W^O\in\mathbb^{6\times3}$.
 
 ### Putting attention into perspective
 
@@ -294,6 +390,3 @@ A huge thanks to Jay Alammar and Paul Bloem for their excellent blog posts and v
 | [19] | [Origins of Attention II](https://arxiv.org/abs/1508.04025)                                                                             |   x   |
 | [20] | [The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2)                                                                    |   x   |
 | [21] | [Spatial Attention in Deep Learning](https://arxiv.org/abs/1904.05873)                                                                  |   x   |
-
-$$
-$$
