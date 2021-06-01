@@ -96,7 +96,7 @@ The basic attention equation therefore becomes:
 
 $$
 \boldsymbol{y}_j = \sum_{i=1}^Nw_{ij}\boldsymbol{v}_i \\
-w_{ij}=\boldsymbol{q}^T\boldsymbol{k}
+w_{ij}=\boldsymbol{q}_i^T\boldsymbol{k}_j
 $$
 
 Returning to our running example, the query takes on the role of the user, asking the question: _"Which movies match my taste?"_ while the key encodes the movies content and the value represents the movie itself. Using this updated definition, the computation performed by the attention operation can be visualized as follows.
