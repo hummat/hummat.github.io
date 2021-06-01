@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Context
-abstract: A short introduction to context and its importance in machine learning. This also serves as an introduction to the upcoming article on attention.
+abstract: A short introduction to the importance of context in machine learning which also serves as an introduction to the upcoming article on attention.
 tags: [context, attention]
 category: learning
 thumbnail: /images/context.png
@@ -16,7 +16,7 @@ words: 1687
 
 # {{ page.title }}
 
-Welcome to this little journey where we discover some fundamental concepts in the realm of (machine) learning, namely context and attention. There story is told in two acts: 1. Why and 2. How. We will cover the _why_ and the legacy part of _how_ in this article and then take a closer look at a modern approach in the next one.
+Welcome to this little journey where we discover some fundamental concepts in the realm of (machine) learning, namely context and attention. The story is told in two acts: 1. Why and 2. How. We will cover the _why_ and the legacy part of _how_ in this article and then take a closer look at a modern approach in the next one.
 
 ## Why? Conceiving context
 
