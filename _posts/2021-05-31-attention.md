@@ -21,7 +21,7 @@ Our detailed explanation of the attention mechanism begins with some math which 
 
 <img class="img-animate" src="/images/attention/notation.png">
 
-Most illustrations in this article are animated. Simply hover over it with your mouse cursor (_or_ click/tap on it) to start.
+Most illustrations in this article are animated. To play it, simply hover over it with your mouse (_or_ click/tap on it).
 
 ### The basic attention equation
 
@@ -61,7 +61,7 @@ Following Feynmans _"What I cannot create, I do not understand"_ let's also quic
 import numpy as np
 
 # Inputs: Three RGB-D pixels (RGB colors and depth)
-x_1, x_2, x_3 = [np.random.randint(0, 255., 4) for _ in range(3)]
+x_1, x_2, x_3 = [np.random.randint(0, 255, 4) for _ in range(3)]
 x_i = [x_1, x_2, x_3]
 
 # First, we compute all "raw" attention weights w_ij
@@ -109,7 +109,7 @@ We can add these changes to our basic attention implementation with a few lines 
 import numpy as np
 
 # Inputs: Three RGB-D pixels (RGB colors and depth)
-x_i = [np.random.randint(0, 255., 4) for _ in range(3)]
+x_i = [np.random.randint(0, 255, 4) for _ in range(3)]
 
 # Define query, key and value weight matrices
 # In reality, they would be learned using backprop
@@ -170,7 +170,7 @@ from scipy.special import softmax
 
 # Inputs: Three RGB-D pixels (RGB colors and depth)
 # But this time we stack them into a matrix
-x_i = [np.random.randint(0, 255., 4) for _ in range(3)]
+x_i = [np.random.randint(0, 255, 4) for _ in range(3)]
 X = np.vstack(x_i)
 
 # Define query, key and value weight matrices
@@ -239,7 +239,7 @@ In the case of convolutional layers multi-head attention can be interpreted as a
 
 ## Credits
 
-A huge thanks to Jay Alammar (The Illustrated Transformer) and Peter Bloem (Transformers from Scratch) for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article. I also want to thank all researchers, authors and creators listed in the references for their great ideas and content.
+A huge thanks to Jay Alammar ([The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)) and Peter Bloem ([Transformers from Scratch](http://peterbloem.nl/blog/transformers)) for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article. I also want to thank all researchers, authors and creators listed in the references for their great ideas and content.
 
 ## References
 

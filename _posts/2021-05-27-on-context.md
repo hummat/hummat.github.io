@@ -24,7 +24,7 @@ It all begins with a little entity making up most of the (digital) world around 
 
 > **Context:** The circumstances that form the setting for an event, statement, or idea, and in terms of which it can be fully understood.
 
-Let's look at a couple of examples. The simplest (an therefore the one we will see most frequently throughout the article) is the word. Try to guess the meaning of the word below, then hover over it with your cursor (or click on it) to reveal the context:
+Let's look at a couple of examples. The simplest (an therefore the one we will see most frequently throughout the article) is the word. Try to guess the meaning of the word below, then hover over it with your mouse (_or_ click/tap on it) to reveal the context:
 
 <img class="img-animate" src="/images/attention/bank.png">
 
