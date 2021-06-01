@@ -3,19 +3,36 @@
 <script type="text/javascript">
 
 function toggle(obj) {
-    var originalSrc = obj.attr("src");
-    if (originalSrc.endsWith(".png")) {
-        obj.attr("src", originalSrc.replace(".png", ".gif"));
-    } else {
-        obj.attr("src", originalSrc.replace(".gif", ".png"));
-    }
+  var src = obj.attr("src");
+  if (src.endsWith(".png")) {
+    obj.attr("src", src.replace(".png", ".gif"));
+  } else {
+    obj.attr("src", src.replace(".gif", ".png"));
+  }
+}
+
+function start(obj) {
+  var src = obj.attr("src")
+  if (src.endsWith(".png")) {
+    obj.attr("src", src.replace(".png", ".gif"));
+  }
+}
+
+function stop(obj) {
+  var src = obj.attr("src")
+  if (src.endsWith(".gif")) {
+    obj.attr("src", src.replace(".gif", ".png"));
+  }
 }
 
 $(document).ready(function() {
   $(".img-animate").each(function () {
-	  $(this).on("mouseenter mouseleave click", function() {
-		  toggle($(this));
-	  });
+    $(this).on("mouseenter click", function() {
+      start($(this));
+    });
+    $(this).on("mouseleave click", function() {
+      stop($(this));
+    });
   });
 });
 </script>
