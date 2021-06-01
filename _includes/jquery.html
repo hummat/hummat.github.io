@@ -12,27 +12,26 @@ function toggle(obj) {
 }
 
 function start(obj) {
-  var src = obj.attr("src")
-  if (src.endsWith(".png")) {
-    obj.attr("src", src.replace(".png", ".gif"));
-  }
+  var src = obj.attr("src");
+  obj.attr("src", src.replace(".png", ".gif"));
 }
 
 function stop(obj) {
-  var src = obj.attr("src")
-  if (src.endsWith(".gif")) {
-    obj.attr("src", src.replace(".gif", ".png"));
-  }
+  var src = obj.attr("src");
+  obj.attr("src", src.replace(".gif", ".png"));
 }
 
 $(document).ready(function() {
   $(".img-animate").each(function () {
-    $(this).on("mouseenter click", function() {
-      start($(this));
-    });
-    $(this).on("mouseleave click", function() {
-      stop($(this));
-    });
+      $(this).on("mouseenter", function() {
+        start($(this));
+      });
+      $(this).on("mouseleave", function() {
+        stop($(this));
+      });
+      $(this).on("touchstart", function() {
+        toggle($(this));
+      });
   });
 });
 </script>

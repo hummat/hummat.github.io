@@ -21,7 +21,7 @@ Our detailed explanation of the attention mechanism begins with some math which 
 
 <img class="img-animate" src="/images/attention/notation.png">
 
-Most illustrations in this article are animated. To play it, simply hover over it with your mouse (_or_ click/tap on it).
+Most illustrations in this article are animated. Simply hover over them with your mouse (or tap on them) to activate the animation.
 
 ### The basic attention equation
 
@@ -37,7 +37,7 @@ So what's happening here? In a nutshell: The output of the attention operation $
 
 ### The dot product and softmax
 
-What are those weights $w\_{ij}$ then and how are they determined? Though we employ attention in the deep learning domain, in it's most basic form, it actually doesn't contain any learnable parameters. Instead, the weights are computed from the inputs using the dot product as similarity measure: $w\_{ij}=\boldsymbol{x}\_i^T\boldsymbol{x}\_j$. To understand how this works and why it makes sense, let's take a look at the visualization below (reminder: hover over or click/tap on the image to start the animation).
+What are those weights $w\_{ij}$ then and how are they determined? Though we employ attention in the deep learning domain, in it's most basic form, it actually doesn't contain any learnable parameters. Instead, the weights are computed from the inputs using the dot product as similarity measure: $w\_{ij}=\boldsymbol{x}\_i^T\boldsymbol{x}\_j$. To understand how this works and why it makes sense, let's take a look at the visualization below (reminder: hover over or tap on the image to activate the animation).
 
 <img class="img-animate" src="/images/attention/dot_product.png">
 
