@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Really understanding 1x1 convolutions
+title: Truly understanding 1x1 convolutions
 abstract: There are many explanations out there trying to convince you of the utility of 1x1 convolutions as bottlenecks to reduce computational complexity and replacements for fully connected layers, but they always glanced over some pretty important details in my opinion. Here is the full picture.
 tags: [convolution, bottleneck, inception, shared mlp, pointnet]
 category: learning
