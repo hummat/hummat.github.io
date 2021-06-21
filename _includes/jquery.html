@@ -34,5 +34,15 @@ $(document).ready(function() {
       });
   });
 });
+
+$(document).ready(function() {
+  $(".img-swap").each(function () {
+    var src = $(this).attr("src");
+    $(this).hover(
+      function(){$(this).attr("src", src.replace("jpg", "png"))},
+      function(){$(this).attr("src", src.replace("png", "jpg"))}
+    );
+  });
+});
 </script>
 {% endif %}
