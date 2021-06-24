@@ -7,7 +7,7 @@ category: resource
 mathjax: True
 slideshow: True
 thumbnail: /images/github.png
-update: 2020-06-24
+update: 2021-06-24
 time: 12-16
 words: 3221-4202
 ---
@@ -71,7 +71,7 @@ The reason templates are so great is, that instead of reinventing the wheel, whi
 
 ## Adding functionality
 
-This is the heart of this article. As I already had [clear ideas](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html) what I expected from my blog, there were quite a few additions I had to make to the basic setup to get everything up and running. All of these are documented _somewhere_ on the Internet, but I think it is a good idea to put them here in one place  and how to make them play together as there are some pitfalls when combining everything.
+This is the heart of this article. As I already had [clear ideas](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html) what I expected from my blog, there were quite a few additions I had to make to the basic setup to get everything up and running. All of these are documented _somewhere_ on the Internet, but I think it is a good idea to put them here in one place and how to make them play together as there are some pitfalls when combining everything.
 
 ### 1. Working offline
 
@@ -86,14 +86,14 @@ I’ll assume a couple of things before moving forward:
 1. You’re on Linux.
 2. You have git installed and know how to use it.
 3. You have a GitHub account.
-4. You know [how to setup a basic GitHub page](#how-to-set-it-up). 
+4. You know [how to setup a basic GitHub page](#how-to-set-it-up).
 5. You’ve cloned or forked a template like [Minima](https://github.com/jekyll/minima). You can also have a look at the GitHub repository for [this blog](https://github.com/hummat/hummat.github.io), which, as mentioned previously, is a fork of the [Jekyll Now](https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/) theme.
 
 #### Setup
 
-Now, follow the official Jekyll Ubuntu or other Linux distros [installation guide](https://jekyllrb.com/docs/installation/). If you haven’t cloned or forked a template like mentioned in step 5 above, you can also clone your basic GitHub page repository, change into its directory and run `bundle exec jekyll new .` (note the dot in the end). 
+Now, follow the official Jekyll Ubuntu or other Linux distros [installation guide](https://jekyllrb.com/docs/installation/). If you haven’t cloned or forked a template like mentioned in step 5 above, you can also clone your basic GitHub page repository, change into its directory and run `bundle exec jekyll new .` (note the dot in the end).
 
-There are a couple of interesting files in your GitHub page repository/directory. For now, the most important is the [Gemfile](https://github.com/hummat/hummat.github.io/blob/master/Gemfile). Here you need to change `gem “jekyll”` into `gem "github-pages", "~> 206", group: :jekyll_plugins`.  You can also go ahead and add some plugins we will use later:
+There are a couple of interesting files in your GitHub page repository/directory. For now, the most important is the [Gemfile](https://github.com/hummat/hummat.github.io/blob/master/Gemfile). Here you need to change `gem “jekyll”` into `gem "github-pages", "~> 206", group: :jekyll_plugins`. You can also go ahead and add some plugins we will use later:
 
 ```javascript
 group :jekyll_plugins do
@@ -124,9 +124,9 @@ Something I found confusing in the beginning is the rather complicated [file and
 
 [Liquid](https://shopify.github.io/liquid/) is a kind of small scripting language, allowing you to do rudimentary dynamic things inside your otherwise static GitHub page. It’s mainly used to store values in variables, which can then be used elsewhere and for simple if-else control flow (or at least I’m using it like this).
 
-Variables can be accessed using {% raw %}{{ variable }}{% endraw %} while logical statements are written like {% raw %}{% if statement %}{% endraw %}. How to define variables? There are a number of predefined variables you can use anywhere on the site or in a post like the `site.title` and `site.description`  defined in the [_config.yml](https://github.com/hummat/hummat.github.io/blob/master/_config.yml) or  `site.posts`, a list of all your posts in the `_posts` directory which is used by [`home.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) to iterate over all of them using {% raw %}{% for post in site.posts %}{% endraw %} and to render them subsequently.
+Variables can be accessed using {% raw %}{{ variable }}{% endraw %} while logical statements are written like {% raw %}{% if statement %}{% endraw %}. How to define variables? There are a number of predefined variables you can use anywhere on the site or in a post like the `site.title` and `site.description` defined in the [\_config.yml](https://github.com/hummat/hummat.github.io/blob/master/_config.yml) or `site.posts`, a list of all your posts in the `_posts` directory which is used by [`home.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) to iterate over all of them using {% raw %}{% for post in site.posts %}{% endraw %} and to render them subsequently.
 
-A page also has some predefined variables like `page.date`. Here is where seems between Jekyll and Liquid begin to show in my opinion, as Liquid only knows `site` and `page` so the date of a Jekyll post or page are both accessed using `page.date`. That’s confusing! So always use `page` to access a variable, even if you’re writing a post. For example, I like to begin each post with the following markdown: {% raw %}# {{ page.title }}{% endraw %}. 
+A page also has some predefined variables like `page.date`. Here is where seems between Jekyll and Liquid begin to show in my opinion, as Liquid only knows `site` and `page` so the date of a Jekyll post or page are both accessed using `page.date`. That’s confusing! So always use `page` to access a variable, even if you’re writing a post. For example, I like to begin each post with the following markdown: {% raw %}# {{ page.title }}{% endraw %}.
 
 Finally, variables can be defined by yourself, for example in the [YAML Front Matter](https://jekyllrb.com/docs/front-matter/) of each markdown file. You simply put a
 
@@ -136,6 +136,7 @@ layout: post
 title: And now...The Larch!
 thumbnail: /images/image.png
 ---
+
 ```
 
 at the front of a post and whatever you define there can then be accessed using e.g. {% raw %}{{ page.thumbnail }}{% endraw %}. As hinted at in the example, I like to define the location of the thumbnail image I use next to a post here and then to include it in [home.html](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) like so:[^post]
@@ -145,14 +146,14 @@ at the front of a post and whatever you define there can then be accessed using 
 ```html
 {% raw %}{% if post.thumbnail %}{% endraw %}
 <div class="thumbnail">
-  <img src="{% raw %}{{ post.thumbnail }}{% endraw %}">
+  <img src="{% raw %}{{ post.thumbnail }}{% endraw %}" />
 </div>
 {% raw %}{% endif %}{% endraw %}
 ```
 
-By the way, I just learned something new while writing this section: If you want Jekyll to render Liquid code like {% raw %}{{ variable }}{% endraw %} or {% raw %}{% if post.thumbnail %}{% endraw %} instead of evaluating it, you need to put it into  {% raw %}{% raw %}{% endraw %} and `endraw` fences instead of simple markdown code fences[^endraw].
+By the way, I just learned something new while writing this section: If you want Jekyll to render Liquid code like {% raw %}{{ variable }}{% endraw %} or {% raw %}{% if post.thumbnail %}{% endraw %} instead of evaluating it, you need to put it into {% raw %}{% raw %}{% endraw %} and `endraw` fences instead of simple markdown code fences[^endraw].
 
-[^endraw]: The `endraw` should look like the  {% raw %}{% raw %}{% endraw %} but I couldn’t get that to work…
+[^endraw]: The `endraw` should look like the {% raw %}{% raw %}{% endraw %} but I couldn’t get that to work…
 
 ### 3. The discussion section
 
@@ -164,7 +165,7 @@ That’s it! You now should have a discussion section similar to the one at the 
 
 ### 4. Math support
 
-If you want to write about math related topics like machine learning, you need to be able to display mathematical equations. While you can get away with simply typing 2+2=4, it is not exactly pretty and anything slightly more complex is out of your reach.  The de facto standard to render high quality math in the scientific community is $\LaTeX$. Aha, you see where this is going, right?
+If you want to write about math related topics like machine learning, you need to be able to display mathematical equations. While you can get away with simply typing 2+2=4, it is not exactly pretty and anything slightly more complex is out of your reach. The de facto standard to render high quality math in the scientific community is $\LaTeX$. Aha, you see where this is going, right?
 
 On the web, Latex, or rather Latex math mode, is supported through the JavaScript library [MathJax](https://www.mathjax.org/). To get it to work inside GitHub pages you need to have an include file like [this one](https://github.com/hummat/hummat.github.io/blob/master/_includes/mathjax.html). There are a few things to note about this file. The first is the Liquid tag {% raw %}{% if page.mathjax %}{% endraw %}, which allows you to only enable MathJax in posts where you need it, similar to the DISQUS approach above[^javascript].
 
@@ -210,8 +211,9 @@ It stores the interactive figure inside HTML file which you can then include in 
     <div class="text">An interactive visualization! Wow!</div>
   </div>
 
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
 </div>
 
 ### 6. Markdown and HTML: A love-hate relationship
@@ -223,12 +225,8 @@ Take collapsible section for example. They are not natively supported by markdow
 ```html
 <details>
   <summary>Click to expand!</summary>
-  
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
+
+  ## Heading 1. A numbered 2. list * With some * Sub bullets
 </details>
 ```
 
@@ -237,11 +235,12 @@ Now when I actually type this here, see what happens:
 <details>
   <summary>Click to expand!</summary>
 
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
+## Heading
+
+1. A numbered
+2. list
+_ With some
+_ Sub bullets
 </details>
 
 The collapsible is there, but it's content, written in markdown, doesn't get processed into HTML. There are several solutions to this. You can simply write everything in HTML, it works, but that's usually what you were trying to avoid in the first place by using markdown with Jekyll. You can switch the markdown processor for _kramdown_ to [_CommonMarkGhPages_](https://github.com/github/jekyll-commonmark-ghpages) in your `_config.yml`. You have to be careful to add a blank line between the first HTML line and the markdown content and to indent everything, but it works great. Until you want to add some sophisticated HTML, like an [interactive visualization](#interactive-visualization), and you have to find out that it gets partly parsed as markdown to be converted into HTML and breaks.
@@ -250,12 +249,8 @@ The solution I’m currently using is the following:
 
 ```html
 <details markdown="1">
-<summary>Click to expand!</summary>
-## Heading
-1. A numbered
-2. list
-   * With some
-   * Sub bullets
+  <summary>Click to expand!</summary>
+  ## Heading 1. A numbered 2. list * With some * Sub bullets
 </details>
 ```
 
@@ -272,11 +267,12 @@ This works as expected! (Note the `markdown="1"` addition)
 
 There is no need to add weird whitespace, doesn't break other code like the interactive visualizations and can also be used to wrap markdown content in other kinds of [HTML containers](https://hummat.github.io/resource/2020/06/08/conferences.html).
 
-### 7. Tips, Tweaks & Tricks
+
+### 8. Tips, Tweaks & Tricks
 
 There are a couple of small tweaks and insights I’d like to summarize in this section. This list probably (and hopefully) be growing over time, as I'll add whatever I find out.
 
-* #### Popup footnotes
+- #### Popup footnotes
 
   Footnotes are great to unclutter your main text, but I hate to have to jump to the end of the page (or, heavens forbid, scroll there) only to scroll back up in search of where I left of once I’ve read the footnote. That’s already slightly improved in the build in way markdown handles footnotes, as there always is a reference _back_ to where you came from. Simply write `[^1]` where you want your footnote to appear and then, somewhere below, `[^1]: your footnote text`.
 
@@ -292,22 +288,24 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
     line-height: 1em;
     font-size: 0.75em;
     position: relative;
-    top: -.5em;
+    top: -0.5em;
     vertical-align: baseline;
   }
   ```
 
-* #### Cross-references
+- #### Cross-references
 
   To use cross-references in markdown, i.e. jump to a specific section, you can simply use `[something](#the-section-name)` which will then look like [something](#cross-references). If you want to reference to something else than a section, you’ll have to put an HTML anker there first, like so `<a name="this-is-an-anker"></a>` which you can then refer to in the same way as before with `[something](#this-is-an-anker)`.
 
-* #### Selective printing
+- #### Selective printing
 
   In an [earlier post](https://hummat.github.io/book/2020/06/04/deep-work.html) I wanted the reader to be able to print out a specific section (the summary) of the post. One way to achieve this is wrapping everything you _don’t_ want to be printed into `<div class="noprint" markdown="1"></div>`[^7] fences and putting the following into your `style.scss` file:
 
   ```scss
   @media print {
-    .noprint {display: none;}
+    .noprint {
+      display: none;
+    }
   }
   ```
 
@@ -315,13 +313,25 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
   [^7]: Remember the [`markdown="1"` trick](#6-markdown-and-html-a-love-hate-relationship) to force _kramdown_ to process your markdown as such?
 
-* #### Slideshows
+- #### Slideshows
 
   Slideshows are neat, because you can put in tons of visualizations without making your post unbearably long. I’ve basically copy-pasted [this example](https://www.w3schools.com/howto/howto_js_slideshow.asp) into a [`_includes/slideshow.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow.html) (JavaScript part)[^8] and a [`_sass/_slideshow.scss`](https://github.com/hummat/hummat.github.io/blob/master/_sass/_slideshow.scss) (CSS part) and enabled it by putting {% raw %}{% include slideshow.html %}{% endraw %} into my [`_layouts/default.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/default.html) file as well as `@import "slideshow";` at the top of my [`style.scss`](https://github.com/hummat/hummat.github.io/blob/master/style.scss) file.
 
   [^8]: With the addition of {% raw %}{% if page.slideshow %}{% endraw %} so I can enable it only if needed by putting `slideshow: true` into a posts YAML Front Matter.
-  
-* #### Interactive code
+
+- ### Playing videos
+
+Adding videos to your site is extremely easy. Simply add it to a directory inside your **GitHub** Pages repository, say `videos`, and use
+
+```html
+<video width="100%" height="auto" loop autoplay controls>
+  <source type="video/mp4" src="/videos//my_video.mp4" />
+</video>
+```
+
+Note that, when working offline, there seems to be a bug with Chrome/Chromium (at the time of me writing this) where the video won't play. Don't worry, it will play online and you can still test it offline with another browser like Firefox.
+
+- #### Interactive code
 
   Interactive figures are one thing, but as you most likely produced them using some code, wouldn’t it be nice if people also could interact with the _code_ and change the figure to their liking? Fortunately that’s super simple! Like already shown [here](#5-interactive-visualizations), you can create your figures in a [Jupyter notebook](https://jupyter.org/)—like [this one](https://github.com/hummat/hummat.github.io/blob/master/notebooks/beautiful-blogging.ipynb) which you can find in the [notebooks](https://github.com/hummat/hummat.github.io/blob/master/notebooks) directory—and add an [`environment.yml`](https://github.com/hummat/hummat.github.io/blob/master/environment.yml)[^9] file to the root of your GitHub page repository, filling in all packages you used in your notebook. Then head over to the [Binder website](https://mybinder.org/).
 

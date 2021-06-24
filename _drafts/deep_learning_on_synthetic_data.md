@@ -298,7 +298,7 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 </div>
 
-<video width="700" controls>
+<video width="100%" height="auto" loop autoplay controls>
   <source type="video/mp4" src="/images/cup/video.mp4">
 </video>
 
