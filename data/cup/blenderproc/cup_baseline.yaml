@@ -1,0 +1,113 @@
+# Args: <obj_file> <output_dir>
+{
+  "version": 3,
+  "setup": { "blender_install_path": "/home_local/<env:USER>/blender/" },
+  "modules":
+    [
+      {
+        "module": "main.Initializer",
+        "config": { "global": { "output_dir": "<args:0>" } },
+      },
+      {
+        "module": "loader.BlendLoader",
+        "config":
+          {
+            "path": "examples/cup/cup.blend",
+            "add_properties": { "cp_category_id": 1, "cp_is_object": True },
+          },
+      },
+      {
+        "module": "loader.HavenEnvironmentLoader",
+        "config": {
+          "data_path": "resources/haven/hdris/autumn_ground/autumn_ground_2k.hdr"
+        }
+      },
+      {
+        "module": "camera.CameraSampler",
+        "config":
+          {
+            "cam_poses":
+              [
+                {
+                  "number_of_samples": 5,
+                  "check_if_objects_visible":
+                    {
+                      "provider": "getter.Entity",
+                      "conditions": { "cp_is_object": True, "type": "MESH" },
+                    },
+                  "location":
+                    {
+                      "provider": "sampler.Shell",
+                      "center":
+                        {
+                          "provider": "getter.POI",
+                          "selector":
+                            {
+                              "provider": "getter.Entity",
+                              "conditions":
+                                { "cp_is_object": True, "type": "MESH" },
+                            },
+                        },
+                      "radius_min": 0.2,
+                      "radius_max": 1,
+                      "elevation_min": 1,
+                      "elevation_max": 89,
+                      "uniform_elevation": True,
+                    },
+                  "rotation":
+                    {
+                      "format": "look_at",
+                      "value":
+                        {
+                          "provider": "getter.AttributeMerger",
+                          "elements":
+                            [
+                              {
+                                "provider": "getter.POI",
+                                "selector":
+                                  {
+                                    "provider": "getter.Entity",
+                                    "conditions":
+                                      { "cp_is_object": True, "type": "MESH" },
+                                  },
+                              },
+                              {
+                                "provider": "sampler.Uniform3d",
+                                "min": [-0.5, -0.5, -0.5],
+                                "max": [0.5, 0.5, 0.5],
+                              },
+                            ],
+                          "transform_by": "sum",
+                        },
+                      "inplane_rot":
+                        {
+                          "provider": "sampler.Value",
+                          "type": "float",
+                          "min": -0.7854,
+                          "max": 0.7854,
+                        },
+                    },
+                },
+              ],
+            "intrinsics":
+              { "fov": 1, "resolution_x": 700, "resolution_y": 400 },
+          },
+      },
+      {
+        "module": "renderer.RgbRenderer",
+        "config": { "transparent_background": False },
+      },
+      {
+        "module": "renderer.SegMapRenderer",
+        "config":
+          {
+            "map_by": ["instance", "class", "name"],
+            "default_values": { "class": 0, "name": "none" },
+          },
+      },
+      {
+        "module": "writer.CocoAnnotationsWriter",
+        "config": { "append_to_existing_output": True },
+      },
+    ],
+}
