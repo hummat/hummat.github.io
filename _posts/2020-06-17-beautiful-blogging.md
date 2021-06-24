@@ -316,15 +316,15 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
   Slideshows are neat, because you can put in tons of visualizations without making your post unbearably long. I’ve basically copy-pasted [this example](https://www.w3schools.com/howto/howto_js_slideshow.asp) into a [`_includes/slideshow.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow.html) (JavaScript part)[^8] and a [`_sass/_slideshow.scss`](https://github.com/hummat/hummat.github.io/blob/master/_sass/_slideshow.scss) (CSS part) and enabled it by putting {% raw %}{% include slideshow.html %}{% endraw %} into my [`_layouts/default.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/default.html) file as well as `@import "slideshow";` at the top of my [`style.scss`](https://github.com/hummat/hummat.github.io/blob/master/style.scss) file.
 
-  [^8]: With the addition of {% raw %}{% if page.slideshow %}{% endraw %} so I can enable it only if needed by putting `slideshow: true` into a posts YAML Front Matter.
+  [^8]: With the addition of {% raw %}{% if page.slideshow %}{% endraw %} so I can enable it only if needed by putting `slideshow: true` into a posts YAML Front Matter. Have a look at [`_includes/slideshow2.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow2.html) instead if you need multiple slideshows.
 
-- #### Playing videos
+- #### Adding videos
 
-  Adding videos to your site is extremely easy. Simply add it to a directory inside your **GitHub** Pages repository, say `videos`, and use
+  Adding videos to your site is extremely easy. Simply add it to a directory inside your GitHub Pages repository, say `videos`, and use
 
   ```html
   <video width="100%" height="auto" loop autoplay controls>
-    <source type="video/mp4" src="/videos//my_video.mp4" />
+    <source type="video/mp4" src="/videos/my_video.mp4" />
   </video>
   ```
 
