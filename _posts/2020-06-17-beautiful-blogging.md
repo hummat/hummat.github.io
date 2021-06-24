@@ -319,7 +319,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
   [^8]: With the addition of {% raw %}{% if page.slideshow %}{% endraw %} so I can enable it only if needed by putting `slideshow: true` into a posts YAML Front Matter.
 
-- ### Playing videos
+- #### Playing videos
 
 Adding videos to your site is extremely easy. Simply add it to a directory inside your **GitHub** Pages repository, say `videos`, and use
 
