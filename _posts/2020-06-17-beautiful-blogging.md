@@ -267,7 +267,6 @@ This works as expected! (Note the `markdown="1"` addition)
 
 There is no need to add weird whitespace, doesn't break other code like the interactive visualizations and can also be used to wrap markdown content in other kinds of [HTML containers](https://hummat.github.io/resource/2020/06/08/conferences.html).
 
-
 ### 8. Tips, Tweaks & Tricks
 
 There are a couple of small tweaks and insights I’d like to summarize in this section. This list probably (and hopefully) be growing over time, as I'll add whatever I find out.
@@ -321,15 +320,15 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
 - #### Playing videos
 
-Adding videos to your site is extremely easy. Simply add it to a directory inside your **GitHub** Pages repository, say `videos`, and use
+  Adding videos to your site is extremely easy. Simply add it to a directory inside your **GitHub** Pages repository, say `videos`, and use
 
-```html
-<video width="100%" height="auto" loop autoplay controls>
-  <source type="video/mp4" src="/videos//my_video.mp4" />
-</video>
-```
+  ```html
+  <video width="100%" height="auto" loop autoplay controls>
+    <source type="video/mp4" src="/videos//my_video.mp4" />
+  </video>
+  ```
 
-Note that, when working offline, there seems to be a bug with Chrome/Chromium (at the time of me writing this) where the video won't play. Don't worry, it will play online and you can still test it offline with another browser like Firefox.
+  Note that, when working offline, there seems to be a bug with Chrome/Chromium (at the time of me writing this) where the video won't play. Don't worry, it will play online and you can still test it offline with another browser like Firefox.
 
 - #### Interactive code
 
