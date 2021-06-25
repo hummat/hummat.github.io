@@ -12,9 +12,9 @@ words: 0
 
 # {{ page.title }}
 
-## Introduction
-
 Let me preface this by encouraging you to keep reading regardless of you level of expertise in the field. I think the approach presented here is so general yet intuitive that it can benefit novices and experts alike while being supremely accessible.
+
+## Introduction
 
 So, what is this and why is it exciting? You might be aware of the growing level of realism of computer generated contend in both the games and film industry, to the point where it's sometimes indistinguishable from the real world. If this is completely new to you, I would encourage you to give it a quick search online. You will be amazed by how much of modern movies is actually not real but computer generated to the point where only the actors faces remain (if at all).
 
@@ -39,7 +39,7 @@ By the end of this article, we want to be able to detect the occurrence and posi
 
 ## Making some data
 
-Before we can make synthetic training data, we first need to understand what it is. It all starts with a _3D model_ of the object(s) we want to work with. There is a lot of great 3D modeling software out there but we will focus on [_Blender_]() because it is free, open source, cross-platform and, to be honest, simply awesome.
+Before we can make synthetic training data, we first need to understand what it is. It all starts with a _3D model_ of the object(s) we want to work with. There is a lot of great 3D modeling software out there but we will focus on [_Blender_](https://www.blender.org) because it is free, open source, cross-platform and, to be honest, simply awesome.
 
 {% include /figures/cup.html %}
 
@@ -78,7 +78,7 @@ We could now snap an artificial image (i.e. a _render_) of the cup model to get 
 
 First, let's try to get a few more datapoints. Simply rendering the same image a hundred times won't provide any new information to our neural network so we need to introduce some variety. We could rotate the cup to render it from all sides or rotate the (artificial) _camera_ around it, which, in this setup, would be equivalent. Still, a white background with the object in the center isn't exactly realistic and thus won't generalize to real world applications. The most common way to narrow the gap between simulation and the real world (the _sim2real_ gap) is to render objects in front of randomly selected photographs.
 
-While simple, the result is unconvincing due to differences in lighting: the object will be rendered with artificially placed lights which won't match the direction, intensity and color of the light from the scene captured in the photograph. A slightly better approach is to use _high dynamic range images_ (HDRIs) which store, next to color, additional brightness information in every pixel and cover 360 degrees of viewing angle. Rendering an object inside this sphere allows the utilization of light color, direction and intensity for realistic illumination and reflections.
+While simple, the result is unconvincing due to differences in lighting: the object will be rendered with artificially placed lights which won't match the direction, intensity and color of the light from the scene captured in the photograph. A slightly better approach is to use _high dynamic range images_ (HDRIs) which store, next to color, additional brightness information in every pixel and cover 360 degrees of viewing angle. Rendering an object inside this sphere allows the utilization of the lights color, direction and intensity for realistic illumination and reflections.
 
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides">
@@ -118,6 +118,10 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 ## BlenderProc
 
+Luckily, we don't even have to actually write the program ourselves. Enter [BlenderProc](https://github.com/DLR-RM/BlenderProc), _a procedural Blender pipeline for photorealistic training image generation_. In my short introduction to Blender, I've missed one very important trick it has up its sleeves: A complete Python _Application Programming Interface_ (API) allowing us to achieve _everything_ that can be done by manually interacting with the user interface but through lines of code instead of mouse and keyboard input.
+
+This is what BlenderProc builds on to provide functions to place objects, lights, textures and a camera into virtual scene and then uses Blenders physically-based path tracer to make photorealistic renders of it. All of these steps can be repeated as many times as required, randomly sampling object, light and camera positions and orientations, textures, light strength and color and much more. Have a look at the example below. By randomly placing the cup inside a cube consisting of four wall planes, a floor and a ceiling, adding a randomly place light with varying strength and color and then rendering it from multiple random viewpoints we already get a more physically correct representation with proper lighting, reflections and shadows compared to random background photos.
+
 <div id="slideshow3" class="slideshow-container">
   <div class="mySlides">
     <img src="/images/cup/room/rgb_0000.jpg" style="width:100%">
@@ -143,6 +147,14 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
+
+As you can see, the color of the cup seems to change even though we haven't randomized it (yet) which underlines the importance of correct handling of light if we want to generalize to the real world later. One glaring shortcoming of our current setup is the static orientation of the cup. While it's position is randomized, it stays upright in all renders. This is problematic if we want to detect cups in the real world which can also lie on their side or be place upside down. While we could introduce random rotations into the mix, the result wouldn't be realistic, as objects only have a limit number of physically plausible poses[^3] due to the influence of gravity.
+
+Here we can make use of another neat feature from Blender: physics simulation. Instead of placing the object directly on the floor, we can first rotate it randomly and then let if fall into the scene and simulate it falling, bouncing and rolling around until it stops moving (or at least approximately so). The result can be seen below.
+
+Here is a little entertaining anecdote: Do you see how the cup stands tilted to one side in the fourth picture? I didn't know it could do that but when I saw the picture and tried it, sure enough, it worked. Physics simulation is just great.
+
+[^3]: An objects _pose_ consists of it's rotation and translation.
 
 <div id="slideshow4" class="slideshow-container">
   <div class="mySlides">
@@ -170,6 +182,8 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 </div>
 
+Another problem you might have noticed is the white background. Detecting objects under these conditions is too easy and won't generalize to the real world with its infinitude of possible backgrounds. The solution is to download a large quantity of high quality _Physics Based Rendering_ (PBR) textures and randomly assign them to the white surfaces. A great choice are free and open source textures from [ambientCG](https://ambientcg.com) for which BlenderProc provides a download script and loader function. PBR textures increase realism by incorporating not only color but also displacement, roughness and surface normal information which the renderer can use to make metal or polished wood shine and cobblestone seemingly protrude into the scene.
+
 <div id="slideshow5" class="slideshow-container">
   <div class="mySlides">
     <img src="/images/cup/textures/rgb_0000.jpg" style="width:100%">
@@ -195,6 +209,8 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
+
+Next, we introduce clutter. Due to shadows and sudden changes in color and other material properties between background and objects, a single object is still too easily found in our scenes. By throwing other randomly selected objects, e.g. from [BlenderKit](https://www.blenderkit.com), into it we increase the difficulty through the additional of _negative_ examples (this is _not_ a cup!) and occlusions (objects in front of the cup).
 
 <div id="slideshow6" class="slideshow-container">
   <div class="mySlides">
@@ -222,6 +238,25 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 </div>
 
+Finally, we can replace our simplistic cube by an actual room with furniture, lamps and windows through which realistic light from HDR images can fall. One possibility is the [3D-FRONT](https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset) dataset offering thousands of rooms with high quality 3D models of furniture and textures. Again, BlenderProc provides a loader function loading and placing all objects from a selected scene.
+
+You don't even need to use the actual Python functionality provided by BlenderProc. Instead, we can write a data generation pipeline _config_, which in our case looks something like this[^4]:
+
+1. Load a random 3D-FRONT room.
+2. Load some random wood, marble and brick PBR textures and replace some of the original ones.
+3. Select an object from the room to place the cup on. Each group of objects like _beds_ or _chairs_ has an ID so we first randomly select a plausible group and then a random instance within that group.
+4. Load the cup model and the models used as clutter.
+5. Randomly modify the objects material properties like roughness and color.
+6. Sample a random pose per object above the selected furniture.
+7. Run the physics simulation.
+8. Randomly place lights with random brightness and color.
+9. Place cameras at random position and orientation looking at the cup. Slightly nudge the camera so the cup is always visible but not exactly in the middle of the frame.
+10. Run the renderer.
+
+The result can be seen below.
+
+[^4]: I've added the actual config files used to generate the renders for this article in the blogs GitHub repository under [`data/cup/blenderproc`](https://github.com/hummat/hummat.github.io/tree/master/data/cup/blenderproc).
+
 <div id="slideshow7" class="slideshow-container">
   <div class="mySlides">
     <img src="/images/cup/scene/rgb_0000.jpg" style="width:100%">
@@ -248,7 +283,33 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 </div>
 
+When saving the render, we have the option to not only store the color image, but also depth (distance of each pixel from the camera), pixel perfect segmentation masks and surface normals (the direction a surface is facing relative to the camera position) and some more.
+
 <div id="slideshow8" class="slideshow-container">
+  <div class="mySlides">
+    <img src="/images/cup/dataset/Figure_2.png" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <img src="/images/cup/dataset/Figure_3.png" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <img src="/images/cup/dataset/Figure_4.png" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <img src="/images/cup/dataset/Figure_6.png" style="width:100%">
+  </div>
+
+<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
+<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+
+</div>
+
+Having generated our dataset, we now need to train a neural network with it.
+
+<div id="slideshow9" class="slideshow-container">
   <div class="mySlides">
     <img src="/images/cup/real/real0.jpg" style="width:100%">
   </div>
@@ -301,16 +362,3 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 <video width="100%" height="auto" loop autoplay controls>
   <source type="video/mp4" src="/images/cup/video.mp4">
 </video>
-
-- What is this?: Interface to simplify the use of blenders Python API for data generation
-- Adding "real" backgrounds
-  - Textures
-  - Lighting
-  - HDR images
-  - Imperfections
-
-## Putting it all together
-
-- Gallery with generated images
-- Detection results in the real world (GIF?)
-- Wrapping up
