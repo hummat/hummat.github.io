@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Deep Learning on photorealistic synthetic data
-abstract: If you work in machine learning or worse, deep learning, you have probably encountered the problem of too few data at least once. For a classification task you might get away with hand-labeling a couple of thousand images and even detection might still be within manual reach if you can convince enough friends to help you. And then you also want to do segmenation. Even if possible, hand-labeling is an incredibly boring, menial task. But what if you could automate it by rendering photorealistic synthetic training data with pixel-perfect annotations for all kinds of scene understanding problems? That's what I would like to showcase in this article.
-tags: [synthetic data, photorealism, deep learning]
+abstract: If you work in machine learning, or worse, deep learning, you have probably encountered the problem of too few data at least once. For a classification task you might get away with hand-labeling a couple of thousand images and even detection might still be within manual reach if you can convince enough friends to help you. And then you also want to do segmenation. Even if possible, hand-labeling is an incredibly boring, menial task. But what if you could automate it by rendering photorealistic synthetic training data with pixel-perfect annotations for all kinds of scene understanding problems?
+tags: [synthetic data, photorealism, deep learning, rendering, blender]
 category: learning
+thumbnail: /images/cup/thumbnail.png
 jquery: true
 slideshow2: true
-time: 0
-words: 0
+time: 15
+words: 3619
 ---
 
 # {{ page.title }}
@@ -51,23 +52,23 @@ We could now snap an artificial image (i.e. a _render_) of the cup model to get 
 
 <div id="slideshow1" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/cup_basic.png" style="width: 100%">
-    <div class="text" style="text-align: center; bottom: -35px;"><b>The bare minimum:</b> The rendered cup wihtout colors, textures and surface properties.</div>
+  <img src="/images/cup/cup_basic.png" style="width: 100%">
+  <div class="text" style="text-align: center; bottom: -35px;"><b>The bare minimum:</b> The rendered cup wihtout colors, textures and surface properties.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/cup_color.png" style="width: 100%">
-    <div class="text" style="text-align: center; bottom: -35px;"><b>Color and reflections:</b> Correct colors and roughness greatly increase realism.</div>
+  <img src="/images/cup/cup_color.png" style="width: 100%">
+  <div class="text" style="text-align: center; bottom: -35px;"><b>Color and reflections:</b> Correct colors and roughness greatly increase realism.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/cup_texture.png" style="width: 100%">
-    <div class="text" style="text-align: center; bottom: -35px;"><b>Adding subtle effects:</b> Textures, displacements and surface imperfections.</div>
+  <img src="/images/cup/cup_texture.png" style="width: 100%">
+  <div class="text" style="text-align: center; bottom: -35px;"><b>Adding subtle effects:</b> Textures, displacements and surface imperfections.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/cup_background.jpg" style="width: 100%">
-    <div class="text" style="text-align: center; bottom: -35px;"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
+  <img src="/images/cup/cup_background.jpg" style="width: 100%">
+   <div class="text" style="text-align: center; bottom: -35px;"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -240,7 +241,7 @@ Next, we introduce clutter. Due to shadows and sudden changes in color and other
 
 Finally, we can replace our simplistic cube by an actual room with furniture, lamps and windows through which realistic light from HDR images can fall. One possibility is the [3D-FRONT](https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset) dataset offering thousands of rooms with high quality 3D models of furniture and textures. Again, BlenderProc provides a loader function loading and placing all objects from a selected scene.
 
-You don't even need to use the actual Python functionality provided by BlenderProc. Instead, we can write a data generation pipeline _config_, which in our case looks something like this[^4]:
+You don't even need to use the actual Python functionality provided by BlenderProc. Instead, we can write a data generation pipeline [_config_](https://github.com/hummat/hummat.github.io/blob/master/data/cup/blenderproc/cup_front3d.yaml), which in our case looks something like this[^4]:
 
 1. Load a random 3D-FRONT room.
 2. Load some random wood, marble and brick PBR textures and replace some of the original ones.
@@ -253,29 +254,29 @@ You don't even need to use the actual Python functionality provided by BlenderPr
 9. Place cameras at random position and orientation looking at the cup. Slightly nudge the camera so the cup is always visible but not exactly in the middle of the frame.
 10. Run the renderer.
 
-The result can be seen below.
+With this you will get results like the ones seen below.
 
 [^4]: I've added the actual config files used to generate the renders for this article in the blogs GitHub repository under [`data/cup/blenderproc`](https://github.com/hummat/hummat.github.io/tree/master/data/cup/blenderproc).
 
 <div id="slideshow7" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/scene/rgb_0000.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0000.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/scene/rgb_0001.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0001.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/scene/rgb_0002.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0002.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/scene/rgb_0003.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0003.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/scene/rgb_0004.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0004.jpg" style="width:100%">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -287,78 +288,110 @@ When saving the render, we have the option to not only store the color image, bu
 
 <div id="slideshow8" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/dataset/Figure_2.png" style="width:100%">
+  <img src="/images/cup/dataset/Figure_2.png" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4.5em; width: 90%;"><b>RGB:</b> The rendered color image with the cup lying off-center on its side. There are lots of textures and clutter as well as realistic reflections, shadows, occlusion and depth of field effects.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/dataset/Figure_3.png" style="width:100%">
+  <img src="/images/cup/dataset/Figure_3.png" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -9em; width: 90%;"><b>Depth:</b> Because our scene consists of actual 3D objects and Blender needs to know each of their positions to present the scene on a 2D surface (your monitor) we can also store this information in a depth map with colors encoding the distance to the camera where blue means near and red far away. Such information can't even be generated by human annotators retrospectively but has to be captured with (inaccruate) depth sensors in reality.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/dataset/Figure_4.png" style="width:100%">
+  <img src="/images/cup/dataset/Figure_4.png" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6em; width: 90%;"><b>Normals:</b> The orientation of a surface can be represented by its normal which is a perpendicular vector with x, y and z coordinates. We can interpret those coordinates as red, green and blue color values for visualization where surfaces with the same orientation have the same color.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/dataset/Figure_6.png" style="width:100%">
+  <img src="/images/cup/dataset/Figure_6.png" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6em; width: 90%;"><b>Segmentation:</b> Finally, and most importantly for our application, we can obtain pixel perfect semantic segmentation masks. They look a bit boring in our case as there is only a single object of interest while everything else is considered background. Instance segmentation masks can also be generated if needed.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-Having generated our dataset, we now need to train a neural network with it.
+Having generated our dataset, we now need to train a neural network with it. I'll be using Facebooks [_Detectron2_](https://github.com/facebookresearch/detectron2) framework and [_PyTorch_](https://pytorch.org) as it offers high quality implementation of state-of-the-art algorithms like [_Mask R-CNN_](https://arxiv.org/abs/1703.06870) and I've been working quite a bit with it lately. You can of course try something less old school like the [_Detection Transfromer_](https://arxiv.org/abs/2005.12872) if you feel adventurous.
+
+As always you can find the [Jupyter notebook](https://github.com/hummat/hummat.github.io/blob/master/notebooks/deep-learning-on-synthetic-data.ipynb) with all the code required for each blog post in the [`notebooks`](https://github.com/hummat/hummat.github.io/tree/master/notebooks) directory of the [blogs GitHub repository](https://github.com/hummat/hummat.github.io). You can also try it out directly using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Fdeep-learning-on-synthetic-data.ipynb).
+
+Training takes only a couple of minutes on this small dataset (though longer training might further improve the results). Once the network is trained on our photorealistic, prefectly annotated training data, we can try to evaluate it on real world images (and videos) taken with my smartphone. Let's start with the one from the very beginning of this article:
 
 <div id="slideshow9" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/real/real0.jpg" style="width:100%">
+  <img src="/images/cup/real/real0.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6.5em; width: 90%;"><b>The Cup:</b> Success! Our network trained purely on synthetic images is able to detect objects in the real world. Even after some time now this is still somewhat miraculous to me. As you can see, the bounding box and segmentation mask isn't perfect but pretty good.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real1.jpg" style="width:100%">
+  <img src="/images/cup/real/real1.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Two Cups:</b> Two cups work as well even though the training data never contained more than one cup per image. Also note that we perform <em>instance segmentation</em> where each instance of an object is segmented individually.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real2.jpg" style="width:100%">
+  <img src="/images/cup/real/real2.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Upside down:</b> Turning the cup on its head doesn't pose a problem to our model as it has seen the cup from all directions during training.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real3.jpg" style="width:100%">
+  <img src="/images/cup/real/real3.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Occlusion:</b> Even though both cups don't even touch in 3D space, one occludes the other in this 2D view. No problem though.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real4.jpg" style="width:100%">
+  <img src="/images/cup/real/real4.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Stacking:</b> The first failure case: Stacking two cups gets interpreted as a single cup. Adding such cases to the training data could help here.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real5.jpg" style="width:100%">
+  <img src="/images/cup/real/real5.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Clutter:</b> To make the task a little more difficult, we can add several dissimilar objects to the scene. This was the default setting during training so it's not surprising for our model to pass this test with flying colors.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real6.jpg" style="width:100%">
+  <img src="/images/cup/real/real6.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Close clutter:</b> Moving everything closer together makes the task a little harder but apparently not too much.</div>
   </div>
   
   <div class="mySlides">
-    <img src="/images/cup/real/real7.jpg" style="width:100%">
+  <img src="/images/cup/real/real7.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Another configuration:</b> Another failure: It looks like as if the model generalizes a little far to any cup-like object. Let's investigate.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real8.jpg" style="width:100%">
+  <img src="/images/cup/real/real8.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Too much generalization:</b> Indeed. While we certainly didn't overfit on the cup, this amount of generalization might not be what you want. Longer training on more data and the introduction of more negative cup-like objects should help.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real9.jpg" style="width:100%">
+  <img src="/images/cup/real/real9.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Cups and bowls:</b> Even bowls get classified as cups. Oh well.</div>
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/real/real10.jpg" style="width:100%">
+  <img src="/images/cup/real/real10.jpg" style="width:100%">
+  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Mess:</b> Throwing a large pile of different things together reveals the (over) generalization capabilities of our model on cup-like objects while very different objects get ignored as desired.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
+<br>
+<br>
+<br>
+<br>
+
+This almost concludes our little journey into synthetic worlds. Before you move on have a look at the short video of me foolishly waving around a cup which gets segmented (mostly) correctly in real time. Happy rendering.
 
 <video width="100%" height="auto" loop autoplay controls>
   <source type="video/mp4" src="/images/cup/video.mp4">
 </video>
+
+---
