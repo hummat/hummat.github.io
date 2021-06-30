@@ -42,7 +42,9 @@ By the end of this article, we want to be able to detect the occurrence and posi
 
 Before we can make synthetic training data, we first need to understand what it is. It all starts with a _3D model_ of the object(s) we want to work with. There is a lot of great 3D modeling software out there but we will focus on [_Blender_](https://www.blender.org) because it is free, open source, cross-platform and, to be honest, simply awesome.
 
+<div style="width: 100%; margin: auto;">
 {% include /figures/cup.html %}
+</div>
 
 I made this cup model you see above in an afternoon (so there is still some work involved) but I'm a complete novice to 3D modeling[^2] and an expert could probably make such a simple model in a few minutes. More complex objects might take more time, but there are already a lot of great 3D models out there you can download for free and even if you start from scratch, you only need to do it once and can reuse it for all kinds of projects and learning tasks.
 
@@ -53,29 +55,28 @@ We could now snap an artificial image (i.e. a _render_) of the cup model to get 
 <div id="slideshow1" class="slideshow-container">
   <div class="mySlides">
   <img src="/images/cup/cup_basic.png" style="width: 100%">
-  <div class="text" style="text-align: center; bottom: -35px;"><b>The bare minimum:</b> The rendered cup wihtout colors, textures and surface properties.</div>
+  <div class="text"><b>The bare minimum:</b> The rendered cup wihtout colors, textures and surface properties.</div>
   </div>
 
   <div class="mySlides">
   <img src="/images/cup/cup_color.png" style="width: 100%">
-  <div class="text" style="text-align: center; bottom: -35px;"><b>Color and reflections:</b> Correct colors and roughness greatly increase realism.</div>
+  <div class="text"><b>Color and reflections:</b> Correct colors and roughness greatly increase realism.</div>
   </div>
 
   <div class="mySlides">
   <img src="/images/cup/cup_texture.png" style="width: 100%">
-  <div class="text" style="text-align: center; bottom: -35px;"><b>Adding subtle effects:</b> Textures, displacements and surface imperfections.</div>
+  <div class="text"><b>Adding subtle effects:</b> Textures, displacements and surface imperfections.</div>
   </div>
 
   <div class="mySlides">
   <img src="/images/cup/cup_background.jpg" style="width: 100%">
-   <div class="text" style="text-align: center; bottom: -35px;"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
+  <div class="text"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
-<br>
 
 First, let's try to get a few more datapoints. Simply rendering the same image a hundred times won't provide any new information to our neural network so we need to introduce some variety. We could rotate the cup to render it from all sides or rotate the (artificial) _camera_ around it, which, in this setup, would be equivalent. Still, a white background with the object in the center isn't exactly realistic and thus won't generalize to real world applications. The most common way to narrow the gap between simulation and the real world (the _sim2real_ gap) is to render objects in front of randomly selected photographs.
 
@@ -83,27 +84,27 @@ While simple, the result is unconvincing due to differences in lighting: the obj
 
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0051.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0051.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0053.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0053.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0054.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0054.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0062.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0062.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0063.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0063.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/basic/rgb_0064.jpg" style="width:100%">
+  <img src="/images/cup/basic/rgb_0064.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -125,23 +126,23 @@ This is what BlenderProc builds on to provide functions to place objects, lights
 
 <div id="slideshow3" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0000.jpg" style="width:100%">
+    <img src="/images/cup/room/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0001.jpg" style="width:100%">
+    <img src="/images/cup/room/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0002.jpg" style="width:100%">
+    <img src="/images/cup/room/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0003.jpg" style="width:100%">
+    <img src="/images/cup/room/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0004.jpg" style="width:100%">
+    <img src="/images/cup/room/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -159,23 +160,23 @@ Here is a little entertaining anecdote: Do you see how the cup stands tilted to 
 
 <div id="slideshow4" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0000.jpg" style="width:100%">
+    <img src="/images/cup/pose/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0001.jpg" style="width:100%">
+    <img src="/images/cup/pose/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0002.jpg" style="width:100%">
+    <img src="/images/cup/pose/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0003.jpg" style="width:100%">
+    <img src="/images/cup/pose/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0004.jpg" style="width:100%">
+    <img src="/images/cup/pose/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -187,23 +188,23 @@ Another problem you might have noticed is the white background. Detecting object
 
 <div id="slideshow5" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0000.jpg" style="width:100%">
+    <img src="/images/cup/textures/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0001.jpg" style="width:100%">
+    <img src="/images/cup/textures/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0002.jpg" style="width:100%">
+    <img src="/images/cup/textures/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0003.jpg" style="width:100%">
+    <img src="/images/cup/textures/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0004.jpg" style="width:100%">
+    <img src="/images/cup/textures/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -215,23 +216,23 @@ Next, we introduce clutter. Due to shadows and sudden changes in color and other
 
 <div id="slideshow6" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0000.jpg" style="width:100%">
+    <img src="/images/cup/clutter/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0001.jpg" style="width:100%">
+    <img src="/images/cup/clutter/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0002.jpg" style="width:100%">
+    <img src="/images/cup/clutter/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0003.jpg" style="width:100%">
+    <img src="/images/cup/clutter/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0004.jpg" style="width:100%">
+    <img src="/images/cup/clutter/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -260,23 +261,23 @@ With this you will get results like the ones seen below.
 
 <div id="slideshow7" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0000.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0001.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0002.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0003.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0004.jpg" style="width:100%">
+  <img src="/images/cup/scene/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -288,34 +289,29 @@ When saving the render, we have the option to not only store the color image, bu
 
 <div id="slideshow8" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_2.png" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4.5em; width: 90%;"><b>RGB:</b> The rendered color image with the cup lying off-center on its side. There are lots of textures and clutter as well as realistic reflections, shadows, occlusion and depth of field effects.</div>
+  <img src="/images/cup/dataset/Figure_2.png" style="width:100%;">
+  <div class="text"><b>RGB:</b> The rendered color image with the cup lying off-center on its side. There are lots of textures and clutter as well as realistic reflections, shadows, occlusion and depth of field effects.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_3.png" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -9em; width: 90%;"><b>Depth:</b> Because our scene consists of actual 3D objects and Blender needs to know each of their positions to present the scene on a 2D surface (your monitor) we can also store this information in a depth map with colors encoding the distance to the camera where blue means near and red far away. Such information can't even be generated by human annotators retrospectively but has to be captured with (inaccruate) depth sensors in reality.</div>
+  <img src="/images/cup/dataset/Figure_3.png" style="width:100%;">
+  <div class="text"><b>Depth:</b> Because our scene consists of actual 3D objects and Blender needs to know each of their positions to present the scene on a 2D surface (your monitor) we can also store this information in a depth map with colors encoding the distance to the camera where blue means near and red far away. Such information can't even be generated by human annotators retrospectively but has to be captured with (inaccruate) depth sensors in reality.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_4.png" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6em; width: 90%;"><b>Normals:</b> The orientation of a surface can be represented by its normal which is a perpendicular vector with x, y and z coordinates. We can interpret those coordinates as red, green and blue color values for visualization where surfaces with the same orientation have the same color.</div>
+  <img src="/images/cup/dataset/Figure_4.png" style="width:100%;">
+  <div class="text"><b>Normals:</b> The orientation of a surface can be represented by its normal which is a perpendicular vector with x, y and z coordinates. We can interpret those coordinates as red, green and blue color values for visualization where surfaces with the same orientation have the same color.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_6.png" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6em; width: 90%;"><b>Segmentation:</b> Finally, and most importantly for our application, we can obtain pixel perfect semantic segmentation masks. They look a bit boring in our case as there is only a single object of interest while everything else is considered background. Instance segmentation masks can also be generated if needed.</div>
+  <img src="/images/cup/dataset/Figure_6.png" style="width:100%;">
+  <div class="text"><b>Segmentation:</b> Finally, and most importantly for our application, we can obtain pixel perfect semantic segmentation masks. They look a bit boring in our case as there is only a single object of interest while everything else is considered background. Instance segmentation masks can also be generated if needed.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 Having generated our dataset, we now need to train a neural network with it. I'll be using Facebooks [_Detectron2_](https://github.com/facebookresearch/detectron2) framework and [_PyTorch_](https://pytorch.org) as it offers high quality implementation of state-of-the-art algorithms like [_Mask R-CNN_](https://arxiv.org/abs/1703.06870) and I've been working quite a bit with it lately. You can of course try something less old school like the [_Detection Transfromer_](https://arxiv.org/abs/2005.12872) if you feel adventurous.
 
@@ -325,68 +321,64 @@ Training takes only a couple of minutes on this small dataset (though longer tra
 
 <div id="slideshow9" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/real/real0.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -6.5em; width: 90%;"><b>The Cup:</b> Success! Our network trained purely on synthetic images is able to detect objects in the real world. Even after some time now this is still somewhat miraculous to me. As you can see, the bounding box and segmentation mask isn't perfect but pretty good.</div>
+  <img src="/images/cup/real/real0.jpg">
+  <div class="text"><b>The Cup:</b> Success! Our network trained purely on synthetic images is able to detect objects in the real world. Even after some time now this is still somewhat miraculous to me. As you can see, the bounding box and segmentation mask isn't perfect but pretty good.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real1.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Two Cups:</b> Two cups work as well even though the training data never contained more than one cup per image. Also note that we perform <em>instance segmentation</em> where each instance of an object is segmented individually.</div>
+  <img src="/images/cup/real/real1.jpg">
+  <div class="text"><b>Two Cups:</b> Two cups work as well even though the training data never contained more than one cup per image. Also note that we perform <em>instance segmentation</em> where each instance of an object is segmented individually.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real2.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Upside down:</b> Turning the cup on its head doesn't pose a problem to our model as it has seen the cup from all directions during training.</div>
+  <img src="/images/cup/real/real2.jpg">
+  <div class="text"><b>Upside down:</b> Turning the cup on its head doesn't pose a problem to our model as it has seen the cup from all directions during training.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real3.jpg" style="width:100%">
+  <img src="/images/cup/real/real3.jpg">
   <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Occlusion:</b> Even though both cups don't even touch in 3D space, one occludes the other in this 2D view. No problem though.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real4.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Stacking:</b> The first failure case: Stacking two cups gets interpreted as a single cup. Adding such cases to the training data could help here.</div>
+  <img src="/images/cup/real/real4.jpg">
+  <div class="text"><b>Stacking:</b> The first failure case: Stacking two cups gets interpreted as a single cup. Adding such cases to the training data could help here.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real5.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Clutter:</b> To make the task a little more difficult, we can add several dissimilar objects to the scene. This was the default setting during training so it's not surprising for our model to pass this test with flying colors.</div>
+  <img src="/images/cup/real/real5.jpg">
+  <div class="text"><b>Clutter:</b> To make the task a little more difficult, we can add several dissimilar objects to the scene. This was the default setting during training so it's not surprising for our model to pass this test with flying colors.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real6.jpg" style="width:100%">
+  <img src="/images/cup/real/real6.jpg">
   <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Close clutter:</b> Moving everything closer together makes the task a little harder but apparently not too much.</div>
   </div>
   
   <div class="mySlides">
-  <img src="/images/cup/real/real7.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Another configuration:</b> Another failure: It looks like as if the model generalizes a little far to any cup-like object. Let's investigate.</div>
+  <img src="/images/cup/real/real7.jpg">
+  <div class="text"><b>Another configuration:</b> Another failure: It looks like as if the model generalizes a little far to any cup-like object. Let's investigate.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real8.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Too much generalization:</b> Indeed. While we certainly didn't overfit on the cup, this amount of generalization might not be what you want. Longer training on more data and the introduction of more negative cup-like objects should help.</div>
+  <img src="/images/cup/real/real8.jpg">
+  <div class="text"><b>Too much generalization:</b> Indeed. While we certainly didn't overfit on the cup, this amount of generalization might not be what you want. Longer training on more data and the introduction of more negative cup-like objects should help.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real9.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Cups and bowls:</b> Even bowls get classified as cups. Oh well.</div>
+  <img src="/images/cup/real/real9.jpg">
+  <div class="text"><b>Cups and bowls:</b> Even bowls get classified as cups. Oh well.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real10.jpg" style="width:100%">
-  <div class="text" style="text-align: left; line-height: 1.5em; bottom: -5.5em; width: 90%;"><b>Mess:</b> Throwing a large pile of different things together reveals the (over) generalization capabilities of our model on cup-like objects while very different objects get ignored as desired.</div>
+  <img src="/images/cup/real/real10.jpg">
+  <div class="text"><b>Mess:</b> Throwing a large pile of different things together reveals the (over) generalization capabilities of our model on cup-like objects while very different objects get ignored as desired.</div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
 <a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
 
 </div>
-<br>
-<br>
-<br>
-<br>
 
 This almost concludes our little journey into synthetic worlds. Before you move on have a look at the short video of me foolishly waving around a cup which gets segmented (mostly) correctly in real time. Happy rendering.
 
