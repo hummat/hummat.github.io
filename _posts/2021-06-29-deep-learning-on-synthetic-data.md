@@ -122,7 +122,7 @@ Now, how can we solve this problem in our synthetic data generation pipeline? We
 
 Luckily, we don't even have to actually write the program ourselves. Enter [BlenderProc](https://github.com/DLR-RM/BlenderProc), _a procedural Blender pipeline for photorealistic training image generation_. In my short introduction to Blender, I've missed one very important trick it has up its sleeves: A complete Python _Application Programming Interface_ (API) allowing us to achieve _everything_ that can be done by manually interacting with the user interface but through lines of code instead of mouse and keyboard input.
 
-This is what BlenderProc builds on to provide functions to place objects, lights, textures and a camera into virtual scene and then uses Blenders physically-based path tracer to make photorealistic renders of it. All of these steps can be repeated as many times as required, randomly sampling object, light and camera positions and orientations, textures, light strength and color and much more. Have a look at the example below. By randomly placing the cup inside a cube consisting of four wall planes, a floor and a ceiling, adding a randomly place light with varying strength and color and then rendering it from multiple random viewpoints we already get a more physically correct representation with proper lighting, reflections and shadows compared to random background photos.
+This is what BlenderProc builds on to provide functions to place objects, lights, textures and a camera into virtual scene and then uses Blenders physically-based path tracer to make photorealistic renders of it. All of these steps can be repeated as many times as required, randomly sampling object, light and camera positions and orientations, textures, light strength and color and much more. Have a look at the example below. By randomly placing the cup inside a cube consisting of four wall planes, a floor and a ceiling, adding a randomly placed light with varying strength and color and then rendering it from multiple random viewpoints we already get a more physically correct representation with proper lighting, reflections and shadows compared to random background photos.
 
 <div id="slideshow3" class="slideshow-container">
   <div class="mySlides">
@@ -212,7 +212,7 @@ Another problem you might have noticed is the white background. Detecting object
 
 </div>
 
-Next, we introduce clutter. Due to shadows and sudden changes in color and other material properties between background and objects, a single object is still too easily found in our scenes. By throwing other randomly selected objects, e.g. from [BlenderKit](https://www.blenderkit.com), into it we increase the difficulty through the additional of _negative_ examples (this is _not_ a cup!) and occlusions (objects in front of the cup).
+Next, we introduce clutter. Due to shadows and sudden changes in color and other material properties between background and objects, a single object is still too easily found in our scenes. By throwing other randomly selected objects, e.g. from [BlenderKit](https://www.blenderkit.com), into it we increase the difficulty through the addition of _negative_ examples (this is _not_ a cup!) and occlusions (objects in front of the cup).
 
 <div id="slideshow6" class="slideshow-container">
   <div class="mySlides">
@@ -313,7 +313,7 @@ When saving the render, we have the option to not only store the color image, bu
 
 </div>
 
-Having generated our dataset, we now need to train a neural network with it. I'll be using Facebooks [_Detectron2_](https://github.com/facebookresearch/detectron2) framework and [_PyTorch_](https://pytorch.org) as it offers high quality implementation of state-of-the-art algorithms like [_Mask R-CNN_](https://arxiv.org/abs/1703.06870) and I've been working quite a bit with it lately. You can of course try something less old school like the [_Detection Transfromer_](https://arxiv.org/abs/2005.12872) if you feel adventurous.
+Having generated our dataset, we now need to train a neural network with it. I'll be using Facebooks [_Detectron2_](https://github.com/facebookresearch/detectron2) framework and [_PyTorch_](https://pytorch.org) as it offers high quality implementation of state-of-the-art algorithms like [_Mask R-CNN_](https://arxiv.org/abs/1703.06870) and I've been working quite a bit with it lately. You can of course try something less old school like the [_Detection Transformer_](https://arxiv.org/abs/2005.12872) if you feel adventurous.
 
 As always you can find the [Jupyter notebook](https://github.com/hummat/hummat.github.io/blob/master/notebooks/deep-learning-on-synthetic-data.ipynb) with all the code required for each blog post in the [`notebooks`](https://github.com/hummat/hummat.github.io/tree/master/notebooks) directory of the [blogs GitHub repository](https://github.com/hummat/hummat.github.io). You can also try it out directly using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Fdeep-learning-on-synthetic-data.ipynb).
 
