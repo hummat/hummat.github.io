@@ -79,9 +79,9 @@ w_2j = softmax(w_2j)
 w_3j = softmax(w_3j)
 
 # Finally, the output is the weighted sum of the inputs
-y_1 = np.sum([w * x for w, x in zip(w_1i, x_i)], axis=0) 
-y_2 = np.sum([w * x for w, x in zip(w_2i, x_i)], axis=0) 
-y_3 = np.sum([w * x for w, x in zip(w_3i, x_i)], axis=0) 
+y_1 = np.sum([w * x for w, x in zip(w_1j, x_i)], axis=0) 
+y_2 = np.sum([w * x for w, x in zip(w_2j, x_i)], axis=0) 
+y_3 = np.sum([w * x for w, x in zip(w_3j, x_i)], axis=0) 
 ```
 
 ### Queries, keys and values
