@@ -19,7 +19,11 @@
     <script type"text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js" async></script> 
     {% endif %}
     {%- seo -%}
-    {% include analytics.html %}
+    {% if site.google_analytics and jekyll.environment == 'production' %}
+      {% include analytics.html %}
+      {% include analytics_alt.html %}
+    {% endif %}
+    
   </head>
 
   <body>
