@@ -69,3 +69,6 @@ geckodriver.log
 
 # Zettlr
 _posts/.ztr-directory
+
+# Netlify
+.netlify/
