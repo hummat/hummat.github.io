@@ -51,7 +51,7 @@
   $(function () {
     const includes = $("[data-include]");
     $.each(includes, function () {
-      const file = $(this).data("include");
+      const file = "/figures/" + $(this).data("include") + ".html";
       $(this).load(file);
     });
   });

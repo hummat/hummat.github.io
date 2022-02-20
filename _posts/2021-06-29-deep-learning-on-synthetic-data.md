@@ -43,11 +43,7 @@ By the end of this article, we want to be able to detect the occurrence and posi
 
 Before we can make synthetic training data, we first need to understand what it is. It all starts with a _3D model_ of the object(s) we want to work with. There is a lot of great 3D modeling software out there but we will focus on [_Blender_](https://www.blender.org) because it is free, open source, cross-platform and, to be honest, simply awesome.
 
-<div style="width: 100%; margin: auto;">
-{% include /figures/cup.html %}
-</div>
-
-<div data-include="/figures/cup.html"></div>
+<div data-include="cup" style="width: 100%; margin: auto;"></div>
 
 I made this cup model you see above in an afternoon (so there is still some work involved) but I'm a complete novice to 3D modeling[^2] and an expert could probably make such a simple model in a few minutes. More complex objects might take more time, but there are already a lot of great 3D models out there you can download for free and even if you start from scratch, you only need to do it once and can reuse it for all kinds of projects and learning tasks.
 
