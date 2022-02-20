@@ -39,11 +39,11 @@ Below, there are two more examples of increasing dimensionality (use the little 
 <br/>
 <div id="slideshow1" class="slideshow-container">
   <div class="mySlides fade">
-    <div data-include="/figures/image_zoomed.html"></div>
+    <div data-include="image_zoomed"></div>
   </div>
 
   <div class="mySlides fade">
-    <div data-include="/figures/happy_buddha.html"></div>
+    <div data-include="happy_buddha"></div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -116,7 +116,7 @@ Adding a third dimension, things get more interesting again, as the computationa
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides fade">
     {% if page.slow %}
-    <div data-include="/figures/bunny_with_spheres.html"></div>
+    <div data-include="bunny_with_spheres"></div>
     {% else %}
       <img src="/images/bunny.png">
     {% endif %}
@@ -125,7 +125,7 @@ Adding a third dimension, things get more interesting again, as the computationa
 
   <div class="mySlides fade">
     {% if page.slow %}
-    <div data-include="/figures/3d_conv.html"></div>
+    <div data-include="3d_conv"></div>
     {% else %}
       <img src="/images/3d_conv.png">
     {% endif %}
@@ -134,7 +134,7 @@ Adding a third dimension, things get more interesting again, as the computationa
 
   <div class="mySlides fade">
     {% if page.slow %}
-    <div data-include="/figures/graph.html"></div>
+    <div data-include="graph"></div>
     {% else %}
     <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="/images/mesh.png">
     {% endif %}
