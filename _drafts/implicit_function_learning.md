@@ -5,6 +5,7 @@ abstract: "There are many ways to represent 3D shapes, from the ubiquitous trian
 tags: [3D, deep learning, reconstruction, completion]
 category: learning
 mathjax: True
+jquery: True
 update: 0000-01-01
 time: 0
 words: 0
@@ -19,6 +20,7 @@ $$x=\cos(\alpha)\sin(\beta)r\\ y=\sin(\alpha)\sin(\beta)r\\ z=\cos(\beta)r$$
 where $\alpha$ and $\beta$ are the azimuth and polar angle and $r$ is the radius of the sphere. For a sphere with radius one ($r=1$) and angles $\alpha=30^{\circ},\beta=55^{\circ}$ we obtain $(x,y,z)=(0.71,0.41,0.57)$.
 
 TODO: Visualize
+<img src="https://drive.google.com/uc?id=1QVYyVW_ceLXusrUARTL1OQsLjbh_rr4b">
 
 This is an _explicit_ or _parametric_ way of defining the function: Given the sphere radius, we can directly compute all point coordinates on its surface for arbitrary spherical coordinates $\alpha,\beta$ as $f(\alpha,\beta,r)=(x,y,z)$.
 

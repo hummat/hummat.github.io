@@ -105,3 +105,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+# Custom headers
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"

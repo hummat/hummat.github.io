@@ -1,48 +1,59 @@
 {% if page.jquery %}
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+  function toggle(obj) {
+    var src = obj.attr("src");
+    if (src.endsWith(".png")) {
+      obj.attr("src", src.replace(".png", ".gif"));
+    } else {
+      obj.attr("src", src.replace(".gif", ".png"));
+    }
+  }
 
-function toggle(obj) {
-  var src = obj.attr("src");
-  if (src.endsWith(".png")) {
+  function start(obj) {
+    var src = obj.attr("src");
     obj.attr("src", src.replace(".png", ".gif"));
-  } else {
+  }
+
+  function stop(obj) {
+    var src = obj.attr("src");
     obj.attr("src", src.replace(".gif", ".png"));
   }
-}
 
-function start(obj) {
-  var src = obj.attr("src");
-  obj.attr("src", src.replace(".png", ".gif"));
-}
-
-function stop(obj) {
-  var src = obj.attr("src");
-  obj.attr("src", src.replace(".gif", ".png"));
-}
-
-$(document).ready(function() {
-  $(".img-animate").each(function () {
-      $(this).on("mouseenter", function() {
+  $(document).ready(function () {
+    $(".img-animate").each(function () {
+      $(this).on("mouseenter", function () {
         start($(this));
       });
-      $(this).on("mouseleave", function() {
+      $(this).on("mouseleave", function () {
         stop($(this));
       });
-      $(this).on("touchstart", function() {
+      $(this).on("touchstart", function () {
         toggle($(this));
       });
+    });
   });
-});
 
-$(document).ready(function() {
-  $(".img-swap").each(function () {
-    var src = $(this).attr("src");
-    $(this).hover(
-      function(){$(this).attr("src", src.replace("jpg", "png"))},
-      function(){$(this).attr("src", src.replace("png", "jpg"))}
-    );
+  $(document).ready(function () {
+    $(".img-swap").each(function () {
+      var src = $(this).attr("src");
+      $(this).hover(
+        function () {
+          $(this).attr("src", src.replace("jpg", "png"));
+        },
+        function () {
+          $(this).attr("src", src.replace("png", "jpg"));
+        }
+      );
+    });
   });
-});
+
+  $(function () {
+    const includes = $("[data-include]");
+    $.each(includes, function () {
+      const file = $(this).data("include");
+      $(this).load(file);
+    });
+  });
 </script>
 {% endif %}
