@@ -46,6 +46,8 @@ Before we can make synthetic training data, we first need to understand what it 
 {% include /figures/cup.html %}
 </div>
 
+<div data-include="/figures/cup.html"></div>
+
 I made this cup model you see above in an afternoon (so there is still some work involved) but I'm a complete novice to 3D modeling[^2] and an expert could probably make such a simple model in a few minutes. More complex objects might take more time, but there are already a lot of great 3D models out there you can download for free and even if you start from scratch, you only need to do it once and can reuse it for all kinds of projects and learning tasks.
 
 [^2]: At least in this _artistic_ fashion and not using CAD software as is done in engineering. Depending on the kind and complexity of the model, using CAD software can be a better choice for modeling and you can usually export it in a format which can later be imported into Blender for the rest of the data generation pipeline.
