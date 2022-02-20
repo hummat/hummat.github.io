@@ -7,6 +7,7 @@ category: learning
 thumbnail: /images/cup/thumbnail.png
 jquery: true
 slideshow2: true
+plotly: true
 time: 15
 words: 3619
 ---
