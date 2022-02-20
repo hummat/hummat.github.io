@@ -217,7 +217,7 @@ It was first held in 1988 in Tokyo (Japan), then moved to the USA, Germany, Fran
 
 [^iccv]: Average 2001 - 2019
 
-The _International Conference on Computer Vision_ is the second major computer vision conference next to [CVPR. Contrary to most other conferences, it only takes place every other year. In 2019 it was held in Seoul (Korea) from October 27th to November 2nd in its 13th incarnation.
+The _International Conference on Computer Vision_ is the second major computer vision conference next to [CVPR](#june-14-19-cvpr). Contrary to most other conferences, it only takes place every other year. In 2019 it was held in Seoul (Korea) from October 27th to November 2nd in its 13th incarnation.
 
 Just like [CVPR](#june-14-19-cvpr), it is a double-track conference[^4] with talks, presentations, tutorials and workshops. Topics of interest include all aspects of computer vision and pattern recognition.
 
