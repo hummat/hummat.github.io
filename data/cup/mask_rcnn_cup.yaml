@@ -1,8 +1,3 @@
-_BASE_: "../COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
-MODEL:
-  WEIGHTS: "/path/to/jupyter/notebook/output/model_final.pth"
-DATASETS:
-  TEST: ("cup",)
-INPUT:
-  MIN_SIZE_TEST: 720
-  MAX_SIZE_TEST: 1280
+version https://git-lfs.github.com/spec/v1
+oid sha256:e04aef8aae2d79403ff0cf9a08cc1be81c8a8bfc70ef3b0078b4a037d479e096
+size 212
