@@ -5,7 +5,7 @@ abstract: A short introduction to the importance of context in machine learning 
 tags: [context, attention]
 category: learning
 thumbnail: /images/context.png
-slow: false
+slow: true
 slideshow2: true
 jquery: true
 mathjax: true
@@ -116,7 +116,11 @@ Adding a third dimension, things get more interesting again, as the computationa
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides fade">
     {% if page.slow %}
+<<<<<<< HEAD
       <div data-include="/figures/bunny_with_spheres.html"></div>
+=======
+    <div data-include="bunny_with_spheres"></div>
+>>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
     {% else %}
       <img src="/images/bunny.png">
     {% endif %}
@@ -125,7 +129,11 @@ Adding a third dimension, things get more interesting again, as the computationa
 
   <div class="mySlides fade">
     {% if page.slow %}
+<<<<<<< HEAD
       <div data-include="figures/3d_conv.html"></div>
+=======
+    <div data-include="3d_conv"></div>
+>>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
     {% else %}
       <img src="/images/3d_conv.png">
     {% endif %}
@@ -134,7 +142,11 @@ Adding a third dimension, things get more interesting again, as the computationa
 
   <div class="mySlides fade">
     {% if page.slow %}
+<<<<<<< HEAD
     <div data-include="/figures/graph.html"></div>
+=======
+    <div data-include="graph"></div>
+>>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
     {% else %}
     <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="/images/mesh.png">
     {% endif %}
