@@ -7,9 +7,9 @@ tags: [laplace approximation, Bayesian inference, deep learning]
 thumbnail: /images/loss_vs_gauss.png
 gradient: true
 github: https://github.com/DLR-RM/curvature
+mathjax: true
 jquery: true
 plotly: true
-mathjax: true
 time: 23
 words: 6186
 update: 2020-10-16
