@@ -5,6 +5,8 @@ abstract: The third way to represent data in 3D. We will learn what a graph is a
 tags: [graph, mesh, deep learning, 3D, DGCNN, MeshNet, MeshCNN]
 category: learning
 thumbnail: /images/mesh.png
+jquery: true
+plotly: true
 mathjax: True
 time: 8
 words: 2098
@@ -22,7 +24,7 @@ Voxel grids try to alleviate some of these problems by putting points into boxes
 What do graphs bring to the table then? The best of both worlds would be an exaggeration, but there certainly is some of both. But what _is_ a graph anyway?
 
 <br>
-{% include /figures/graph.html %}
+<div data-include="/figures/graph.html"></div>
 <br>
 
 Above, you see a part of a graph. The two basic building blocks are _vertices_[^1], the dots, and _edges_, the lines. As you can see, edges connect vertices, but not every vertex is connected to all others. This fact translates into _structure_, which is the first property graphs share with voxel grids, as each vertex has a pre-defined set of local neighbors. Compared to point clouds, such structure can help to separate semantically different parts of an object, like the left an right leg, even though they might be very close by in the observed Euclidean space.

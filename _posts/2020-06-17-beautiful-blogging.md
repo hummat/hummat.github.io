@@ -4,6 +4,8 @@ title: Beautiful Blogging
 abstract: How does this blog work? What are all these tagged things? Why GitHub pages? This article answers all of these questions and more!
 tags: [blog, github, git, jekyll, plotly, mathjax, binder, disqus]
 category: resource
+jquery: true
+plotly: true
 mathjax: True
 slideshow: True
 thumbnail: /images/github.png
@@ -159,7 +161,7 @@ By the way, I just learned something new while writing this section: If you want
 
 Enabling a [DISQUS](https://disqus.com/) discussion section involves two steps. First you need to make a DISQUS account. Once you have it, go to `Admin` and at the top create a new site. The _Website name_ should be `yourgithubname.github.io` and the _Website URL_ should be `https://yourgithubname.github.io/`. Once you have created your site you’ll get a `Shortname` which is a unique identifier for your site and which you’ll need for the next step.
 
-Open your[`_config.yml`](https://github.com/hummat/hummat.github.io/blob/master/_config.yml) and add/change `disqus: yourshortname`. Mine is `disqus: hummat-github-io` and I guess yours will be similar. You’ll also have to add/change the `url` field. Mine is `url: "https://hummat.github.io"`. In your [`post.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/post.html) add {% raw %}{% include disqus.html %}{% endraw %}. Make sure you have a [`disqus.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/disqus.html) similar to mine in your `_includes` directory. It checks whether you have defined your shortname in the `_config.yml` and disables comments if you’ve set `comments` to `false` inside your posts YAML Front Matter, which you can use to disable comments in certain posts if you don’t need them.
+Open your[`_config.yml`](https://github.com/hummat/hummat.github.io/blob/master/_config.yml) and add/change `disqus: yourshortname`. Mine is `disqus: hummat-github-io` and I guess yours will be similar. You’ll also have to add/change the `url` field. Mine is `url: "https://hummat.github.io"`. In your [`post.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/post.html) add {% raw %}<div data-include="disqus.html"></div>{% endraw %}. Make sure you have a [`disqus.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/disqus.html) similar to mine in your `_includes` directory. It checks whether you have defined your shortname in the `_config.yml` and disables comments if you’ve set `comments` to `false` inside your posts YAML Front Matter, which you can use to disable comments in certain posts if you don’t need them.
 
 That’s it! You now should have a discussion section similar to the one at the end of this post.
 
@@ -194,7 +196,7 @@ pio.write_html(fig,
                include_plotlyjs='cdn')
 ```
 
-It stores the interactive figure inside HTML file which you can then include in your post using {% raw %}{% include figures/figure.html %}{% endraw %}. We set `full_html` to `false` because we want the figure to be part of an already existing HTML site and `include_plotlyjs` to _‘cdn’_ which means the Plotly JavaScript library will be fetched from the web (similar to the MathJax library)[^figmj] because it would otherwise bloat each figure to >3MB. Here’s a comparison (click on the arrows to change the image and on the second image to see how interactive it is!):
+It stores the interactive figure inside HTML file which you can then include in your post using {% raw %}<div data-include="figures/figure.html"></div>{% endraw %}. We set `full_html` to `false` because we want the figure to be part of an already existing HTML site and `include_plotlyjs` to _‘cdn’_ which means the Plotly JavaScript library will be fetched from the web (similar to the MathJax library)[^figmj] because it would otherwise bloat each figure to >3MB. Here’s a comparison (click on the arrows to change the image and on the second image to see how interactive it is!):
 
 [^figmj]: Use `include_mathjax` if you need Latex support in figure labels etc.
 
@@ -207,7 +209,7 @@ It stores the interactive figure inside HTML file which you can then include in 
 
   <div class="mySlides fade">
     <div class="numbertext">2 / 2</div>
-    {% include figures/figure.html %}
+    <div data-include="figures/figure.html"></div>
     <div class="text">An interactive visualization! Wow!</div>
   </div>
 
@@ -275,7 +277,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
   Footnotes are great to unclutter your main text, but I hate to have to jump to the end of the page (or, heavens forbid, scroll there) only to scroll back up in search of where I left of once I’ve read the footnote. That’s already slightly improved in the build in way markdown handles footnotes, as there always is a reference _back_ to where you came from. Simply write `[^1]` where you want your footnote to appear and then, somewhere below, `[^1]: your footnote text`.
 
-  But the main advantage of the digital format is, that you can show footnotes in a popup next to the text where they appear whenever you hover or click on them. To enable this functionality, simply add [this file](https://github.com/hummat/hummat.github.io/blob/master/_includes/popup.html) to your `_include` directory[^5] and this line {% raw %}{% include popup.html %}{% endraw %} to your e.g. default layout in `_layouts`. Et voilá, popup footnotes![^6]
+  But the main advantage of the digital format is, that you can show footnotes in a popup next to the text where they appear whenever you hover or click on them. To enable this functionality, simply add [this file](https://github.com/hummat/hummat.github.io/blob/master/_includes/popup.html) to your `_include` directory[^5] and this line {% raw %}<div data-include="popup.html"></div>{% endraw %} to your e.g. default layout in `_layouts`. Et voilá, popup footnotes![^6]
 
   [^5]: Adapted from [here](https://github.com/vaetas/hugo-footnotes-popup).
   [^6]: I’m a popup footnote!
@@ -314,7 +316,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
 - #### Slideshows
 
-  Slideshows are neat, because you can put in tons of visualizations without making your post unbearably long. I’ve basically copy-pasted [this example](https://www.w3schools.com/howto/howto_js_slideshow.asp) into a [`_includes/slideshow.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow.html) (JavaScript part)[^8] and a [`_sass/_slideshow.scss`](https://github.com/hummat/hummat.github.io/blob/master/_sass/_slideshow.scss) (CSS part) and enabled it by putting {% raw %}{% include slideshow.html %}{% endraw %} into my [`_layouts/default.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/default.html) file as well as `@import "slideshow";` at the top of my [`style.scss`](https://github.com/hummat/hummat.github.io/blob/master/style.scss) file.
+  Slideshows are neat, because you can put in tons of visualizations without making your post unbearably long. I’ve basically copy-pasted [this example](https://www.w3schools.com/howto/howto_js_slideshow.asp) into a [`_includes/slideshow.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow.html) (JavaScript part)[^8] and a [`_sass/_slideshow.scss`](https://github.com/hummat/hummat.github.io/blob/master/_sass/_slideshow.scss) (CSS part) and enabled it by putting {% raw %}<div data-include="slideshow.html"></div>{% endraw %} into my [`_layouts/default.html`](https://github.com/hummat/hummat.github.io/blob/master/_layouts/default.html) file as well as `@import "slideshow";` at the top of my [`style.scss`](https://github.com/hummat/hummat.github.io/blob/master/style.scss) file.
 
   [^8]: With the addition of {% raw %}{% if page.slideshow %}{% endraw %} so I can enable it only if needed by putting `slideshow: true` into a posts YAML Front Matter. Have a look at [`_includes/slideshow2.html`](https://github.com/hummat/hummat.github.io/blob/master/_includes/slideshow2.html) instead if you need multiple slideshows.
 

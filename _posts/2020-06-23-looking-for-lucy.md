@@ -5,7 +5,9 @@ abstract: My own take on explaining some fundamentals of probability theory, int
 thumbnail: /images/ship_static.png
 tags: [probability, statistics]
 category: learning
-mathjax: true 
+jquery: true
+plotly: true
+mathjax: true
 words: 3657
 time: 14 
 update: 2020-06-24
@@ -20,7 +22,7 @@ You are on large ship looking for your friend Lucy. You already have some suspic
 1. You expect her to be on the ship and not in the water (though possible, you deem it unlikely)
 2. It is 1 pm, a time where she likes to eat lunch, so there is a good chance she’s in the ships restaurant in the middle of the ship[^1].
 
-{% include figures/ship.html %}
+<div data-include="figures/ship.html"></div>
 
 
 ### Probabilities and Priors
@@ -32,7 +34,7 @@ This reads: _“The probability of  $\ell$ taking the value `ship` is $99\\%$“
 1. We’ve just defined a _probability distribution_ of $\ell$, written $p(\ell)$, which maps each possible state of $\ell$ (`ship` and `water`) to a discrete probability ($99\\%$ and $1\\%$). In doing so, we promoted $\ell$ from mere variable to _random_ variable. Why random? Because its value is not deterministic like $x=2+2$, but probabilistic, determined by some underlying random (or random seeming) cause. And because Lucy can only either be on the ship or not, the probabilities of these two states need to sum to 1 (or $100\\%$).
 2. She also can’t be a little bit on the ship and a little bit in the water (well, technically she probably could, but let’s keep it simple) which is why we call it a _discrete_ probability distribution rather than a _continuous_ one, where everything in between certain values is also possible.
 
-{% include figures/ship_bars.html %}
+<div data-include="figures/ship_bars.html"></div>
 
 ### Continuous, discrete, conditional
 
@@ -46,7 +48,7 @@ It’s the probability distribution of Lucy’s exact location _given_ she’s o
 
 If we belief that Lucy is somewhere in the middle of the ship _if_ she in fact is on it, we could write it like this, $p(20\leq e\leq30\vert \mathrm{ship})=0.8$ but because this looks daunting lets call it $p(\mathrm{middle}\vert \mathrm{ship})$ instead.
 
-{% include figures/ship_1dgauss.html %}
+<div data-include="figures/ship_1dgauss.html"></div>
 
 The red line is called a _probability density function_ and it describes our continuous probability distribution $p(e\vert\mathrm{ship})$. If the area under the curve between $e=20$ and $e=30$ is Lucys probability to be in the middle of the ship, what’s on the vertical axis then, you might think? It’s where the _density_ comes into play. Like with a physical object, where the mass is determined by its volume and density[^2], so is _probability mass_ determined by its area (in 2D) or volume (in 3D)[^3] and its density on the vertical axis.
 
@@ -85,7 +87,7 @@ Because the ship is longer than wide, there are more possible locations for Lucy
 
 [^6]: If we had another, albeit less reasonable, belief about Lucys location, the distribution could of course look very different, e.g. wider in $e_y$ than in $e_x$ direction. You can think about what this would mean.
 
-{% include figures/ship_2dgauss.html %}
+<div data-include="figures/ship_2dgauss.html"></div>
 
 Yellow signifies likely areas while purple values are unlikely.[^7] The lines connect coordinates of equal density, just as the lines on a map connect coordinates of equal altitude. Try rotating the figure to get a better understanding.
 
@@ -105,7 +107,7 @@ Instead you need to ask the question: _If_ this new information were true, how s
 
 Let’s start by visualizing the total space of possibilities by a square with side length 1:
 
-{% include figures/square.html %}
+<div data-include="figures/square.html"></div>
 
 Why? Because we can use it to visualize probabilities by the area they take up in the square. Half the square: $50\\%$, a quarter: $25\\%$.
 
@@ -113,17 +115,17 @@ Why? Because we can use it to visualize probabilities by the area they take up i
 
 Let’s make this our new _prior_, because it was our belief before we obtained the new information from the other passenger. We’ll call it $p(\mathrm{middle})=0.72$ and put it in our possibility square, by taking up $72\\%$ of it’s width and the entire height:
 
-{% include figures/prior.html %}
+<div data-include="figures/prior.html"></div>
 
 What’s the remaining area? It’s the probability (or, more precisely, how likely we think it is) that Lucy is _not_ in the middle of the ship which is $1-0.72=0.28$, i.e. $28\\%$.
 
 **The Likelihood:** You conveniently know that there are 100 people on the ship and overheard a conversation about another Lucy who’s on the ship. How likely is it that she’s at the back? You don’t know anything about her and you assume, for simplicity, that all 100 people are spread out equally around the ship. We already established the ships length to be 50 meters and let’s say the rear is 5 meters long. If the ship has approximately equal width everywhere, the rear makes up $10\%$ of the entire ship. Therefore, you would expect around $10\\%$ of all people to be there. As there are 100 people on board, that’s also conveniently $10\\%$ of those, so the proportion of the area of the ship is the same as the probability to encounter any one specific person there. As there are two Lucys, you would have a $10\\%$ chance to meet each of them, so $2\cdot0.1=0.2$ or $0.1+0.1=0.2$, i.e. $20\\%$, to meet at least one.
 
-{% include figures/ship_locations.html %}
+<div data-include="figures/ship_locations.html"></div>
 
 But wait, you’re convinced that your friend Lucy is in the restaurant, so in fact, according to your belief, there is at most _one_ Lucy left strolling around. This means that the probability to meet someone with this name at the rear _if_ your friend is at the restaurant is only half of what we estimated, so only $10\\%$. We call this quantity—the probability to see the evidence given your hypothesis is true—_likelihood_ and write it as $p(I\vert\mathrm{middle})=0.1$. If we want to add this quantity to our probability square, we need to put it in the space where our hypothesis is true, which is inside the green area on the left:
 
-{% include figures/likelihood.html %}
+<div data-include="figures/likelihood.html"></div>
 
 **Evidence:** You might worry, even though you’d be surprised, that Lucy didn’t go to the restaurant. What’s the probability then that someone encountered a Lucy at the rear of the ship? You might be tempted to use our $20\\%$ estimate from before, after all, there are now two Lucys running around, right? Not quite. Because you now assume that she is _not_ in the middle of the ship, there is now a higher probability to encounter her elsewhere (e.g. at the back) compared to the other Lucy (and in fact compared to all other people on board). How much higher? We defined the middle as the area between 20 and 30 meters, so there are 40 meters of ship left where your friend Lucy could be. Following our calculation from before, the 5 meter rear is now $12.5\\%$ of the possible space.[^9]
 
@@ -131,11 +133,11 @@ But wait, you’re convinced that your friend Lucy is in the restaurant, so in f
 
 Therefore the probability to meet at least one Lucy at the rear if one of them is certainly _not_ in the middle is $p(I\vert\neg\mathrm{middle})=0.1+0.125=0.225$, i.e. $22.5\\%$. The funny looking elbow thingy $\neg$ means _not_ in probability lingo, though, especially in programming, ‘!’ is also often used.
 
-{% include figures/not_likelihood.html %}
+<div data-include="figures/not_likelihood.html"></div>
 
 If we know the probability to meet the other Lucy at the rear if your friend _is_ in the restaurant, and also if she’s _not_, we can now also say what the total probability of meeting any of the two at the rear actually is. We only need to add up the _areas_ from our probability square! Just like any rectangular area, they are defined by a width and a height.
 
-{% include figures/total_prob.html %}
+<div data-include="figures/total_prob.html"></div>
 
 The first area (yellow) is defined by the prior (width) and the likelihood (height) while the second area (red) is defined by the “not prior” and “not likelihood”. Mathematically, we can write this as follows:
 $$

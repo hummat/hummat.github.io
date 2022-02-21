@@ -5,6 +5,8 @@ abstract: I've recently started working with the institutes robots which perceiv
 tags: [point clouds, voxel grids, meshes, 3D]
 category: learning
 thumbnail: /images/happy_buddha.png
+jquery: true
+plotly: true
 mathjax: true
 time: 7
 words: 1903
@@ -21,7 +23,7 @@ However, there are differences between the data types which prevent us from dire
 
 As the name suggests, a point cloud is an agglomeration of points in three dimensional space often resembling a cloud, depending on the angle and distance we look at it. Below, you see such a specimen.
 
-{% include figures/happy_buddha.html %}
+<div data-include="figures/happy_buddha.html"></div>
 
 From the given perspective, there is not a lot to see or understand. Now, if you haven't already, try zooming out using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/), where the color of each point encodes the distance from the viewer (depth). Here is an image of it from the front:
 
@@ -35,7 +37,7 @@ At first glance, images and point clouds seem to be two very different things. A
 
 [^1]: How those points can be obtained is not part of this post but have a look at _depth cameras_, _time of flight (ToF) cameras_ and _LiDARS_ if you are interested.
 
-{% include figures/image_vs_pcd.html %}
+<div data-include="figures/image_vs_pcd.html"></div>
 
 In contrast, the second image (right), shows _the same data_, but now represented as a 2D point cloud. Here, each point is defined by a two-dimensional coordinate, independent from its neighbors. To highlight the difference, I’ve removed _“empty”_ space, i.e. (almost) black pixels, _“converted”_ the grid positions into coordinates (by arbitrarily dividing them by 10) and changed the shape of each point to filled circles instead of squares which are typically chosen to represent pixels. Here, the point at coordinates $(1.0,5.1)$ (the same as the example _pixel_ at $(10,51)$ from before) doesn’t care about its neighbors and doesn’t tell us anything about them. Maybe there is another point at $(1.1, 5.2)$, maybe not, we can’t tell just by knowing about the coordinates of the current point. You can zoom in on both representations (by clicking and dragging a rectangle) to further explore the representational differences.
 
@@ -48,7 +50,7 @@ Of course we might wonder now: if an image can become a point cloud, can a point
 
 [^4]: _volume_ or _volumetric_ _element_
 
-{% include figures/pcd_as_voxel.html %}
+<div data-include="figures/pcd_as_voxel.html"></div>
 
 To create it, we simply divide the space into cubes of equal size (the voxel grid) and only display those cubes (voxels) which consume at least a single point from our point cloud.
 
@@ -60,7 +62,7 @@ For voxel grids we have already discussed that they are more structured than poi
 
 The last missing representation---at least which I'll cover in this post as there are numerous more---is the _mesh_. More precisely, we are usually talking about _triangle_ meshes, which might be familiar to you through 3D graphics and video games, though they are often called _polygons_ instead of triangles in this context. Let's first have a look at an example before discussing the properties of this type of representation.
 
-{% include figures/pcd_as_mesh.html %}
+<div data-include="figures/pcd_as_mesh.html"></div>
 
 The first thing to note about meshes is, that they are not trivial to produce from raw point clouds. For the human eye and brain, it is often possible to make out shapes from a bunch of points, but capturing this mathematically so that we can automatize the process is quite difficult. To see why, go back to the point cloud at the beginning of this post and zoom in on the region of the statue where its torso and robe separate. How do you actually know that there should be empty space between the body and the cloth, i.e. that there shouldn't be connections between "body points" and "robe points" in this region? It probably has to do with the density of the points around but also with your understanding of human physiognomy and clothing.
 
