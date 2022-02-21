@@ -196,7 +196,7 @@ pio.write_html(fig,
                include_plotlyjs='cdn')
 ```
 
-It stores the interactive figure inside HTML file which you can then include in your post using {% raw %}<div data-include="figures/figure.html"></div>{% endraw %}. We set `full_html` to `false` because we want the figure to be part of an already existing HTML site and `include_plotlyjs` to _‘cdn’_ which means the Plotly JavaScript library will be fetched from the web (similar to the MathJax library)[^figmj] because it would otherwise bloat each figure to >3MB. Here’s a comparison (click on the arrows to change the image and on the second image to see how interactive it is!):
+It stores the interactive figure inside HTML file which you can then include in your post using {% raw %}<div data-include="/figures/figure.html"></div>{% endraw %}. We set `full_html` to `false` because we want the figure to be part of an already existing HTML site and `include_plotlyjs` to _‘cdn’_ which means the Plotly JavaScript library will be fetched from the web (similar to the MathJax library)[^figmj] because it would otherwise bloat each figure to >3MB. Here’s a comparison (click on the arrows to change the image and on the second image to see how interactive it is!):
 
 [^figmj]: Use `include_mathjax` if you need Latex support in figure labels etc.
 
@@ -209,7 +209,7 @@ It stores the interactive figure inside HTML file which you can then include in 
 
   <div class="mySlides fade">
     <div class="numbertext">2 / 2</div>
-    <div data-include="figures/figure.html"></div>
+    <div data-include="/figures/figure.html"></div>
     <div class="text">An interactive visualization! Wow!</div>
   </div>
 

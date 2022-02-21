@@ -138,7 +138,7 @@ In the image domain, a similar problem to varying density exists under the name 
 
 Have a look at the point cloud below. From the current perspective, it's not particularly dense, leaving ample space between the points. Now, see what happens as you zoom out; The point cloud seems to become denser! It's not really of course, rather, we changed the resolution of our inquiry.
 
-<div data-include="figures/happy_buddha.html"></div>
+<div data-include="/figures/happy_buddha.html"></div>
 
 This is a slight shift in perspective[^4] which allows us to tackle the problem of varying densities through changes on our end, i.e. in the way we design our algorithm, instead of manipulating the point cloud itself. Let's see what a naive approach could look like. 
 

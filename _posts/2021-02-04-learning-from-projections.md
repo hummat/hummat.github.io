@@ -20,7 +20,7 @@ As always, the first question is, _why should we want to do this?_. Before we ca
 
 Coincidentally, this last example, photography, is the basis for many projection based learning algorithms in this article. To understand why, simply think about the history of computer vision. For the longest time, this field was confined to two dimensions, as the only commodity sensor capturing visual information was the camera. Only in recent years have 3D scanning devices become more affordable and commonplace due to applications in augmented reality (gaming consoles) and autonomous driving. Besides, there is another reason why it feels natural to use two dimensional data, because its what humans to by default. Yes, we have two eyes, so there is some stereo and thus 3D processing going on, but even if you close one eye, you can still understand your surrounding perfectly well, even though you only work with 2D projections of 3D objects onto your retina.
 
-<div data-include="figures/dragon_3d_2d.html"></div>
+<div data-include="/figures/dragon_3d_2d.html"></div>
 <div style="text-align: center;">
 <figure style="width: 45%; display: inline-block;">
     <figcaption>A <b>3D object</b>, converted into a point cloud using a laser scanner.</figcaption>
@@ -34,7 +34,7 @@ As a result, there is a huge body of research on how to extract the most informa
 
 So how does this actually work? Below you see the same dragon statue introduced above (taken from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/)), both as an actual object in 3D space as well as its 2D projection as seen from the position of the black dot (marked "eye").
 
-<div data-include="figures/projection.html"></div>
+<div data-include="/figures/projection.html"></div>
 
 Conceptually, this projection is easy to understand: From every point of the object we want to capture, draw a straight line (green) to the position of the observer. Add it to the image plane (black square), where the plane and the line intersect. This procedure is described mathematically through the _pinhole camera model_, which I won't cover here, but which is implemented in the code for this article to create the figure above, so please [take a look](https://github.com/hummat/hummat.github.io/tree/master/notebooks/learning-from-projections.ipynb) if you are interested.
 

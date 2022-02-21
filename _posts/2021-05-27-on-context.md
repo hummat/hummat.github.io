@@ -39,11 +39,11 @@ Below, there are two more examples of increasing dimensionality (use the little 
 <br/>
 <div id="slideshow1" class="slideshow-container">
   <div class="mySlides fade">
-    <div data-include="figures/image_zoomed.html"></div>
+    <div data-include="/figures/image_zoomed.html"></div>
   </div>
 
   <div class="mySlides fade">
-    <div data-include="figures/happy_buddha.html"></div>
+    <div data-include="/figures/happy_buddha.html"></div>
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -130,7 +130,7 @@ Adding a third dimension, things get more interesting again, as the computationa
   <div class="mySlides fade">
     {% if page.slow %}
 <<<<<<< HEAD
-      <div data-include="figures/3d_conv.html"></div>
+      <div data-include="/figures/3d_conv.html"></div>
 =======
     <div data-include="3d_conv"></div>
 >>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
