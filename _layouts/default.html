@@ -16,10 +16,10 @@
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     {% include mathjax.html %}
-    {% include jquery.html %}
     {% if page.plotly %}
-    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js" async></script>
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     {% endif %}
+    {% include jquery.html %}
     {%- seo -%}
     {% if site.google_analytics and jekyll.environment == 'production' %}
     {% include analytics.html %}
