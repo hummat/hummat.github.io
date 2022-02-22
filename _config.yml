@@ -107,6 +107,6 @@ exclude:
   - CNAME
 
 # Custom headers
-webrick:
-  headers:
-    Access-Control-Allow-Origin: "*"
+# webrick:
+#   headers:
+#     Access-Control-Allow-Origin: "*"
