@@ -116,37 +116,25 @@ Adding a third dimension, things get more interesting again, as the computationa
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides fade">
     {% if page.slow %}
-<<<<<<< HEAD
-      <div data-include="/figures/bunny_with_spheres.html"></div>
-=======
-    <div data-include="bunny_with_spheres"></div>
->>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
+    <div data-include="/figures/bunny_with_spheres.html"></div>
     {% else %}
-      <img src="/images/bunny.png">
+    <img src="/images/bunny.png">
     {% endif %}
     <div class="text" style="text-align: left; bottomt: -60px; width: 90%;"><b>Point context:</b> Defining context regions using farthest point sampling and ball queries.</div>
   </div>
 
   <div class="mySlides fade">
     {% if page.slow %}
-<<<<<<< HEAD
-      <div data-include="/figures/3d_conv.html"></div>
-=======
-    <div data-include="3d_conv"></div>
->>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
+    <div data-include="/figures/3d_conv.html"></div>
     {% else %}
-      <img src="/images/3d_conv.png">
+    <img src="/images/3d_conv.png">
     {% endif %}
     <div class="text" style="text-align: left; bottom: -60px; width: 90%;"><b>Convolutions in 3D:</b> Adding a dimension drastically increases the computational burden of convolutions, making them cumbersome in the 3D domain.</div>
   </div>
 
   <div class="mySlides fade">
     {% if page.slow %}
-<<<<<<< HEAD
     <div data-include="/figures/graph.html"></div>
-=======
-    <div data-include="graph"></div>
->>>>>>> 0043851616be879945a54be61ed79657e6ab1d33
     {% else %}
     <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="/images/mesh.png">
     {% endif %}
