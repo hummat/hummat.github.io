@@ -166,7 +166,7 @@ As can be seen, the network is able to complete a quite diverse set of shapes, a
 
 ## Code & References
 
-| [Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/implicit-function-learning.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat.github.io/HEAD?labpath=%2Fnotebooks%2Fimplicit-function-learning.ipynb) |
+| [Code](https://github.com/hummat/hummat.github.io/blob/netlify/notebooks/implicit-function-learning.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/netlify?labpath=%2Fnotebooks%2Fimplicit-function-learning.ipynb) |
 | :----------------------------: | :-----------------------------------------------------------------------------: |
 |              [1]               |                   [Mescheder et al.: Occupancy Networks: Learning 3D Reconstruction in Function Space](https://avg.is.mpg.de/publications/occupancy-networks)                   |
 | [2] | [Peng et al.: Convolutional Occupancy Networks](https://is.mpg.de/publications/peng2020eccv) |
