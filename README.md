@@ -1,2 +1,2 @@
 # Welcome to my blog repo!
-Here you find all the files that make up my personal [blog](https://hummat.github.io). Have a look if you like!
+Here you find all the files that make up my personal [blog](https://hummat.github.io). Have a look if you like! [![Netlify Status](https://api.netlify.com/api/v1/badges/bf7cbae0-4ef7-4df1-b883-8863cbc3df09/deploy-status)](https://app.netlify.com/sites/hummat/deploys)

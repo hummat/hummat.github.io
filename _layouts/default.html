@@ -7,16 +7,14 @@
     {% include meta.html %}
 
     <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
     <![endif]-->
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css"/>
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}"
-          href="{{ site.baseurl }}/feed.xml"/>
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml"/>
 
-    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     {% if page.plotly %}
-    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     {% endif %}
     {% include jquery.html %}
     {% include mathjax.html %}
@@ -62,7 +60,7 @@
     {% endif %}
 </section>
 {% else %}
-<div style="margin-bottom: 50px" class="nobanner"></div>
+<div style="margin-bottom: 50px;" class="nobanner"></div>
 {% endif %}
 
 <div id="main" role="main" class="container">

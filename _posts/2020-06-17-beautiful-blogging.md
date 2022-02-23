@@ -245,7 +245,7 @@ _ With some
 _ Sub bullets
 </details>
 
-The collapsible is there, but it's content, written in markdown, doesn't get processed into HTML. There are several solutions to this. You can simply write everything in HTML, it works, but that's usually what you were trying to avoid in the first place by using markdown with Jekyll. You can switch the markdown processor for _kramdown_ to [_CommonMarkGhPages_](https://github.com/github/jekyll-commonmark-ghpages) in your `_config.yml`. You have to be careful to add a blank line between the first HTML line and the markdown content and to indent everything, but it works great. Until you want to add some sophisticated HTML, like an [interactive visualization](#interactive-visualization), and you have to find out that it gets partly parsed as markdown to be converted into HTML and breaks.
+The collapsible is there, but its content, written in markdown, doesn't get processed into HTML. There are several solutions to this. You can simply write everything in HTML, it works, but that's usually what you were trying to avoid in the first place by using markdown with Jekyll. You can switch the markdown processor from _kramdown_ to [_CommonMarkGhPages_](https://github.com/github/jekyll-commonmark-ghpages) in your `_config.yml`. You have to be careful to add a blank line between the first HTML line and the markdown content and to indent everything, but it works great. Until you want to add some sophisticated HTML, like an [interactive visualization](#interactive-visualization), and you have to find out that it gets partly parsed as markdown to be converted into HTML and breaks.
 
 The solution I’m currently using is the following:
 
