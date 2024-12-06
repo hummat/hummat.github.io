@@ -3,15 +3,15 @@
 #
 
 # Name of your site (displayed in the header)
-title: Matthias Humt
-author: Matthias Humt
-tagline: Blog of Matthias Humt, PhD studen at DLR, writing about machine learning.
+title: Your Name
+author: Your Name
+tagline: Blog of Your Name, and some info about you.
 
 # Short bio or description (displayed in the header)
-description: PhD student at the German Aerospace Center (DLR)
+description: Why you are awesome
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars1.githubusercontent.com/u/22399283?s=400&u=687ebce9f9bd679e4ce72e246cbbf5cf25b72082&v=4
+avatar: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
 
 #
 # Flags below are optional
@@ -20,30 +20,30 @@ avatar: https://avatars1.githubusercontent.com/u/22399283?s=400&u=687ebce9f9bd67
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: matthias.humt@mailbox.org
+  email: your.mail@mail.com
   facebook:
   flickr:
-  github: hummat
+  github: your-github-username
   instagram:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: matthiashumt
-  stackoverflow: /users/15425629/hummat
+  twitter: your-twitter-username
+  stackoverflow: /users/your-user-id/your-so-username
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
-disqus: hummat-github-io
+disqus:
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics: UA-209160777-1
+google_analytics:
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: https://hummat.github.io
+url:
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)

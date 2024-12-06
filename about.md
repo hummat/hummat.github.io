@@ -1,22 +1,9 @@
 ---
 layout: page
 title: About
-banner: /images/tree.jpg
+banner: https://t4.ftcdn.net/jpg/08/27/89/25/240_F_827892527_OPbpD6E4whzTaaUD8BAUgi1lu4uyHLuF.jpg
 ---
 
-# Howdy, dear reader!
+# About
 
-And welcome to my blog about machine learning and me. Mostly about machine learning though.
-
-I’m currently trying to get a PhD from the Technical University of Munich while working at the German Aerospace Center as a research associate. This blog is my attempt to document my work in a way that might help my future me (and maybe also you), but also a place to collect thoughts and treasures from the web.
-
-I’ll try really hard to make my posts interesting, easy to follow and engaging and explain each topic from a _“visualize first, bring out the math later”_ perspective. Feel free to contact me, either directly through the comment sections below most posts or via [email](mailto:matthias.humt@mailbox.org), should there be anything unclear or if you think I could help you with a concrete problem.
-
-Have a great day!<br>
-Matthias
-
-## What’s this clutter next to each post?
-
-If you were wondering what this bag of words is doing next to each post let me explain quickly. The word with dark background is the posts **category** of which each post has exactly one. The other words are **tags** associated with the content of the post.
-
-My hope is, that this will make navigating a growing number of posts more intuitive but will also allow to group posts by topic or tags to find things faster.
+This is an example _About_ page. The layout is `page` defined in `_layouts/page.html`. The banner image can be a weblink or file, e.g. from `/images/banner.jpg`.
