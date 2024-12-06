@@ -8,5 +8,4 @@ design, feel free to fork the [**fork-me**](https://github.com/hummat/hummat.git
 
 ## Credits
 
-Thanks to [**Barry Clark**](https://www.barryclark.com) and his wonderful [**Jekyll Now**](https://github.
-com/barryclark/jekyll-now) blog template!
+Thanks to [**Barry Clark**](https://www.barryclark.com) and his wonderful [**Jekyll Now**](https://github.com/barryclark/jekyll-now) blog template!
