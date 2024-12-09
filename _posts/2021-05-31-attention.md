@@ -3,17 +3,18 @@ layout: post
 title: Attention
 abstract: Yet another article on attention? Yes, but this one is annotated, illustrated and animated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
 tags: [attention, context]
-category: learnig
+category: learning
 thumbnail: /images/attention/query_key_value.png
 mathjax: true
 jquery: true
 time: 13
 words: 3276
+update: 2024-12-09
 ---
 
 # {{ page.title }}
 
-You might be wondering if this article can possible contain anything new for you. You already studied the [illustrated](https://jalammar.github.io/illustrated-transformer) and [annotated](http://nlp.seas.harvard.edu/2018/04/03/attention.html) Transformer, the [original paper](https://arxiv.org/abs/1706.03762) and everything from GPT-[1](https://openai.com/blog/language-unsupervised)-[2](https://openai.com/blog/better-language-models)-[3](https://arxiv.org/abs/2005.14165) to [BERT](https://arxiv.org/abs/1810.04805) and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here. But the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has the potential to further clarify and solidify some of these truly interesting and general concepts.
+You might be wondering if this article can possibly contain anything new for you. You already studied the [illustrated](https://jalammar.github.io/illustrated-transformer) and [annotated](http://nlp.seas.harvard.edu/2018/04/03/attention.html) Transformer, the [original paper](https://arxiv.org/abs/1706.03762) and everything from GPT-[1](https://openai.com/blog/language-unsupervised)-[2](https://openai.com/blog/better-language-models)-[3](https://arxiv.org/abs/2005.14165) to [BERT](https://arxiv.org/abs/1810.04805) and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here. But the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has the potential to further clarify and solidify some of these truly interesting and general concepts.
 
 ### Notation
 

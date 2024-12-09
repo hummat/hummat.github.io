@@ -4,12 +4,14 @@ title: Deep Learning on photorealistic synthetic data
 abstract: If you work in machine learning, or worse, deep learning, you have probably encountered the problem of too few data at least once. For a classification task you might get away with hand-labeling a couple of thousand images and even detection might still be within manual reach if you can convince enough friends to help you. And then you also want to do segmenation. Even if possible, hand-labeling is an incredibly boring, menial task. But what if you could automate it by rendering photorealistic synthetic training data with pixel-perfect annotations for all kinds of scene understanding problems?
 tags: [synthetic data, photorealism, deep learning, rendering, blender]
 category: learning
-thumbnail: /images/cup/thumbnail.png
+thumbnail: /images/cup/cup_background.jpg
+circular: true
 jquery: true
 plotly: true
 slideshow2: true
 time: 15
 words: 3619
+update: 2024-12-09
 ---
 
 # {{ page.title }}

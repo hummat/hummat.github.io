@@ -5,6 +5,7 @@ abstract: A short introduction to the importance of context in machine learning 
 tags: [context, attention]
 category: learning
 thumbnail: /images/context.png
+circular: true
 slow: true
 slideshow2: true
 jquery: true
@@ -12,6 +13,7 @@ mathjax: true
 plotly: true
 time: 7
 words: 1687
+update: 2024-12-09
 ---
 
 # {{ page.title }}
