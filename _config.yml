@@ -16,7 +16,7 @@ defaults:
   - scope:
       path: "index.md"
     values:
-      image: https://github.com/hummat.png
+      image: https://avatars.githubusercontent.com/u/22399283?v=4
 
 #
 # Flags below are optional
