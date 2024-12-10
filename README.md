@@ -1,10 +1,7 @@
 # Welcome to the blog repo of [Matthias Humt](https://hummat.com)!
 
-## Attention!
-**Please fork via the [`fork-me`](https://github.com/hummat/hummat.github.io/tree/fork-me) branch. Thanks!**
-
-Here you find all the files that make up my personal blog [hummat.com](https://hummat.github.io). If you like the 
-design, feel free to fork the [**fork-me**](https://github.com/hummat/hummat.github.io/tree/fork-me) branch.
+Here you find the barebones setup of personal blog [hummat.com](https://hummat.github.io). If you like the 
+design, feel free to fork this branch.
 
 ## Credits
 

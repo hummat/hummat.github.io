@@ -8,10 +8,15 @@ author: Your Name
 tagline: Blog of Your Name, and some info about you.
 
 # Short bio or description (displayed in the header)
-description: Why you are awesome
+description: Why you are awesome<br> Awesome<br> Awesome
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
+defaults:
+  - scope:
+      path: "index.md"
+    values:
+      image: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
 
 #
 # Flags below are optional
@@ -97,6 +102,9 @@ plugins:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-seo-tag
+
+include:
+  - _redirects
 
 # Exclude these files from your production _site
 exclude:
