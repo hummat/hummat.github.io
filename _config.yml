@@ -14,7 +14,7 @@ description: PhD student at TU Munich<br> Researcher with the German Aerospace C
 avatar: https://github.com/hummat.png
 defaults:
   - scope:
-      path: ""
+      path: "index.md"
     values:
       image: https://github.com/hummat.png
 
