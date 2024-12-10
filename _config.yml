@@ -16,7 +16,7 @@ defaults:
   - scope:
       path: "index.md"
     values:
-      image: https://avatars.githubusercontent.com/u/22399283?v=4
+      image: /images/preview.png
 
 #
 # Flags below are optional
