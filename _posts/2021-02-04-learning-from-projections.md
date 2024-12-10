@@ -4,7 +4,7 @@ title: Learning from Projections
 abstract: The final post in this four-part series on learning from 3D data. How do we learn from 3D data in this approach? We don't. Instead, we project it into the more familiar 2D space and then proceed with business as usual. Neither exciting nor elegant but embarrassingly simple, effective and efficient.
 tags: [projection, deep learning, 3D, multi-view]
 category: learning
-thumbnail: /images/dragon_projection.png
+image: /images/dragon_projection.png
 jquery: true
 plotly: true
 mathjax: true

@@ -4,7 +4,7 @@ title: Implicit Function Learning
 abstract: "There are many ways to represent 3D shapes, from the ubiquitous triangle mesh to voxel grids and point clouds. And then there is the one to rule them all: The implicit function."
 tags: [3D, deep learning, reconstruction, completion]
 category: learning
-thumbnail: /images/implicit/suzanne.png
+image: /images/implicit/suzanne.png
 mathjax: true
 jquery: true
 plotly: true

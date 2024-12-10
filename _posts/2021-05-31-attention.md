@@ -4,7 +4,7 @@ title: Attention
 abstract: Yet another article on attention? Yes, but this one is annotated, illustrated and animated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
 tags: [attention, context]
 category: learning
-thumbnail: /images/attention/query_key_value.png
+image: /images/attention/query_key_value.png
 mathjax: true
 jquery: true
 time: 13

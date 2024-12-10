@@ -4,7 +4,7 @@ title: Learning from Point Clouds
 abstract: In the previous article we've explored 3D data and various ways to represent it. Now, let's look at ways to learn from it to classify objects and perform other standard computer vision tasks, but now in three instead of two dimensions! This aspires to become a series devoted to various techniques of learning from various types of 3D data, starting with point clouds.
 tags: [point clouds, 3D, deep learning, pointnet, pointnet++]
 category: learning
-thumbnail: /images/bunny.png
+image: /images/bunny.png
 jquery: true
 plotly: true
 mathjax: true

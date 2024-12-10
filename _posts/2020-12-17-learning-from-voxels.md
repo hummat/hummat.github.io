@@ -4,7 +4,7 @@ title: Learning from Voxels
 abstract: The second post in the series on learning on 3D data. Last time we looked at point clouds; this time we'll be looking at voxel grids. Let's get to it.
 tags: [voxel, 3D, deep learning, voxnet, octnet]
 category: learning
-thumbnail: /images/3d_conv.png
+image: /images/3d_conv.png
 jquery: true
 plotly: true
 mathjax: true

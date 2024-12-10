@@ -2,7 +2,7 @@
 layout: post
 title: Looking for Lucy
 abstract: My own take on explaining some fundamentals of probability theory, intended as a primer for probabilistic machine learning. In part 1/3 (this article), we have a look at joint, conditional and marginal probabilities, continuous and discrete as well as multivariate distributions, independence and Bayes' Theorem.
-thumbnail: /images/ship_static.png
+image: /images/ship_static.png
 tags: [probability, statistics]
 category: learning
 jquery: true

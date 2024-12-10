@@ -5,7 +5,7 @@ abstract: There are many explanations out there trying to convince you of the ut
 tags: [convolution, bottleneck, inception, shared mlp, pointnet]
 category: learning
 mathjax: True
-thumbnail: /images/fc_vs_conv/conv_rgb.png
+image: /images/fc_vs_conv/conv_rgb.png
 time: 7
 words: 1893
 ---

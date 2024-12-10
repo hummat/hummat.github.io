@@ -4,7 +4,7 @@ title: Making Models from Images
 abstract: If you now think, "Photogrammetry? Boring!", or even "SfM & MVS pipeline? Old school!", or maybe even "NeRF? Cool, but cold coffee", behold. Here we will make use of old and new techniques to obtain the best possible result under difficult conditions.
 tags: [photogrammetry, sfm, mvs, mvr, deep learning, ycb, bigbird]
 category: learning
-thumbnail: test.png
+image: test.png
 mathjax: false
 jquery: true
 plotly: true

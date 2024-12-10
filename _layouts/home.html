@@ -25,9 +25,9 @@ layout: default
             <div class="date">{{ post.time }} min read, {{ post.words }} words</div>
         </div>
         <a class=index-a href="{% if post.gh-page %}{{ post.gh-page }}{% else %}{{ site.baseurl }}{{ post.url }}{% endif %}">
-            {% if post.thumbnail %}
+            {% if post.image %}
             <div class="{% if post.circular %}{{ 'thumbnail circular' }}{% else %}{{ 'thumbnail' }}{% endif %}">
-                <img src="{{ post.thumbnail }}" alt="thumbnail">
+                <img src="{{ post.image }}" alt="thumbnail">
             </div>
             <div class="narrow-description">
                 <h2>{{ post.title }}</h2>

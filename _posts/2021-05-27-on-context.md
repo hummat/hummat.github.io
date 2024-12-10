@@ -4,7 +4,7 @@ title: Context
 abstract: A short introduction to the importance of context in machine learning which also serves as an introduction to the upcoming article on attention.
 tags: [context, attention]
 category: learning
-thumbnail: /images/context.png
+image: /images/context.png
 circular: true
 slow: true
 slideshow2: true

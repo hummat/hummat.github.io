@@ -4,7 +4,7 @@ title: Learning from Graphs
 abstract: The third way to represent data in 3D. We will learn what a graph is and how it is different from point clouds and voxel grids. Then we will put some butter on the fish (German for "put our money where our mouth is") and look at some implementations of deep learning architectures for graph structured data and their results.
 tags: [graph, mesh, deep learning, 3D, DGCNN, MeshNet, MeshCNN]
 category: learning
-thumbnail: /images/mesh.png
+image: /images/mesh.png
 jquery: true
 plotly: true
 mathjax: True

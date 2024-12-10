@@ -4,7 +4,7 @@ title: Laplace Approximation for Bayesian Deep Learning
 abstract: A deep look into Bayesian neural networks from a practical point of view and from theory to application. This is the final part of my informal 3 part mini-series on probabilistic machine learning, part 1 and 2 being "Looking for Lucy" and "A sense of uncertainty".
 category: repository
 tags: [laplace approximation, Bayesian inference, deep learning]
-thumbnail: /images/loss_vs_gauss.png
+image: /images/loss_vs_gauss.png
 gradient: true
 github: https://github.com/DLR-RM/curvature
 mathjax: true

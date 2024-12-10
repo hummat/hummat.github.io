@@ -8,7 +8,7 @@ jquery: true
 plotly: true
 mathjax: True
 slideshow: True
-thumbnail: /images/github.png
+image: /images/github.png
 circular: true
 time: 12-16
 words: 3221-4202
@@ -137,24 +137,24 @@ Finally, variables can be defined by yourself, for example in the [YAML Front Ma
 ---
 layout: post
 title: And now...The Larch!
-thumbnail: /images/image.png
+image: /images/image.png
 ---
 
 ```
 
-at the front of a post and whatever you define there can then be accessed using e.g. {% raw %}{{ page.thumbnail }}{% endraw %}. As hinted at in the example, I like to define the location of the thumbnail image I use next to a post here and then to include it in [home.html](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) like so:[^post]
+at the front of a post and whatever you define there can then be accessed using e.g. {% raw %}{{ page.image }}{% endraw %}. As hinted at in the example, I like to define the location of the thumbnail image I use next to a post here and then to include it in [home.html](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) like so:[^post]
 
 [^post]: Note again the `post` vs `page` dilemma.
 
 ```html
-{% raw %}{% if post.thumbnail %}{% endraw %}
+{% raw %}{% if post.image %}{% endraw %}
 <div class="thumbnail">
-  <img src="{% raw %}{{ post.thumbnail }}{% endraw %}" />
+  <img src="{% raw %}{{ post.image }}{% endraw %}" />
 </div>
 {% raw %}{% endif %}{% endraw %}
 ```
 
-By the way, I just learned something new while writing this section: If you want Jekyll to render Liquid code like {% raw %}{{ variable }}{% endraw %} or {% raw %}{% if post.thumbnail %}{% endraw %} instead of evaluating it, you need to put it into {% raw %}{% raw %}{% endraw %} and `endraw` fences instead of simple markdown code fences[^endraw].
+By the way, I just learned something new while writing this section: If you want Jekyll to render Liquid code like {% raw %}{{ variable }}{% endraw %} or {% raw %}{% if post.image %}{% endraw %} instead of evaluating it, you need to put it into {% raw %}{% raw %}{% endraw %} and `endraw` fences instead of simple markdown code fences[^endraw].
 
 [^endraw]: The `endraw` should look like the {% raw %}{% raw %}{% endraw %} but I couldn’t get that to work…
 

@@ -5,10 +5,10 @@
 # Name of your site (displayed in the header)
 title: Matthias Humt
 author: Matthias Humt
-tagline: Blog of Matthias Humt, PhD studen at DLR, writing about machine learning.
+tagline: Blog of Matthias Humt, PhD student, Researcher, Visualizer.
 
 # Short bio or description (displayed in the header)
-description: PhD student at the German Aerospace Center (DLR)
+description: PhD student at TU Munich<br>Researcher with the German Aerospace Center (DLR)<br>Visualization Afficionado
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars1.githubusercontent.com/u/22399283?s=400&u=687ebce9f9bd679e4ce72e246cbbf5cf25b72082&v=4
@@ -20,19 +20,19 @@ avatar: https://avatars1.githubusercontent.com/u/22399283?s=400&u=687ebce9f9bd67
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: matthias.humt@mailbox.org
+  email: blog.hash136@passmail.net
   facebook:
   flickr:
   github: hummat
   instagram:
-  linkedin:
+  linkedin: matthiashumt
   pinterest:
   rss: # just type anything here for a working RSS icon
+  bsky: hummat
   twitter: matthiashumt
-  stackoverflow: /users/15425629/hummat
+  stackoverflow: /users/15425629/hummat  # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
-
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
