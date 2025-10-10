@@ -13,7 +13,7 @@ words: 1764
 ---
 
 # {{ page.title }}
-There we are. Welcome to this final part of a four-part series on _learning from 3D data_. After racking our brains to understand deep learning techniques in various 3D representations ([point clouds](https://hummat.github.io/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](https://hummat.github.io/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](https://hummat.github.io/learning/2020/12/22/learning-from-graphs.html)), in this last episode we dial it back a notch, more precisely from three to two dimensions.
+There we are. Welcome to this final part of a four-part series on _learning from 3D data_. After racking our brains to understand deep learning techniques in various 3D representations ([point clouds](/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](/learning/2020/12/22/learning-from-graphs.html)), in this last episode we dial it back a notch, more precisely from three to two dimensions.
 
 ## Why (not) to project
 As always, the first question is, _why should we want to do this?_. Before we can answer this question, let's first define what is meant by _projection_ in this context[^1]. In general, a projection is a _mapping_ transforming something to something else. For geometric settings, i.e. when talking about mappings from one dimension to another, this is often referred to as projecting data from one representation to another. Depending on your background, you might think about dimensionality reduction techniques like PCA, projecting the data from a high to a lower dimensional space, neural networks, projecting (relatively) low dimensional inputs like images into higher dimensional feature space or photography, projecting our three dimensional perception of the world into the two dimensional image plane.
@@ -110,10 +110,10 @@ Finally, in a similar approach as the previous one, the authors of _Deep Learnin
 Due to the continuity of the representation, it can also be used to learn to classify non-rigid objects, i.e. objects that are soft and can deform. Unfortunately, the theoretical advantages of this work didn't translate too well into increased performance.
 
 ## Wrapping up
-This final chapter concludes the series on the various ways to learn from three dimensional data. There might be more, but [point clouds](https://hummat.github.io/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](https://hummat.github.io/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](https://hummat.github.io/learning/2020/12/22/learning-from-graphs.html) and projections are the four big ones I came across during my research. We will probably come back to 3D deep learning in the future on this blog, as I have chosen to pursue the topic for my PhD, but for the immediate future I have some other long overdue article ideas in the making. Stay tuned!
+This final chapter concludes the series on the various ways to learn from three dimensional data. There might be more, but [point clouds](/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](/learning/2020/12/22/learning-from-graphs.html) and projections are the four big ones I came across during my research. We will probably come back to 3D deep learning in the future on this blog, as I have chosen to pursue the topic for my PhD, but for the immediate future I have some other long overdue article ideas in the making. Stay tuned!
 
 ## References
-       
+
 |:----:|:--------------------------------------------------:|
 | [Code](https://github.com/hummat/hummat.github.io/tree/master/notebooks/learning-from-projections.ipynb) |                      [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Flearning-from-projections.ipynb)                     |
 | [1]  | [Multi-view Convolutional Neural Networks for 3D Shape Recognition](https://arxiv.org/abs/1505.00880)  |

@@ -11,7 +11,7 @@ words: 2286
 
 # {{ page.title }}
 
-Yes, this is another one of these American _"help-yourself-because-life-is-your-own-destiny-and-you-are-the-architect-of-your-own-fortune"_ books. But just like the previous book---[_Deep Work_](https://hummat.github.io/book/2020/06/04/deep-work.html)---I've summarized, there are some genuinely helpful ideas in this one too.
+Yes, this is another one of these American _"help-yourself-because-life-is-your-own-destiny-and-you-are-the-architect-of-your-own-fortune"_ books. But just like the previous book---[_Deep Work_](/book/2020/06/04/deep-work.html)---I've summarized, there are some genuinely helpful ideas in this one too.
 
 This time, instead of focusing on how to work efficiently, we'll basically obtain a bag of tricks to keep doing something you think you want to be doing but actually don't. If you, like me, are in this predicament, I invite you to keep reading. In the worst case you lose 10 minutes and in the best case you take away some little thing worth your while.
 
@@ -86,7 +86,7 @@ If you can't bring yourself to think of yourself as being this type of person ju
    A very effective way to create a feeling of satisfaction is to feel that you're making progress. Therefore, track your efforts over time, e.g. with the [everyday calender](https://www.youtube.com/watch?v=-lpvy-xkSNA&t=1s).[^3]
 
    [^3]: I’m not in any way associated with this project, but I really like the idea and I think Simone is awesome!
-   
+
    <br><br>
    If you instead want to break a bad habit, try to make it unsatisfying by telling your friends about your plan to stop it---smoking comes to mind here---so they can punish you if you don't keep your word. You can also use it to reinforce a good habit though: Make a contract with a friend to do what you promised and if you fail, e.g. pay him or her a painful sum of money.
 

@@ -159,10 +159,10 @@ As can be seen, the network is able to complete a quite diverse set of shapes, a
 
 [^1]: A curve along which a continuous field has a constant value.
 [^2]: Introducing _Suzanne_, the mascot of the awesome open source 3D software [Blender](https://www.blender.org).
-[^3]: This is sometimes called "shooting a ray from an arbitrary viewpoint". 
+[^3]: This is sometimes called "shooting a ray from an arbitrary viewpoint".
 [^4]: Check out [this site](https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution) if you are curious and want more details.
 [^5]: By hovering over a point you can see its distance to the surface.
-[^6]: You can read more on each representation in my previous posts on learning from [point clouds](https://hummat.github.io/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](https://hummat.github.io/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](https://hummat.github.io/learning/2020/12/22/learning-from-graphs.html) or [projections](https://hummat.github.io/learning/2021/02/04/learning-from-projections.html).
+[^6]: You can read more on each representation in my previous posts on learning from [point clouds](/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](/learning/2020/12/22/learning-from-graphs.html) or [projections](/learning/2021/02/04/learning-from-projections.html).
 
 ## Code & References
 

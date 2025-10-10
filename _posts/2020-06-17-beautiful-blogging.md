@@ -17,11 +17,11 @@ update: 2024-12-09
 
 # {{ page.title }}
 
-If you’ve read my [first article](https://hummat.github.io/thought/2020/05/11/hello-world.html), you’ll know that I have been toying with the idea to start my own blog for quite some time. Now that I’ve finally done it, I’d like to share how it went so far and what I’ve learned till now (disclaimer: a lot!). If you already have your own GitHub page and only want some information on how to integrate feature X you’ve seen on this blog, you can skip ahead to [Adding functionality](#adding-functionality) immediately.
+If you’ve read my [first article](/thought/2020/05/11/hello-world.html), you’ll know that I have been toying with the idea to start my own blog for quite some time. Now that I’ve finally done it, I’d like to share how it went so far and what I’ve learned till now (disclaimer: a lot!). If you already have your own GitHub page and only want some information on how to integrate feature X you’ve seen on this blog, you can skip ahead to [Adding functionality](#adding-functionality) immediately.
 
 ## Choosing a platform
 
-Sites like [Medium](https://medium.com/) have helped me a good deal in understanding difficult to grasp subjects, because the authors often rely on a simplified language and lot’s of visualizations. Further, there is a discussion section at the end of each article (a vital component for a blog discussing technical topics, as I’ve suggested [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html)) to interact with your audience and to answer questions, explain parts in more detail and iron out mistakes in the article.
+Sites like [Medium](https://medium.com/) have helped me a good deal in understanding difficult to grasp subjects, because the authors often rely on a simplified language and lot’s of visualizations. Further, there is a discussion section at the end of each article (a vital component for a blog discussing technical topics, as I’ve suggested [here](/thought/2020/05/28/writing-good-articles.html)) to interact with your audience and to answer questions, explain parts in more detail and iron out mistakes in the article.
 
 The downside of these and similar sites is, that you don’t have as much freedom to design your post or add functionality (to which we come in the final section), you are dependent on the site operator and its policies (like financing it through adds) and it’s yet another account you need to create. Finally, you’ll probably not learn as much compared to setting it up yourself.
 
@@ -74,7 +74,7 @@ The reason templates are so great is, that instead of reinventing the wheel, whi
 
 ## Adding functionality
 
-This is the heart of this article. As I already had [clear ideas](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html) what I expected from my blog, there were quite a few additions I had to make to the basic setup to get everything up and running. All of these are documented _somewhere_ on the Internet, but I think it is a good idea to put them here in one place and how to make them play together as there are some pitfalls when combining everything.
+This is the heart of this article. As I already had [clear ideas](/thought/2020/05/28/writing-good-articles.html) what I expected from my blog, there were quite a few additions I had to make to the basic setup to get everything up and running. All of these are documented _somewhere_ on the Internet, but I think it is a good idea to put them here in one place and how to make them play together as there are some pitfalls when combining everything.
 
 ### 1. Working offline
 
@@ -184,7 +184,7 @@ $$
 
 ### 5. Interactive visualizations
 
-Okay, so this really gets me excited! The ability to add interactive visualizations is my newest achievement and it’s so neat! I’ve already written about why I think visualizations are the best thing that can happen to a complicated topic [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html), so I won’t repeat myself, but interactive visualizations?! That’s like visualizations on steroids. So, how can it be done?
+Okay, so this really gets me excited! The ability to add interactive visualizations is my newest achievement and it’s so neat! I’ve already written about why I think visualizations are the best thing that can happen to a complicated topic [here](/thought/2020/05/28/writing-good-articles.html), so I won’t repeat myself, but interactive visualizations?! That’s like visualizations on steroids. So, how can it be done?
 
 It all starts with [Plotly’s Python graphing library](https://plotly.com/python). It’s basically Matplotlib for the web, if you know what I mean. You write some visualization code like [this one](https://github.com/hummat/hummat.github.io/blob/master/notebooks/beautiful-blogging.ipynb)—play with it on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?filepath=%2Fnotebooks%2Fbeautiful-blogging.ipynb) if you like (might take a while to start)—and then you save the figure in a special way:
 
@@ -268,7 +268,7 @@ This works as expected! (Note the `markdown="1"` addition)
    * Sub bullets
 </details>
 
-There is no need to add weird whitespace, doesn't break other code like the interactive visualizations and can also be used to wrap markdown content in other kinds of [HTML containers](https://hummat.github.io/resource/2020/06/08/conferences.html).
+There is no need to add weird whitespace, doesn't break other code like the interactive visualizations and can also be used to wrap markdown content in other kinds of [HTML containers](/resource/2020/06/08/conferences.html).
 
 ### 8. Tips, Tweaks & Tricks
 
@@ -301,7 +301,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
 
 - #### Selective printing
 
-  In an [earlier post](https://hummat.github.io/book/2020/06/04/deep-work.html) I wanted the reader to be able to print out a specific section (the summary) of the post. One way to achieve this is wrapping everything you _don’t_ want to be printed into `<div class="noprint" markdown="1"></div>`[^7] fences and putting the following into your `style.scss` file:
+  In an [earlier post](/book/2020/06/04/deep-work.html) I wanted the reader to be able to print out a specific section (the summary) of the post. One way to achieve this is wrapping everything you _don’t_ want to be printed into `<div class="noprint" markdown="1"></div>`[^7] fences and putting the following into your `style.scss` file:
 
   ```scss
   @media print {

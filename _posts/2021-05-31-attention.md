@@ -32,7 +32,7 @@ $$
 \boldsymbol{y}_j = \sum_{i=1}^Nw_{ij}\boldsymbol{x}_i
 $$
 
-So what's happening here? In a nutshell: The output of the attention operation $\boldsymbol{y}\_j$ is a weighted sum of the inputs $\boldsymbol{x}\_i$. The inputs are the set elements introduced in the [previous article](https://hummat.github.io/learning/2021/05/27/on-context.html), for example words, pixels or points in 3D space. They are usually vectors, where the dimensions, referred to as (input) _features_, can represent various properties like RGB color channels or XYZ Euclidean coordinates. Words are somewhat special in this regard, as they don't have any intrinsic features and are therefore commonly represented by a large vector with values encoding their semantics computed from their co-occurrence with other words which is called an _embedding_[^1].
+So what's happening here? In a nutshell: The output of the attention operation $\boldsymbol{y}\_j$ is a weighted sum of the inputs $\boldsymbol{x}\_i$. The inputs are the set elements introduced in the [previous article](/learning/2021/05/27/on-context.html), for example words, pixels or points in 3D space. They are usually vectors, where the dimensions, referred to as (input) _features_, can represent various properties like RGB color channels or XYZ Euclidean coordinates. Words are somewhat special in this regard, as they don't have any intrinsic features and are therefore commonly represented by a large vector with values encoding their semantics computed from their co-occurrence with other words which is called an _embedding_[^1].
 
 [^1]: Search for _"word2vec"_ if you want further details. I recommend [this blog post](https://jalammar.github.io/illustrated-word2vec).
 
@@ -80,9 +80,9 @@ w_2j = softmax(w_2j)
 w_3j = softmax(w_3j)
 
 # Finally, the output is the weighted sum of the inputs
-y_1 = np.sum([w * x for w, x in zip(w_1j, x_i)], axis=0) 
-y_2 = np.sum([w * x for w, x in zip(w_2j, x_i)], axis=0) 
-y_3 = np.sum([w * x for w, x in zip(w_3j, x_i)], axis=0) 
+y_1 = np.sum([w * x for w, x in zip(w_1j, x_i)], axis=0)
+y_2 = np.sum([w * x for w, x in zip(w_2j, x_i)], axis=0)
+y_3 = np.sum([w * x for w, x in zip(w_3j, x_i)], axis=0)
 ```
 
 ### Queries, keys and values
@@ -140,9 +140,9 @@ w_2j = softmax(w_2j)
 w_3j = softmax(w_3j)
 
 # Finally, the output is the weighted sum of the values
-y_1 = np.sum([w * v for w, v in zip(w_1j, v_i)], axis=0) 
-y_2 = np.sum([w * v for w, v in zip(w_2j, v_i)], axis=0) 
-y_3 = np.sum([w * v for w, v in zip(w_3j, v_i)], axis=0) 
+y_1 = np.sum([w * v for w, v in zip(w_1j, v_i)], axis=0)
+y_2 = np.sum([w * v for w, v in zip(w_2j, v_i)], axis=0)
+y_3 = np.sum([w * v for w, v in zip(w_3j, v_i)], axis=0)
 ```
 
 ### Attention as soft dictionary
@@ -210,7 +210,7 @@ Focusing on the word _gave_, our single-headed approach will place equal attenti
 
 In other words, we can't discern the giver from the receiver. Another way to look at this is from the output perspective, where $\boldsymbol{y}\_{gave}$ will be identical for both permutations of Susan and Mary in the sentence. In other words, each individual output vector of attention is _permutation invariant_ with respect to the inputs while the set of outputs $Y$ is permutation _equivariant_, meaning changing the order of the inputs will change the order of the outputs in exactly the same way. Now, this is a simple problem with a simple solution: While it is difficult to discern the function of Mary and Susan in the sentence merely from the dot product similarity of their feature vectors (that is to say, using attention) it becomes trivial when looking at their _position_ in the sentence. In $A$ gave $B$, the name appearing before _gave_ is always the giver while the name after it is always the receiver, which is why architectures making use of attention, like the Transformer, extend the input representation by an additional positional component (another embedding).
 
-A more challenging problem is depicted below in the form of an ambiguous sentence which we have already encountered in the [introductory article](https://hummat.github.io/learning/2021/05/27/on-context.html):
+A more challenging problem is depicted below in the form of an ambiguous sentence which we have already encountered in the [introductory article](/learning/2021/05/27/on-context.html):
 
 <p align="center">
   <img src="/images/attention/one_head.png">
