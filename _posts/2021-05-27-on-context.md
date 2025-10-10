@@ -112,7 +112,7 @@ Moving to the image domain, there is no fundamentally new idea here as vision mo
 
 Adding a third dimension, things get more interesting again, as the computational complexity of convolutions becomes a major problem. While they can be used successfully, the input usually needs to be downsampled considerably prior to their application. Another approach is to use an element-wise feed-forward neural network[^6]. This approach is extremely efficient, but doesn't consider _any_ context. To resolve this, context aggregation is performed by an additional process like _Farthest Point Sampling_, _k Nearest Neighbor_ search or _Ball Queries_. One exception is the _Graph Neural Network_. As the name implies, it works on graphs as input (either dynamically computed or static ones as found in triangle meshes) and can leverage graph connectivity for context information. I've written an entire mini-series on learning from various 3D data representations which I invite you to check out if the above seems inscrutable.
 
-[^6]: Sometimes referred to as _shared MLP_ (Multi-Layer Perceptron), which in the end boils down to a 1x1 convolution as discussed [here](https://hummat.github.io/learning/2020/10/29/one-by-one-conv.html).
+[^6]: Sometimes referred to as _shared MLP_ (Multi-Layer Perceptron), which in the end boils down to a 1x1 convolution as discussed [here](/learning/2020/10/29/one-by-one-conv.html).
 
 <br/>
 <div id="slideshow2" class="slideshow-container">

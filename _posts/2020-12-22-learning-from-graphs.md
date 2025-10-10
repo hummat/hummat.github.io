@@ -13,7 +13,7 @@ words: 2098
 ---
 
 # {{ page.title }}
-Welcome to this third and still not final episode of the series _learning from 3D data_. We've already looked at [point clouds](https://hummat.github.io/learning/2020/11/03/learning-from-point-clouds.html), and [voxel grids](https://hummat.github.io/learning/2020/12/17/learning-from-voxels.html) so now it's time for _graphs_. I've already motivated learning on 3D data as opposed to 2D data like images [here](https://hummat.github.io/learning/2020/10/16/flatlands.html), so let's skip this and directly move on to a quick recap on point clouds and voxels to see why we might want and need yet another representation.
+Welcome to this third and still not final episode of the series _learning from 3D data_. We've already looked at [point clouds](/learning/2020/11/03/learning-from-point-clouds.html), and [voxel grids](/learning/2020/12/17/learning-from-voxels.html) so now it's time for _graphs_. I've already motivated learning on 3D data as opposed to 2D data like images [here](/learning/2020/10/16/flatlands.html), so let's skip this and directly move on to a quick recap on point clouds and voxels to see why we might want and need yet another representation.
 
 ### Previously on 3D deep learning
 Point clouds are great, because they are the raw output of 3D scanning hardware so we don't need any hand-crafted pre-processing. Apart from being computationally efficient they are also efficient to store due to natural sparsity where unoccupied space remains empty and we simply store a three-tuple of xyz coordinates for each point. Extracting information from this format, i.e. learning, is however difficult in part due to this sparseness but also due to unorderedness and varying density.

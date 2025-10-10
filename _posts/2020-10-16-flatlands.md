@@ -41,7 +41,7 @@ At first glance, images and point clouds seem to be two very different things. A
 
 In contrast, the second image (right), shows _the same data_, but now represented as a 2D point cloud. Here, each point is defined by a two-dimensional coordinate, independent from its neighbors. To highlight the difference, I’ve removed _“empty”_ space, i.e. (almost) black pixels, _“converted”_ the grid positions into coordinates (by arbitrarily dividing them by 10) and changed the shape of each point to filled circles instead of squares which are typically chosen to represent pixels. Here, the point at coordinates $(1.0,5.1)$ (the same as the example _pixel_ at $(10,51)$ from before) doesn’t care about its neighbors and doesn’t tell us anything about them. Maybe there is another point at $(1.1, 5.2)$, maybe not, we can’t tell just by knowing about the coordinates of the current point. You can zoom in on both representations (by clicking and dragging a rectangle) to further explore the representational differences.
 
-[^2]: I’ve introduced this kind of image representation [here](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) if you would like to explore this further.
+[^2]: I’ve introduced this kind of image representation [here](/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) if you would like to explore this further.
 [^3]: Apparently originating from _picture element_.
 
 ## Point clouds vs. voxel grids and meshes

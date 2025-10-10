@@ -35,7 +35,7 @@ where $b$ is an offset, usually called the _bias_ (not shown in the figure). Thi
 </figure>
 </div>
 
-Now let's see how we can mimmick these operations using convolutions. In what follows, I'm assuming some basic familiarity with (convolutional) neural networks on your part. If that's not the case, have a look at [the background section](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) of one of my previous posts or [this excellent explanation](https://cs231n.github.io/convolutional-networks/) from the famous CS231n Stanford course to brush up your knowledge.
+Now let's see how we can mimmick these operations using convolutions. In what follows, I'm assuming some basic familiarity with (convolutional) neural networks on your part. If that's not the case, have a look at [the background section](/learning/2020/07/17/a-sense-of-uncertainty.html#some-background) of one of my previous posts or [this excellent explanation](https://cs231n.github.io/convolutional-networks/) from the famous CS231n Stanford course to brush up your knowledge.
 
 To learn from images, we present them, one by one or in batches of multiple images, to a stack of convolutional layers, each consisting of a stack of filters in turn. This exploits the structure of images, where neighboring pixels are assumed to be highly correlated, to reduce the number of parameters compared to a fully connected approach, where each pixel gets its own weight.
 

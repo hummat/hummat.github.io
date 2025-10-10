@@ -11,7 +11,7 @@ words: 857
 time: 3
 ---
 
-If I had to give one reason for writing this blog, it would be to end up in a list like the one I intend to compile below. Like I’ve already mentioned [here](https://hummat.github.io/thought/2020/05/28/writing-good-articles.html), I’m astonished and amazed at the amount of great resources one can access online for free. It helped me tremendously during my studies (and still does when I need to understand a new topic) and really gives everyone the possibility to learn almost anything. There are, of course, different shades of awesomeness.
+If I had to give one reason for writing this blog, it would be to end up in a list like the one I intend to compile below. Like I’ve already mentioned [here](/thought/2020/05/28/writing-good-articles.html), I’m astonished and amazed at the amount of great resources one can access online for free. It helped me tremendously during my studies (and still does when I need to understand a new topic) and really gives everyone the possibility to learn almost anything. There are, of course, different shades of awesomeness.
 
 While there is a mind boggling amount of great stuff out there, it is hidden by an even greater amount of, to put it euphemistically, less than inspiring content. This is why I decided to share whatever great resources I’ve encountered during my time on the Internet in the hope to help or inspire one or another of you. I’ll try to come up with an intuitive way of grouping similar things together. Let’s see how that goes. For now I’ll group by content instead of, e.g., by source or medium and I’ll keep adding stuff till I die or lose interest.
 

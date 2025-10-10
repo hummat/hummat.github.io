@@ -47,7 +47,7 @@ It all starts with structure. As it turns out, structured information is not onl
 
 Going back to images, we find that adjacent pixels are usually highly correlated while far away ones are not. This means knowing about one pixel provides some amount of information about its neighbors[^3]. Now, we can extract this neighborhood information by applying a convolution, i.e. a weight matrix, or kernel, to a patch of the image. As the _"information"_ is represented by pixel values, performing arithmetic on those values, like multiplication and addition, corresponds to information processing, because different pixel and weight values produces different results. For example, keeping the weight matrix constant, as is done for inference, i.e. after the network is trained, we can extract _"edge information"_ from the image by convolving it with an appropriate kernel (e.g. zeros on the left, ones on the right to extract vertical edges).
 
-Crucially, one filter can extract the same information from _everywhere_ in the image, meaning we only need one _"vertical edge detection kernel"_ to extract _all_ vertical edges[^4]. If you wonder why we can't apply the same trick on point clouds have a look at [this section from the previous article](https://hummat.github.io/learning/2020/11/03/learning-from-point-clouds.html#cant-be-that-hard-right). Hint: Point clouds are _unstructured_ due to varying density and permutation invariance. Luckily though, we _can_ apply convolutions on voxel grids, as they are simply three dimensional extensions of 2D pixel grids, i.e. images.
+Crucially, one filter can extract the same information from _everywhere_ in the image, meaning we only need one _"vertical edge detection kernel"_ to extract _all_ vertical edges[^4]. If you wonder why we can't apply the same trick on point clouds have a look at [this section from the previous article](/learning/2020/11/03/learning-from-point-clouds.html#cant-be-that-hard-right). Hint: Point clouds are _unstructured_ due to varying density and permutation invariance. Luckily though, we _can_ apply convolutions on voxel grids, as they are simply three dimensional extensions of 2D pixel grids, i.e. images.
 
 ### Some numbers
 
@@ -129,8 +129,8 @@ I hope this quick tour provided you with some intuition and understanding of 3D 
 [Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/learning-from-voxels.ipynb): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Flearning-from-voxels.ipynb)
 
 [^1]: The depth is colorcoded to improve interpretability.
-[^2]: Have a look [here](https://hummat.github.io/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) for an introduction to image representation for computer vision.
-[^3]: As discussed [here](https://hummat.github.io/learning/2020/10/16/flatlands.html#images-vs-point-clouds).
+[^2]: Have a look [here](/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) for an introduction to image representation for computer vision.
+[^3]: As discussed [here](/learning/2020/10/16/flatlands.html#images-vs-point-clouds).
 [^4]: This is called _weight sharing_ and makes convolutional neural networks so much more efficient than fully connected ones.
 [^5]: Definitely the last imho.
 [^6]: Using _channels first_ convention.

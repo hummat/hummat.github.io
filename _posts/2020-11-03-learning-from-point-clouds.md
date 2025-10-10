@@ -16,7 +16,7 @@ words: 3994
 
 It's a great achievement to have found an algorithm that can solve problems on its own (more or less) by simply dropping a huge pile of data on it and telling it what we want to know. In the grand scheme of things this is known as _machine learning_ though nowadays it mostly means _deep learning_.
 
-Deep learning is named after its champion, the _deep neural network_, which enjoys a formidable renaissance since a couple of years. Mostly though, the deep learning revolution has been taking place in a very specific domain, namely that of _images_, which we could also refer to as ordered _2D RGB point clouds_, as you might recall from the [previous post](https://hummat.github.io/learning/2020/10/16/flatlands.html).
+Deep learning is named after its champion, the _deep neural network_, which enjoys a formidable renaissance since a couple of years. Mostly though, the deep learning revolution has been taking place in a very specific domain, namely that of _images_, which we could also refer to as ordered _2D RGB point clouds_, as you might recall from the [previous post](/learning/2020/10/16/flatlands.html).
 
 From our perspective though, the world is arguably more three dimensional--or even four if you're Einstein--than flat. Naturally, one might wonder why we haven't heard more about advances in 3D deep learning. For once, the data acquisition is not as smooth yet compared to images. Almost everyone has access to a rather high quality camera by reaching into their pockets, but only in recent years have sensors to capture the third dimensions become somewhat affordable in the form of RGBD (D for _depth_) cameras in gaming consoles.
 
@@ -29,7 +29,7 @@ As discussed in the previous article, point clouds are great, as they are the mo
 <a name="bunny"></a>
 <div data-include="/figures/bunny_pcd.html"></div>
 
-On the left, you see the point cloud of the [Stanford Bunny](http://graphics.stanford.edu/data/3Dscanrep/)[^1]. Points are distributed uniformly over its entire surface. On the right you see the same bunny, but with two important differences: 
+On the left, you see the point cloud of the [Stanford Bunny](http://graphics.stanford.edu/data/3Dscanrep/)[^1]. Points are distributed uniformly over its entire surface. On the right you see the same bunny, but with two important differences:
 
 1. Points vary in density, leaving some areas empty while others are covered well. This resembles the kind of point clouds obtained from range scans in the wild more closely.
 2. The order of the points has been reversed. Imagine we color each point by the position in the $N\times3$ vector in which the point cloud is stored (this means we assume $N$ points with $3$ dimensions, i.e. $x, y, z$ coordinates each) and that point $1$ is closest and point $N$ is furthest away (which produces the _depth_ image, where close points are bright and far points are dark). Reversing the order of the points in the vector but keeping the coloring scheme, we now get dark points in front and bright points at the rear, though the shape of the bunny is unaffected. In fact, any other permutation of the points in the vector would give the same shape (but different coloring), because a point in a point cloud is not defined by its _position in the underlying data structure_ but by its _coordinates in space_. This is what's meant by the term _permutation invariance_ and it's a concept our deep learning algorithm needs to learn in order to classify point clouds robustly.
@@ -52,7 +52,7 @@ Interestingly, this increased the accuracy by "only" $2\%$, but I'm guessing tha
 
 ### 1.2 Solving computational complexity
 
-Now that our point cloud is oriented correctly, we need to classify it. If we were to naively implement a neural network to do so, we would need $N\times3$ input units (neurons), as we can't use convolutions on unstructured data, because they inherently assume that neighboring points (or pixel) are correlated, while, as discussed above, the order of points in a point cloud is arbitrary. Apart from the immense computational complexity for large $N$ (large point clouds with many points), we would have to train one network per point cloud size or sub/super sample each input to have exactly the same number of points (this is commonly done when pre-processing images for classification, though not for semantic segmentation). 
+Now that our point cloud is oriented correctly, we need to classify it. If we were to naively implement a neural network to do so, we would need $N\times3$ input units (neurons), as we can't use convolutions on unstructured data, because they inherently assume that neighboring points (or pixel) are correlated, while, as discussed above, the order of points in a point cloud is arbitrary. Apart from the immense computational complexity for large $N$ (large point clouds with many points), we would have to train one network per point cloud size or sub/super sample each input to have exactly the same number of points (this is commonly done when pre-processing images for classification, though not for semantic segmentation).
 
 Another idea would be, to _"slide"_ a network with $3$ inputs, one for each spatial dimensions, over each of the $N$ points. This is what's meant in the paper where the authors introduce the concept of a _shared MLP_. MLP being _multi-layer perceptron_, i.e. a network with fully connected layers[^2] only. This means we share one network for all $N$ points in the point cloud. This is exactly what the input to a network classifying individual points instead of point clouds would look like.
 
@@ -65,7 +65,7 @@ Another idea would be, to _"slide"_ a network with $3$ inputs, one for each spat
 </figure>
 </div>
 
-Let's have a closer look at _sharing_ and _sliding_. If the notion of sliding weights over inputs, performing multiplications and additions sounds familiar to you, that's because it's the definition of a convolution! But wait, didn't I just discredit convolutions for the use on point clouds? Well, bear with me for a second. As it turns out, we can replace a fully connected layer by a convolutional layer with $1\times1$ kernels. If this doesn't make sense to you, and it didn't for me in the beginning, I invite you to take a look at [my previous post](https://hummat.github.io/learning/2020/10/29/one-by-one-conv.html) where I take a deep dive into the application of $1\times1$ convolutions.
+Let's have a closer look at _sharing_ and _sliding_. If the notion of sliding weights over inputs, performing multiplications and additions sounds familiar to you, that's because it's the definition of a convolution! But wait, didn't I just discredit convolutions for the use on point clouds? Well, bear with me for a second. As it turns out, we can replace a fully connected layer by a convolutional layer with $1\times1$ kernels. If this doesn't make sense to you, and it didn't for me in the beginning, I invite you to take a look at [my previous post](/learning/2020/10/29/one-by-one-conv.html) where I take a deep dive into the application of $1\times1$ convolutions.
 
 On the input layer, we can replace our fully connected layer from figure 1 with a $1\times3$ convolutions, i.e. 64 filter with one $1\times3$ kernel each, as shown below.
 
@@ -140,7 +140,7 @@ Have a look at the point cloud below. From the current perspective, it's not par
 
 <div data-include="/figures/happy_buddha.html"></div>
 
-This is a slight shift in perspective[^4] which allows us to tackle the problem of varying densities through changes on our end, i.e. in the way we design our algorithm, instead of manipulating the point cloud itself. Let's see what a naive approach could look like. 
+This is a slight shift in perspective[^4] which allows us to tackle the problem of varying densities through changes on our end, i.e. in the way we design our algorithm, instead of manipulating the point cloud itself. Let's see what a naive approach could look like.
 
 [^4]: Pun intended.
 
@@ -161,7 +161,7 @@ However, there is nothing stopping us from employing the same idea for point clo
 
 ### 2.2 Partitioning
 
-Let's see how the partitioning, called _sampling & grouping_ in the paper, of the input point cloud is done in detail. There are three important choices to be made when dividing a point cloud into spherical regions: How many spheres, where to place them and which diameter. One and three are related, as we want to cover all points, so a decreasing number of spheres needs to result in an increase of diameter of each. Partitioning a space in this way is reminiscent of voxelisation, with the important difference, that the size of spheres is variable and that we don't try to describe all points inside by the sphere itself but instead only use it to select a subset of points. 
+Let's see how the partitioning, called _sampling & grouping_ in the paper, of the input point cloud is done in detail. There are three important choices to be made when dividing a point cloud into spherical regions: How many spheres, where to place them and which diameter. One and three are related, as we want to cover all points, so a decreasing number of spheres needs to result in an increase of diameter of each. Partitioning a space in this way is reminiscent of voxelisation, with the important difference, that the size of spheres is variable and that we don't try to describe all points inside by the sphere itself but instead only use it to select a subset of points.
 
 Problem two, i.e. where to place the spheres, is solved by the _farthest point sampling_ algorithm. FPS is a recursive strategy, always finding the farthest point from all currently chosen points, as to cover the entire space most efficiently.
 
