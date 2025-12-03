@@ -1,6 +1,6 @@
 # Welcome to the blog repo of [Matthias Humt](https://hummat.com)!
 
-Here you find the barebones setup of personal blog [hummat.com](https://hummat.github.io). If you like the 
+Here you find the barebones setup of personal blog [hummat.com](https://hummat.com). If you like the 
 design, feel free to fork this branch.
 
 ## Credits
