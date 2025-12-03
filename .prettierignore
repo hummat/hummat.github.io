@@ -1,0 +1,10 @@
+_site/
+node_modules/
+figures/
+images/
+data/
+notebooks/
+*.npy
+*.npz
+*.ply
+*.mp4

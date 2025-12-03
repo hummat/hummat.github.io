@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-banner: /images/banner/earth1.jpg
+banner: /images/banner/earth1.jpeg
 ---
 
 # Howdy, dear reader!

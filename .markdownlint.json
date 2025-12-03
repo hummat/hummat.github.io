@@ -1,0 +1,18 @@
+{
+  "default": true,
+  "MD013": false,
+  "MD033": {
+    "allowed_elements": [
+      "details",
+      "summary",
+      "div",
+      "span",
+      "img",
+      "figure",
+      "figcaption",
+      "video",
+      "source"
+    ]
+  },
+  "MD041": false
+}

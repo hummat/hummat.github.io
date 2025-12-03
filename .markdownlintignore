@@ -1,0 +1,6 @@
+_site/
+node_modules/
+_posts/
+_drafts/
+about.md
+README.md
