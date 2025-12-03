@@ -9,3 +9,10 @@ design, feel free to fork the [**main**](https://github.com/hummat/hummat.github
 ## Credits
 
 Thanks to [**Barry Clark**](https://www.barryclark.com) and his wonderful [**Jekyll Now**](https://github.com/barryclark/jekyll-now) blog template!
+
+## Tooling
+
+- Install deps: `bundle install` and `npm install`
+- Lint/format: `npm run lint:md`, `npm run lint:scss`, `npm run lint:js`, `npm run format`
+- Build: `npm run test:site` (runs `bundle exec jekyll build`)
+- Serve locally: `bundle exec jekyll serve [--drafts]`

@@ -1,0 +1,23 @@
+{
+  "name": "hummat-blog",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Tooling for linting and checking the Jekyll blog",
+  "scripts": {
+    "lint:md": "markdownlint \"**/*.md\" --ignore _site --ignore node_modules",
+    "lint:scss": "stylelint \"style.scss\" \"_sass/**/*.scss\"",
+    "lint:js": "eslint --ext .js,.html _includes _layouts",
+    "format": "prettier --write \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
+    "test:site": "bundle exec jekyll build"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-html": "^7.1.0",
+    "markdownlint-cli": "^0.41.0",
+    "prettier": "^3.2.5",
+    "stylelint": "^15.11.0",
+    "stylelint-config-recommended-scss": "^13.0.0",
+    "stylelint-config-standard-scss": "^11.0.0",
+    "stylelint-scss": "^5.3.2"
+  }
+}

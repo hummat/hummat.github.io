@@ -1,0 +1,10 @@
+_site/
+node_modules/
+figures/
+data/
+images/
+notebooks/
+_includes/analytics*.html
+_includes/jquery.html
+_includes/popup.html
+_includes/slideshow*.html
