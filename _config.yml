@@ -119,3 +119,8 @@ exclude:
 # webrick:
 #   headers:
 #     Access-Control-Allow-Origin: "*"
+
+# Semantic Scholar configuration for Publications page
+# Set this to your Semantic Scholar author ID (numeric or alphanumeric),
+# for example: 1741101
+semantic_scholar_author_id: 1753619041
