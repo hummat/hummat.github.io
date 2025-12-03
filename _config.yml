@@ -112,6 +112,7 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - Gemfile.lock
   - node_modules
 
 # Custom headers
