@@ -1,8 +1,10 @@
 # Repository Guidelines
 
+This file provides guidance to Claude Code (claude.ai/code) and other agents when working with code in this repository.
+
 ## Project Structure & Content
 
-- Jekyll site at repo root. Main pages: `index.md`, `about.md`, `404.md`, `CNAME`, `_redirects`.
+- Jekyll site at repo root. Main pages: `index.md`, `about.md`, `publications.md`, `404.md`, `CNAME`, `_redirects`.
 - Posts: `_posts/YYYY-MM-DD-kebab-title.md`. Drafts: `_drafts/`.
 - Layouts & includes: `_layouts/`, `_includes/` (e.g. `default.html`, `home.html`, `post.html`, `popup.html`, `slideshow*.html`, `jquery.html`, `mathjax.html`).
 - Styling: `_sass/` partials with `style.scss` as entrypoint.
