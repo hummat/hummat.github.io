@@ -46,3 +46,21 @@ _posts/.ztr-directory
 CLAUDE.md
 GEMINI.md
 QWEN.md
+
+# R2 Migration (Removed from Git)
+images/
+figures/
+files/
+# Exclude data/ directory but allow YAML files (since cup_front3d.yaml is text)
+data/
+!data/**/*.yaml
+
+# Large binary extensions
+*.ply
+*.npy
+*.npz
+*.blend
+*.blend1
+*.blend2
+*.off
+*.obj

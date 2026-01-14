@@ -4,7 +4,7 @@ title: Implicit Function Learning
 abstract: "There are many ways to represent 3D shapes, from the ubiquitous triangle mesh to voxel grids and point clouds. And then there is the one to rule them all: The implicit function."
 tags: [3D, deep learning, reconstruction, completion]
 category: learning
-image: /images/implicit/suzanne.png
+image: https://assets.hummat.com/images/implicit/suzanne.png
 mathjax: true
 jquery: true
 plotly: true
@@ -34,7 +34,7 @@ $$
 
 where $\alpha$ and $\beta$ are the azimuth and polar angle and $r$ is the radius of the sphere. For a sphere with radius one ($r=1$) and angles $\alpha=30^{\circ},\beta=55^{\circ}$ we obtain $(x,y,z)=(0.71,0.41,0.57)$.
 
-<div data-include="/figures/implicit/sphere.html"></div>
+<div data-include="https://assets.hummat.com/figures/implicit/sphere.html"></div>
 
 This is an _explicit_ or _parametric_ way of defining the function: Given the sphere radius, we can directly compute all point coordinates on its surface for arbitrary spherical coordinates $\alpha,\beta$ as $f(\alpha,\beta,r)=(x,y,z)$. Here is the same function defined _implicitly_:
 
@@ -46,17 +46,17 @@ This equation provides the squared distance to the spheres surface from any poin
 
 Remember the simple but powerful equation describing _all_ points on the surface of a sphere with arbitrary radius introduced in the beginning. Now try to find a similar equation for the following shape[^2]:
 
-<div data-include="/figures/implicit/suzanne.html"></div>
+<div data-include="https://assets.hummat.com/figures/implicit/suzanne.html"></div>
 
 Yeah, me neither. What we still can do rather efficiently though is to compute, for every point, whether it lies within or outside the shape. To do so, we select a second point far off in the distance that's surely not within the shape, and connect it with our point of interest[^3]. We then perform a triangle intersection test (as we do have a triangle mesh of our shape). For every triangle, we first extend it indefinitely to form a plane and compute the intersection of our line (or ray) with it (provided line and plane aren't perpendicular which we can check by computing the dot product of the planes normal vector and the line). If plane and line intersect we check if the point of intersection lies to the left of all triangle edges. If so, the triangle and the line intersect[^4]. Now, an even number of intersections means the point of interest lies outside the shape (we have entered and exited), while an uneven number implies we are on the inside.
 
 Repeating this process many times provides a separation of the space, e.g. a $1\times1\times1$ cube, into exterior (**<span style="color: #EF553B">red</span>**), interior (**<span style="color: #636EFA">blue</span>**) and _in between_ (**<span style="color: lightgray">white</span>**), where _in between_ describes the surface of the shape _implicitly_ as space that's neither inside nor outside the shape.
 
-<div data-include="/figures/implicit/classification.html"></div>
+<div data-include="https://assets.hummat.com/figures/implicit/classification.html"></div>
 
 Instead of only computing whether the point of interest is inside our outside the shape we can also compute its distance where a positive distance means outside, and a negative inside as in the sphere example from before[^5]. This is a little more involved to compute for general shapes and often not necessary as we will see later. Below you can see a cross-section the surface of the zero-level set as well as the surrounding levels.
 
-<div data-include="/figures/implicit/regression.html"></div>
+<div data-include="https://assets.hummat.com/figures/implicit/regression.html"></div>
 
 ## How can they be learned?
 
@@ -64,19 +64,19 @@ Before we dive into this question, let's first quickly cover another: why? If yo
 
 <div style="text-align: center;">
     <figure style="width: 24%; display: inline-block;">
-        <div data-include="/figures/implicit/image.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/image.html"></div>
         <figcaption><b>Image</b></figcaption>
     </figure>
     <figure style="width: 24%; display: inline-block;">
-        <div data-include="/figures/implicit/pcd.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/pcd.html"></div>
         <figcaption><b>Point Cloud</b></figcaption>
     </figure>
     <figure style="width: 24%; display: inline-block;">
-        <div data-include="/figures/implicit/voxel.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/voxel.html"></div>
         <figcaption><b>Voxel Grid</b></figcaption>
     </figure>
     <figure style="width: 24%; display: inline-block;">
-        <div data-include="/figures/implicit/mesh.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/mesh.html"></div>
         <figcaption><b>Mesh</b></figcaption>
     </figure>
 </div>
@@ -94,7 +94,7 @@ Now to understand the other two desirable attributes, let's have a look at a net
 ### Occupancy Networks
 
 <figure style="text-align: center;">
-    <img src="/images/implicit/occnet.png" alt="Occupancy Network">
+    <img src="https://assets.hummat.com/images/implicit/occnet.png" alt="Occupancy Network">
     <figcaption><a href="https://avg.is.mpg.de/publications/occupancy-networks"><b>The Occupancy Network</b></a></figcaption>
 </figure>
 
@@ -109,7 +109,7 @@ There is one problem though. As the feature vector describes the input globally,
 ### Convolutional Occupancy Networks
 
 <figure style="text-align: center;">
-    <img src="/images/implicit/conv_occnet_vol.png" alt="Convolutional Occupancy Network">
+    <img src="https://assets.hummat.com/images/implicit/conv_occnet_vol.png" alt="Convolutional Occupancy Network">
     <figcaption><a href="https://is.mpg.de/publications/peng2020eccv"><b>The Convolutional Occupancy Network</b></a></figcaption>
 </figure>
 
@@ -118,7 +118,7 @@ Through the division of the input space into voxels, a discrete feature grid can
 ### Implicit Feature Networks
 
 <figure style="text-align: center;">
-    <img src="/images/implicit/ifnet.png" alt="Implicit Feature Network">
+    <img src="https://assets.hummat.com/images/implicit/ifnet.png" alt="Implicit Feature Network">
     <figcaption><a href="https://virtualhumans.mpi-inf.mpg.de/ifnets"><b>The Implicit Feature Network</b></a></figcaption>
 </figure>
 
@@ -132,7 +132,7 @@ Now, you might be wondering how to actually obtain a mesh from the implicit repr
 
 Yes. While most works focus on benchmark data like ShapeNet, the real world is more messy. A promising application of shape completion is in robotic manipulation but the data obtained from the RGB-D cameras is less than ideal. The data is noisy, has missing parts due to overly reflective materials, doesn't come in a canonical pose--both due to the position of the robot relative to the object and the objects pose in the world--and of course comes in very diverse shapes and sizes.
 
-<div data-include="/figures/implicit/problems.html"></div>
+<div data-include="https://assets.hummat.com/figures/implicit/problems.html"></div>
 
 ## Let's see some results!
 
@@ -140,18 +140,18 @@ Below there are a few visualizations of input pointclouds obtained by projecting
 
 <div style="display: flex; justify-content: space-between;">
     <figure style="width: 49%;">
-        <div data-include="/figures/implicit/val_result2.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/val_result2.html"></div>
     </figure>
     <figure style="width: 49%;">
-        <div data-include="/figures/implicit/val_result3.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/val_result3.html"></div>
     </figure>
 </div>
 <div style="display: flex; justify-content: space-between;">
     <figure style="width: 49%;">
-        <div data-include="/figures/implicit/val_result5.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/val_result5.html"></div>
     </figure>
     <figure style="width: 49%;">
-        <div data-include="/figures/implicit/val_result6.html"></div>
+        <div data-include="https://assets.hummat.com/figures/implicit/val_result6.html"></div>
     </figure>
 </div>
 

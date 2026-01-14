@@ -36,7 +36,7 @@ This file provides guidance to Claude Code (claude.ai/code) and other agents whe
   ```
 
 - Use `gh-page` for external project pages and `circular: true` for round thumbnails.
-- For interactive figures, notebooks should write HTML into `figures/` (or `_includes/figures/`) and posts should pull them in via `<div data-include="/figures/…html"></div>`.
+- For interactive figures, notebooks should write HTML into `figures/` (or `_includes/figures/`) and posts should pull them in via `<div data-include="https://assets.hummat.com/figures/…html"></div>`.
 
 ## Style, Validation, and PRs
 

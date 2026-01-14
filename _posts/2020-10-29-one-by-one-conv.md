@@ -5,7 +5,7 @@ abstract: There are many explanations out there trying to convince you of the ut
 tags: [convolution, bottleneck, inception, shared mlp, pointnet]
 category: learning
 mathjax: True
-image: /images/fc_vs_conv/conv_rgb.png
+image: https://assets.hummat.com/images/fc_vs_conv/conv_rgb.png
 time: 7
 words: 1893
 ---
@@ -26,11 +26,11 @@ where $b$ is an offset, usually called the _bias_ (not shown in the figure). Thi
 
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
-  <img src="/images/fc_vs_conv/fc_single.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/fc_single.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 1 (a):</b> A single fully connected neuron, only showing connections (weights $w$) for two inputs (pixel).</figcaption>
 </figure>
 <figure style="width: 45%; display: inline-block">
-  <img src="/images/fc_vs_conv/fc_full.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/fc_full.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 1 (b):</b> A fully connected layer, only showing four of the $784$ neurons and two of the $784$ inputs each.</figcaption>
 </figure>
 </div>
@@ -43,11 +43,11 @@ A standard convolutional layer is defined by the number of input channels, e.g. 
 
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
-  <img src="/images/fc_vs_conv/conv_slide.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_slide.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 2 (a):</b> A standard convolution of a single filter with one $3\times3$ kernel.<br><br></figcaption>
 </figure>
 <figure style="width: 45%; display: inline-block">
-  <img src="/images/fc_vs_conv/fc_slide.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/fc_slide.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 2 (b):</b> Conceptually simple: Sliding a "fully connected" layer over the image, restricting it to $9$ adjacent inputs.</figcaption>
 </figure>
 </div>
@@ -59,7 +59,7 @@ The idea of sliding a small network over the input, as shown in fig. 2 (b), init
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="/images/fc_vs_conv/conv_full2.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_full2.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 3:</b> The operation of a fully connected layer on a two-dimensional input (only looking at spatial dimensions here, not depth, i.e. number of channels) can be described by a convolution with one kernel (weight matrix) per input channel (one) of the same size as the input ($28\times28$ pixel), repeated for each input pixel (i.e. $784$ filter/output channel).</figcaption>
 </figure>
 </div>
@@ -71,11 +71,11 @@ If we reduce the width and height of our filter kernels to one, we obtain $1\tim
 
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
-  <img src="/images/fc_vs_conv/conv_rgb.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_rgb.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 4 (a):</b> A standard convolution of a single filter with three $1\times1$ kernels.<br><br></figcaption>
 </figure>
 <figure style="width: 45%; display: inline-block">
-  <img src="/images/fc_vs_conv/fc_rgb.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/fc_rgb.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 4 (b):</b> Conceptually simple: Sliding a "fully connected" layer over the image, restricting it to one pixel per channel.</figcaption>
 </figure>
 </div>
@@ -87,11 +87,11 @@ The important thing to note here is, that both approaches produce a _single_ out
 
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
-  <img src="/images/fc_vs_conv/conv_slide2.png" style="padding: 50px 0 50px 0">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_slide2.png" style="padding: 50px 0 50px 0">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 5 (a):</b> Using $1\times1$ convolutions to produce "class" feature maps with <em>one filter</em> per class.<br><br></figcaption>
 </figure>
 <figure style="width: 45%; display: inline-block">
-  <img src="/images/fc_vs_conv/fc_slide2.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/fc_slide2.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 5 (b):</b> The same effect achieved with a fully connected approach, were we to focus on one pixel at a time and capable of sliding the layer across the input.</figcaption>
 </figure>
 </div>
@@ -103,11 +103,11 @@ Armed with the knowledge from the previous paragraph, we can now understand the 
 
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
-  <img src="/images/fc_vs_conv/conv_single1.png" style="padding: 50px 0 50px 0">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_single1.png" style="padding: 50px 0 50px 0">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 6 (a):</b> A $28\times28$ pixel image transformed into a $1\times1\times784$ vector (left) is convolved with a single filter with $784$ one-by-one kernels (right) producing a single scalar value.</figcaption>
 </figure>
 <figure style="width: 45%; display: inline-block">
-  <img src="/images/fc_vs_conv/conv_full1.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/conv_full1.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 6 (b):</b> The same input image as in (a), but now convolved with $784$ filters, each with $784$ one-by-one kernels, producing $784$ scalar outputs.<br><br></figcaption>
 </figure>
 </div>

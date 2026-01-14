@@ -16,7 +16,7 @@ defaults:
   - scope:
       path: "index.md"
     values:
-      image: /images/preview.png
+      image: https://assets.hummat.com/images/preview.png
 
 #
 # Flags below are optional

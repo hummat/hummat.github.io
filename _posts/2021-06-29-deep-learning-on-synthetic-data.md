@@ -4,7 +4,7 @@ title: Deep Learning on photorealistic synthetic data
 abstract: If you work in machine learning, or worse, deep learning, you have probably encountered the problem of too few data at least once. For a classification task you might get away with hand-labeling a couple of thousand images and even detection might still be within manual reach if you can convince enough friends to help you. And then you also want to do segmenation. Even if possible, hand-labeling is an incredibly boring, menial task. But what if you could automate it by rendering photorealistic synthetic training data with pixel-perfect annotations for all kinds of scene understanding problems?
 tags: [synthetic data, photorealism, deep learning, rendering, blender]
 category: learning
-image: /images/cup/cup_background.jpg
+image: https://assets.hummat.com/images/cup/cup_background.jpg
 circular: true
 jquery: true
 plotly: true
@@ -26,7 +26,7 @@ Now, if you are reading this, chances are you are neither a cinematographer nor 
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img class="img-swap" src="/images/cup/coco.jpg">
+  <img class="img-swap" src="https://assets.hummat.com/images/cup/coco.jpg">
   <figcaption style="text-align: left; line-height: 1.5em;"><b>Instance Segmentation:</b> Every <em>pixel</em> of every <em>instance</em> of each object, e.g. <em>couch</em> or <em>chair</em>, needs to be labeled in every image. The resulting <em>instance segmentation masks</em> can be visualized as semi-transparent overlays (hover over the image to see them). This insane amount of work leads to imperfect results: Only a subset of all visible objects gets labeled, not all instances get labeled (one of the two vases in the bookshelf is missing) or are lumped together (lower rows of books in the shelf), masks are not pixel-perfect (the light blue mask of the arm-chair) and objects get wrong labels (the fireplace is labeled as tv, the armchair in front is also labeled as couch).</figcaption>
 </figure>
 </div>
@@ -37,7 +37,7 @@ How do we get training data for these tasks? Well, depending at where you work a
 
 Apart from fatiguing fellow human beings by forcing them to do such boring work, they also get tired and make mistakes resulting in wrong class labels, too large or small bounding boxes and forgotten objects. You probably see where this is going: What if we could automate this task by generating training data with pixel-perfect annotations in huge quantities? Let's explore the potential and accompanying difficulties of this idea through a running example: _The cup_.
 
-![](/images/cup/cup_photo.jpg)
+![](https://assets.hummat.com/images/cup/cup_photo.jpg)
 
 By the end of this article, we want to be able to detect the occurrence and position of this cup in real photographs (and maybe even do segmentation and pose estimation) without hand-annotating even a single training datum.
 
@@ -45,7 +45,7 @@ By the end of this article, we want to be able to detect the occurrence and posi
 
 Before we can make synthetic training data, we first need to understand what it is. It all starts with a _3D model_ of the object(s) we want to work with. There is a lot of great 3D modeling software out there but we will focus on [_Blender_](https://www.blender.org) because it is free, open source, cross-platform and, to be honest, simply awesome.
 
-<div data-include="/figures/cup.html" style="width: 100%; margin: auto;"></div>
+<div data-include="https://assets.hummat.com/figures/cup.html" style="width: 100%; margin: auto;"></div>
 
 I made this cup model you see above in an afternoon (so there is still some work involved) but I'm a complete novice to 3D modeling[^2] and an expert could probably make such a simple model in a few minutes. More complex objects might take more time, but there are already a lot of great 3D models out there you can download for free and even if you start from scratch, you only need to do it once and can reuse it for all kinds of projects and learning tasks.
 
@@ -55,22 +55,22 @@ We could now snap an artificial image (i.e. a _render_) of the cup model to get 
 
 <div id="slideshow1" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/cup_basic.png" style="width: 100%">
+  <img src="https://assets.hummat.com/images/cup/cup_basic.png" style="width: 100%">
   <div class="text"><b>The bare minimum:</b> The rendered cup wihtout colors, textures and surface properties.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/cup_color.png" style="width: 100%">
+  <img src="https://assets.hummat.com/images/cup/cup_color.png" style="width: 100%">
   <div class="text"><b>Color and reflections:</b> Correct colors and roughness greatly increase realism.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/cup_texture.png" style="width: 100%">
+  <img src="https://assets.hummat.com/images/cup/cup_texture.png" style="width: 100%">
   <div class="text"><b>Adding subtle effects:</b> Textures, displacements and surface imperfections.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/cup_background.jpg" style="width: 100%">
+  <img src="https://assets.hummat.com/images/cup/cup_background.jpg" style="width: 100%">
   <div class="text"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
   </div>
 
@@ -85,27 +85,27 @@ While simple, the result is unconvincing due to differences in lighting: the obj
 
 <div id="slideshow2" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0051.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0051.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0053.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0053.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0054.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0054.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0062.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0062.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0063.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0063.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/basic/rgb_0064.jpg">
+  <img src="https://assets.hummat.com/images/cup/basic/rgb_0064.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -127,23 +127,23 @@ This is what BlenderProc builds on to provide functions to place objects, lights
 
 <div id="slideshow3" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0000.jpg">
+    <img src="https://assets.hummat.com/images/cup/room/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0001.jpg">
+    <img src="https://assets.hummat.com/images/cup/room/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0002.jpg">
+    <img src="https://assets.hummat.com/images/cup/room/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0003.jpg">
+    <img src="https://assets.hummat.com/images/cup/room/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/room/rgb_0004.jpg">
+    <img src="https://assets.hummat.com/images/cup/room/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -161,23 +161,23 @@ Here is a little entertaining anecdote: Do you see how the cup stands tilted to 
 
 <div id="slideshow4" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0000.jpg">
+    <img src="https://assets.hummat.com/images/cup/pose/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0001.jpg">
+    <img src="https://assets.hummat.com/images/cup/pose/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0002.jpg">
+    <img src="https://assets.hummat.com/images/cup/pose/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0003.jpg">
+    <img src="https://assets.hummat.com/images/cup/pose/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/pose/rgb_0004.jpg">
+    <img src="https://assets.hummat.com/images/cup/pose/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -189,23 +189,23 @@ Another problem you might have noticed is the white background. Detecting object
 
 <div id="slideshow5" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0000.jpg">
+    <img src="https://assets.hummat.com/images/cup/textures/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0001.jpg">
+    <img src="https://assets.hummat.com/images/cup/textures/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0002.jpg">
+    <img src="https://assets.hummat.com/images/cup/textures/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0003.jpg">
+    <img src="https://assets.hummat.com/images/cup/textures/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/textures/rgb_0004.jpg">
+    <img src="https://assets.hummat.com/images/cup/textures/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -217,23 +217,23 @@ Next, we introduce clutter. Due to shadows and sudden changes in color and other
 
 <div id="slideshow6" class="slideshow-container">
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0000.jpg">
+    <img src="https://assets.hummat.com/images/cup/clutter/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0001.jpg">
+    <img src="https://assets.hummat.com/images/cup/clutter/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0002.jpg">
+    <img src="https://assets.hummat.com/images/cup/clutter/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0003.jpg">
+    <img src="https://assets.hummat.com/images/cup/clutter/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-    <img src="/images/cup/clutter/rgb_0004.jpg">
+    <img src="https://assets.hummat.com/images/cup/clutter/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -262,23 +262,23 @@ With this you will get results like the ones seen below.
 
 <div id="slideshow7" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0000.jpg">
+  <img src="https://assets.hummat.com/images/cup/scene/rgb_0000.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0001.jpg">
+  <img src="https://assets.hummat.com/images/cup/scene/rgb_0001.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0002.jpg">
+  <img src="https://assets.hummat.com/images/cup/scene/rgb_0002.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0003.jpg">
+  <img src="https://assets.hummat.com/images/cup/scene/rgb_0003.jpg">
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/scene/rgb_0004.jpg">
+  <img src="https://assets.hummat.com/images/cup/scene/rgb_0004.jpg">
   </div>
 
 <a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
@@ -290,22 +290,22 @@ When saving the render, we have the option to not only store the color image, bu
 
 <div id="slideshow8" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_2.png" style="width:100%;">
+  <img src="https://assets.hummat.com/images/cup/dataset/Figure_2.png" style="width:100%;">
   <div class="text"><b>RGB:</b> The rendered color image with the cup lying off-center on its side. There are lots of textures and clutter as well as realistic reflections, shadows, occlusion and depth of field effects.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_3.png" style="width:100%;">
+  <img src="https://assets.hummat.com/images/cup/dataset/Figure_3.png" style="width:100%;">
   <div class="text"><b>Depth:</b> Because our scene consists of actual 3D objects and Blender needs to know each of their positions to present the scene on a 2D surface (your monitor) we can also store this information in a depth map with colors encoding the distance to the camera where blue means near and red far away. Such information can't even be generated by human annotators retrospectively but has to be captured with (inaccruate) depth sensors in reality.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_4.png" style="width:100%;">
+  <img src="https://assets.hummat.com/images/cup/dataset/Figure_4.png" style="width:100%;">
   <div class="text"><b>Normals:</b> The orientation of a surface can be represented by its normal which is a perpendicular vector with x, y and z coordinates. We can interpret those coordinates as red, green and blue color values for visualization where surfaces with the same orientation have the same color.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/dataset/Figure_6.png" style="width:100%;">
+  <img src="https://assets.hummat.com/images/cup/dataset/Figure_6.png" style="width:100%;">
   <div class="text"><b>Segmentation:</b> Finally, and most importantly for our application, we can obtain pixel perfect semantic segmentation masks. They look a bit boring in our case as there is only a single object of interest while everything else is considered background. Instance segmentation masks can also be generated if needed.</div>
   </div>
 
@@ -322,57 +322,57 @@ Training takes only a couple of minutes on this small dataset (though longer tra
 
 <div id="slideshow9" class="slideshow-container">
   <div class="mySlides">
-  <img src="/images/cup/real/real0.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real0.jpg">
   <div class="text"><b>The Cup:</b> Success! Our network trained purely on synthetic images is able to detect objects in the real world. Even after some time now this is still somewhat miraculous to me. As you can see, the bounding box and segmentation mask isn't perfect but pretty good.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real1.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real1.jpg">
   <div class="text"><b>Two Cups:</b> Two cups work as well even though the training data never contained more than one cup per image. Also note that we perform <em>instance segmentation</em> where each instance of an object is segmented individually.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real2.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real2.jpg">
   <div class="text"><b>Upside down:</b> Turning the cup on its head doesn't pose a problem to our model as it has seen the cup from all directions during training.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real3.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real3.jpg">
   <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Occlusion:</b> Even though both cups don't even touch in 3D space, one occludes the other in this 2D view. No problem though.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real4.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real4.jpg">
   <div class="text"><b>Stacking:</b> The first failure case: Stacking two cups gets interpreted as a single cup. Adding such cases to the training data could help here.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real5.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real5.jpg">
   <div class="text"><b>Clutter:</b> To make the task a little more difficult, we can add several dissimilar objects to the scene. This was the default setting during training so it's not surprising for our model to pass this test with flying colors.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real6.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real6.jpg">
   <div class="text" style="text-align: left; line-height: 1.5em; bottom: -4em; width: 90%;"><b>Close clutter:</b> Moving everything closer together makes the task a little harder but apparently not too much.</div>
   </div>
   
   <div class="mySlides">
-  <img src="/images/cup/real/real7.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real7.jpg">
   <div class="text"><b>Another configuration:</b> Another failure: It looks like as if the model generalizes a little far to any cup-like object. Let's investigate.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real8.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real8.jpg">
   <div class="text"><b>Too much generalization:</b> Indeed. While we certainly didn't overfit on the cup, this amount of generalization might not be what you want. Longer training on more data and the introduction of more negative cup-like objects should help.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real9.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real9.jpg">
   <div class="text"><b>Cups and bowls:</b> Even bowls get classified as cups. Oh well.</div>
   </div>
 
   <div class="mySlides">
-  <img src="/images/cup/real/real10.jpg">
+  <img src="https://assets.hummat.com/images/cup/real/real10.jpg">
   <div class="text"><b>Mess:</b> Throwing a large pile of different things together reveals the (over) generalization capabilities of our model on cup-like objects while very different objects get ignored as desired.</div>
   </div>
 
@@ -384,7 +384,7 @@ Training takes only a couple of minutes on this small dataset (though longer tra
 This almost concludes our little journey into synthetic worlds. Before you move on have a look at the short video of me foolishly waving around a cup which gets segmented (mostly) correctly in real time. Happy rendering.
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source type="video/mp4" src="/images/cup/video.mp4">
+  <source type="video/mp4" src="https://assets.hummat.com/images/cup/video.mp4">
 </video>
 
 ---

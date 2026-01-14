@@ -4,7 +4,7 @@ title: Learning from Voxels
 abstract: The second post in the series on learning on 3D data. Last time we looked at point clouds; this time we'll be looking at voxel grids. Let's get to it.
 tags: [voxel, 3D, deep learning, voxnet, octnet]
 category: learning
-image: /images/3d_conv.png
+image: https://assets.hummat.com/images/3d_conv.png
 jquery: true
 plotly: true
 mathjax: true
@@ -22,7 +22,7 @@ If you haven't come across voxel grids before, simply think _Minecraft_. In a vo
 You can drag to rotate and zoom in to reveal individual points and voxels.
 
 <a name="figure"></a>
-<div data-include="/figures/pcd_vs_voxel.html"></div>
+<div data-include="https://assets.hummat.com/figures/pcd_vs_voxel.html"></div>
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
   <figcaption style="text-align: center;  line-height: 1.2em;"><b>Point cloud bunny</b></figcaption>
@@ -53,7 +53,7 @@ Crucially, one filter can extract the same information from _everywhere_ in the 
 
 In the simplest case, you have a grayscale "image", say of size $5\times5$ and a convolutional layer with a single filter, e.g. of size $3\times3$. Each filter has as many kernels as the input has channels, so in this case one. Adding a third input dimension changes almost nothing. Instead of a plane of $5\times5$ pixels we now have a cube with $5\times5\times5$ voxels. Our filter also becomes three dimensional, i.e. $3\times3\times3$. The resulting _feature map_, i.e. the result of convolving the filter with the input, is of size $4\times4$ assuming a stride of one and zero padding in case of the image, and of size $5\times5\times5$ for the voxel grid (where the zero padding is depicted as empty voxels). Easy.
 
-<div data-include="/figures/3d_conv.html"></div>
+<div data-include="https://assets.hummat.com/figures/3d_conv.html"></div>
 <div style="text-align: center">
 <figure style="width: 80%; display: inline-block;">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>3D Convolution:</b> A $5\times5\times5$ dimensional input (greenish) is convolved with a $3\times3\times3$ kernel (gray, red outline) by moving the kernel over all input voxels to produce a $4\times4\times4$ dimensional output (yellowish). Brighter colors encode higher value magnitude (and are only used for visualization purposes, as we are still dealing with a single input and output channel).</figcaption>
@@ -66,7 +66,7 @@ Adding more input channels or convolutional filters only slightly complicates th
 
 Actually computing this product segues nicely into the downsides of voxel grids, one of which you can easily make out in the figure [above](#figure) and another which is not immediately visible. Let's start with the latter. As mentioned before, a voxel grid encodes occupied _and_ unoccupied space. This is necessary to preserve the position of each voxel in space as the position in the underlying data structure. For example, accessing voxel $[0, 0, 0]$ returns the first voxel in the grid, e.g. the upper left corner in the front, while voxel $[16, 16, 16]$ is found in the lower right corner in the back[^7]. You can try it out by hovering over the voxelized version of the bunny and finding the actual order being used there[^8]. Now, what's not shown are all of the _unoccupied_ voxels. To represent the bunny in an actual voxel _grid_ we would need at least $16\times16\times16=4096$ voxels!
 
-<div data-include="/figures/voxel_grid.html"></div>
+<div data-include="https://assets.hummat.com/figures/voxel_grid.html"></div>
 
 What you see above is an extremely downscaled version of the bunny shown from the front, this time also showing the unoccupied voxels as empty cells. This doesn't look too hard computationally, right? Now try rotating the figure (click and drag).
 That's a lot of cells for such a bad representation of our bunny. Now imagine representing a small city scene, needed for applications like autonomous driving, as a voxel grid. We could make the voxel size larger, leading to a coarser grid with less voxels, but this highlights the second major problem of voxel grids: _Discretization_.
@@ -85,7 +85,7 @@ So you have some 3D data lying around and now you want to extract some informati
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/voxnet.png">
+  <img src="https://assets.hummat.com/images/voxnet.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>VoxNet</b> [<a href="http://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -106,7 +106,7 @@ The authors of [_OctNet_](https://openaccess.thecvf.com/content_cvpr_2017/papers
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/octree.png">
+  <img src="https://assets.hummat.com/images/octree.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Octree</b> [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Riegler_OctNet_Learning_Deep_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -115,7 +115,7 @@ In our case, information can be a point from a point cloud or a face, vertex or 
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/octnet.png">
+  <img src="https://assets.hummat.com/images/octnet.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>OctNet</b> [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Riegler_OctNet_Learning_Deep_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>

@@ -4,7 +4,7 @@ title: Atomic Habits
 abstract: One-O-one of ATOMIC HABITS by James Clear. For anyone who ever wanted to get anything done.
 tags: [habits]
 category: book
-image: /images/atomic_habits.jpg
+image: https://assets.hummat.com/images/atomic_habits.jpg
 time: 9
 words: 2286
 ---

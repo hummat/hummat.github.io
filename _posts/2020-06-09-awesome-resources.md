@@ -5,7 +5,7 @@ abstract: A list of awesome things on the web I've stumbled upon or have been di
 tags: [learning, inspirational, awesome]
 category: resource
 update: 2020-10-04
-banner: /images/awesome-banner.jpg
+banner: https://assets.hummat.com/images/awesome-banner.jpg
 banner-text: Awesome Resources
 words: 857
 time: 3

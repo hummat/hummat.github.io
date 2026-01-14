@@ -4,7 +4,7 @@ title: Learning from Point Clouds
 abstract: In the previous article we've explored 3D data and various ways to represent it. Now, let's look at ways to learn from it to classify objects and perform other standard computer vision tasks, but now in three instead of two dimensions! This aspires to become a series devoted to various techniques of learning from various types of 3D data, starting with point clouds.
 tags: [point clouds, 3D, deep learning, pointnet, pointnet++]
 category: learning
-image: /images/bunny.png
+image: https://assets.hummat.com/images/bunny.png
 jquery: true
 plotly: true
 mathjax: true
@@ -27,7 +27,7 @@ And then there is the computational overhead. Adding a dimension to our data inc
 As discussed in the previous article, point clouds are great, as they are the most natural data representation, directly obtained from our sensors. They are inherently sparse and therefore space-saving, but they also come with some problems. The first is _varying density_, i.e. some regions feature significantly more points than others, and secondly _lack of order_. Both effects are visualized below. Contrary to images, the shape of the point clouds, and therefore the object it represents, is preserved no matter in which order its points are stored and presented. Were we to reverse the order of pixels in an image we would flip it horizontally (i.e. perform a $180°$ clockwise rotation), while shuffling the pixels would results in garbage (noise).
 
 <a name="bunny"></a>
-<div data-include="/figures/bunny_pcd.html"></div>
+<div data-include="https://assets.hummat.com/figures/bunny_pcd.html"></div>
 
 On the left, you see the point cloud of the [Stanford Bunny](http://graphics.stanford.edu/data/3Dscanrep/)[^1]. Points are distributed uniformly over its entire surface. On the right you see the same bunny, but with two important differences:
 
@@ -60,7 +60,7 @@ Another idea would be, to _"slide"_ a network with $3$ inputs, one for each spat
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="/images/fc_vs_conv/pointnet_mlp.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_mlp.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 1:</b> A "shared" MLP with three inputs ($x,y,z$ coordinates) "sliding" over each point in the point cloud.</figcaption>
 </figure>
 </div>
@@ -71,7 +71,7 @@ On the input layer, we can replace our fully connected layer from figure 1 with 
 
 <div style="text-align: center">
 <figure style="width: 80%; display: inline-block;">
-  <img src="/images/fc_vs_conv/pointnet_conv2.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv2.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 2:</b> The "shared" MLP from before is replace by $1\times3$ convolutions.</figcaption>
 </figure>
 </div>
@@ -80,7 +80,7 @@ We could also use a second approach of employing $1\times1$ convolutions, which 
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="/images/fc_vs_conv/pointnet_conv1.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv1.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 3:</b> The "shared" MLP is mimicked by $1\times1$ convolutions inside the network (shown on the input here though).</figcaption>
 </figure>
 </div>
@@ -89,7 +89,7 @@ If we now have a look at the entire network architecture as presented in the pap
 
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
-  <img src="/images/pointnet.png">
+  <img src="https://assets.hummat.com/images/pointnet.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 4:</b> PointNet as presented in the original paper. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -101,7 +101,7 @@ This has the added advantage that the network is pushed to reduce each object to
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/pointnet_critical_points.png">
+  <img src="https://assets.hummat.com/images/pointnet_critical_points.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 5:</b> The minimum (critical) and maximum (upper-bound) number of points which don't change PointNets classification results. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -138,7 +138,7 @@ In the image domain, a similar problem to varying density exists under the name 
 
 Have a look at the point cloud below. From the current perspective, it's not particularly dense, leaving ample space between the points. Now, see what happens as you zoom out; The point cloud seems to become denser! It's not really of course, rather, we changed the resolution of our inquiry.
 
-<div data-include="/figures/happy_buddha.html"></div>
+<div data-include="https://assets.hummat.com/figures/happy_buddha.html"></div>
 
 This is a slight shift in perspective[^4] which allows us to tackle the problem of varying densities through changes on our end, i.e. in the way we design our algorithm, instead of manipulating the point cloud itself. Let's see what a naive approach could look like.
 
@@ -146,7 +146,7 @@ This is a slight shift in perspective[^4] which allows us to tackle the problem 
 
 Say we partition the point cloud into spheres of varying size, starting from many overlapping small spheres and ending with one large sphere which encompasses the entirety of points. Now, we could feed all points in each sphere into the network and let it learn to identify _local_ and _global_ regions of the input as the same object.
 
-<div data-include="/figures/bunny_with_spheres.html"></div>
+<div data-include="https://assets.hummat.com/figures/bunny_with_spheres.html"></div>
 <div style="text-align: center">
 <figure style="width: 80%; display: inline-block;">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 6:</b> Capturing global and local information using scale preserving partitioning of the point cloud into subregions denoted by each sphere.</figcaption>
@@ -169,7 +169,7 @@ The pipeline then looks as follows. First we find the centroids of our spheres r
 
 Repeating this approach for multiple sphere diameters results in what is called _multi-scale grouping_ in the paper. This is computationally expensive however, as we are still dealing with one application of PointNet per sphere and diameter. Another idea is the use of _multi-resolution grouping_. Here, we exploit the fact that we already have computed features on small sub-regions in the previous layer, so by combining those sub-regions into one larger region we only need to compute new large-scale features on it and concatenate all results to obtain local _and_ global information. Both approaches are visualized below.
 
-<div data-include="/figures/mrg_vs_msg.html"></div>
+<div data-include="https://assets.hummat.com/figures/mrg_vs_msg.html"></div>
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 7 (a):</b> <em>Multi-resolution grouping</em> aggregates features computed from small neighborhoods (points in red spheres) obtained in the previous layer with features computed on the entire set of points in the current region (blue sphere).<br><br></figcaption>

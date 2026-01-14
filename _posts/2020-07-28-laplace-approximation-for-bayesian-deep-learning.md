@@ -4,7 +4,7 @@ title: Laplace Approximation for Bayesian Deep Learning
 abstract: A deep look into Bayesian neural networks from a practical point of view and from theory to application. This is the final part of my informal 3 part mini-series on probabilistic machine learning, part 1 and 2 being "Looking for Lucy" and "A sense of uncertainty".
 category: repository
 tags: [laplace approximation, Bayesian inference, deep learning]
-image: /images/loss_vs_gauss.png
+image: https://assets.hummat.com/images/loss_vs_gauss.png
 gradient: true
 github: https://github.com/DLR-RM/curvature
 mathjax: true
@@ -47,13 +47,13 @@ To get an intuitive understanding, let's actually look at a (low dimensional) re
 [^1]: Please refer to [part two](/learning/2020/07/17/a-sense-of-uncertainty.html#notation) for an introduction of the notation.
 [^2]: Make no mistake, even though the likelihood is the probability distribution over the data (given the weights), we are still trying to find the _weights_ that best explain the data and not the other way round.
 
-<div data-include="/figures/loss/mobilenet_v2_cifar10_loss_3d.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/mobilenet_v2_cifar10_loss_3d.html"></div>
 
 The so called _loss landscape_ you see above has a few distinctive features[^3]. The most important is, that it is basically a steep valley, at least close to the minimum. This is mostly what allowed our optimizer to find the minimum in the first place, by following the negative gradient in the direction of steepest descent. You can also see that further away from the minimum, small hills begin to appear. The more chaotic the landscape and the further away from the minimum we start our optimization, the harder it will generally be to find the minimum. Now try to think of a probability distribution that could potentially model the shape of this loss landscape. If you can't quite see it yet, let's look at the quantity we are actually interested in modeling: the likelihood. All we need to do is to take the exponential of the negative loss, which is what you see on the left below.
 
 [^3]: [Here](https://github.com/hummat/hummat.github.io/tree/master/_includes/figures/loss) are some more examples, if you are interested as well as the [paper](https://arxiv.org/abs/1712.09913) describing the approach.
 
-<div data-include="/figures/loss/mobilenet_v2_cifar10_loss_vs_gauss.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/mobilenet_v2_cifar10_loss_vs_gauss.html"></div>
 
 And the thing on the right that looks very similar? This is a two-dimensional multivariate normal distribution, aka a Gaussian! Note how the negative exponent has smoothed out those small hills we saw in the previous plot, as large (negative) values get mapped to near zero. In this example, I have estimated the correct parameters for the Gaussian, i.e. the mean and variance, through a least-squares fitting approach. However, so far we have been working with a two-dimensional representation of the loss for visualization purposes while in reality, it has as many dimensions as our network has weights! For the popular _ResNet50_ architecture for example, that's more than 25 million! Clearly we need a better approach to estimating the Gaussian parameters, mostly because we can't gather sufficient loss samples in 25 million dimensional space[^4].
 
@@ -61,7 +61,7 @@ And the thing on the right that looks very similar? This is a two-dimensional mu
 
 A bit off topic but still interesting: See the lines below the loss landscape? Those are _contour lines_, like you would see on a hiking map, and we can use these to compare the loss landscape to the _accuracy landscape_, which, after all, is the quantity we are actually interested in when confronted with a classification problem. Click on the dropdown menu to select loss and accuracy contour plots and their comparison.
 
-<div data-include="/figures/loss/mobilenet_v2_cifar10_loss_acc_2d.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/mobilenet_v2_cifar10_loss_acc_2d.html"></div>
 
 It gets a bit crowded, but what we can make out is, that, at least for low loss/high accuracy regions, the loss contour levels align remarkably well with specific accuracy levels, meaning the loss is a good predictor of classification accuracy. Nice!
 
@@ -98,7 +98,7 @@ In other words, it is the expected value[^7] of the outer product of the negativ
 
 There are several ways to shrink the size of our curvature matrix[^8] of which the simplest is to chop it into layer-sized bits. Instead of one gigantic matrix, we end up with $L$ smaller matrices of size $\vert W_\ell\vert\times\vert W_\ell\vert$ where $L$ is the number of layers in our network and $\ell=\{1,2,3,...,L\}$.
 
-<div data-include="/figures/hessian.html"></div>
+<div data-include="https://assets.hummat.com/figures/hessian.html"></div>
 
 [^8]: I'll be using this term instead of Hessian or Fisher (or _Generalized Gauss-Newton_ for that matter), because for our purposes they are equivalent and can all be interpreted as the curvature of the function they represent.
 
@@ -108,7 +108,7 @@ This brings us to the next simplification, where we also toss out the covariance
 
 But what if we want to keep some of the covariances? Let's first think about why this could be helpful. Have a look at the two-dimensional Gaussian below. By changing the diagonal values of the $2\times2$ covariance matrix, we can change the spread, or variance, in $x$ and $y$ direction. But what if the network posterior we are trying to model places probability mass somewhere between those axes? For that, we need to _rotate_ the distribution by changing the _covariance_, which you can try out by using the third slider.
 
-<div data-include="/figures/gaussian_covariance.html"></div>
+<div data-include="https://assets.hummat.com/figures/gaussian_covariance.html"></div>
 
 Now, as I mentioned before, we cannot simply keep the covariances, as the resulting matrices, even using the block-wise approximation, would still be too unwieldy. What we can do though, is an additional decomposition of each curvature block into two smaller matrices called the _Kronecker factors_ using the _Kronecker product_. The mathematical definition is
 
@@ -118,7 +118,7 @@ $$
 
 but it's easier to think about it visually. For example, if $A$ is a $2\times2$ matrix, we can color $a_{11}$ to $a_{22}$ with a different color and then, each of the colored squares is multiplied with every of the four gray squares representing $B$ and placed in the corresponding corner of the resulting matrix.
 
-<div data-include="/figures/kronecker_product.html"></div>
+<div data-include="https://assets.hummat.com/figures/kronecker_product.html"></div>
 
 Even for this toy example you can see that we have reduced the $4\times4$ matrix with $16$ elements to two $2\times2$ matrices with $4+4=8$ elements. Once we use the curvature matrices as covariance matrices, we will have to invert them though, but very conveniently, the inverse of the Kronecker product is the same as the Kronecker product of the inverse factors: $(A\otimes B)^{-1}=A^{-1}\otimes B^{-1}$![^9]
 
@@ -153,7 +153,7 @@ However, the former will neglect the influence of any other form of regularizati
 
 Again, an intuitive understanding of the influence of those parameters on the shape of the posterior can be gained through an interactive visualization:
 
-<div data-include="/figures/gauss_hyper.html"></div>
+<div data-include="https://assets.hummat.com/figures/gauss_hyper.html"></div>
 
 At fist glance, both parameters seem to do a very similar thing. But while both do indeed decrease the variance, $N$ additionally decreases the _covariance_ by the same amount, so the shape of the Gaussian gets preserved. On the other hand, increasing $\tau$ reduces the influence of the covariance, so the Gaussian becomes more circular and less elliptic.
 
@@ -176,7 +176,7 @@ $$
 The weight samples $W_t$ can be drawn efficiently from our posterior s.t. $W_t\sim\mathcal{N}(W^\star,\hat{F}^{-1})$. We then load them into our network, perform a standard forward pass on the new input to obtain the output and repeat this a couple of times. By averaging the output over all evaluations, we obtain the final result. In the limit, approaching an infinite number of weight samples, we reclaim the solution of the integral, but in practice, around $30$ such samples already lead to significantly improved results as we will see in the next section.
 
 <div style="text-align:center">
-  <img src="/images/bayesian_inference.jpg">
+  <img src="https://assets.hummat.com/images/bayesian_inference.jpg">
   <figcaption>Approximate Bayesian inference through sampling. [<a href="https://arxiv.org/abs/1812.01719v5">source</a>].</figcaption>
 </div>
 
@@ -202,7 +202,7 @@ If it is greater than zero, the network is _overconfident_ while a value smaller
 
 Instead, we can partition the predictions into bins, as is done in histograms, based on their assigned confidence. Then, we compute an average calibration error for each bin and weigh it by the number of examples in it. Averaging these weighted (absolute) errors results in the so called _expected calibration error_ all of which you see visualized below.
 
-<div data-include="/figures/curvature/densenet121_imagenet_sgd_reliability.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/densenet121_imagenet_sgd_reliability.html"></div>
 
 <br>On the horizontal axis, you see the confidence, partitioned into 10 equally spaced bins. The blue bars represent the average accuracy in each bin while the average calibration error is shown on top as red bars, signifying the calibration gap to perfect calibration. If you hover over each bin, you see the average accuracy and average calibration error. You can also disable parts of the plots by clicking on the legend items. For example, if you disable the accuracy bars, the average calibration error becomes more visible, with values below zero showing underconfidence and those above zero denoting overconfidence as explained above. A perfectly calibrated network would follow the black dashed line.[^10]
 
@@ -212,7 +212,7 @@ Instead, we can partition the predictions into bins, as is done in histograms, b
 
 This type of visualization is useful to study a single network in detail, but comparing multiple networks or calibration techniques is difficult. To do so, we can replace the accuracy on the vertical axis by the average calibration error and plot it for each confidence interval. The networks calibration can then easily be identified as underconfident for values  below the horizontal line at zero and overconfident for those above.
 
-<div data-include="/figures/curvature/densenets_sgd_imagenet_calibration.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/densenets_sgd_imagenet_calibration.html"></div>
 
 <br>Here, we are comparing some networks from the _DenseNet_ family with increasing depth[^11]. The horizontal axis is shown in _logit_ scale which provides more space for the critical high-confidence regime. You can enable the _error range_ to see the minimum and maximum calibration error to expect from the shown networks.
 
@@ -220,17 +220,17 @@ This type of visualization is useful to study a single network in detail, but co
 
 Now let’s see what happens if we use the same networks but employ our Bayesian approach from the previous section.
 
-<div data-include="/figures/curvature/densenets_kfac_imagenet_calibration.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/densenets_kfac_imagenet_calibration.html"></div>
 
 <br>This looks a lot better! Especially the overconfident behavior could be reduced significantly from a worst case average calibration error of more than $11\\%$ to around $3.5\\%$, which you can also see in the much narrower error range. This could be used to give a confidence interval of, say, $\pm4\\%$ when making predictions and taken into account when deciding whether human intervention is necessary. Overconfidence is especially critical to fix, as it can result in dangerous behavior when exhibited by autonomous systems like robots and cars. The underconfident behavior could also be slightly reduced, though.
 
 The final comparison we can make is between the different curvature estimators. Remember that we introduced the simple diagonal estimator (DIAG) that ignored all covariances and a second one that used Kronecker factored approximate curvature (KFAC) where covariances within each layer were retained. SGD, referring to _stochastic gradient descent_, is the standard neural network.
 
-<div data-include="/figures/curvature/densenet161_imagenet_calibration.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/densenet161_imagenet_calibration.html"></div>
 
 <br>In this example we can see, that KFAC slightly outperforms DIAG, though this is not always the case and the reason for this is still an open research question. Intuitively one would expect, that a better posterior approximation should also always yield more accurate Bayesian inference which in turn should result in increased performance across different tasks. Here are some more uncalibrated network architectures compared, just for fun.
 
-<div data-include="/figures/curvature/all_sgd_imagenet_calibration.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/all_sgd_imagenet_calibration.html"></div>
 
 ### 2.2 Knowing when you don’t know
 
@@ -259,11 +259,11 @@ The entropy of a probability distribution (and keep in mind that a neural networ
 
 When flipping a fair coin, the expectation to see `heads` is identical to that of `tails`, which is why a fair coin gets assigned maximum entropy. But if the coin is biased, having e.g. a much higher probability to show `heads` than `tails`, a knowing observer would be surprised to see it land `tails` when flipping it. Consequently, the entropy of a biased coin is lower than that of a fair one.
 
-<div data-include="/figures/curvature/resnet50_sgd_imagenet_hist.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnet50_sgd_imagenet_hist.html"></div>
 
 <br>As can be seen, a standard network is not able to separate the known and unknown data. While the average and maximum entropy for the unknown data is higher, there is a large overlapping area where separation is impossible. Again, let's see how our Bayesian neural network performs.
 
-<div data-include="/figures/curvature/resnet50_kfac_imagenet_hist.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnet50_kfac_imagenet_hist.html"></div>
 
 <br>And again, the Bayesian approach saves the day, achieving almost perfect separation of known and unknown examples. What that means is, that we could now use a threshold slightly above $4$ to raise the alarm for any prediction producing a higher value.
 
@@ -276,7 +276,7 @@ This sounds scary, but let's break it down.  First, we need to understand the _c
 The _empirical_ version of the CDF simply provides the empirical frequency instead of the probability of an event happening. Finally, the _inverse_ allows us to ask the for the probability (or frequency) that our probability distribution takes on a value _greater_ instead of less or equal the value on the horizontal axis. Let's have a look at it now.
 <br>
 
-<div data-include="/figures/curvature/resnet50_imagenet_ecdf.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnet50_imagenet_ecdf.html"></div>
 
 <br>
 What you see is the same data as in the histogram shown before. Focusing on the solid lines, we see that the Bayesian approach (DIAG) exhibits high uncertainty for all of the unknown examples (i.e. an inverse ECDF value of $1$ for entropy values of at least around $4.7$)  while the standard network (SGD) only classifies around $6\\%$ of the unknown data with such a high uncertainty.
@@ -286,13 +286,13 @@ This new visualization allows us additionally to look at the uncertainty on the 
 Similar to the calibration experiments, we can also directly compare different networks. Let's first have a look at the non-Bayesian variants.
 <br>
 
-<div data-include="/figures/curvature/resnets_sgd_imagenet_ecdf.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnets_sgd_imagenet_ecdf.html"></div>
 
 <br>
 Interestingly, deeper networks seem to exhibit greater overconfidence in the _ResNet_ family, hindering them to properly separate the known from the unknown data, a trend we see continued after having applied our Bayesian transformation. However, regardless of depth, all networks substantially benefit from the Bayesian treatment.
 <br>
 
-<div data-include="/figures/curvature/resnets_kfac_imagenet_ecdf.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnets_kfac_imagenet_ecdf.html"></div>
 
 ## Under attack
 
@@ -306,7 +306,7 @@ For each color channel of each pixel we thus obtain a value which, multiplied by
 
 In essence, we create a form of _out-of-domain_ data, as in the previous section, but we can control its _"differentness"_ by adjusting the step size. The question is then, how quickly we can detect such an attack, by looking at the increase of network uncertainty.
 
-<div data-include="/figures/curvature/resnet18_imagenet_fgsm.html"></div>
+<div data-include="https://assets.hummat.com/figures/curvature/resnet18_imagenet_fgsm.html"></div>
 
 <br>
 While both the standard network as well as the Bayesian variants show an increased uncertainty with increasing change, the Bayesian networks rise faster and to a higher level, resulting in higher sensitivity to malicious tempering of the inputs. This could be exploited by comparing the predictive entropy of a new input to the average uncertainty of the network on previous inputs to determine the likelihood of an attack.

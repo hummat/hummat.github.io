@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-banner: /images/banner/earth1.jpeg
+banner: https://assets.hummat.com/images/banner/earth1.jpeg
 ---
 
 # Howdy, dear reader!

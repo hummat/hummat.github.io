@@ -4,7 +4,7 @@ title: Attention
 abstract: Yet another article on attention? Yes, but this one is annotated, illustrated and animated focusing on attention itself instead of the architecture making it famous. After all, attention is all you need, not Transformers.
 tags: [attention, context]
 category: learning
-image: /images/attention/query_key_value.png
+image: https://assets.hummat.com/images/attention/query_key_value.png
 mathjax: true
 jquery: true
 time: 13
@@ -20,7 +20,7 @@ You might be wondering if this article can possibly contain anything new for you
 
 Our detailed explanation of the attention mechanism begins with some math which will subsequently be visualized to build an intuitive understanding. A quick word on notation: The attention equation makes use of scalars, vectors and matrices. We will use lowercase letters $x$, bold lowercase letters $\boldsymbol{x}$ and uppercase letters $W$ for these entities respectively. A great way to visualize scalars, vectors and matrices is to represent them by colored squares, where the number of squares represents the dimensionality and the shade of the color in each square represents the magnitude of the value at this position from small, bright values to large, dark values as shown below.
 
-<img class="img-animate" src="/images/attention/notation.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/notation.png">
 
 Most illustrations in this article are animated. Simply hover over them with your mouse (or tap on them) to activate the animation.
 
@@ -40,7 +40,7 @@ So what's happening here? In a nutshell: The output of the attention operation $
 
 What are those weights $w\_{ij}$ then and how are they determined? Though we employ attention in the deep learning domain, in it's most basic form, it actually doesn't contain any learnable parameters. Instead, the weights are computed from the inputs using the dot product as similarity measure: $w\_{ij}=\boldsymbol{x}\_i^T\boldsymbol{x}\_j$. To understand how this works and why it makes sense, let's take a look at the visualization below (reminder: hover over or tap on the image to activate the animation).
 
-<img class="img-animate" src="/images/attention/dot_product.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/dot_product.png">
 
 The two vectors $\boldsymbol{u}$ and $\boldsymbol{m}$ represent the movie preferences of a user and the movie content respectively with three features each. Now, taking the dot product, we get a score representing the match between user and movie. Note that this takes into account both the magnitude of the values, as multiplying large values results in a large increase of the score, as well as the sign. Imagine a scale between $-1$ and $1$ where the former represent strong dislike (or weak occurance in case of the movie vector) and the latter a strong inclination (or strong occurance). Now, given a user who dislikes action and a movie with little action, the score will still be high as both negative signs cancel out, which is exactly what we want.
 To make those weights more interpretable and prevent the output from becoming excessively large, we can squish all weights $\boldsymbol{w}\_j=\{w\_{ij}\}\_{i=1}^N$ to fall between $0$ and $1$ using the _softmax_ function which is reminiscent of its application on the logits in classification tasks. We can think of the resulting normalized weight vector as a categorical probability distribution over the inputs where high probability is assigned to inputs with strong similarity[^2] and attention itself as expected value of the inputs.
@@ -52,7 +52,7 @@ Once all weights are computed, we multiply them with their corresponding inputs 
 [^2]: Keep in mind though, that this is not a real probability distribution where the probability values correspond to empirical frequencies but rather a miscalibrated approximation.
 [^3]: This is omitted in the basic attention equation but we will include it in the upcoming matrix notation.
 
-<img class="img-animate" src="/images/attention/attention.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/attention.png">
 
 As in the dot product example, think of the transposed vectors (the horizontal ones) as individual users and the vertical ones as movies. The outputs would then represent something akin to an ideal movie, one for each user, stitched together from the three individual movies on offer.
 
@@ -102,7 +102,7 @@ $$
 
 Returning to our running example, the query takes on the role of the user, asking the question: _"Which movies match my taste?"_ while the key encodes the movies content and the value represents the movie itself. Using this updated definition, the computation performed by the attention operation can be visualized as follows.
 
-<img class="img-animate" src="/images/attention/query_key_value.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/query_key_value.png">
 
 We can add these changes to our basic attention implementation with a few lines of code:
 
@@ -149,7 +149,7 @@ y_3 = np.sum([w * v for w, v in zip(w_3j, v_i)], axis=0)
 
 The terms _key_ and _value_ might remind you of dictionaries used across programming languages, where values can be stored and retrieved efficiently using a hash of the key. Indeed, such dictionaries are nothing but the digital successor of file cabinets where files (values) are stored in folders with labels (keys). Given the task to retrieve a specific file (query) you would find it by comparing the search term to all labels. Using this analogy, we can understand attention as a _soft dictionary_, returning every value to the extend that its key matches the query.
 
-<img class="img-animate" src="/images/attention/dict.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/dict.png">
 
 ### Parallelization using matrices
 
@@ -157,13 +157,13 @@ From the illustrations you might get the impression that attention is computed s
 
 [^5]: Remember, we are dealing with sets of elements, in this case pixels, which are feature vectors, in this case the RGB color values.
 
-<img class="img-animate" src="/images/attention/parallel.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/parallel.png">
 
 The obtained query, key and value _matrices_ $Q$, $K$ and $V$ then simply replace the individual values in the attention equation. Note how this conveniently eliminates the need for summation, an inherent feature of matrix multiplication, and that the softmax function can be applied immediately as all weights are computed simultaneously[^6].
 
 [^6]: Note that $QK^T$ computes a matrix of weights where each _row_ holds the weights for the weighted sum of each output so the softmax function needs to be applied _row-wise_.
 
-<img class="img-animate" src="/images/attention/matrix_attention.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/matrix_attention.png">
 
 ```python
 import numpy as np
@@ -202,7 +202,7 @@ Dividing the values inside the softmax function by a scalar is known as _temperi
 
 To understand the need for multiple heads when employing attention, let's consider the following example.
 
-<img class="img-animate" src="/images/attention/mary_susan.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/mary_susan.png">
 
 Focusing on the word _gave_, our single-headed approach will place equal attention on _Susan_ and _Mary_, as per the _distributional hypothesis_ (see below), $\boldsymbol{x}\_{susan}\approx\boldsymbol{x}\_{mary}$ which implies $\boldsymbol{q}\_{susan}\approx\boldsymbol{q}\_{mary}$ bringing us to $w\_{susan,mary}\approx w\_{mary,susan}$.
 
@@ -213,20 +213,20 @@ In other words, we can't discern the giver from the receiver. Another way to loo
 A more challenging problem is depicted below in the form of an ambiguous sentence which we have already encountered in the [introductory article](/learning/2021/05/27/on-context.html):
 
 <p align="center">
-  <img src="/images/attention/one_head.png">
+  <img src="https://assets.hummat.com/images/attention/one_head.png">
 </p>
 
 Attention weights between _it_ and all other words in the sentence are shown where darker shades correspond to greater magnitude. The meaning of _it_ is ambiguous, as it can correspond to _animal_ or _road_. Input $\boldsymbol{x}\_{it}$ only has access to a single attention weight vector $\boldsymbol{w}\_{it,k}$ though, where $k$ corresponds to all other words in the sentence (or more precisly, all of their _keys_). Thus we can only pay attention to either _animal_ or _road_ but not both. Technically we could place equal weights on both, but that doesn't help in parsing the meaning of _it_ either. The intuitive solution is to have two attention weight vectors, encoding two different meanings of our ambiguous word. This is precisely what multi-head attention achieves.
 
 <p align="center">
-  <img src="/images/attention/two_heads.png">
+  <img src="https://assets.hummat.com/images/attention/two_heads.png">
 </p>
 
 Multi-head attention is exactly like normal attention, just multiple times. Instead of a single $W^Q$, $W^K$ and $W^V$ matrix we now have $h$ of each. As this would increase the computational complexity by a factor of $h$, we divide the dimensionality of the weight matrices by this factor. Our matrices $W^Q\in\mathbb{R}^{d\times d\_k}$, $W^K\in\mathbb{R}^{d\times d\_k}$ and $W^V\in\mathbb{R}^{d\times d\_v}$ become $h$ matrices $W\_i^Q\in\mathbb{R}^{d\times d\_k/h}$, $W\_i^K\in\mathbb{R}^{d\times d\_k/h}$ and $W\_i^V\in\mathbb{R}^{d\times d\_v/h}$ with inputs $\boldsymbol{x}\in\mathbb{R}^d$, queries and keys $\boldsymbol{q,k}\in\mathbb{R}^{d\_k}$ and values $\boldsymbol{v}\in\mathbb{R}^{d\_v}$. In practise, $d\_k=d\_v=d/h$ so let's ditch $d\_v$ for simplicity.
 
 There remain two things we need to take care of. First, we don't want to apply attention sequentially $h$ times, so we stack the $h$ weight matrices for queries, keys and values respectively and then multiply them with the inputs which results in one query, key and value vector of dimension $hd\_k$ instead of $h$ each of dimension $d\_k$. Second, we want the output to have the same dimensionality as the input, so we introduce a final _output_ weight matrix $W^O\in\mathbb{R}^{hd\_k\times d}$ which transforms our intermediate outputs $\boldsymbol{z}\in\mathbb{R}^{hd\_k}$ into the final output $\boldsymbol{y}\in\mathbb{R}^{d\_k}=\boldsymbol{z}^TW^O$. That's quite a number of vectors, matrices and dimensions to juggle around in you head so hopefully the following visualization helps to clarify the concept.
 
-<img class="img-animate" src="/images/attention/multi_head_attention.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/multi_head_attention.png">
 
 In the illustration above we have two input vectors, $\boldsymbol{x}\_1$ and $\boldsymbol{x}\_2$, both of size $\mathbb{R}^{4\times1}$ stacked into an input matrix (row-wise) of size $X\in\mathbb{R}^{2\times4}$. We transform the inputs using two attention heads ($h=2$) with parameter matrices $W\_i^Q$, $W\_i^K$ and $W\_i^V$ with $i\in[1,2]$ all of size $\mathbb{R}^{4\times3}$. Through stacking of the query, key and value matrices (column-wise) from both heads we obtain three matrices of size $\mathbb{R}^{4\times6}$. We can now multiply the input matrix with the query, key and value matrices of both heads simultaneously and compute an intermediate output matrix $Z\in\mathbb{R}^{2\times6}$ using the dot product between our two-head query and key matrix and multiplying the result with our two-head value matrix. Finally, to transform the intermediate output $Z$ into the final output $Y\in\mathbb{R}^{2\times3}$, we apply the output weight matrix $W^O\in\mathbb{R}^{6\times3}$.
 
@@ -236,7 +236,7 @@ To wrap things up, let's try to put attention into a broader context. In particu
 
 In the case of convolutional layers multi-head attention can be interpreted as a generalization of discrete convolution. Given a convolutional kernel $W\in\mathbb{R}^{k\times k}$ placed on the $i^{th}$ input element we now use $h=k^2$ heads and attention weights $w_{ij}=1$ if $j=i\pm (k^2-1)/2$. This means we only consider keys which are within kernel size distance to the query where the query corresponds to the center of the kernel. With $W^V=I$ the output matrix $W^O$ then corresponds to the convolutional kernel. As the explanation is a little convoluted itself have a look at the visualization below for some intuition.
 
-<img class="img-animate" src="/images/attention/conv.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/conv.png">
 
 ## Credits
 

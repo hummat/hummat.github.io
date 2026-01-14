@@ -2,7 +2,7 @@
 layout: post
 title: A sense of uncertainty
 abstract: See what happens when probability theory and deep learning have a little chat. Part 2/3 of my informal mini-series on probabilistic machine learning ("Looking for Lucy" being the first).
-image: /images/loss3d_static.png
+image: https://assets.hummat.com/images/loss3d_static.png
 category: learning
 tags: [probability, Bayesian inference, deep learning]
 jquery: true
@@ -64,7 +64,7 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
 [^1]: Or _epistemic uncertainty_.
 
 <div style="text-align:center">
-  <img src="/images/deterministic_nn.png">
+  <img src="https://assets.hummat.com/images/deterministic_nn.png">
   <figcaption>A standard neural network with specific weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
 
@@ -74,7 +74,7 @@ This is equivalent to an old person having figured out the answers to all the im
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
 
 <div style="text-align:center">
-  <img src="/images/bayesian_nn.png">
+  <img src="https://assets.hummat.com/images/bayesian_nn.png">
   <figcaption>A Bayesian neural network with distributions over weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
 
@@ -87,15 +87,15 @@ Below are some examples of data with low data uncertainty---the images are of go
 
 <div class="slideshow-container">
   <div class="mySlides fade">
-    <img src="/images/jaguar_leopard.jpg" style="width:100%">
+    <img src="https://assets.hummat.com/images/jaguar_leopard.jpg" style="width:100%">
   </div>
 
   <div class="mySlides fade">
-    <img src="/images/turtle_turtois.png" style="width:100%">
+    <img src="https://assets.hummat.com/images/turtle_turtois.png" style="width:100%">
   </div>
 
   <div class="mySlides fade">
-    <img src="/images/hare_rabbit.jpg" style="width:100%">
+    <img src="https://assets.hummat.com/images/hare_rabbit.jpg" style="width:100%">
   </div>
 </div>
 
@@ -129,11 +129,11 @@ If you hover over the first image below, the position and RGB color values of th
 
 [^4]: The colors are not identical to the original image on the left, because the blending of colors is done through transparency instead of actual mixture of the color channels.
 
-<div data-include="/figures/image.html"></div>
+<div data-include="https://assets.hummat.com/figures/image.html"></div>
 
 Finally, the prediction made by the network is also just another number. We simply give each class a unique ID, e.g. `cat` becomes $0$ and `dog` becomes $1$. That way, everything is numeric again, and the computer is happy. Below are some additional ways of looking at the image introduced above. Just have a look around and continue once you are satisfied (or get bored).
 
-<div data-include="/figures/image_numbers.html"></div>
+<div data-include="https://assets.hummat.com/figures/image_numbers.html"></div>
 
 ### Becoming Bayesian
 
@@ -145,17 +145,17 @@ Below is a _loss landscape_ obtained by exploring a small area around the minimu
 
 <br>
 
-<div data-include="/figures/loss/googlenet_cifar10_loss_3d.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/googlenet_cifar10_loss_3d.html"></div>
 
 <br><br>
 
-<div data-include="/figures/loss/googlenet_cifar10_loss_acc_2d.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/googlenet_cifar10_loss_acc_2d.html"></div>
 
 <br>
 
 What you might not know, if you haven't been exposed to probabilistic machine learning, is, that gradient descent optimization is equivalent to _maximum likelihood estimation_ in statistical inference. Imagine you want to [find a friend on a large ship](/learning/2020/06/23/looking-for-lucy.html). You don't know where she is but you think some locations, like the restaurant or the sun deck, are more likely than others, like the rear or the engine room. To quantify your uncertainty, you can use the tools of probability theory and model your world view as a probability distribution. If locations you deem likely are in the middle of the ship and less likely once are at the front and rear, you could, for example, use a normal distribution (aka _Gaussian distribution_ or simply _Gaussian_ in the machine learning community) centered at the middle of the ship to reflect this. What we just did is called _modeling_ of a parameter, the location of your friend, and the probability you assigned to each possible location is called _prior probability_ (or just _prior_), because it is your belief about the world before having observed any evidence (or information, or data) was observed.
 
-<div data-include="/figures/ship_1dgauss.html"></div>
+<div data-include="https://assets.hummat.com/figures/ship_1dgauss.html"></div>
 
 Now imagine someone told you she was seen at the rear of the ship. This is a new piece of information which you should incorporate into your belief in order to maximize your likelihood of finding your friend efficiently. As the explanation already gave away, the probability to obtain this new information _given_ your current belief about the parameter(s) you are trying to estimate is correct, is called _likelihood_.
 
@@ -181,7 +181,7 @@ To obtain the likelihood given the loss, we can simply solve the equation $E(W)=
 
 For now, simply have a look at (and play with) the figures and try to understand the relationship between loss and likelihood. For example, regions of low loss indicate parameters (network weights) of high likelihood and flat regions of the loss translate to high uncertainty about the correct parameter values, as many different configurations are equally likely to have generated the data.
 
-<div data-include="/figures/loss/googlenet_cifar10_loss_vs_gauss.html"></div>
+<div data-include="https://assets.hummat.com/figures/loss/googlenet_cifar10_loss_vs_gauss.html"></div>
 
 We have discussed the loss-likelihood relation so let's turn to the prior. As the prior encompasses all assumptions about the parameters we want to estimate, almost everything that is known as _regularizers_ in standard machine learning lingo can be cast into this framework. Those are basic things like the choice and design of our model, i.e. using a neural network and giving it a specific number of layers and other architectural decision but also, more explicitly, regularization of possible values we allow the weights to take on, the most common being _weight decay_, aka $L_2$-regularization, where larger values are penalized. Especially this last example, again, has a specific probabilistic interpretation, becoming a Gaussian prior in the probabilistic context.
 

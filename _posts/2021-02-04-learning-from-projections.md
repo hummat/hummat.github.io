@@ -4,7 +4,7 @@ title: Learning from Projections
 abstract: The final post in this four-part series on learning from 3D data. How do we learn from 3D data in this approach? We don't. Instead, we project it into the more familiar 2D space and then proceed with business as usual. Neither exciting nor elegant but embarrassingly simple, effective and efficient.
 tags: [projection, deep learning, 3D, multi-view]
 category: learning
-image: /images/dragon_projection.png
+image: https://assets.hummat.com/images/dragon_projection.png
 jquery: true
 plotly: true
 mathjax: true
@@ -20,7 +20,7 @@ As always, the first question is, _why should we want to do this?_. Before we ca
 
 Coincidentally, this last example, photography, is the basis for many projection based learning algorithms in this article. To understand why, simply think about the history of computer vision. For the longest time, this field was confined to two dimensions, as the only commodity sensor capturing visual information was the camera. Only in recent years have 3D scanning devices become more affordable and commonplace due to applications in augmented reality (gaming consoles) and autonomous driving. Besides, there is another reason why it feels natural to use two dimensional data, because its what humans to by default. Yes, we have two eyes, so there is some stereo and thus 3D processing going on, but even if you close one eye, you can still understand your surrounding perfectly well, even though you only work with 2D projections of 3D objects onto your retina.
 
-<div data-include="/figures/dragon_3d_2d.html"></div>
+<div data-include="https://assets.hummat.com/figures/dragon_3d_2d.html"></div>
 <div style="text-align: center;">
 <figure style="width: 45%; display: inline-block;">
     <figcaption>A <b>3D object</b>, converted into a point cloud using a laser scanner.</figcaption>
@@ -34,7 +34,7 @@ As a result, there is a huge body of research on how to extract the most informa
 
 So how does this actually work? Below you see the same dragon statue introduced above (taken from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/)), both as an actual object in 3D space as well as its 2D projection as seen from the position of the black dot (marked "eye").
 
-<div data-include="/figures/projection.html"></div>
+<div data-include="https://assets.hummat.com/figures/projection.html"></div>
 
 Conceptually, this projection is easy to understand: From every point of the object we want to capture, draw a straight line (green) to the position of the observer. Add it to the image plane (black square), where the plane and the line intersect. This procedure is described mathematically through the _pinhole camera model_, which I won't cover here, but which is implemented in the code for this article to create the figure above, so please [take a look](https://github.com/hummat/hummat.github.io/tree/master/notebooks/learning-from-projections.ipynb) if you are interested.
 
@@ -52,7 +52,7 @@ In the seminal _Multi-view Convolutional Neural Networks for 3D Shape Recognitio
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/multi-view.png">
+  <img src="https://assets.hummat.com/images/multi-view.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Multiple views</b> [<a href="https://arxiv.org/abs/1505.00880">source</a>]</figcaption>
 </figure>
 </div>
@@ -61,7 +61,7 @@ As in standard 2D object classification, they then used a convolutional neural n
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="/images/mvcnn.png">
+  <img src="https://assets.hummat.com/images/mvcnn.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>The model</b> [<a href="https://arxiv.org/abs/1505.00880">source</a>]</figcaption>
 </figure>
 </div>
@@ -72,7 +72,7 @@ A similar idea was used in _Multi-View 3D Object Detection Network for Autonomou
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="/images/mv3d.png">
+  <img src="https://assets.hummat.com/images/mv3d.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>3D object detection</b> [<a href="https://arxiv.org/abs/1611.07759">source</a>]</figcaption>
 </figure>
 </div>
@@ -84,7 +84,7 @@ While not an officially recognised category, projecting 3D objects onto geometri
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="/images/deeppano.png">
+  <img src="https://assets.hummat.com/images/deeppano.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Cylindrical projection</b> [<a href="https://ieeexplore.ieee.org/document/7273863">source</a>]</figcaption>
 </figure>
 </div>
@@ -93,7 +93,7 @@ Now, you might wonder, if one can use object panoramas, why not use 360° views?
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="/images/spherical_cnn.png">
+  <img src="https://assets.hummat.com/images/spherical_cnn.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Spherical projection</b> [<a href="https://ieeexplore.ieee.org/document/8374611">source</a>]</figcaption>
 </figure>
 </div>
@@ -102,7 +102,7 @@ Finally, in a similar approach as the previous one, the authors of _Deep Learnin
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="/images/geometry_image.png">
+  <img src="https://assets.hummat.com/images/geometry_image.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>From object to sphere to plane</b> [<a href="https://engineering.purdue.edu/cdesign/wp/wp-content/uploads/2016/12/Deep-Learning-3D-shape-Surfaces-Using-Geometry-Images.pdf">source</a>]</figcaption>
 </figure>
 </div>

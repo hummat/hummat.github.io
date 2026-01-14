@@ -4,7 +4,7 @@ title: Learning from Graphs
 abstract: The third way to represent data in 3D. We will learn what a graph is and how it is different from point clouds and voxel grids. Then we will put some butter on the fish (German for "put our money where our mouth is") and look at some implementations of deep learning architectures for graph structured data and their results.
 tags: [graph, mesh, deep learning, 3D, DGCNN, MeshNet, MeshCNN]
 category: learning
-image: /images/mesh.png
+image: https://assets.hummat.com/images/mesh.png
 jquery: true
 plotly: true
 mathjax: True
@@ -24,7 +24,7 @@ Voxel grids try to alleviate some of these problems by putting points into boxes
 What do graphs bring to the table then? The best of both worlds would be an exaggeration, but there certainly is some of both. But what _is_ a graph anyway?
 
 <br>
-<div data-include="/figures/graph.html"></div>
+<div data-include="https://assets.hummat.com/figures/graph.html"></div>
 <br>
 
 Above, you see a part of a graph. The two basic building blocks are _vertices_[^1], the dots, and _edges_, the lines. As you can see, edges connect vertices, but not every vertex is connected to all others. This fact translates into _structure_, which is the first property graphs share with voxel grids, as each vertex has a pre-defined set of local neighbors. Compared to point clouds, such structure can help to separate semantically different parts of an object, like the left an right leg, even though they might be very close by in the observed Euclidean space.
@@ -55,7 +55,7 @@ To take advantage of the structure inherent in meshes, the creators of MeshNet d
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="/images/meshnet_features.png">
+  <img src="https://assets.hummat.com/images/meshnet_features.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>MeshNet features</b> [<a href="https://arxiv.org/abs/1811.11424">source</a>]</figcaption>
 </figure>
 </div>
@@ -69,7 +69,7 @@ Similar to the previous architecture, this one is also specifically designed to 
 
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
-  <img src="/images/meshcnn.png">
+  <img src="https://assets.hummat.com/images/meshcnn.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>MeshCNN features (a) and pooling (b, c)</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 </div>
@@ -78,14 +78,14 @@ The convolution is defined similarly to MeshNet over the participating edges. To
 
 <div style="text-align: center">
 <figure style="width: 20%; display: inline-block;">
-  <img src="/images/meshcnn_conv.png">
+  <img src="https://assets.hummat.com/images/meshcnn_conv.png">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Convolution</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 <figure style="width: 15%; display: inline-block;">
   <figcaption style="text-align: left;  line-height: 1.2em;"></figcaption>
 </figure>
 <figure style="width: 25%; display: inline-block">
-<img src="/images/meshcnn_features.png">
+<img src="https://assets.hummat.com/images/meshcnn_features.png">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Edge Features</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 </div>
@@ -99,7 +99,7 @@ In contrast to other works, including those featured above, DGCNN creates its ow
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="/images/dgcnn_features.png">
+  <img src="https://assets.hummat.com/images/dgcnn_features.png">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>DGCNN EdgeConv</b> [<a href="https://arxiv.org/abs/1801.07829">source</a>]</figcaption>
 </figure>
 </div>
