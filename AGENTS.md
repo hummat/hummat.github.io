@@ -52,6 +52,10 @@ This file provides guidance to Claude Code (claude.ai/code) and other agents whe
 - Site check: `npm run test:site` → `bundle exec jekyll build && bundle exec htmlproofer ./_site --check-html --check-opengraph --assume-extension`.
 - Ignore generated output: `_site/`, `figures/`, `images/`, `data/`, and large binaries are excluded from formatters/linters via ignore files.
 
+## Large File Storage
+
+Assets are stored in Cloudflare R2. See [ASSETS.md](ASSETS.md) for details on uploading and referencing files.
+
 ## Agent-Specific Notes
 
 - Treat `_config.yml` as the single source of truth for site metadata, plugins, analytics, Disqus, and redirects includes.

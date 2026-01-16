@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+#
+# Pre-commit hook: uploads assets from _assets/ to Cloudflare R2
+#
+# Workflow:
+#   1. Place files in _assets/images/, _assets/figures/, _assets/data/
+#   2. Run git commit - this hook uploads them to R2
+#   3. Files are moved to _assets/.uploaded/ after successful upload
+#
+# Setup: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+ASSETS_DIR="_assets"
+UPLOADED_DIR="_assets/.uploaded"
+R2_BUCKET="r2:hummat-assets"
+PUBLIC_URL="https://assets.hummat.com"
+
+# Check if _assets directory exists and has files
+if [[ ! -d "$ASSETS_DIR" ]]; then
+  exit 0
+fi
+
+# Find files to upload (excluding .uploaded and hidden files)
+files=$(find "$ASSETS_DIR" -type f ! -path "$UPLOADED_DIR/*" ! -name ".*" 2>/dev/null || true)
+
+if [[ -z "$files" ]]; then
+  exit 0
+fi
+
+# Check rclone is available
+if ! command -v rclone &> /dev/null; then
+  echo "Error: rclone not found. Install it to upload assets."
+  exit 1
+fi
+
+echo "Uploading assets to R2..."
+
+# Create uploaded directory
+mkdir -p "$UPLOADED_DIR"
+
+# Upload each file
+for file in $files; do
+  # Get relative path within _assets (e.g., images/photo.jpg)
+  rel_path="${file#$ASSETS_DIR/}"
+  dest_dir=$(dirname "$rel_path")
+
+  echo "  Uploading: $rel_path"
+
+  if rclone copy "$file" "$R2_BUCKET/$dest_dir/" --quiet; then
+    # Move to .uploaded to avoid re-uploading
+    mkdir -p "$UPLOADED_DIR/$dest_dir"
+    mv "$file" "$UPLOADED_DIR/$rel_path"
+    echo "    -> $PUBLIC_URL/$rel_path"
+  else
+    echo "Error: Failed to upload $file"
+    exit 1
+  fi
+done
+
+# Clean up empty directories in _assets
+find "$ASSETS_DIR" -type d -empty ! -path "$UPLOADED_DIR*" -delete 2>/dev/null || true
+
+echo "Done. Assets uploaded to R2."

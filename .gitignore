@@ -64,3 +64,6 @@ data/
 *.blend2
 *.off
 *.obj
+
+# Asset upload staging (entire folder gitignored - hook uploads to R2)
+_assets/
