@@ -1,8 +1,6 @@
 # Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) and other agents when working with code in this repository.
-
-## Project Structure & Content
+## Project Structure
 
 - Jekyll site at repo root. Main pages: `index.md`, `about.md`, `publications.md`, `404.md`, `CNAME`, `_redirects`.
 - Posts: `_posts/YYYY-MM-DD-kebab-title.md`. Drafts: `_drafts/`.
@@ -10,58 +8,77 @@ This file provides guidance to Claude Code (claude.ai/code) and other agents whe
 - Styling: `_sass/` partials with `style.scss` as entrypoint.
 - Assets & data: `images/`, `figures/` (HTML/Plotly), `data/` (numpy, ply, etc.), `notebooks/` (Jupyter). `_site/` is generated output; do not edit.
 
-## Build, Serve, and Notebooks
+## Build & Serve
 
-- Install Ruby deps: `bundle install`.
-- Local dev: `bundle exec jekyll serve` (add `--drafts` while editing drafts).
-- Build only: `bundle exec jekyll build`.
-- Notebook env: `conda env create -f environment.yml`, then `conda activate blog` and run Jupyter. Use this env when regenerating figures or HTML.
+- Install: `bundle install`
+- Serve: `bundle exec jekyll serve` (add `--drafts` for drafts)
+- Build: `bundle exec jekyll build`
+- Notebooks: `conda activate blog` (from `environment.yml`), then Jupyter
 
-## Content Conventions & Features
+## Front Matter
 
-- Front matter example:
+```yaml
+layout: post
+title: My Title
+abstract: Short summary
+category: learning  # thought, resource, book, repository
+tags: [tag1, tag2]
+time: 8
+words: 1500
+plotly: true   # Plotly CDN
+mathjax: true  # MathJax
+jquery: true   # data-include loader
+slideshow2: true
+```
 
-  ```yaml
-  layout: post
-  title: My Title
-  abstract: Short summary
-  category: learning
-  tags: [tag1, tag2]
-  time: 8
-  words: 1500
-  plotly: true  # load Plotly CDN
-  mathjax: true # load MathJax
-  jquery: true  # enable [data-include] loader
-  slideshow2: true
-  ```
+- `gh-page`: external project pages; `circular: true`: round thumbnails
+- Interactive figures: notebooks write HTML to `figures/`, posts include via `<div data-include="https://assets.hummat.com/figures/….html"></div>`
 
-- Use `gh-page` for external project pages and `circular: true` for round thumbnails.
-- For interactive figures, notebooks should write HTML into `figures/` (or `_includes/figures/`) and posts should pull them in via `<div data-include="https://assets.hummat.com/figures/…html"></div>`.
+## Style & Validation
 
-## Style, Validation, and PRs
-
-- HTML/JS/SCSS: 2‑space indentation; prefer existing classes/partials over new globals.
-- Keep categories/tags aligned with current taxonomy (`learning`, `thought`, `resource`, `repository`, etc.).
-- Validate changes with `bundle exec jekyll build`; for notebook-driven posts, rerun notebooks and regenerate dependent assets.
-- Commit messages: short, present tense (e.g. `Fix broken links`, `Update banner image`).
-- PRs: clearly describe the change, mention build status, and add screenshots for visual updates.
+- HTML/JS/SCSS: 2-space indent; prefer existing classes/partials
+- Categories/tags: use current taxonomy (`learning`, `thought`, `resource`, `book`, `repository`)
+- Validate: `bundle exec jekyll build`; for notebook posts, rerun notebooks first
+- Commits: present tense (`Fix broken links`)
+- PRs: describe change, screenshots for visual updates
 
 ## Tooling
 
-- Node-based linters live in `package.json`: `npm run lint:md` (markdownlint), `npm run lint:scss` (stylelint), `npm run lint:js` (eslint for inline scripts), `npm run format` (prettier).
-- Site check: `npm run test:site` → `bundle exec jekyll build && bundle exec htmlproofer ./_site --check-html --check-opengraph --assume-extension`.
-- Ignore generated output: `_site/`, `figures/`, `images/`, `data/`, and large binaries are excluded from formatters/linters via ignore files.
+- Linters: `npm run lint:md`, `npm run lint:scss`, `npm run lint:js`, `npm run format`
+- Site check: `npm run test:site`
+- Excluded from linters: `_site/`, `figures/`, `images/`, `data/`
 
-## Large File Storage
+## Assets
 
-<assets>
-Assets are stored in Cloudflare R2 and uploaded via a pre-commit hook. The hook only runs on commit, so when the user only has assets to upload (nothing else to commit), use: `git commit --allow-empty -m "Upload new assets"`
+Assets stored in Cloudflare R2, uploaded via pre-commit hook. For asset-only uploads: `git commit --allow-empty -m "Upload new assets"`. See `ASSETS.md`.
 
-See `ASSETS.md` for rclone commands and directory structure.
-</assets>
+## GitHub Issues & Labels
 
-## Agent-Specific Notes
+Templates and labels defined in `.github/`.
 
-- Treat `_config.yml` as the single source of truth for site metadata, plugins, analytics, Disqus, and redirects includes.
-- Do not rewrite `_site/`; instead, change source Markdown, layouts, includes, or notebooks and let Jekyll regenerate.
-- When editing JavaScript helpers (`popup.html`, `slideshow*.html`, `jquery.html`), preserve current behavior (footnote popups, slideshows, data-include loading) to avoid breaking existing posts.
+| Template | Purpose | Auto-label |
+|----------|---------|------------|
+| `post-idea.yml` | New post concepts | `type:idea` |
+| `post-feedback.yml` | Errors/improvements for existing posts | `type:feedback` |
+| `feature-request.yml` | Site functionality requests | `type:feature` |
+
+Labels: `type:*` (primary), `category:*` (post category), `feedback:*` (error/clarity/addition), `area:*` (navigation/design/interactivity/performance), `status:*` (planned/in-progress).
+
+Automation: `.github/workflows/issue-labeler.yml` adds secondary labels from form dropdowns. `.github/scripts/sync-labels.sh` syncs labels via `gh` CLI.
+
+## New Post Workflow
+
+1. Open Post Idea issue with title, category, description
+2. Create branch: `git checkout -b post/<issue-number>-<slug>`
+3. Write draft: `_drafts/<slug>.md`
+4. Preview: `bundle exec jekyll serve --drafts`
+5. Finalize: move to `_posts/YYYY-MM-DD-<slug>.md`
+6. Open PR with `Closes #<issue-number>`
+7. Merge — issue auto-closes
+
+## Agent Notes
+
+- `_config.yml` is single source of truth for site metadata, plugins, analytics, Disqus
+- Don't edit `_site/`; change source files and let Jekyll regenerate
+- Preserve behavior of JS helpers (`popup.html`, `slideshow*.html`, `jquery.html`)
+- To track post ideas or features, create GitHub issue via `gh issue create`

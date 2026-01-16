@@ -1,0 +1,43 @@
+name: Post Feedback
+description: Report an error or suggest an improvement for an existing post
+labels: ["type:feedback"]
+body:
+  - type: input
+    id: post-url
+    attributes:
+      label: Post URL
+      description: Link to the blog post
+      placeholder: https://hummat.com/...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Feedback type
+      description: What kind of feedback is this?
+      options:
+        - error (typo, broken link, factual mistake, bug in code)
+        - clarity (confusing explanation, missing context)
+        - addition (additional example, related topic, follow-up)
+        - other
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue or suggestion
+      placeholder: What did you notice? What could be improved?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested fix (optional)
+      description: If you have a specific fix or improvement in mind
+      placeholder: e.g., "Change X to Y" or "Add a section about Z"
+    validations:
+      required: false

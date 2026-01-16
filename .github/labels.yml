@@ -1,0 +1,72 @@
+# Issue type labels
+- name: "type:idea"
+  color: "0E8A16"
+  description: "New post idea"
+
+- name: "type:feedback"
+  color: "1D76DB"
+  description: "Feedback on existing post"
+
+- name: "type:feature"
+  color: "5319E7"
+  description: "Site feature request"
+
+# Category labels (for post ideas)
+- name: "category:learning"
+  color: "FBCA04"
+  description: "Tutorial or educational content"
+
+- name: "category:thought"
+  color: "F9D0C4"
+  description: "Personal reflection or opinion"
+
+- name: "category:resource"
+  color: "C5DEF5"
+  description: "Curated list or reference guide"
+
+- name: "category:book"
+  color: "D4C5F9"
+  description: "Book summary or review"
+
+- name: "category:repository"
+  color: "BFD4F2"
+  description: "Project showcase"
+
+# Feedback kind labels
+- name: "feedback:error"
+  color: "D93F0B"
+  description: "Typo, broken link, factual mistake"
+
+- name: "feedback:clarity"
+  color: "FFBB00"
+  description: "Confusing explanation, missing context"
+
+- name: "feedback:addition"
+  color: "0075CA"
+  description: "Additional example or related topic"
+
+# Feature area labels
+- name: "area:navigation"
+  color: "006B75"
+  description: "Search, filtering, tag browsing"
+
+- name: "area:design"
+  color: "E99695"
+  description: "Layout, styling, landing page"
+
+- name: "area:interactivity"
+  color: "7057FF"
+  description: "Comments, sharing, engagement"
+
+- name: "area:performance"
+  color: "008672"
+  description: "Speed, SEO, accessibility"
+
+# Status labels (optional)
+- name: "status:planned"
+  color: "C2E0C6"
+  description: "Accepted and planned"
+
+- name: "status:in-progress"
+  color: "FEF2C0"
+  description: "Currently being worked on"
