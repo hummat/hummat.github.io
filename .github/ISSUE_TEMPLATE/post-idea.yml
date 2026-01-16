@@ -1,0 +1,44 @@
+name: Post Idea
+description: Suggest a topic for a new blog post
+labels: ["type:idea"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Working title
+      description: A tentative title for the post
+      placeholder: e.g., "Introduction to Graph Neural Networks"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What type of post would this be?
+      options:
+        - learning (tutorial, educational content)
+        - thought (personal reflection, opinion)
+        - resource (curated list, reference guide)
+        - book (book summary or review)
+        - repository (project showcase)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should this post cover? Any specific angles or aspects?
+      placeholder: Describe the idea...
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References (optional)
+      description: Any papers, articles, or resources that could inform this post?
+      placeholder: Links, paper titles, etc.
+    validations:
+      required: false

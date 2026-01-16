@@ -1,0 +1,35 @@
+name: Feature Request
+description: Suggest a new feature or improvement for the blog site
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What feature or improvement would you like to see?
+      placeholder: Describe the feature...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: What part of the site does this affect?
+      options:
+        - navigation (search, filtering, tag browsing)
+        - design (layout, styling, landing page)
+        - interactivity (comments, sharing, engagement)
+        - performance (speed, SEO, accessibility)
+        - other
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context (optional)
+      description: Why would this be useful? Any examples from other sites?
+      placeholder: Additional context, links to examples, etc.
+    validations:
+      required: false

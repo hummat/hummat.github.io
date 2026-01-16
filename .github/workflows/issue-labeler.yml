@@ -1,0 +1,54 @@
+name: Auto-label issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Add labels based on issue form
+        uses: actions/github-script@v7
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        with:
+          script: |
+            const body = process.env.ISSUE_BODY || '';
+            const labels = [];
+
+            // Post Idea: category
+            const categoryMatch = body.match(/### Category\s+(\w+)/);
+            if (categoryMatch) {
+              const category = categoryMatch[1].toLowerCase();
+              labels.push(`category:${category}`);
+            }
+
+            // Post Feedback: kind
+            const kindMatch = body.match(/### Feedback type\s+(\w+)/);
+            if (kindMatch) {
+              const kind = kindMatch[1].toLowerCase();
+              if (kind !== '_no response_' && kind !== 'other') {
+                labels.push(`feedback:${kind}`);
+              }
+            }
+
+            // Feature Request: area
+            const areaMatch = body.match(/### Area\s+(\w+)/);
+            if (areaMatch) {
+              const area = areaMatch[1].toLowerCase();
+              if (area !== '_no response_' && area !== 'other') {
+                labels.push(`area:${area}`);
+              }
+            }
+
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labels
+              });
+            }
