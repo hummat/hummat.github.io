@@ -54,7 +54,11 @@ This file provides guidance to Claude Code (claude.ai/code) and other agents whe
 
 ## Large File Storage
 
-Assets are stored in Cloudflare R2. See [ASSETS.md](ASSETS.md) for details on uploading and referencing files.
+<assets>
+Assets are stored in Cloudflare R2 and uploaded via a pre-commit hook. The hook only runs on commit, so when the user only has assets to upload (nothing else to commit), use: `git commit --allow-empty -m "Upload new assets"`
+
+See `ASSETS.md` for rclone commands and directory structure.
+</assets>
 
 ## Agent-Specific Notes
 

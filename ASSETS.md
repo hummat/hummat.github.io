@@ -50,7 +50,12 @@ A pre-commit hook automatically uploads assets to R2 when you commit.
    ```
    The hook uploads files from `_assets/` to R2, then moves them to `_assets/.uploaded/` to prevent re-uploading.
 
-4. **Reference in your post** using `https://assets.hummat.com/images/photo.jpg`
+4. **If only assets changed** (nothing else to commit):
+   ```bash
+   git commit --allow-empty -m "Upload new assets"
+   ```
+
+5. **Reference in your post** using `https://assets.hummat.com/images/photo.jpg`
 
 ### Manual (via rclone)
 
