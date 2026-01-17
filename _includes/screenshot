@@ -1,5 +1,5 @@
 <figure>
-  <img class="image" srcset="/images/{{ include.url }} 2w" sizes="1px" src="https://assets.hummat.com/images/{{ include.url }}">
+  <img class="image" src="https://assets.hummat.com/images/{{ include.url }}" alt="{{ include.caption | default: 'Screenshot' }}">
   {% if include.caption %}
   <figcaption class="image-caption">{{ include.caption }}</figcaption>
   {% endif %}

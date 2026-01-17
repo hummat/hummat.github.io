@@ -30,6 +30,18 @@ Skip issue for typos, small fixes, docs-only changes. Branch + PR still recommen
 - `fix/<name>` — bug fixes
 - `docs/<name>` — documentation only
 
+## Pull Requests
+
+**IMPORTANT:** Always open PRs against the `netlify` branch, not `main`.
+
+- `netlify` — deploy branch with full site (Netlify builds from here)
+- `main` — barebones version for forks (not for PRs)
+
+```bash
+# Create PR targeting netlify
+gh pr create --base netlify --title "..." --body "..."
+```
+
 ## Categories
 
 | Category | Description | Use `gh-page` for external link |

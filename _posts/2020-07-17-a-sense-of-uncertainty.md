@@ -31,7 +31,7 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of calculus</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLSQl0a2vh4HC5feHa6Rc5c0wbRTx56nF7">Multivariate calculus</a></li>
 </ul>
-<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to grasp what’s going on. Consider having a look at <a href="https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html">my article</a> on the topic, which is intended specifically as a primer to probabilistic machine learning.</li>
+<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can't be far. Again, an intuitive understanding will suffice to grasp what's going on. Consider having a look at <a href="{% post_url 2020-06-23-looking-for-lucy %}">my article</a> on the topic, which is intended specifically as a primer to probabilistic machine learning.</li>
 <ul>
 <li><a href="https://seeing-theory.brown.edu/">Seeing theory</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLC58778F28211FA19">Probability explained</a></li>
@@ -39,7 +39,7 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 <li><a href="https://colah.github.io/posts/2015-09-Visual-Information/">Visual Information Theory</a> (optional)</li>
 </ul>
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"><b>Neural Networks</b></a>: This is the second ingredient next to probability theory you need to construct a Bayesian Neural Network. 3Blue1Brown one more time.</li>
-<li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
+<li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="https://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="https://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
 </ol>
 </details>
 
