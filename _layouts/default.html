@@ -21,9 +21,9 @@
 </head>
 
 <body>
-<div class="wrapper-masthead">
+<header class="wrapper-masthead">
     <div class="container">
-        <header class="masthead clearfix">
+        <div class="masthead clearfix">
             <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" alt="avatar"/></a>
 
             <div class="site-info">
@@ -37,9 +37,9 @@
                 <a href="{{ site.baseurl }}/about">About</a>
                 <!--<a href="{{ site.baseurl }}/files/cv.pdf">CV</a>-->
             </nav>
-        </header>
+        </div>
     </div>
-</div>
+</header>
 
 {% if page.banner %}
 <section class="banner">
@@ -59,17 +59,17 @@
 <div style="margin-bottom: 50px;" class="nobanner"></div>
 {% endif %}
 
-<div id="main" role="main" class="container">
+<main id="main" class="container">
     {{ content }}
-</div>
+</main>
 
-<div class="wrapper-footer">
+<footer class="wrapper-footer">
     <div class="container">
-        <footer class="footer">
+        <div class="footer">
             {% include svg-icons.html %}
-        </footer>
+        </div>
     </div>
-</div>
+</footer>
 
 {% include popup.html %}
 {% include slideshow.html %}
