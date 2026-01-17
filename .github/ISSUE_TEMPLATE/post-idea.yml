@@ -22,6 +22,7 @@ body:
         - resource (curated list, reference guide)
         - book (book summary or review)
         - repository (project showcase)
+        - paper (published paper page)
     validations:
       required: true
 

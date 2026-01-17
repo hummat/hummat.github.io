@@ -57,7 +57,7 @@ Follow this workflow for new posts:
 layout: post
 title: Your Title
 abstract: A short summary
-category: learning  # or: thought, resource, book, repository
+category: learning  # or: thought, resource, book, repository, paper
 tags: [tag1, tag2]
 time: 5            # estimated reading time in minutes
 words: 1000        # approximate word count
@@ -73,6 +73,7 @@ plotly: true       # enable Plotly charts (optional)
 - `resource` — curated lists, reference guides
 - `book` — book summaries or reviews
 - `repository` — project showcases
+- `paper` — published paper pages (use `gh-page` for external link)
 
 ### Site Improvements
 

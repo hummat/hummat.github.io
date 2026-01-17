@@ -32,6 +32,10 @@
   color: "BFD4F2"
   description: "Project showcase"
 
+- name: "category:paper"
+  color: "A2EEEF"
+  description: "Published paper page"
+
 # Feedback kind labels
 - name: "feedback:error"
   color: "D93F0B"
