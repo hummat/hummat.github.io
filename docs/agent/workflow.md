@@ -2,10 +2,12 @@
 
 **Read this file before starting any post or feature.**
 
+> **CRITICAL:** Always branch from `netlify` and PR to `netlify`. The `main` branch is barebones for forks — do NOT use it for development.
+
 ## New Posts
 
 1. **Create GitHub issue** — use the [Post Idea](https://github.com/hummat/hummat.github.io/issues/new?template=post-idea.yml) template; select appropriate category
-2. **Create branch** — `git checkout -b post/<issue-number>-<slug>` (e.g., `post/42-graph-neural-networks`)
+2. **Create branch from `netlify`** — `git checkout netlify && git checkout -b post/<issue-number>-<slug>`
 3. **Write draft** — create `_drafts/<slug>.md` with proper front matter
 4. **Preview** — `bundle exec jekyll serve --drafts`
 5. **Finalize** — move to `_posts/YYYY-MM-DD-<slug>.md`
@@ -15,13 +17,13 @@
 ## Site Features
 
 1. **Create GitHub issue** — use the [Feature Request](https://github.com/hummat/hummat.github.io/issues/new?template=feature-request.yml) template
-2. **Create branch** — use appropriate prefix (see below)
+2. **Create branch from `netlify`** — `git checkout netlify && git checkout -b <prefix>/<name>`
 3. **Implement** — follow code conventions
 4. **Create PR** — use the PR template, reference issue
 
 ## Trivial Changes
 
-Skip issue for typos, small fixes, docs-only changes. Branch + PR still recommended.
+Skip issue for typos, small fixes, docs-only changes. Branch from `netlify` + PR to `netlify` still recommended.
 
 ## Branch Naming
 
