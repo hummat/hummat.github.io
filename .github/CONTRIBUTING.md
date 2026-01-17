@@ -101,10 +101,12 @@ npm run lint:scss
 ## Pull Request Process
 
 1. Fork the repository
-2. Create a branch (`git checkout -b fix/typo-in-post`)
+2. Create a branch from `netlify` (`git checkout -b fix/typo-in-post`)
 3. Make your changes
 4. Test locally with `bundle exec jekyll serve`
-5. Submit a PR with a clear description
+5. Submit a PR **targeting the `netlify` branch** (not `main`)
+
+> **Note:** The `main` branch is a barebones version for forks. The `netlify` branch contains the full site and is deployed to production.
 
 ## Issue Templates
 
