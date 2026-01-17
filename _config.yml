@@ -14,6 +14,12 @@ description: PhD student at TU Munich<br> Researcher with the German Aerospace C
 avatar: https://github.com/hummat.png
 defaults:
   - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      comments: true
+  - scope:
       path: "index.md"
     values:
       image: https://assets.hummat.com/images/preview.png
@@ -102,6 +108,7 @@ plugins:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-seo-tag
+  - jemoji
 
 include:
   - _redirects

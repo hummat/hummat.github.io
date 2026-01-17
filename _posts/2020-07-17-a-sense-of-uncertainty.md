@@ -31,7 +31,7 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr">Essence of calculus</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLSQl0a2vh4HC5feHa6Rc5c0wbRTx56nF7">Multivariate calculus</a></li>
 </ul>
-<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can’t be far. Again, an intuitive understanding will suffice to grasp what’s going on. Consider having a look at <a href="https://hummat.github.io/learning/2020/06/23/looking-for-lucy.html">my article</a> on the topic, which is intended specifically as a primer to probabilistic machine learning.</li>
+<li><b>Probability theory:</b> As you might have expected from the introduction, where there is Bayes, probability theory can't be far. Again, an intuitive understanding will suffice to grasp what's going on. Consider having a look at <a href="{% post_url 2020-06-23-looking-for-lucy %}">my article</a> on the topic, which is intended specifically as a primer to probabilistic machine learning.</li>
 <ul>
 <li><a href="https://seeing-theory.brown.edu/">Seeing theory</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLC58778F28211FA19">Probability explained</a></li>
