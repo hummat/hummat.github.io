@@ -12,6 +12,8 @@ Read relevant `docs/agent/` files before proceeding:
 
 **New posts/features:** Always read and follow `docs/agent/workflow.md` first. Create a labeled GitHub issue before implementing.
 
+**Creating issues/PRs via API:** Read `.github/ISSUE_TEMPLATE/*.yml` and `.github/PULL_REQUEST_TEMPLATE.md` first. Apply labels manually — see `docs/agent/workflow.md` for details.
+
 ---
 
 ## Quick Reference

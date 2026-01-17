@@ -63,6 +63,27 @@ For `repository` and `paper` posts, use `gh-page: <url>` in front matter to link
 - **PRs**: `.github/PULL_REQUEST_TEMPLATE.md` — fill out Summary, Type, Checklist
 - **Contributing**: `.github/CONTRIBUTING.md` for full setup guide
 
+### Creating Issues via API/CLI
+
+**IMPORTANT:** When creating issues programmatically (via GitHub API, `gh` CLI, or MCP tools), you MUST:
+
+1. **Read the issue templates first** — check `.github/ISSUE_TEMPLATE/*.yml` to understand required fields and structure
+2. **Apply appropriate labels** — templates auto-apply labels when used via web UI, but API calls must add them manually:
+   - Post ideas: `type:idea` + category label (e.g., `category:learning`, `category:book`, `category:paper`)
+   - Features: `type:feature` + area label (e.g., `area:navigation`, `area:design`, `area:interactivity`, `area:performance`)
+   - Feedback: `type:feedback` + feedback kind (e.g., `feedback:error`, `feedback:clarity`, `feedback:addition`)
+3. **Follow template structure** — match the fields defined in the YAML templates (description, category, area, etc.)
+
+See `.github/labels.yml` for the full list of available labels.
+
+### Creating PRs via API/CLI
+
+When creating PRs programmatically:
+
+1. **Read `.github/PULL_REQUEST_TEMPLATE.md`** — follow its structure (Summary, Type, Checklist)
+2. **Always target `netlify` branch** — use `--base netlify` with `gh pr create`
+3. **Reference the issue** — include `Closes #<issue-number>` in the body
+
 ## Front Matter Reference
 
 ```yaml
