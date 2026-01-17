@@ -74,3 +74,8 @@
 - name: "status:in-progress"
   color: "FEF2C0"
   description: "Currently being worked on"
+
+# PR labels
+- name: "wrong-base-branch"
+  color: "D93F0B"
+  description: "PR targets main instead of netlify"
