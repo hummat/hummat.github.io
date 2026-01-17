@@ -50,5 +50,5 @@
 
 1. **New post**: create in `_drafts/`, move to `_posts/` when ready
 2. **New page**: create `.md` at root with `layout: page`
-3. **New include**: add to `_includes/`, use `{% include name.html %}`
+3. **New include**: add to `_includes/`, use `{% raw %}{% include name.html %}{% endraw %}`
 4. **New style**: add partial to `_sass/`, import in `style.scss`
