@@ -614,7 +614,7 @@ nav {
 
     @include mobile {
       margin: 0 10px;
-      color: $blue;
+      color: #2a6496; // Darker blue for WCAG AA contrast (5.4:1 vs 3.98:1 for $blue)
     }
   }
 }
@@ -772,3 +772,28 @@ blockquote {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "github";
 @import "svg-icons";
+
+// Screen reader only utility class
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Respect user preference for reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

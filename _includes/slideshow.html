@@ -1,31 +1,98 @@
 {% if page.slideshow %}
 <script type="text/javascript">
-var slideIndex = 1;
-showSlides(slideIndex);
+(function() {
+  'use strict';
+  var slideIndex = 1;
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+  function showSlides(n) {
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (slides.length === 0) return;
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+    if (n > slides.length) { slideIndex = 1; }
+    if (n < 1) { slideIndex = slides.length; }
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
+    for (var i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
+      slides[i].setAttribute("aria-hidden", "true");
+    }
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].className = dots[j].className.replace(" active", "");
+      dots[j].setAttribute("aria-selected", "false");
+    }
+
+    slides[slideIndex - 1].style.display = "block";
+    slides[slideIndex - 1].setAttribute("aria-hidden", "false");
+    if (dots.length > 0) {
+      dots[slideIndex - 1].className += " active";
+      dots[slideIndex - 1].setAttribute("aria-selected", "true");
+    }
+
+    // Announce slide change to screen readers
+    var liveRegion = document.getElementById("slideshow-live-region");
+    if (liveRegion) {
+      liveRegion.textContent = "Slide " + slideIndex + " of " + slides.length;
+    }
   }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-}
+
+  // Expose functions globally for onclick handlers
+  window.plusSlides = function(n) {
+    showSlides(slideIndex += n);
+  };
+
+  window.currentSlide = function(n) {
+    showSlides(slideIndex = n);
+  };
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", function() {
+    showSlides(slideIndex);
+
+    // Add keyboard navigation
+    var container = document.querySelector(".slideshow-container");
+    if (container) {
+      container.setAttribute("tabindex", "0");
+      container.setAttribute("role", "region");
+      container.setAttribute("aria-label", "Image slideshow");
+
+      // Create live region for announcements
+      var liveRegion = document.createElement("div");
+      liveRegion.id = "slideshow-live-region";
+      liveRegion.setAttribute("aria-live", "polite");
+      liveRegion.setAttribute("aria-atomic", "true");
+      liveRegion.className = "sr-only";
+      container.appendChild(liveRegion);
+
+      container.addEventListener("keydown", function(e) {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          window.plusSlides(-1);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          window.plusSlides(1);
+        }
+      });
+    }
+
+    // Add ARIA attributes to navigation buttons
+    var prevBtn = document.querySelector(".prev");
+    var nextBtn = document.querySelector(".next");
+    if (prevBtn) {
+      prevBtn.setAttribute("role", "button");
+      prevBtn.setAttribute("aria-label", "Previous slide");
+    }
+    if (nextBtn) {
+      nextBtn.setAttribute("role", "button");
+      nextBtn.setAttribute("aria-label", "Next slide");
+    }
+
+    // Add ARIA attributes to dots
+    var dots = document.getElementsByClassName("dot");
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].setAttribute("role", "button");
+      dots[i].setAttribute("aria-label", "Go to slide " + (i + 1));
+    }
+  });
+})();
 </script>
 {% endif %}

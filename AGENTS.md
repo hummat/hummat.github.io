@@ -53,7 +53,7 @@ words: 1000
 ## Key Rules
 
 - **Always follow `docs/agent/workflow.md`** — issue first, then branch, then PR
-- **PRs target `netlify` branch**, not `main` (main is barebones for forks)
+- **CRITICAL: Branch from `netlify`, PR to `netlify`** — NOT `main` (main is barebones for forks)
 - `_config.yml` is single source of truth for site settings
 - Don't edit `_site/`; change source files and let Jekyll regenerate
 - Preserve behavior of JS helpers (`popup.html`, `slideshow*.html`, `jquery.html`)
