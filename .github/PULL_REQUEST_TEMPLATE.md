@@ -13,6 +13,7 @@ Closes: #<!-- issue number, if applicable -->
 
 ## Checklist
 
+- [ ] PR targets `netlify` branch (not `main`)
 - [ ] Tested locally with `bundle exec jekyll serve`
 - [ ] Site builds without errors (`bundle exec jekyll build`)
 - [ ] Screenshots attached (for visual changes)
