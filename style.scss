@@ -614,7 +614,7 @@ nav {
 
     @include mobile {
       margin: 0 10px;
-      color: $blue;
+      color: #2a6496; // Darker blue for WCAG AA contrast (5.4:1 vs 3.98:1 for $blue)
     }
   }
 }
