@@ -39,7 +39,7 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 <li><a href="https://colah.github.io/posts/2015-09-Visual-Information/">Visual Information Theory</a> (optional)</li>
 </ul>
 <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"><b>Neural Networks</b></a>: This is the second ingredient next to probability theory you need to construct a Bayesian Neural Network. 3Blue1Brown one more time.</li>
-<li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
+<li><b>Machine Learning:</b> Not strictly needed, but so cool that I need to share it. A visual introduction to machine learning: Part <a href="https://www.r2d3.us/visual-intro-to-machine-learning-part-1/">1</a> and <a href="https://www.r2d3.us/visual-intro-to-machine-learning-part-2/">2</a></li>
 </ol>
 </details>
 

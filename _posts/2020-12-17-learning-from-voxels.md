@@ -86,7 +86,7 @@ So you have some 3D data lying around and now you want to extract some informati
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
   <img src="https://assets.hummat.com/images/voxnet.png">
-  <figcaption style="text-align: center; line-height: 1.2em;"><b>VoxNet</b> [<a href="http://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf">source</a>]</figcaption>
+  <figcaption style="text-align: center; line-height: 1.2em;"><b>VoxNet</b> [<a href="https://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf">source</a>]</figcaption>
 </figure>
 </div>
 

@@ -3,7 +3,7 @@ layout: post
 title: What makes a good article?
 abstract: Some thoughts on writing useful articles. Those are mainly things I saw elsewhere and would like to incorporate into my own writing but also things I often miss in otherwise great texts.
 tags: [writing, explanation]
-category: [thought]
+category: thought
 time: 5
 words: 1426
 update: 2020-06-09
