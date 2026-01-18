@@ -72,3 +72,7 @@ _posts/.ztr-directory
 
 # Netlify
 .netlify/
+
+CLAUDE.md
+GEMINI.md
+QWEN.md
