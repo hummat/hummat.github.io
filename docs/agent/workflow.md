@@ -44,6 +44,16 @@ Skip issue for typos, small fixes, docs-only changes. Branch from `netlify` + PR
 gh pr create --base netlify --title "..." --body "..."
 ```
 
+## Project Board
+
+All issues and PRs are tracked in the [Blog Roadmap](https://github.com/users/hummat/projects/2) project board.
+
+New issues and PRs are **automatically added** when opened (via project workflow). If an older item is missing, add it manually:
+
+```bash
+gh project item-add 2 --owner hummat --url <issue-or-pr-url>
+```
+
 ## Categories
 
 | Category | Description | Use `gh-page` for external link |
