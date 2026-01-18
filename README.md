@@ -1,8 +1,8 @@
-# Welcome to the blog repo of [Matthias Humt](https://hummat.github.io)!
+# Welcome to the blog repo of [Matthias Humt](https://hummat.com)!
 
-Here you find the barebones setup of the personal blog at [hummat.github.io](https://hummat.github.io). The full blog with all posts lives at [hummat.com](https://hummat.com).
+This branch (`main`) is a barebones template for forking—no posts, just the skeleton. See it live at [hummat.github.io](https://hummat.github.io).
 
-If you like the design, feel free to fork this branch.
+The full blog with all posts lives at [hummat.com](https://hummat.com).
 
 ## Credits
 
