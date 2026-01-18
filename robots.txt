@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hummat.com/sitemap.xml
+
+# Disallow build artifacts (if accidentally exposed)
+Disallow: /.jekyll-cache/
+Disallow: /node_modules/
