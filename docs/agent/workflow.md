@@ -4,6 +4,19 @@
 
 > **CRITICAL:** Always branch from `netlify` and PR to `netlify`. The `main` branch is barebones for forks — do NOT use it for development.
 
+## Project Board
+
+All issues are tracked in the [Blog Roadmap](https://github.com/users/hummat/projects/2) project with priorities (P0–P3).
+
+**When starting work on an issue:**
+1. Move the issue from **Todo** → **In Progress** in the project board
+2. Create your branch and begin work
+3. When PR merges, the issue auto-closes and moves to **Done**
+
+You can update issue status via:
+- **Web UI**: Drag the card in Board view, or edit the Status field in Table view
+- **CLI**: `gh project item-edit --project-id PVT_kwHOAVXJM84BM8Co --id <ITEM_ID> --field-id PVTSSF_lAHOAVXJM84BM8Cozg8E75w --single-select-option-id 47fc9ee4`
+
 ## New Posts
 
 1. **Create GitHub issue** — use the [Post Idea](https://github.com/hummat/hummat.github.io/issues/new?template=post-idea.yml) template; select appropriate category
