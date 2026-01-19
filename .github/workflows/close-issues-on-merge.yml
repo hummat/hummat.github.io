@@ -17,58 +17,47 @@ jobs:
         with:
           script: |
             const prNumber = context.payload.pull_request.number;
+            const prBody = context.payload.pull_request.body || '';
 
-            // Use GraphQL to get issues linked via GitHub's "linked issues" feature
-            const query = `
-              query($owner: String!, $repo: String!, $prNumber: Int!) {
-                repository(owner: $owner, name: $repo) {
-                  pullRequest(number: $prNumber) {
-                    closingIssuesReferences(first: 10) {
-                      nodes {
-                        number
-                        state
-                      }
-                    }
-                  }
-                }
-              }
-            `;
+            // Parse "Closes #N", "Fixes #N", "Resolves #N" from PR body
+            const pattern = /(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)/gi;
+            const issueNumbers = [...prBody.matchAll(pattern)].map(m => parseInt(m[1], 10));
 
-            const result = await github.graphql(query, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              prNumber: prNumber
-            });
-
-            const linkedIssues = result.repository.pullRequest.closingIssuesReferences.nodes;
-
-            if (linkedIssues.length === 0) {
-              console.log('No linked issues found');
+            if (issueNumbers.length === 0) {
+              console.log('No closing keywords found in PR body');
               return;
             }
 
-            for (const issue of linkedIssues) {
-              if (issue.state === 'OPEN') {
-                try {
+            console.log(`Found issue references: ${issueNumbers.join(', ')}`);
+
+            for (const issueNumber of issueNumbers) {
+              try {
+                const { data: issue } = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber
+                });
+
+                if (issue.state === 'open') {
                   await github.rest.issues.update({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    issue_number: issue.number,
+                    issue_number: issueNumber,
                     state: 'closed',
                     state_reason: 'completed'
                   });
-                  console.log(`Closed issue #${issue.number}`);
+                  console.log(`Closed issue #${issueNumber}`);
 
                   await github.rest.issues.createComment({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    issue_number: issue.number,
+                    issue_number: issueNumber,
                     body: `Closed via #${prNumber}`
                   });
-                } catch (error) {
-                  console.log(`Could not close issue #${issue.number}: ${error.message}`);
+                } else {
+                  console.log(`Issue #${issueNumber} already closed`);
                 }
-              } else {
-                console.log(`Issue #${issue.number} already closed`);
+              } catch (error) {
+                console.log(`Could not process issue #${issueNumber}: ${error.message}`);
               }
             }
