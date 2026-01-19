@@ -1,5 +1,9 @@
 # Welcome to the blog repo of [Matthias Humt](https://hummat.com)! [![Netlify Status](https://api.netlify.com/api/v1/badges/bf7cbae0-4ef7-4df1-b883-8863cbc3df09/deploy-status)](https://app.netlify.com/sites/hummat/deploys)
 
+## Roadmap
+
+See the [Blog Roadmap](https://github.com/users/hummat/projects/2) project for planned features and content.
+
 ## Branches
 
 - **`netlify`** — production branch (deployed to [hummat.com](https://hummat.com))

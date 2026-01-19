@@ -12,8 +12,6 @@ Read relevant `docs/agent/` files before proceeding:
 
 **New posts/features:** Always read and follow `docs/agent/workflow.md` first. Create a labeled GitHub issue before implementing.
 
-**Creating issues/PRs via API:** You MUST use the templates in `.github/ISSUE_TEMPLATE/*.yml` and `.github/PULL_REQUEST_TEMPLATE.md`. Read them first, then structure your issue/PR body to match the template fields. Labels are auto-applied by `.github/workflows/issue-labeler.yml` based on issue body content.
-
 ---
 
 ## Quick Reference
