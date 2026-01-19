@@ -19,18 +19,39 @@ jobs:
             const prNumber = context.payload.pull_request.number;
             const prBody = context.payload.pull_request.body || '';
 
-            // Parse "Closes #N", "Fixes #N", "Resolves #N" from PR body
-            const pattern = /(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)/gi;
-            const issueNumbers = [...prBody.matchAll(pattern)].map(m => parseInt(m[1], 10));
+            // Keywords that indicate issue closure (GitHub native + common extras)
+            const keywords = [
+              'close[sd]?', 'fix(?:e[sd])?', 'resolve[sd]?',  // GitHub native
+              'implement[sd]?', 'complete[sd]?', 'address(?:e[sd])?'  // common extras
+            ].join('|');
 
-            if (issueNumbers.length === 0) {
+            // Match patterns like: "Closes #1", "fixes: #2", "Closes #1, #2, and #3"
+            // Also handles full URLs: "Closes https://github.com/owner/repo/issues/123"
+            const pattern = new RegExp(
+              `(?:${keywords})[:\\s-]*` +  // keyword + optional separator
+              `(?:#(\\d+)|https?://github\\.com/[^/]+/[^/]+/issues/(\\d+))` +  // issue ref
+              `(?:[,\\s]+(?:and\\s+)?(?:#(\\d+)|https?://github\\.com/[^/]+/[^/]+/issues/(\\d+)))*`,  // additional refs
+              'gi'
+            );
+
+            // Extract all issue numbers from matches
+            const issueNumbers = [];
+            for (const match of prBody.matchAll(pattern)) {
+              // Get all captured groups (some may be undefined)
+              const nums = match.slice(1).filter(Boolean).map(n => parseInt(n, 10));
+              issueNumbers.push(...nums);
+            }
+            // Deduplicate
+            const uniqueIssues = [...new Set(issueNumbers)];
+
+            if (uniqueIssues.length === 0) {
               console.log('No closing keywords found in PR body');
               return;
             }
 
-            console.log(`Found issue references: ${issueNumbers.join(', ')}`);
+            console.log(`Found issue references: ${uniqueIssues.join(', ')}`);
 
-            for (const issueNumber of issueNumbers) {
+            for (const issueNumber of uniqueIssues) {
               try {
                 const { data: issue } = await github.rest.issues.get({
                   owner: context.repo.owner,
