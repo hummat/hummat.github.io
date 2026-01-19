@@ -6,7 +6,13 @@
 
 ## Project Board
 
-All issues are tracked in the [Blog Roadmap](https://github.com/users/hummat/projects/2) project with priorities (P0–P3).
+All issues and PRs are tracked in the [Blog Roadmap](https://github.com/users/hummat/projects/2) project with priorities (P0–P3).
+
+New issues and PRs are **automatically added** when opened (via project workflow). If an older item is missing, add manually:
+
+```bash
+gh project item-add 2 --owner hummat --url <issue-or-pr-url>
+```
 
 **When starting work on an issue:**
 1. Move the issue from **Todo** → **In Progress** in the project board
@@ -55,16 +61,6 @@ Skip issue for typos, small fixes, docs-only changes. Branch from `netlify` + PR
 ```bash
 # Create PR targeting netlify
 gh pr create --base netlify --title "..." --body "..."
-```
-
-## Project Board
-
-All issues and PRs are tracked in the [Blog Roadmap](https://github.com/users/hummat/projects/2) project board.
-
-New issues and PRs are **automatically added** when opened (via project workflow). If an older item is missing, add it manually:
-
-```bash
-gh project item-add 2 --owner hummat --url <issue-or-pr-url>
 ```
 
 ## Categories
