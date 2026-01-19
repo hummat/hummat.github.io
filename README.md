@@ -4,6 +4,10 @@ This branch (`main`) is a barebones template for forking—no posts, just the sk
 
 The full blog with all posts lives at [hummat.com](https://hummat.com).
 
+## Roadmap
+
+See the [Blog Roadmap](https://github.com/users/hummat/projects/2) project for planned features and content.
+
 ## Credits
 
 Thanks to [**Barry Clark**](https://www.barryclark.com) and his wonderful [**Jekyll Now**](https://github.com/barryclark/jekyll-now) blog template!
