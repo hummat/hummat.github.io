@@ -96,14 +96,18 @@ title: Publications
       li.appendChild(titleContainer);
 
       var authors = Array.isArray(paper.authors) ? paper.authors : [];
-      var authorsText = authors.map(function(a) { return a && a.name ? a.name : ''; })
-        .filter(function(name) { return name; })
-        .join(', ');
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      var authorsHtml = authors.map(function(a) {
+        var name = a && a.name ? escapeHtml(a.name) : '';
+        return name === 'Matthias Humt' ? '<strong>' + name + '</strong>' : name;
+      }).filter(function(name) { return name; }).join(', ');
 
-      if (authorsText) {
+      if (authorsHtml) {
         var authorsEl = document.createElement('div');
         authorsEl.className = 'publication-authors';
-        authorsEl.textContent = authorsText;
+        authorsEl.innerHTML = authorsHtml;
         li.appendChild(authorsEl);
       }
 
