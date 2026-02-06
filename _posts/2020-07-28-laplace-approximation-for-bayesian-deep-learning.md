@@ -17,7 +17,7 @@ update: 2020-10-16
 
 Complex problems require complex solutions. While this is not always true, it certainly is often enough to inspire the search into automated problem solving. That’s where machine learning comes into play, which, in the best case, allows us to throw a bunch of data at an algorithm and to obtain a solution to our problem in return.
 
-With the advent of deep learning, this trend has been getting a mighty boost, allowing us to (begin to) solve much harder and thereby more interesting problems, like autonomous driving or automated medical diagnosis. In those areas, where human well being is on the line,  the algorithms opinions  need to be trustworthy and comprehensible. While predictions should be correct, it is even more important to know when they are not, so that one can take appropriate countermeasures, as the real world is messy and often unpredictable, so striving to not make any mistakes ever is probably in vain.
+With the advent of deep learning, this trend has been getting a mighty boost, allowing us to (begin to) solve much harder and thereby more interesting problems, like autonomous driving or automated medical diagnosis. In those areas, where human well being is on the line, the algorithms opinions need to be trustworthy and comprehensible. While predictions should be correct, it is even more important to know when they are not, so that one can take appropriate countermeasures, as the real world is messy and often unpredictable, so striving to not make any mistakes ever is probably in vain.
 
 A tragic example of this was the accident of a semi-autonomous vehicle crashing into a white semi truck, mistaking it for a cloud [source](). Here, an algorithm knowing when it doesn’t know, could have warned the driver to take over. Knowing when you don’t know comes down to placing appropriate confidence in your predictions which is true for humans and algorithms alike. We can also frame this problem from the opposite direction, when talking about the level of confidence as low and high uncertainty.
 
@@ -45,6 +45,7 @@ We know that we need to model it probabilistically, i.e. we need to find a proba
 To get an intuitive understanding, let's actually look at a (low dimensional) representation of the likelihood. The likelihood function $L(W)=p(\mathcal{D}\vert W)$ is, as the name suggests, just a function and we can evaluate it at different inputs $W$[^2]. We can, for example, evaluate it at $W^\star$, the weights obtained after training the network. This should yield the highest likelihood and conversely the lowest loss. We can then explore the space around this minimum by taking small steps in one or two (randomly chosen) directions, evaluating $L(W+\alpha W_R)$ or $L(W+\alpha W_{R1}+\beta W_{R2})$ along the way. $W_{R1,2}$ are random vectors of the same size as $W$ and $\alpha$ and $\beta$ are the step sizes. This is what you see below, though we start by visualizing $-\log L(W)$, the loss $E(W)$, first and then move on to the likelihood which is $\exp(-E(W))$.
 
 [^1]: Please refer to [part two](/learning/2020/07/17/a-sense-of-uncertainty.html#notation) for an introduction of the notation.
+
 [^2]: Make no mistake, even though the likelihood is the probability distribution over the data (given the weights), we are still trying to find the _weights_ that best explain the data and not the other way round.
 
 <div data-include="https://assets.hummat.com/figures/loss/mobilenet_v2_cifar10_loss_3d.html"></div>
@@ -92,6 +93,7 @@ $$
 In other words, it is the expected value[^7] of the outer product of the negative gradient of the loss w.r.t. the weights. In one sense, this is easy to compute, because we already have the required gradients from network training, but another problem persists: the size. Just like the Hessian, the Fisher of a deep neural network is of size `number of weights x number of weights` (which we can also write as $\vert W\vert\times\vert W \vert$) which is prohibitively large to compute, store and invert.
 
 [^7]: The expectation is taken w.r.t. the output distribution of the network. If the data distribution is used instead, one obtains the _empirical Fisher_ which doesn't come with the same equality properties to the Hessian compared to the _"true"_ Fisher.
+
 [^6]: This is only the case for networks that use piece-wise linear activation functions (like ReLU) and exponential family loss functions (like least-squares or cross-entropy).
 
 ### 1.3 KFC
@@ -157,7 +159,7 @@ Again, an intuitive understanding of the influence of those parameters on the sh
 
 At fist glance, both parameters seem to do a very similar thing. But while both do indeed decrease the variance, $N$ additionally decreases the _covariance_ by the same amount, so the shape of the Gaussian gets preserved. On the other hand, increasing $\tau$ reduces the influence of the covariance, so the Gaussian becomes more circular and less elliptic.
 
-This is an important observation, as we can loose all of the potential benefit of modeling the covariances using, for example, the Kronecker factorization, by then adding  a large multiple of the identity matrix to it. In the limit, i.e. when setting the hyperparameters to very large values, we recover the deterministic network, as we have effectively reduced the Gaussian to its mean, which we set to $W^\star$ from the beginning.
+This is an important observation, as we can loose all of the potential benefit of modeling the covariances using, for example, the Kronecker factorization, by then adding a large multiple of the identity matrix to it. In the limit, i.e. when setting the hyperparameters to very large values, we recover the deterministic network, as we have effectively reduced the Gaussian to its mean, which we set to $W^\star$ from the beginning.
 
 ### 1.5 Integration with Monte Carlo
 
@@ -210,7 +212,7 @@ Instead, we can partition the predictions into bins, as is done in histograms, b
 
 #### 2.1.2 Calibration curve
 
-This type of visualization is useful to study a single network in detail, but comparing multiple networks or calibration techniques is difficult. To do so, we can replace the accuracy on the vertical axis by the average calibration error and plot it for each confidence interval. The networks calibration can then easily be identified as underconfident for values  below the horizontal line at zero and overconfident for those above.
+This type of visualization is useful to study a single network in detail, but comparing multiple networks or calibration techniques is difficult. To do so, we can replace the accuracy on the vertical axis by the average calibration error and plot it for each confidence interval. The networks calibration can then easily be identified as underconfident for values below the horizontal line at zero and overconfident for those above.
 
 <div data-include="https://assets.hummat.com/figures/curvature/densenets_sgd_imagenet_calibration.html"></div>
 
@@ -271,7 +273,7 @@ When flipping a fair coin, the expectation to see `heads` is identical to that o
 
 As was the case for the calibration experiments, this is a great approach to scrutinize a single network, but unsuited for comparing several architectures or curvature estimators. To do so, we need a employ a slightly more complex procedure. We keep the predictive entropy on the vertical but use the _inverse empirical cumulative distribution function_ (ECDF) on the horizontal.
 
-This sounds scary, but let's break it down.  First, we need to understand the _cumulative distribution function_. The CDF of a random variable expresses the probability (on the vertical axis) that this random variable will take on a value less than or equal to any value on the horizontal axis. For example, imagine we are modeling the temperature of tomorrow. Having gathered the data of last week and modeled it by a probability distribution, using its CDF we can answer the question _"What's the probability that it won't get warmer than 30 degrees Celsius?"_ by looking for the function value at 30. We could also have sticked to the probability mass function of our probability distribution and integrated between absolute zero and 30 degrees.
+This sounds scary, but let's break it down. First, we need to understand the _cumulative distribution function_. The CDF of a random variable expresses the probability (on the vertical axis) that this random variable will take on a value less than or equal to any value on the horizontal axis. For example, imagine we are modeling the temperature of tomorrow. Having gathered the data of last week and modeled it by a probability distribution, using its CDF we can answer the question _"What's the probability that it won't get warmer than 30 degrees Celsius?"_ by looking for the function value at 30. We could also have sticked to the probability mass function of our probability distribution and integrated between absolute zero and 30 degrees.
 
 The _empirical_ version of the CDF simply provides the empirical frequency instead of the probability of an event happening. Finally, the _inverse_ allows us to ask the for the probability (or frequency) that our probability distribution takes on a value _greater_ instead of less or equal the value on the horizontal axis. Let's have a look at it now.
 <br>
@@ -298,7 +300,7 @@ Interestingly, deeper networks seem to exhibit greater overconfidence in the _Re
 
 The final application I'd like to showcase is the increased resilience of Bayesian neural networks to adversarial attacks.
 
-An adversarial attack tries to alter the algorithms output either arbitrarily away from the intended one or even steered into the direction of  a desired output. Those attacks are usually divided into _white_ and _black box_ attacks, depending on the access the attacker has to the internal workings of the algorithm.
+An adversarial attack tries to alter the algorithms output either arbitrarily away from the intended one or even steered into the direction of a desired output. Those attacks are usually divided into _white_ and _black box_ attacks, depending on the access the attacker has to the internal workings of the algorithm.
 
 For neural networks, a simple attack mechanism is the _Fast Gradient Sign Method_. While we follow the negative gradient of the loss w.r.t. the weights of the network during training in order to minimize it, the FGSM computes the gradient of the loss w.r.t. the pixels of the input image to find which pixels altered by what amount would result in the greatest _increase_ of the loss.
 

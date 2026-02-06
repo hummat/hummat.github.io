@@ -61,7 +61,9 @@ Again, context doesn't stop there. To correctly place a pixel as belonging to, s
 Finding the hidden information in the image above is trivial if the surrounding context is removed (to be precise, it's not the _absence_ of context, as all pixels are still there, but the _contrast_ between signal and noise, percieved as difference between gray and colored pixels). Clearly, it's not a simple as having no context at all or all of it but rather which portion of the provided information we pay _attention_ to.
 
 [^1]: Not really of course, words can be divided into letters, atoms into particles, but let's ignore that.
+
 [^2]: This, and many more of these (deliberately) ambiguous sentences can be found in the _Winograd schema challenge_.
+
 [^3]: Also known as a _point cloud_. Take a look at the previous articles on learning from 3D data for other representations.
 
 ## How? Context across dimensions and domains
@@ -80,6 +82,7 @@ For a long time, the predominant method used to model natural language was the _
 </div>
 
 [^4]: Except for bi-directional RNNs which read the sequence from left and right.
+
 [^5]: An example being machine translation: The input sequence (a sentence in English) is first encoded from the first to the last element (word) and then decoded sequentially to produce the translation (the sentence in French).
 
 The shortcomings of RNNs motivated the look into alternatives, one of which was found in a revered companion: the convolution. At first glance, this might seem like a strange choice, considering convolutions as almost synonymous with locality.

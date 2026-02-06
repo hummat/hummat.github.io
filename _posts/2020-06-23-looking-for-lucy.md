@@ -9,7 +9,7 @@ jquery: true
 plotly: true
 mathjax: true
 words: 3657
-time: 14 
+time: 14
 update: 2020-06-24
 ---
 
@@ -24,12 +24,11 @@ You are on large ship looking for your friend Lucy. You already have some suspic
 
 <div data-include="https://assets.hummat.com/figures/ship.html"></div>
 
-
 ### Probabilities and Priors
 
-In probability theory, we call such beliefs for which we have not yet seen any evidence _prior beliefs_ or simply _priors_. We’ve also implicitly established the parameter or variable we are trying to estimate: Lucy’s location. Let’s call it $\ell$. We can then write “_I think Lucy is more likely to be on the ship than in the water_” as $p(\ell=\mathrm{ship})=0.99$  and $p(\ell=\mathrm{water})=0.01$
+In probability theory, we call such beliefs for which we have not yet seen any evidence _prior beliefs_ or simply _priors_. We’ve also implicitly established the parameter or variable we are trying to estimate: Lucy’s location. Let’s call it $\ell$. We can then write “_I think Lucy is more likely to be on the ship than in the water_” as $p(\ell=\mathrm{ship})=0.99$ and $p(\ell=\mathrm{water})=0.01$
 
-This reads: _“The probability of  $\ell$ taking the value `ship` is $99\\%$“_ (and $1\\%$ for `water` respectively). We can often drop the variable name whenever it takes on a specific value, like `ship` , so $p(\ell=\mathrm{ship})$ simply becomes $p(\mathrm{ship})$, to reduce clutter. Two more things to note here:
+This reads: _“The probability of $\ell$ taking the value `ship` is $99\\%$“_ (and $1\\%$ for `water` respectively). We can often drop the variable name whenever it takes on a specific value, like `ship` , so $p(\ell=\mathrm{ship})$ simply becomes $p(\mathrm{ship})$, to reduce clutter. Two more things to note here:
 
 1. We’ve just defined a _probability distribution_ of $\ell$, written $p(\ell)$, which maps each possible state of $\ell$ (`ship` and `water`) to a discrete probability ($99\\%$ and $1\\%$). In doing so, we promoted $\ell$ from mere variable to _random_ variable. Why random? Because its value is not deterministic like $x=2+2$, but probabilistic, determined by some underlying random (or random seeming) cause. And because Lucy can only either be on the ship or not, the probabilities of these two states need to sum to 1 (or $100\\%$).
 2. She also can’t be a little bit on the ship and a little bit in the water (well, technically she probably could, but let’s keep it simple) which is why we call it a _discrete_ probability distribution rather than a _continuous_ one, where everything in between certain values is also possible.
@@ -38,7 +37,7 @@ This reads: _“The probability of  $\ell$ taking the value `ship` is $99\\%$“
 
 ### Continuous, discrete, conditional
 
-Let’s define such a continuous probability distribution for Lucy’s location _on the ship_. We could of course start enumerating all locations (`restaurant`, `toilet`, `her room`, `sun deck`, …), but because she could be _everywhere_ on the ship,  it’s tedious at best and impossible otherwise. We want to keep using $\ell$ to distinguish between `ship` and `water` so let’s use $e$ to talk about Lucy’s _exact_ location on the ship. What do you think this means:
+Let’s define such a continuous probability distribution for Lucy’s location _on the ship_. We could of course start enumerating all locations (`restaurant`, `toilet`, `her room`, `sun deck`, …), but because she could be _everywhere_ on the ship, it’s tedious at best and impossible otherwise. We want to keep using $\ell$ to distinguish between `ship` and `water` so let’s use $e$ to talk about Lucy’s _exact_ location on the ship. What do you think this means:
 
 $$p(e\vert \mathrm{ship})$$?
 
@@ -55,9 +54,10 @@ The red line is called a _probability density function_ and it describes our con
 If you are familiar with sums and integrals, it might be helpful to look a it this way: In the discrete case, where you simply enumerate all possible locations and attach your belief to each of them, you sum them up to get an overall estimate which can be written like this: $p(\mathrm{restaurant}\cap\mathrm{room})=p(\mathrm{restaurant})+p(\mathrm{room})$ where the flipped U means _or_. Imagine now you discretize the ship into smaller and smaller parts. In the limit, you have covered every micrometer of the ship through an infinite amount of discrete probabilities which is exactly how you can estimate the integral of a function, i.e. the area under the curve.
 
 [^2]: Provided it is made out of one material with the same density everywhere.
+
 [^3]: Or _“hypervolume”_ in 4D and above.
 
-What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply! If we’re $90\\%$ certain that she’s on the ship *and* $80\\%$ certain that she’s in the middle of it ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^4] We call this a _joint probability distribution_ because it expresses our beliefs about two quantities at the same time: That Lucy is on the ship _and_ in the middle of it. Using the quantities introduced earlier we can write it as:
+What if we want to take into account our prior beliefs about whether she’s on the ship or not? We multiply! If we’re $90\\%$ certain that she’s on the ship _and_ $80\\%$ certain that she’s in the middle of it ($20\leq e < 30$) _if she’s on it_, than our overall belief for this scenario is $0.9\cdot 0.8 = 0.72$.[^4] We call this a _joint probability distribution_ because it expresses our beliefs about two quantities at the same time: That Lucy is on the ship _and_ in the middle of it. Using the quantities introduced earlier we can write it as:
 
 $$p(\mathrm{middle},\mathrm{ship})=p(\mathrm{middle}\vert\mathrm{ship})\cdot p(\mathrm{ship})$$
 
@@ -99,7 +99,7 @@ Another side effect of our new 2D distribution is, that we now simultaneously ex
 
 ### Bayes’ Theorem
 
-The final story I’d like to tell is this one: Suppose you ask another passenger if he has seen a hungry looking woman recently and he tells you that, while he couldn’t tell if she was hungry, he did speak to a woman called Lucy at the rear of the ship! What a coincidence.  Such information is called _evidence_ as it tells us something about the parameters we want to model and estimate, namely Lucys location. Let's give this particular piece of information a name: $I$.
+The final story I’d like to tell is this one: Suppose you ask another passenger if he has seen a hungry looking woman recently and he tells you that, while he couldn’t tell if she was hungry, he did speak to a woman called Lucy at the rear of the ship! What a coincidence. Such information is called _evidence_ as it tells us something about the parameters we want to model and estimate, namely Lucys location. Let's give this particular piece of information a name: $I$.
 
 How should you deal with the new information? Intuitively you might think it’s a settled case. You are looking for Lucy and there is a Lucy at the rear of the ship. This however would only be true, if you were $100\\%$ certain that the Lucy in question is in fact your friend.
 
@@ -140,6 +140,7 @@ If we know the probability to meet the other Lucy at the rear if your friend _is
 <div data-include="https://assets.hummat.com/figures/total_prob.html"></div>
 
 The first area (yellow) is defined by the prior (width) and the likelihood (height) while the second area (red) is defined by the “not prior” and “not likelihood”. Mathematically, we can write this as follows:
+
 $$
 \begin{aligned}
 p(I)&=\sum_{e\in(\mathrm{middle},\neg\mathrm{middle})}p(I,e)\\
@@ -148,15 +149,19 @@ p(I)&=\sum_{e\in(\mathrm{middle},\neg\mathrm{middle})}p(I,e)\\
     &=0.1\cdot0.72+0.225\cdot0.28=0.135
 \end{aligned}
 $$
+
 This quantity, $p(I)=\color{yellow}{\rule{1.44cm}{0.2cm}}\color{black}\ +\ \color{red}{\rule{0.56cm}{0.45cm}}$, is _also_ called _evidence_, even though it is the probability of _seeing_ the evidence. The process of removing one of the random variables, in this case the exact position $e$, by enumerating all of its possible values, is called _marginalization_.
 
 **The Posterior:** Now we’re finally in a position to answer the questions from the beginning: The probability that Lucy is in the restaurant _given_ the new information. After all, we would rather spend a few hours calculating than potentially wasting 10 minutes by going to the rear to check it out. This final quantity is called the _posterior_ and we write it as $p(\mathrm{middle}\vert I)$.
 
 Can you guess how to compute this? We’ve already seen that one can write a joint distribution as the product of its marginal and conditional distribution such that $p(\mathrm{middle},I)=p(\mathrm{middle}\vert I)\cdot p(I)$. Solving this for the desired posterior we get:
+
 $$
 p(\mathrm{middle}\vert I)=\frac{p(\mathrm{middle},I)}{p(I)}
 $$
+
 Now we can use the same trick again, but this time we factorize $p(\mathrm{middle},I)$ into $p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})$. Putting it back into the equation above, we have found a way of expressing the posterior by the _likelihood_, _prior_ and _evidence_ which are all known quantities:
+
 $$
 \begin{aligned}\mathrm{posterior}&=\frac{\mathrm{likelihood}\cdot\mathrm{prior}}{\mathrm{evidence}}=\frac{\color{yellow}{\rule{1.44cm}{0.2cm}}}{\color{yellow}{\rule{1.44cm}{0.2cm}}\color{black}\ +\ \color{red}{\rule{0.56cm}{0.45cm}}}\\p(\mathrm{middle}\vert I)&=\frac{p(I\vert\mathrm{middle})\cdot p(\mathrm{middle})}{p(I)}\\&=\frac{0.1\cdot0.72}{0.135}=0.53\end{aligned}
 $$
@@ -184,6 +189,7 @@ Play with the numbers if you like, to get an intuition about how things change:
         document.getElementById('posterior').innerHTML = posterior.toFixed(2);
 	};
 </script>
+
 Finally, the YouTuber 3Blue1Brown made a [fantastic video](https://www.youtube.com/watch?v=HZGCoVF3YvM) about Bayes’ theorem in a visual manner[^10], so I highly recommend checking it out if you’re still a bit confused.
 
 [^10]: From where I’ve shamelessly stolen the idea of the probability square.

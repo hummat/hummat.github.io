@@ -31,16 +31,16 @@ That’s why I really like the idea to put an approximate reading time at the to
 
 You know how the saying goes, so I’m not going to spell it out here, though of course it’s true. I love visualizations of difficult to grasp concepts. It is really amazing how one can struggle to understand something for hours, days, weeks month or even years and then get it in an instance due to an innocent sketch or animation. And I don’t think there is enough of this out there.
 
-Sometimes I get the impression that there is a hidden agreement to not visualize certain topics. The reason might be that it is too difficult (though I would bet that’s not true but probably just tricky or a lot of work) or, worse, it is perceived as cheating or a cheap way out. “_I’ve spend years to get to an intuitive understanding of such and such and it can’t, no, it shouldn’t be replaced by a simple image!_” proponents of this thought roller coaster might say (but probably just think).  Be that as it may, I think _everything_ should be visualized _all the time_. It never hurts.
+Sometimes I get the impression that there is a hidden agreement to not visualize certain topics. The reason might be that it is too difficult (though I would bet that’s not true but probably just tricky or a lot of work) or, worse, it is perceived as cheating or a cheap way out. “_I’ve spend years to get to an intuitive understanding of such and such and it can’t, no, it shouldn’t be replaced by a simple image!_” proponents of this thought roller coaster might say (but probably just think). Be that as it may, I think _everything_ should be visualized _all the time_. It never hurts.
 
 Luckily the situation is improving due to the internet, where one can add as many large color images as one likes or even put animations which can even be interactive! Here are some outstanding examples:
 
-* **[3Blue1Brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw/featured)**: _Three blue one brown_ is the artistic name of _Grant Sanderson_ and his YouTube channel where he explains math (and other topics, though mostly math) using amazing visualization (which he programs in Python which is insane).
-  * Check out this explanation of [Neural Networks](https://www.3blue1brown.com/neural-networks)
-  * Or this [interactive explanation of quaternions](https://eater.net/quaternions) he did with _Ben Eater_
-* **[Distill](https://distill.pub/)**: The first peer-reviewed online journal with focus on visualization.
-* **[Colah’s blog](https://colah.github.io)**: One of my personal heroes. Quote: _“I want to understand things clearly, and explain them well.”_ Yes, exactly!
-* **[Kurzgesagt - In a Nutshell](https://www.youtube.com/user/Kurzgesagt/featured)**: Another super cool YouTube channel, explaining science topics with outstanding animations.
+- **[3Blue1Brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw/featured)**: _Three blue one brown_ is the artistic name of _Grant Sanderson_ and his YouTube channel where he explains math (and other topics, though mostly math) using amazing visualization (which he programs in Python which is insane).
+  - Check out this explanation of [Neural Networks](https://www.3blue1brown.com/neural-networks)
+  - Or this [interactive explanation of quaternions](https://eater.net/quaternions) he did with _Ben Eater_
+- **[Distill](https://distill.pub/)**: The first peer-reviewed online journal with focus on visualization.
+- **[Colah’s blog](https://colah.github.io)**: One of my personal heroes. Quote: _“I want to understand things clearly, and explain them well.”_ Yes, exactly!
+- **[Kurzgesagt - In a Nutshell](https://www.youtube.com/user/Kurzgesagt/featured)**: Another super cool YouTube channel, explaining science topics with outstanding animations.
 
 ## 4. Discussion
 

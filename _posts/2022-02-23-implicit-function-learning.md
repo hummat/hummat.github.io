@@ -15,6 +15,7 @@ words: 2109
 # {{ page.title }}
 
 As the title implies, this article touches on two topics:
+
 1. What are implicit functions?
 2. How can they be learned from data for arbitrary shapes?
 
@@ -158,16 +159,21 @@ Below there are a few visualizations of input pointclouds obtained by projecting
 As can be seen, the network is able to complete a quite diverse set of shapes, all coming from the same class (bottles) though. That's all for today. As usual, the code for generating the visualizations can be found below. Be aware though that the data for generating the figures is too large this time, so I won't be including it in the repository.
 
 [^1]: A curve along which a continuous field has a constant value.
+
 [^2]: Introducing _Suzanne_, the mascot of the awesome open source 3D software [Blender](https://www.blender.org).
+
 [^3]: This is sometimes called "shooting a ray from an arbitrary viewpoint".
+
 [^4]: Check out [this site](https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution) if you are curious and want more details.
+
 [^5]: By hovering over a point you can see its distance to the surface.
+
 [^6]: You can read more on each representation in my previous posts on learning from [point clouds](/learning/2020/11/03/learning-from-point-clouds.html), [voxel grids](/learning/2020/12/17/learning-from-voxels.html), [graphs and meshes](/learning/2020/12/22/learning-from-graphs.html) or [projections](/learning/2021/02/04/learning-from-projections.html).
 
 ## Code & References
 
 | [Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/implicit-function-learning.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/master?labpath=notebooks%2Fimplicit-function-learning.ipynb) |
-| :----------------------------: | :-----------------------------------------------------------------------------: |
-|              [1]               |                   [Mescheder et al.: Occupancy Networks: Learning 3D Reconstruction in Function Space](https://avg.is.mpg.de/publications/occupancy-networks)                   |
-| [2] | [Peng et al.: Convolutional Occupancy Networks](https://is.mpg.de/publications/peng2020eccv) |
-| [3] | [Chibane et al.: Implicit Functions in Feature Space for 3D Shape Reconstruction and Completion](https://virtualhumans.mpi-inf.mpg.de/ifnets) |
+| :-------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                    [1]                                                    |           [Mescheder et al.: Occupancy Networks: Learning 3D Reconstruction in Function Space](https://avg.is.mpg.de/publications/occupancy-networks)            |
+|                                                    [2]                                                    |                                   [Peng et al.: Convolutional Occupancy Networks](https://is.mpg.de/publications/peng2020eccv)                                   |
+|                                                    [3]                                                    |          [Chibane et al.: Implicit Functions in Feature Space for 3D Shape Reconstruction and Completion](https://virtualhumans.mpi-inf.mpg.de/ifnets)           |

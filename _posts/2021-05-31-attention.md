@@ -50,6 +50,7 @@ To make those weights more interpretable and prevent the output from becoming ex
 Once all weights are computed, we multiply them with their corresponding inputs and sum them up to obtain the $j^{th}$ output which, as stated before, is simply a weighted sum of the inputs[^3]. The computation graph below visualizes the entire process.
 
 [^2]: Keep in mind though, that this is not a real probability distribution where the probability values correspond to empirical frequencies but rather a miscalibrated approximation.
+
 [^3]: This is omitted in the basic attention equation but we will include it in the upcoming matrix notation.
 
 <img class="img-animate" src="https://assets.hummat.com/images/attention/attention.png">
@@ -196,6 +197,7 @@ There are three open questions before we can wrap this up: (1) What is $\sqrt{d\
 Dividing the values inside the softmax function by a scalar is known as _tempering_ and the scalar is referred to as the _temperature_. This is often beneficial as a way of calibrating the result as squishing values into zero-one range doesn't magically produce a proper probability distribution[^7]. On a more practical note, dividing by $\sqrt{d\_k}$ eliminates the influence of inputs with varying length[^8] and keeps values within the region of significant slope of the softmax function, thus preventing vanishing gradients and slow learning during training when attention is used in a deep learning context.
 
 [^7]: Using the Bayesian interpretation of probabilities, good calibration means to be as confident or uncertain in a prediction as is warranted by the empirical frequency of being correct. Classifying an image depicting a cat with probability $0.7$ implies that, on average, $7$ out of every $10$ cat images should be classified correctly.
+
 [^8]: The euclidean length of a vector in $\mathbb{R}^{d\_k}$ with values $v$ is $\sqrt{d\_k}v$.
 
 ### Multi-head attention

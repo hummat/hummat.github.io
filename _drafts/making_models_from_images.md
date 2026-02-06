@@ -37,6 +37,6 @@ The number of objects is also quite limited when one is only interested in certa
 ## Code & References
 
 | [Code](/url/to/notebook.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](/url/to/binder/notebook.ipynb) |
-|:------------------------------:|:-------------------------------------------------------------------------------:|
+| :----------------------------: | :-----------------------------------------------------------------------------: |
 |                                |                                                                                 |
-|              [1]               |                    [Title of a Reference Paper](/url/to/paper)                  |
+|              [1]               |                   [Title of a Reference Paper](/url/to/paper)                   |

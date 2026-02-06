@@ -22,6 +22,7 @@ If you haven't come across voxel grids before, simply think _Minecraft_. In a vo
 You can drag to rotate and zoom in to reveal individual points and voxels.
 
 <a name="figure"></a>
+
 <div data-include="https://assets.hummat.com/figures/pcd_vs_voxel.html"></div>
 <div style="text-align: center">
 <figure style="width: 45%; display: inline-block;">
@@ -129,14 +130,23 @@ I hope this quick tour provided you with some intuition and understanding of 3D 
 [Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/learning-from-voxels.ipynb): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Flearning-from-voxels.ipynb)
 
 [^1]: The depth is colorcoded to improve interpretability.
+
 [^2]: Have a look [here](/learning/2020/07/17/a-sense-of-uncertainty.html#excursus-images) for an introduction to image representation for computer vision.
+
 [^3]: As discussed [here](/learning/2020/10/16/flatlands.html#images-vs-point-clouds).
+
 [^4]: This is called _weight sharing_ and makes convolutional neural networks so much more efficient than fully connected ones.
+
 [^5]: Definitely the last imho.
+
 [^6]: Using _channels first_ convention.
+
 [^7]: The exact ordering scheme is of little importance, what _is_ important though is that such an order _exists_.
+
 [^8]: Hint: The order is from left to right ($x$), bottom to top ($y$) and front to back ($z$).
+
 [^9]: Name and approach are equally creative.
+
 [^10]: Or at least it shouldn't.
 
 ---
