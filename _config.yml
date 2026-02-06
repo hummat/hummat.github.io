@@ -121,6 +121,7 @@ exclude:
   - CNAME
   - Gemfile.lock
   - node_modules
+  - vendor
 
 # Custom headers
 # webrick:
