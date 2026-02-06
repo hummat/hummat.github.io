@@ -154,6 +154,28 @@ article p {
   color: $gray;
 }
 
+.publication-cache-notice {
+  font-size: 0.85rem;
+  color: $gray;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.publication-refresh-btn {
+  background: none;
+  border: none;
+  color: $blue;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+
+  &:hover {
+    color: darken($blue, 10%);
+  }
+}
+
 .tags .tag {
   display: inline-block;
   color: rgba(0, 0, 0, 0.67);

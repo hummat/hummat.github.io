@@ -9,6 +9,39 @@ title: Publications
 
 <script>
 (function() {
+  var CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+  var MAX_RETRIES = 3;
+  var BASE_DELAY = 1000; // 1 second
+
+  function getCacheKey(authorId) {
+    return 'ss-pubs-' + authorId;
+  }
+
+  function readCache(authorId) {
+    try {
+      var raw = localStorage.getItem(getCacheKey(authorId));
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeCache(authorId, data) {
+    try {
+      localStorage.setItem(getCacheKey(authorId), JSON.stringify({
+        data: data,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Quota exceeded or unavailable — ignore
+    }
+  }
+
+  function isCacheFresh(cached) {
+    return cached && (Date.now() - cached.timestamp) < CACHE_TTL;
+  }
+
   function updateProfileLink(authorUrl) {
     var link = document.getElementById('semantic-scholar-profile-link');
     if (!link || !authorUrl) {
@@ -32,7 +65,18 @@ title: Publications
     authorId = authorId.trim();
 
     if (!authorId || authorId === 'REPLACE_WITH_YOUR_SEMANTIC_SCHOLAR_AUTHOR_ID') {
-      container.innerHTML = '<p>Please set <code>semantic_scholar_author_id</code> in <code>_config.yml</code> to show publications.</p>';
+      container.textContent = '';
+      var msg = document.createElement('p');
+      var code1 = document.createElement('code');
+      code1.textContent = 'semantic_scholar_author_id';
+      var code2 = document.createElement('code');
+      code2.textContent = '_config.yml';
+      msg.appendChild(document.createTextNode('Please set '));
+      msg.appendChild(code1);
+      msg.appendChild(document.createTextNode(' in '));
+      msg.appendChild(code2);
+      msg.appendChild(document.createTextNode(' to show publications.'));
+      container.appendChild(msg);
       return;
     }
 
@@ -44,11 +88,57 @@ title: Publications
       encodeURIComponent(authorId) +
       '?fields=url,papers.title,papers.year,papers.venue,papers.citationCount,papers.url,papers.authors';
 
-    function renderError(message) {
-      status.textContent = message;
+    function clearContainer() {
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
     }
 
-    function renderPublications(data) {
+    function renderError(message, options) {
+      options = options || {};
+      clearContainer();
+      var p = document.createElement('p');
+      p.textContent = message;
+      container.appendChild(p);
+
+      if (options.showRetry) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'publication-refresh-btn';
+        btn.textContent = 'Try again';
+        btn.addEventListener('click', function() {
+          clearContainer();
+          status = document.createElement('p');
+          status.textContent = 'Loading publications from Semantic Scholar…';
+          container.appendChild(status);
+          fetchWithRetry(0);
+        });
+        container.appendChild(btn);
+      }
+    }
+
+    function renderAuthorNames(authors, parentEl) {
+      // Build author list using DOM nodes to avoid innerHTML.
+      // Bold the site owner's name; separate with ", ".
+      for (var i = 0; i < authors.length; i++) {
+        var a = authors[i];
+        var name = a && a.name ? a.name : '';
+        if (!name) continue;
+        if (i > 0) {
+          parentEl.appendChild(document.createTextNode(', '));
+        }
+        if (name === 'Matthias Humt') {
+          var strong = document.createElement('strong');
+          strong.textContent = name;
+          parentEl.appendChild(strong);
+        } else {
+          parentEl.appendChild(document.createTextNode(name));
+        }
+      }
+    }
+
+    function renderPublications(data, options) {
+      options = options || {};
       if (!data || !Array.isArray(data.papers) || data.papers.length === 0) {
         renderError('No publications found for this Semantic Scholar author ID.');
         return;
@@ -67,7 +157,26 @@ title: Publications
         return 0;
       });
 
-      status.remove();
+      clearContainer();
+
+      if (options.cached) {
+        var notice = document.createElement('p');
+        notice.className = 'publication-cache-notice';
+        notice.appendChild(document.createTextNode('Showing cached data · '));
+        var refreshLink = document.createElement('button');
+        refreshLink.type = 'button';
+        refreshLink.className = 'publication-refresh-btn';
+        refreshLink.textContent = 'Refresh';
+        refreshLink.addEventListener('click', function() {
+          clearContainer();
+          status = document.createElement('p');
+          status.textContent = 'Loading publications from Semantic Scholar…';
+          container.appendChild(status);
+          fetchWithRetry(0);
+        });
+        notice.appendChild(refreshLink);
+        container.appendChild(notice);
+      }
 
       var list = document.createElement('ol');
       list.className = 'publication-list';
@@ -96,18 +205,12 @@ title: Publications
       li.appendChild(titleContainer);
 
       var authors = Array.isArray(paper.authors) ? paper.authors : [];
-      function escapeHtml(str) {
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
-      var authorsHtml = authors.map(function(a) {
-        var name = a && a.name ? escapeHtml(a.name) : '';
-        return name === 'Matthias Humt' ? '<strong>' + name + '</strong>' : name;
-      }).filter(function(name) { return name; }).join(', ');
+      var hasAuthors = authors.some(function(a) { return a && a.name; });
 
-      if (authorsHtml) {
+      if (hasAuthors) {
         var authorsEl = document.createElement('div');
         authorsEl.className = 'publication-authors';
-        authorsEl.innerHTML = authorsHtml;
+        renderAuthorNames(authors, authorsEl);
         li.appendChild(authorsEl);
       }
 
@@ -135,26 +238,59 @@ title: Publications
       container.appendChild(list);
     }
 
+    function handleFetchFailure(err) {
+      console.error(err);
+      var cached = readCache(authorId);
+      if (cached && cached.data) {
+        updateProfileLink(cached.data.url);
+        renderPublications(cached.data, { cached: true });
+      } else {
+        renderError('Failed to load publications from Semantic Scholar.', { showRetry: true });
+      }
+    }
+
+    function fetchWithRetry(attempt) {
+      fetch(apiUrl)
+        .then(function(response) {
+          if (response.status === 429 && attempt < MAX_RETRIES) {
+            var retryAfter = parseInt(response.headers.get('Retry-After'), 10);
+            var delay = (retryAfter && retryAfter > 0)
+              ? retryAfter * 1000
+              : BASE_DELAY * Math.pow(2, attempt);
+            return new Promise(function(resolve) {
+              setTimeout(resolve, delay);
+            }).then(function() {
+              return fetchWithRetry(attempt + 1);
+            });
+          }
+          if (!response.ok) {
+            throw new Error('Semantic Scholar API error: ' + response.status);
+          }
+          return response.json().then(function(data) {
+            writeCache(authorId, data);
+            updateProfileLink(data && data.url);
+            renderPublications(data);
+          });
+        })
+        .catch(function(err) {
+          handleFetchFailure(err);
+        });
+    }
+
     if (!window.fetch) {
       renderError('Your browser is too old to load publications automatically.');
       return;
     }
 
-    fetch(apiUrl)
-      .then(function(response) {
-        if (!response.ok) {
-          throw new Error('Semantic Scholar API error: ' + response.status);
-        }
-        return response.json();
-      })
-      .then(function(data) {
-        updateProfileLink(data && data.url);
-        renderPublications(data);
-      })
-      .catch(function(err) {
-        console.error(err);
-        renderError('Failed to load publications from Semantic Scholar.');
-      });
+    // Check cache first
+    var cached = readCache(authorId);
+    if (isCacheFresh(cached)) {
+      updateProfileLink(cached.data && cached.data.url);
+      renderPublications(cached.data);
+      return;
+    }
+
+    fetchWithRetry(0);
   }
 
   if (document.readyState === 'loading') {
