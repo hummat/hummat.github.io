@@ -2,7 +2,7 @@
 
 ## Layout
 
-```
+```text
 .
 ├── CLAUDE.md                 # agent instructions (index)
 ├── _config.yml               # site config (single source of truth)
@@ -38,13 +38,13 @@
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `_config.yml` | Site settings, plugin config, analytics IDs |
-| `_layouts/home.html` | Post listing logic, category/tag display |
-| `_layouts/post.html` | Single post template, metadata, comments |
-| `style.scss` | All styling; imports `_sass/` partials |
-| `_includes/jquery.html` | Enables `data-include` for external HTML |
+| File                    | Purpose                                     |
+| ----------------------- | ------------------------------------------- |
+| `_config.yml`           | Site settings, plugin config, analytics IDs |
+| `_layouts/home.html`    | Post listing logic, category/tag display    |
+| `_layouts/post.html`    | Single post template, metadata, comments    |
+| `style.scss`            | All styling; imports `_sass/` partials      |
+| `_includes/jquery.html` | Enables `data-include` for external HTML    |
 
 ## Adding Content
 
