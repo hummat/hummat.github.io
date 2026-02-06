@@ -1,0 +1,62 @@
+name: Lint & Build
+
+on:
+  pull_request:
+    branches: [netlify]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Markdown
+        run: npm run lint:md
+
+      - name: SCSS
+        run: npm run lint:scss
+
+      - name: JavaScript
+        run: npm run lint:js
+
+      - name: Prettier
+        run: npm run format:check
+
+  build:
+    name: Build & HTML check
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - run: npm ci
+
+      - name: Jekyll build
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: HTMLProofer
+        run: npm run test:html
