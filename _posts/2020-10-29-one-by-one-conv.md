@@ -64,7 +64,6 @@ The idea of sliding a small network over the input, as shown in fig. 2 (b), init
 </figure>
 </div>
 
-
 I think the first approach is relatively intuitive. The convolution operation performed by each filter is identical to that stated above for a single fully connected unit, i.e. multiplying a unique scalar weight with each input pixel and summing them up. Consequently, we obtain the same $784$ scalar outputs, one from each filter, perform the same number of operations (multiplications and additions) and have the same number of parameters ($784\times784=614656$ omitting biases).
 
 If we reduce the width and height of our filter kernels to one, we obtain $1\times1$ convolutions. Let's first look at a trivial example (figure 4) with a single filter and three kernels, operating on an RGB image (a) and again the conceptually simple extension to the fully connected approach (b).
@@ -83,6 +82,7 @@ If we reduce the width and height of our filter kernels to one, we obtain $1\tim
 The important thing to note here is, that both approaches produce a _single_ output per spatial dimension (i.e. width and height), because, per convention[^2], convolutions of input channels and kernels from the same filter are summed up, meaning each filter only produces one feature map. In the example above, the red, green and blue pixel values are multiplied by the red green and blue weights and then summed to give a scalar output. This is actually the more common way to employ $1\times1$ convolutions, namely as a way to reduce or increase depth, i.e. the number of output channels and not to mimic fully connected operations. For example, we can put this to use in the final layer of our network to produce one feature map per class by sliding $10$ filter with $1\times1$ kernels over the output feature maps of the previous layer. In the figure below (6), this would produce one feature map for each digit from one to ten, where each "pixel" in the feature map corresponds to the "oneishness" or "twoishness" of each input pixel[^3].
 
 [^2]: This part is often omitted!
+
 [^3]: Interestingly, summing those feature maps over the spatial dimensions would again produce the same result as a fully connected layer, i.e. one scalar value per class, so we could view it as a third way of mimicking fully connected layers with convolutions.
 
 <div style="text-align: center">
@@ -95,7 +95,6 @@ The important thing to note here is, that both approaches produce a _single_ out
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 5 (b):</b> The same effect achieved with a fully connected approach, were we to focus on one pixel at a time and capable of sliding the layer across the input.</figcaption>
 </figure>
 </div>
-
 
 Armed with the knowledge from the previous paragraph, we can now understand the second approach of transforming a fully connected layer into a convolutional layer. To do so, we first _transform the image into a vector_[^4] by concatenating all of its pixels and then apply _one filter per pixel_ with _one kernel per pixel_, as our image now has as many channels as it had pixels (i.e. it is of shape $1\times1\times784$). Have a look at figure 6 below to take it in visually.
 

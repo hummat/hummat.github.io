@@ -8,16 +8,25 @@
     "lint:scss": "stylelint \"style.scss\" \"_sass/**/*.scss\"",
     "lint:js": "eslint --ext .js,.html _includes _layouts",
     "format": "prettier --write \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
-    "test:site": "bundle exec jekyll build"
+    "format:check": "prettier --check \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
+    "test:site": "bundle exec jekyll build",
+    "test:html": "bundle exec htmlproofer _site --disable-external --allow-hash-href --allow-missing-href --no-enforce-https --ignore-missing-alt --no-check-internal-hash --ignore-status-codes 999 --ignore-urls \"/^/images//\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-plugin-html": "^7.1.0",
+    "lint-staged": "^15.2.0",
     "markdownlint-cli": "^0.41.0",
     "prettier": "^3.2.5",
     "stylelint": "^15.11.0",
     "stylelint-config-recommended-scss": "^13.0.0",
     "stylelint-config-standard-scss": "^11.0.0",
     "stylelint-scss": "^5.3.2"
+  },
+  "lint-staged": {
+    "*.md": "markdownlint --ignore _site --ignore node_modules",
+    "*.scss": "stylelint",
+    "*.{js,html}": "eslint --ext .js,.html",
+    "*.{md,html,scss,js,json,yml,yaml}": "prettier --check --ignore-path .prettierignore"
   }
 }

@@ -57,12 +57,12 @@ Follow this workflow for new posts:
 layout: post
 title: Your Title
 abstract: A short summary
-category: learning  # or: thought, resource, book, repository, paper
+category: learning # or: thought, resource, book, repository, paper
 tags: [tag1, tag2]
-time: 5            # estimated reading time in minutes
-words: 1000        # approximate word count
-mathjax: true      # enable LaTeX math (optional)
-plotly: true       # enable Plotly charts (optional)
+time: 5 # estimated reading time in minutes
+words: 1000 # approximate word count
+mathjax: true # enable LaTeX math (optional)
+plotly: true # enable Plotly charts (optional)
 ---
 ```
 
@@ -112,11 +112,11 @@ npm run lint:scss
 
 Before contributing, consider opening an issue to discuss your idea:
 
-| Template | Use for |
-|----------|---------|
-| [Post Idea](https://github.com/hummat/hummat.github.io/issues/new?template=post-idea.yml) | Suggest a topic for a new blog post |
-| [Post Feedback](https://github.com/hummat/hummat.github.io/issues/new?template=post-feedback.yml) | Report errors or suggest improvements to existing posts |
-| [Feature Request](https://github.com/hummat/hummat.github.io/issues/new?template=feature-request.yml) | Suggest site improvements (search, navigation, etc.) |
+| Template                                                                                              | Use for                                                 |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| [Post Idea](https://github.com/hummat/hummat.github.io/issues/new?template=post-idea.yml)             | Suggest a topic for a new blog post                     |
+| [Post Feedback](https://github.com/hummat/hummat.github.io/issues/new?template=post-feedback.yml)     | Report errors or suggest improvements to existing posts |
+| [Feature Request](https://github.com/hummat/hummat.github.io/issues/new?template=feature-request.yml) | Suggest site improvements (search, navigation, etc.)    |
 
 ## Questions?
 

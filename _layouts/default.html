@@ -1,80 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.title }} – {{ site.description }}</title>
+  <head>
+    <title>
+      {% if page.title %}{{ page.title }} – {% endif %}{{ site.title }} – {{ site.description }}
+    </title>
 
     {% include meta.html %}
 
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css"/>
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml"/>
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="{{ site.name }} - {{ site.description }}"
+      href="{{ site.baseurl }}/feed.xml"
+    />
 
     {% if page.plotly %}
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    {% endif %} {% include jquery.html %} {% include mathjax.html %} {%- seo -%} {% if
+    site.google_analytics and jekyll.environment == 'production' %} {% include analytics_alt.html %}
     {% endif %}
-    {% include jquery.html %}
-    {% include mathjax.html %}
-    {%- seo -%}
-    {% if site.google_analytics and jekyll.environment == 'production' %}
-    {% include analytics_alt.html %}
-    {% endif %}
-</head>
+  </head>
 
-<body>
-{% include github-corner.html %}
-<header class="wrapper-masthead">
-    <div class="container">
+  <body>
+    {% include github-corner.html %}
+    <header class="wrapper-masthead">
+      <div class="container">
         <div class="masthead clearfix">
-            <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" alt="avatar"/></a>
+          <a href="{{ site.baseurl }}/" class="site-avatar"
+            ><img src="{{ site.avatar }}" alt="avatar"
+          /></a>
 
-            <div class="site-info">
-                <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
-                <p class="site-description">{{ site.description }}</p>
-            </div>
+          <div class="site-info">
+            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
+            <p class="site-description">{{ site.description }}</p>
+          </div>
 
-            <nav>
-                <a href="{{ site.baseurl }}/">Blog</a>
-                <a href="{{ site.baseurl }}/publications">Publications</a>
-                <a href="{{ site.baseurl }}/about">About</a>
-                <!--<a href="{{ site.baseurl }}/files/cv.pdf">CV</a>-->
-            </nav>
+          <nav>
+            <a href="{{ site.baseurl }}/">Blog</a>
+            <a href="{{ site.baseurl }}/publications">Publications</a>
+            <a href="{{ site.baseurl }}/about">About</a>
+            <!--<a href="{{ site.baseurl }}/files/cv.pdf">CV</a>-->
+          </nav>
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-{% if page.banner %}
-<section class="banner">
-    <img src="{{ page.banner }}" alt="banner">
-    {% if page.banner-text %}
-    <h1 class="hero-text">{{ page.title }}</h1>
+    {% if page.banner %}
+    <section class="banner">
+      <img src="{{ page.banner }}" alt="banner" />
+      {% if page.banner-text %}
+      <h1 class="hero-text">{{ page.title }}</h1>
+      {% endif %}
+    </section>
+    {% elsif page.gradient %}
+    <section class="page-header-github">
+      <h1 class="project-name">{{ page.title }}</h1>
+      {% if page.github %}
+      <a href="{{ page.github }}" class="btn">View on GitHub</a>
+      {% endif %}
+    </section>
+    {% else %}
+    <div style="margin-bottom: 50px" class="nobanner"></div>
     {% endif %}
-</section>
-{% elsif page.gradient %}
-<section class="page-header-github">
-    <h1 class="project-name">{{ page.title }}</h1>
-    {% if page.github %}
-    <a href="{{ page.github }}" class="btn">View on GitHub</a>
-    {% endif %}
-</section>
-{% else %}
-<div style="margin-bottom: 50px;" class="nobanner"></div>
-{% endif %}
 
-<main id="main" class="container">
-    {{ content }}
-</main>
+    <main id="main" class="container">{{ content }}</main>
 
-<footer class="wrapper-footer">
-    <div class="container">
-        <div class="footer">
-            {% include svg-icons.html %}
-        </div>
-    </div>
-</footer>
+    <footer class="wrapper-footer">
+      <div class="container">
+        <div class="footer">{% include svg-icons.html %}</div>
+      </div>
+    </footer>
 
-{% include popup.html %}
-{% include slideshow.html %}
-{% include slideshow2.html %}
-
-</body>
+    {% include popup.html %} {% include slideshow.html %} {% include slideshow2.html %}
+  </body>
 </html>

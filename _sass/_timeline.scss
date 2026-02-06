@@ -1,4 +1,4 @@
-$black: #34435E;
+$black: #34435e;
 $white: #ffffff;
 
 .tl-node {
@@ -11,7 +11,7 @@ $white: #ffffff;
   counter-increment: section;
   position: relative;
   color: black;
-  
+
   //numbers
   &:before {
     content: counter(section);
@@ -31,9 +31,9 @@ $white: #ffffff;
 .tl-node:nth-child(odd) {
   border-right: 3px solid;
   padding-left: 0;
-  
+
   &:before {
-    left: 100%; 
+    left: 100%;
     margin-left: -18px;
   }
 }
@@ -41,21 +41,21 @@ $white: #ffffff;
 .tl-node:nth-child(even) {
   border-left: 3px solid;
   padding-right: 0;
-  
+
   &:before {
-    right: 100%; 
+    right: 100%;
     margin-right: -18px;
   }
 }
 //handle first and last
 .tl-node:first-child {
   border-top: 0;
-  border-top-right-radius:0;
-  border-top-left-radius:0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }
 .tl-node:last-child {
-  border-bottom-right-radius:0;
-  border-bottom-left-radius:0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .tl-node h3 {

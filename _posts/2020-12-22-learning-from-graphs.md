@@ -13,14 +13,17 @@ words: 2098
 ---
 
 # {{ page.title }}
+
 Welcome to this third and still not final episode of the series _learning from 3D data_. We've already looked at [point clouds](/learning/2020/11/03/learning-from-point-clouds.html), and [voxel grids](/learning/2020/12/17/learning-from-voxels.html) so now it's time for _graphs_. I've already motivated learning on 3D data as opposed to 2D data like images [here](/learning/2020/10/16/flatlands.html), so let's skip this and directly move on to a quick recap on point clouds and voxels to see why we might want and need yet another representation.
 
 ### Previously on 3D deep learning
+
 Point clouds are great, because they are the raw output of 3D scanning hardware so we don't need any hand-crafted pre-processing. Apart from being computationally efficient they are also efficient to store due to natural sparsity where unoccupied space remains empty and we simply store a three-tuple of xyz coordinates for each point. Extracting information from this format, i.e. learning, is however difficult in part due to this sparseness but also due to unorderedness and varying density.
 
 Voxel grids try to alleviate some of these problems by putting points into boxes, i.e. voxels, and stacking them into an ordered structure, the voxel grid. Similar to images, each voxel now has pre-defined neighbors and density is equalized through binning, as multiple nearby points are lumped together into a single voxel. This allows to employ the workhorse of deep learning on 2D structured data, i.e. images, namely _convolutions_.
 
 ### The holy graph
+
 What do graphs bring to the table then? The best of both worlds would be an exaggeration, but there certainly is some of both. But what _is_ a graph anyway?
 
 <br>
@@ -41,14 +44,17 @@ If you zoom out on the visualization above, you see that the presented graph des
 There are a couple of properties not necessarily visible in simple visualizations of graphs, two important ones being the _directedness_ (or _undirectedness_), meaning an edge is a one-way street only traversable in one direction and _weightedness_, meaning each edge obtains a scalar weight value, signifying some property like length. A mesh for example is an undirected, unweighted graph. Apart from these invisible properties, there are also completely different ways of looking at a graph: the _spatial_ and _spectral_ formulation.
 
 ### It's a signal
+
 Everything we have discussed so far took place in the spatial domain, where properties like distance and orientation are defined in Euclidean space. In the spectral domain however, each vertex describing a point in 3D space---possibly with additional features like RGB color or a normal value---becomes a signal in time, where the time series is the ordered traversal of all vertices. This representation might be more familiar in the analysis of sounds, where the ordered sequence of sounds produces music. Just like sounds, signals on graphs can be decomposed into frequencies using the Fourier transform which can then be used for further analysis, i.e. learning.
 
 The advantage of this approach compared to the spatial domain is the applicability of convolutions, as we are now operating in an ordered neighborhood, but the lack of a fast Fourier transform option for graphs and non-transferability of learned features to other graphs prohibit the widespread use of this approach, so we won't bother with it for the rest of this article.
 
 ## Getting graphic
+
 With the necessary theoretical background under our belly, it's now time to investigate how researchers made use of the added structure provided by graphs and how they overcame the difficulties still present in this representation. We already head _PointNet_ for learning on point clouds and _VoxNet_ for learning on voxels so I guess we shouldn't be surprised to now see
 
 ### MeshNet
+
 As the name aptly conveys, _MeshNet_ is a deep neural network architecture tailored to meshes. In images, pixels form the basic building blocks and in point clouds this role is played by the points. For meshes though, the are several possibilities. Ignoring the edges, we are left with a point cloud, possibly with additional neighborhood information. One can also only use the edges and extract features like lengths or angles. The triangle formed by three edges and vertices is called a _face_, which forms a third possibility. And then of course one can use subsets of those three.
 
 To take advantage of the structure inherent in meshes, the creators of MeshNet divide the input features into structural and spatial ones. They define the center of gravity of each face as spatial feature, and the vector from the center to each corner, the normal vector at the center and the index of the three neighboring faces as structural features. Chosen to be effective and efficient, these features are nonetheless hand-crafted, meaning they aren’t learned from data and might be suboptimal.
@@ -65,6 +71,7 @@ A convolution-like operation is then defined on the center-to-corner vectors, bu
 Building up a deep architecture around this new operator, MeshNet outperforms [Multi-View CNN](https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Su_Multi-View_Convolutional_Neural_ICCV_2015_paper.pdf) and [PointNet++](https://papers.nips.cc/paper/2017/file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf), two of the strongest baselines at the time of publication. It is also almost as fast as PointNet and very robust to changes in mesh structure and density.
 
 ### MeshCNN
+
 Similar to the previous architecture, this one is also specifically designed to handle the peculiarities of meshes, but the basic building blocks are now edges instead of faces. Each edge in a mesh takes part in two triangles on which both a novel convolution and pooling operation is defined.
 
 <div style="text-align: center">
@@ -93,6 +100,7 @@ The convolution is defined similarly to MeshNet over the participating edges. To
 Because both convolutions and pooling are implemented, MeshCNN behaves much like a "normal" CNN, building hierarchical features with increasing depth while increasing the receptive field. And because the pooling operation can be reversed, we can even build fully convolutional networks for semantic segmentation. Unfortunately, the authors didn't evaluate their model on the de facto standard benchmark datasets ModelNet40 for classification, and ShapeNet for semantic segmentation, but a quick look online revealed, that both datasets are not _manifold_, meaning there could be edges with more than two adjacent triangles, which breaks the assumption made in designing MeshCNN.
 
 ### DGCNN
+
 The final work I want to discuss in this article could just as well have appeared in a previous post on point cloud learning, as this is what the _Dynamic Graph CNN_ takes as input, but I decided to flout the conventions and discuss it hear, because in name and at heart its a real graph approach.
 
 In contrast to other works, including those featured above, DGCNN creates its own dynamic graph on the fly during execution. To do so, for each input point, the $k$ nearest neighbors are found in each layer, which means that proximity is defined in feature space as opposed to Euclidean space for all but the very first layer. Instead of using the features attached to each point, like position, color or normals, new pair-wise _edge features_ are computed.
@@ -111,11 +119,13 @@ You might wonder why we need to use pairs of points to compute our features inst
 Another difference to PointNet and PointNet++ is, that the neighborhood graph is computed in feature space as opposed to remaining in the original Euclidean space in which the farthest point sampling (or ball query) is performed. The implication is, that DGCNN (similar to image CNNs) can capture _semantic_ similarity, i.e. small distance in feature space, instead of spatial similarity, allowing to detect reoccurring parts like wings or ears in deeper layers which can be comparatively far apart in the original space.
 
 ## What's next?
+
 By now we have covered a lot of ground from point clouds over voxel grids to graphs. The final approach to learning from 3D data I want to cover is also the oldest and most obvious: Don't bothering with three dimensions but instead projecting everything into 2D and applying our beloved and powerful standard CNN architectures. See you there.
 
 [Code](https://github.com/hummat/hummat.github.io/blob/master/notebooks/learning-from-graphs.ipynb): [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hummat/hummat.github.io/HEAD?filepath=%2Fnotebooks%2Flearning-from-graphs.ipynb)
 
 [^1]: Singular: _vertex_.
+
 [^2]: In computer graphics it's also commonly referred to as _polygonal mesh_.
 
 ---

@@ -3,15 +3,21 @@
   "MD013": false,
   "MD033": {
     "allowed_elements": [
+      "a",
+      "code",
       "details",
-      "summary",
       "div",
-      "span",
-      "img",
       "figure",
       "figcaption",
-      "video",
-      "source"
+      "img",
+      "noscript",
+      "p",
+      "script",
+      "source",
+      "span",
+      "strong",
+      "summary",
+      "video"
     ]
   },
   "MD041": false

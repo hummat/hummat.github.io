@@ -43,7 +43,6 @@ Let’s start with the topics that won’t be covered but for which I’ll suppl
 </ol>
 </details>
 
-
 ## What is this and why bother?
 
 The first question coming to mind if confronted with the concept of a Bayesian Neural Network is, why even bother? _My standard Neural Networks are working just fine, thank you!_ The answer is, that the world itself is inherently uncertain and a run-of-the-mill Neural Net has no idea what it’s talking about when it classifies your cat as a Ferrari with $99.9\\%$ certainty.
@@ -57,7 +56,7 @@ When confronted with a difficult problem like _“What did you eat on Monday two
 
 The real world is ambiguous and uncertain in all sorts of ways due to extremely complex interactions of a large number of factors (think, e.g., weather forecasting) and because we only ever observe it through some kind of interface: a camera, a microphone, our eyes. Those interfaces, usually called “sensors” in robotics, have their own problems like struggling with low light or transmitting corrupted information. An agent, be it a biological or artificial, must takes those uncertainties into account when operating within such an environment.
 
-##  Uncertainty flavors
+## Uncertainty flavors
 
 Usually, uncertainty is put into two broad categories which makes it easier to think about and model. The first, often called _model uncertainty_[^1], is inherent to the model (or agent) and describes its ignorance towards its own stupidity. A standard neural net is maximally ignorant in that it chooses one, most likely way of explaining everything—which translates into one specific set of parameters or weights—and then runs with those.
 
@@ -68,7 +67,6 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
   <figcaption>A standard neural network with specific weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
 
-
 This is equivalent to an old person having figured out the answers to all the important questions and being impossible to convince otherwise. A Bayesian Neural Network, just as a biological Bayesian (the person), works differently. It considers all possible ways of looking at the problem[^2] and weighs them by the amount of evidence it has observed for each of those ways. It then integrates them into one coherent explanation. We will see what that looks like in practice a bit later. You can think about this as having a probability distribution for each weight (the little squiggly lines in yellow below) which determines the likely and less likely values each weight can take on. Usually, we have one multi-dimensional probability distribution for the entire network (where the number of dimensions equals the number of weights), also capturing (some of) the _covariances_ between the weights.
 
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
@@ -77,7 +75,6 @@ This is equivalent to an old person having figured out the answers to all the im
   <img src="https://assets.hummat.com/images/bayesian_nn.png">
   <figcaption>A Bayesian neural network with distributions over weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
-
 
 The second type of uncertainty is commonly referred to as _data uncertainty_[^3] and it’s exactly what it sounds like: is the information provided by the data clearly discernible or not? You might think about a fogy night in the forest where you’re trying to convince yourself, that this moving shape is just a branch of a tree swaying in the wind. You can look at it hard and from multiple angles, possibly reducing your uncertainty about the thing (model uncertainty) but you can’t change the fact that it’s night, foggy and your eyes simply aren’t cut for this kind of task (data uncertainty). This also sheds light onto the fact that model uncertainty can be reduced (with more data) but data uncertainty cannot (as it’s inherent to the data).
 
@@ -123,7 +120,7 @@ In our case, the inputs are images and the outputs are vectors of scalars, one f
 
 If this all makes perfect sense to you, skip ahead to the next section, otherwise, let's quickly explore how a computer can "see" images to then tell us what's there to be seen. As computers can only deal with bits, everything we throw at them needs to be in this format. If we are working with numbers, that's easy to do, but images?
 
-The first thing we need to understand is, that an image is made up of pixels. And by _understand_ I don't mean to _know_ the fact that this is so, but to grasp the implications of it. Each pixel  has a name (or ID) and a color. The name is its position, usually given by a $x$, $y$ coordinate in a grid with rows and columns, but can also be a single number, if an additional order, e.g. from top left to bottom right is given. The color is usually made up of a mixture of red, green and blue (RGB), one set of _primary colors_ from which we can mix every other color. So if we are given a $32\times 32$ pixel image, what we actually work with are $5$ numbers per pixel, the row and column coordinates as well as the red, green and blue color values, times the number of pixels which turns out to be $32\times32\times5=5120$ numbers.
+The first thing we need to understand is, that an image is made up of pixels. And by _understand_ I don't mean to _know_ the fact that this is so, but to grasp the implications of it. Each pixel has a name (or ID) and a color. The name is its position, usually given by a $x$, $y$ coordinate in a grid with rows and columns, but can also be a single number, if an additional order, e.g. from top left to bottom right is given. The color is usually made up of a mixture of red, green and blue (RGB), one set of _primary colors_ from which we can mix every other color. So if we are given a $32\times 32$ pixel image, what we actually work with are $5$ numbers per pixel, the row and column coordinates as well as the red, green and blue color values, times the number of pixels which turns out to be $32\times32\times5=5120$ numbers.
 
 If you hover over the first image below, the position and RGB color values of the currently selected pixel will appear. Due to the low resolution ($128\times128$), the pixels are already visible. By selecting a portion of the image (you can click and drag a rectangle), they will become even more salient. On the right, I've split the image further into it's color channels (red, green, blue). By overlaying them, the original colors appear[^4], but if you rotate the image (by clicking and dragging), you will notice, that in fact there are only different shades of the primary colors. You can also zoom in here (by using your mouse wheel) to expose the individual pixels again.
 
@@ -177,7 +174,7 @@ $$
 
 As you might have glimpsed from these equations, the mean-squared error can be interpreted as the negative logarithm of an isotropic multivariate normal distribution of the true labels centered around the predictions with precision $\beta$ while the cross entropy has an interpretation as the negative logarithm of a categorical distribution of the predictions.
 
-To obtain the likelihood given the loss, we can simply solve the equation $E(W)=-\ln p(\mathcal{D}\vert W)$ for this quantity to obtain $p(\mathcal{D}\vert W)=\exp(-E(W))$. Below, on the left, you see a visualization of taking the exponential of the negative loss while on the right,  a fitted two-dimensional normal distribution is shown. Interestingly, they are extremely similar, suggesting to use such distributions when trying to model the likelihood functions of neural networks, a fact we will come back to in the final article of this series when talking about _Laplace approximation_.
+To obtain the likelihood given the loss, we can simply solve the equation $E(W)=-\ln p(\mathcal{D}\vert W)$ for this quantity to obtain $p(\mathcal{D}\vert W)=\exp(-E(W))$. Below, on the left, you see a visualization of taking the exponential of the negative loss while on the right, a fitted two-dimensional normal distribution is shown. Interestingly, they are extremely similar, suggesting to use such distributions when trying to model the likelihood functions of neural networks, a fact we will come back to in the final article of this series when talking about _Laplace approximation_.
 
 For now, simply have a look at (and play with) the figures and try to understand the relationship between loss and likelihood. For example, regions of low loss indicate parameters (network weights) of high likelihood and flat regions of the loss translate to high uncertainty about the correct parameter values, as many different configurations are equally likely to have generated the data.
 

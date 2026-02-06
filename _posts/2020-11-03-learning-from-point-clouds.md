@@ -27,6 +27,7 @@ And then there is the computational overhead. Adding a dimension to our data inc
 As discussed in the previous article, point clouds are great, as they are the most natural data representation, directly obtained from our sensors. They are inherently sparse and therefore space-saving, but they also come with some problems. The first is _varying density_, i.e. some regions feature significantly more points than others, and secondly _lack of order_. Both effects are visualized below. Contrary to images, the shape of the point clouds, and therefore the object it represents, is preserved no matter in which order its points are stored and presented. Were we to reverse the order of pixels in an image we would flip it horizontally (i.e. perform a $180°$ clockwise rotation), while shuffling the pixels would results in garbage (noise).
 
 <a name="bunny"></a>
+
 <div data-include="https://assets.hummat.com/figures/bunny_pcd.html"></div>
 
 On the left, you see the point cloud of the [Stanford Bunny](http://graphics.stanford.edu/data/3Dscanrep/)[^1]. Points are distributed uniformly over its entire surface. On the right you see the same bunny, but with two important differences:
@@ -130,7 +131,7 @@ The remainder of the paper focuses on ablation studies, validating various desig
 
 ## 2. PointNet++
 
-With such great results and so many great solutions to difficult point cloud problems you thought we were done, right? Far from it though! The most glaring omission in PointNet was the problem of varying densities  as explained [in the beginning](#bunny). This is a very real problem with point clouds obtained from real world 3D scans. Usually, such point clouds are generated from a single depth image or stitched together from multiple depth images, though usually still from only a small range of viewpoints, leaving occluded regions completely blank.
+With such great results and so many great solutions to difficult point cloud problems you thought we were done, right? Far from it though! The most glaring omission in PointNet was the problem of varying densities as explained [in the beginning](#bunny). This is a very real problem with point clouds obtained from real world 3D scans. Usually, such point clouds are generated from a single depth image or stitched together from multiple depth images, though usually still from only a small range of viewpoints, leaving occluded regions completely blank.
 
 In the image domain, a similar problem to varying density exists under the name _level of detail_. Depending on the resolution of your camera or the distance of an object to it, many or few pixel can be devoted to said object resulting in ample or meager information to judge it by. So maybe one could take inspiration from solutions developed in this domain? This was tackled in the subsequent work of the PointNet team, aptly titled [PointNet++](http://papers.nips.cc/paper/7095-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space.pdf).
 

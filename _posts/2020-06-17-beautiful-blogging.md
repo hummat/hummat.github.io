@@ -139,7 +139,6 @@ layout: post
 title: And now...The Larch!
 image: https://assets.hummat.com/images/image.png
 ---
-
 ```
 
 at the front of a post and whatever you define there can then be accessed using e.g. {% raw %}{{ page.image }}{% endraw %}. As hinted at in the example, I like to define the location of the thumbnail image I use next to a post here and then to include it in [home.html](https://github.com/hummat/hummat.github.io/blob/master/_layouts/home.html) like so:[^post]
@@ -281,6 +280,7 @@ There are a couple of small tweaks and insights I’d like to summarize in this 
   But the main advantage of the digital format is, that you can show footnotes in a popup next to the text where they appear whenever you hover or click on them. To enable this functionality, simply add [this file](https://github.com/hummat/hummat.github.io/blob/master/_includes/popup.html) to your `_include` directory[^5] and this line {% raw %}<div data-include="popup.html"></div>{% endraw %} to your e.g. default layout in `_layouts`. Et voilá, popup footnotes![^6]
 
   [^5]: Adapted from [here](https://github.com/vaetas/hugo-footnotes-popup).
+
   [^6]: I’m a popup footnote!
 
   If your footnotes don’t look nice (e.g. the number is too large and not a superscript), add those lines to your `style.scss`:

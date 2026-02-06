@@ -5,6 +5,7 @@ This file provides guidance to AI coding agents when working with this repositor
 ## Conventions
 
 Read relevant `docs/agent/` files before proceeding:
+
 - `workflow.md` — **read before starting any post or feature** (issues, branching, PRs)
 - `content.md` — **read before writing posts** (front matter, categories, interactive content)
 - `architecture.md` — read before modifying layouts/structure
@@ -37,7 +38,7 @@ npm run format                      # format all
 layout: post
 title: Post Title
 abstract: Short summary
-category: learning  # thought, resource, book, repository, paper
+category: learning # thought, resource, book, repository, paper
 tags: [tag1, tag2]
 time: 5
 words: 1000

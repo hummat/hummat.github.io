@@ -46,6 +46,9 @@ _posts/.ztr-directory
 CLAUDE.md
 GEMINI.md
 QWEN.md
+.gemini/
+.claude/
+.mcp.json
 
 # R2 Migration (Removed from Git)
 images/

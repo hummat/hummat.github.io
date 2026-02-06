@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 #
-# Pre-commit hook: uploads assets from _assets/ to Cloudflare R2
+# Pre-commit hook
+#   1. Lint staged files (lint-staged)
+#   2. Upload assets from _assets/ to Cloudflare R2
 #
-# Workflow:
-#   1. Place files in _assets/images/, _assets/figures/, _assets/data/
-#   2. Run git commit - this hook uploads them to R2
-#   3. Files are moved to _assets/.uploaded/ after successful upload
+# R2 workflow:
+#   - Place files in _assets/images/, _assets/figures/, _assets/data/
+#   - Run git commit — this hook uploads them to R2
+#   - Files are moved to _assets/.uploaded/ after successful upload
 #
 # Setup: git config core.hooksPath .githooks
 
 set -euo pipefail
+
+# --- Lint staged files ---
+if command -v npx &> /dev/null; then
+  npx lint-staged --concurrent false
+fi
 
 ASSETS_DIR="_assets"
 UPLOADED_DIR="_assets/.uploaded"
