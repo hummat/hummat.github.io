@@ -30,14 +30,46 @@ npm run lint:scss
 # JavaScript
 npm run lint:js
 
-# Format all
+# Format all (writes changes)
 npm run format
 
-# Full site check
+# Check formatting (read-only, used in CI)
+npm run format:check
+
+# Build site
 npm run test:site
+
+# HTMLProofer (internal links only; requires build first)
+npm run test:html
 ```
 
 Excluded from linters: `_site/`, `figures/`, `images/`, `data/`
+
+## Pre-commit Hooks
+
+The repo uses `core.hooksPath = .githooks/`. On every commit:
+
+1. **lint-staged** runs linters on staged files only (fast feedback)
+2. **R2 upload** pushes any files in `_assets/` to Cloudflare R2
+
+To set up hooks after cloning:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+lint-staged config lives in `package.json` under the `"lint-staged"` key. It runs markdownlint, stylelint, eslint, and prettier on the relevant staged file types.
+
+## CI Workflow
+
+`.github/workflows/lint.yml` runs on PRs to `netlify`:
+
+| Job     | What it does                                          |
+| ------- | ----------------------------------------------------- |
+| `lint`  | markdownlint, stylelint, eslint, prettier (Node-only) |
+| `build` | Jekyll build + HTMLProofer (needs lint to pass first) |
+
+Stale runs are auto-cancelled when a new push arrives (`cancel-in-progress`).
 
 ## Assets (Cloudflare R2)
 
@@ -83,9 +115,9 @@ Before committing:
 
 ## Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Build fails with Liquid error | Check template syntax in `_includes/` or post |
-| Missing image | Verify R2 upload; check URL path |
-| MathJax not rendering | Add `mathjax: true` to front matter |
-| Plotly chart not loading | Add `jquery: true` and verify `data-include` URL |
+| Issue                         | Solution                                         |
+| ----------------------------- | ------------------------------------------------ |
+| Build fails with Liquid error | Check template syntax in `_includes/` or post    |
+| Missing image                 | Verify R2 upload; check URL path                 |
+| MathJax not rendering         | Add `mathjax: true` to front matter              |
+| Plotly chart not loading      | Add `jquery: true` and verify `data-include` URL |
