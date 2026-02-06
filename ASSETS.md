@@ -33,24 +33,29 @@ banner: https://assets.hummat.com/images/my-banner.jpg
 A pre-commit hook automatically uploads assets to R2 when you commit.
 
 1. **Enable the hook** (one-time setup):
+
    ```bash
    git config core.hooksPath .githooks
    ```
 
 2. **Add files to the upload folder** (gitignored, won't be committed):
+
    ```bash
    mkdir -p _assets/images
    cp /path/to/photo.jpg _assets/images/
    ```
 
 3. **Commit your post** (the hook runs automatically):
+
    ```bash
    git add my-post.md
    git commit -m "Add new post"
    ```
+
    The hook uploads files from `_assets/` to R2, then moves them to `_assets/.uploaded/` to prevent re-uploading.
 
 4. **If only assets changed** (nothing else to commit):
+
    ```bash
    git commit --allow-empty -m "Upload new assets"
    ```
@@ -62,6 +67,7 @@ A pre-commit hook automatically uploads assets to R2 when you commit.
 1. **Prerequisites:** Install and configure `rclone` with the R2 remote named `r2`. Configuration is stored at `~/.config/rclone/rclone.conf`.
 
 2. **Upload files:**
+
    ```bash
    # Single file
    rclone copy /path/to/file.jpg r2:hummat-assets/images/
@@ -74,6 +80,7 @@ A pre-commit hook automatically uploads assets to R2 when you commit.
    ```
 
 3. **Verify upload:**
+
    ```bash
    rclone ls r2:hummat-assets/images/ | grep "file.jpg"
    ```

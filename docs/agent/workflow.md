@@ -15,11 +15,13 @@ gh project item-add 2 --owner hummat --url <issue-or-pr-url>
 ```
 
 **When starting work on an issue:**
+
 1. Move the issue from **Todo** → **In Progress** in the project board
 2. Create your branch and begin work
 3. When PR merges, the issue auto-closes and moves to **Done**
 
 You can update issue status via:
+
 - **Web UI**: Drag the card in Board view, or edit the Status field in Table view
 - **CLI**: `gh project item-edit --project-id PVT_kwHOAVXJM84BM8Co --id <ITEM_ID> --field-id PVTSSF_lAHOAVXJM84BM8Cozg8E75w --single-select-option-id 47fc9ee4`
 
@@ -65,14 +67,14 @@ gh pr create --base netlify --title "..." --body "..."
 
 ## Categories
 
-| Category | Description | Use `gh-page` for external link |
-|----------|-------------|--------------------------------|
-| `learning` | Tutorial, educational content | rarely |
-| `thought` | Personal reflection, opinion | no |
-| `resource` | Curated list, reference guide | sometimes |
-| `book` | Book summary or review | no |
-| `repository` | Project showcase (GitHub repo) | yes |
-| `paper` | Published paper page | yes |
+| Category     | Description                    | Use `gh-page` for external link |
+| ------------ | ------------------------------ | ------------------------------- |
+| `learning`   | Tutorial, educational content  | rarely                          |
+| `thought`    | Personal reflection, opinion   | no                              |
+| `resource`   | Curated list, reference guide  | sometimes                       |
+| `book`       | Book summary or review         | no                              |
+| `repository` | Project showcase (GitHub repo) | yes                             |
+| `paper`      | Published paper page           | yes                             |
 
 For `repository` and `paper` posts, use `gh-page: <url>` in front matter to link directly to the external GitHub Pages site.
 
@@ -110,15 +112,15 @@ When creating PRs programmatically:
 layout: post
 title: Post Title
 abstract: Short summary for listings
-category: learning  # learning, thought, resource, book, repository, paper
+category: learning # learning, thought, resource, book, repository, paper
 tags: [tag1, tag2]
-time: 5             # reading time in minutes
-words: 1000         # word count
-image: https://assets.hummat.com/images/thumb.png  # thumbnail
-gh-page: https://hummat.github.io/project  # external link (repository/paper)
-circular: true      # round thumbnail (optional)
-mathjax: true       # LaTeX math (optional)
-plotly: true        # Plotly charts (optional)
-jquery: true        # data-include loader (optional)
+time: 5 # reading time in minutes
+words: 1000 # word count
+image: https://assets.hummat.com/images/thumb.png # thumbnail
+gh-page: https://hummat.github.io/project # external link (repository/paper)
+circular: true # round thumbnail (optional)
+mathjax: true # LaTeX math (optional)
+plotly: true # Plotly charts (optional)
+jquery: true # data-include loader (optional)
 ---
 ```
