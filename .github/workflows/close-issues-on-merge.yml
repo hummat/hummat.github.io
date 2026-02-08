@@ -30,7 +30,7 @@ jobs:
             // middle refs because JS repeated capture groups only keep the last match.
             const ref = `(?:#\\d+|https?://github\\.com/[^/]+/[^/]+/issues/\\d+)`;
             const keywordPattern = new RegExp(
-              `(?:${keywords})[:\\s-]*` +
+              `\\b(?:${keywords})[:\\s-]*` +
               `(${ref}(?:[,\\s]+(?:and\\s+)?${ref})*)`,
               'gi'
             );
