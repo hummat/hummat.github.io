@@ -44,7 +44,7 @@ title: Publications
 
   function isHttpUrl(url) {
     try {
-      var parsed = new URL(url, 'https://placeholder.invalid');
+      var parsed = new URL(url);
       return parsed.protocol === 'http:' || parsed.protocol === 'https:';
     } catch (e) {
       return false;
@@ -260,12 +260,14 @@ title: Publications
     }
 
     function fetchWithRetry(attempt) {
-      var controller = new AbortController();
-      var timeoutId = setTimeout(function() { controller.abort(); }, 15000);
+      var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timeoutId = controller
+        ? setTimeout(function() { controller.abort(); }, 15000)
+        : null;
 
-      return fetch(apiUrl, { signal: controller.signal })
+      return fetch(apiUrl, controller ? { signal: controller.signal } : {})
         .then(function(response) {
-          clearTimeout(timeoutId);
+          if (timeoutId) clearTimeout(timeoutId);
           if (response.status === 429 && attempt < MAX_RETRIES) {
             var retryAfter = parseInt(response.headers.get('Retry-After'), 10);
             var delay = (retryAfter && retryAfter > 0)
@@ -287,7 +289,7 @@ title: Publications
           });
         })
         .catch(function(err) {
-          clearTimeout(timeoutId);
+          if (timeoutId) clearTimeout(timeoutId);
           handleFetchFailure(err);
         });
     }
