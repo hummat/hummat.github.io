@@ -261,13 +261,20 @@ title: Publications
 
     function fetchWithRetry(attempt) {
       var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      var timeoutId = controller
-        ? setTimeout(function() { controller.abort(); }, 15000)
-        : null;
+      var timeoutId;
 
-      return fetch(apiUrl, controller ? { signal: controller.signal } : {})
+      var fetchPromise = fetch(apiUrl, controller ? { signal: controller.signal } : {});
+
+      var timeoutPromise = new Promise(function(_, reject) {
+        timeoutId = setTimeout(function() {
+          if (controller) controller.abort();
+          reject(new Error('Request timed out'));
+        }, 15000);
+      });
+
+      return Promise.race([fetchPromise, timeoutPromise])
         .then(function(response) {
-          if (timeoutId) clearTimeout(timeoutId);
+          clearTimeout(timeoutId);
           if (response.status === 429 && attempt < MAX_RETRIES) {
             var retryAfter = parseInt(response.headers.get('Retry-After'), 10);
             var delay = (retryAfter && retryAfter > 0)
@@ -289,7 +296,7 @@ title: Publications
           });
         })
         .catch(function(err) {
-          if (timeoutId) clearTimeout(timeoutId);
+          clearTimeout(timeoutId);
           handleFetchFailure(err);
         });
     }
