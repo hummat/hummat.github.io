@@ -25,21 +25,23 @@ jobs:
               'implement[sd]?', 'complete[sd]?', 'address(?:e[sd])?'  // common extras
             ].join('|');
 
-            // Match patterns like: "Closes #1", "fixes: #2", "Closes #1, #2, and #3"
-            // Also handles full URLs: "Closes https://github.com/owner/repo/issues/123"
-            const pattern = new RegExp(
-              `(?:${keywords})[:\\s-]*` +  // keyword + optional separator
-              `(?:#(\\d+)|https?://github\\.com/[^/]+/[^/]+/issues/(\\d+))` +  // issue ref
-              `(?:[,\\s]+(?:and\\s+)?(?:#(\\d+)|https?://github\\.com/[^/]+/[^/]+/issues/(\\d+)))*`,  // additional refs
+            // Two-pass approach: first find keyword + blob of refs, then extract
+            // each issue number from the blob.  A single-regex approach loses
+            // middle refs because JS repeated capture groups only keep the last match.
+            const ref = `(?:#\\d+|https?://github\\.com/[^/]+/[^/]+/issues/\\d+)`;
+            const keywordPattern = new RegExp(
+              `(?:${keywords})[:\\s-]*` +
+              `(${ref}(?:[,\\s]+(?:and\\s+)?${ref})*)`,
               'gi'
             );
+            const refPattern = /#(\d+)|https?:\/\/github\.com\/[^/]+\/[^/]+\/issues\/(\d+)/g;
 
             // Extract all issue numbers from matches
             const issueNumbers = [];
-            for (const match of prBody.matchAll(pattern)) {
-              // Get all captured groups (some may be undefined)
-              const nums = match.slice(1).filter(Boolean).map(n => parseInt(n, 10));
-              issueNumbers.push(...nums);
+            for (const match of prBody.matchAll(keywordPattern)) {
+              for (const ref of match[1].matchAll(refPattern)) {
+                issueNumbers.push(parseInt(ref[1] || ref[2], 10));
+              }
             }
             // Deduplicate
             const uniqueIssues = [...new Set(issueNumbers)];
