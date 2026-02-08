@@ -42,6 +42,15 @@ title: Publications
     return cached && (Date.now() - cached.timestamp) < CACHE_TTL;
   }
 
+  function isHttpUrl(url) {
+    try {
+      var parsed = new URL(url);
+      return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch (e) {
+      return false;
+    }
+  }
+
   function updateProfileLink(authorUrl) {
     var link = document.getElementById('semantic-scholar-profile-link');
     if (!link || !authorUrl) {
@@ -52,6 +61,7 @@ title: Publications
     if (href.indexOf('http') !== 0) {
       href = 'https://www.semanticscholar.org' + href;
     }
+    if (!isHttpUrl(href)) return;
     link.href = href + (href.indexOf('?') === -1 ? '?utm_source=api' : '&utm_source=api');
   }
 
@@ -191,7 +201,7 @@ title: Publications
       titleContainer.className = 'publication-title';
 
       var titleText = paper.title || 'Untitled';
-      if (paper.url) {
+      if (paper.url && isHttpUrl(paper.url)) {
         var link = document.createElement('a');
         link.href = paper.url + (paper.url.indexOf('?') === -1 ? '?utm_source=api' : '&utm_source=api');
         link.textContent = titleText;
@@ -250,8 +260,21 @@ title: Publications
     }
 
     function fetchWithRetry(attempt) {
-      fetch(apiUrl)
+      var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timeoutId;
+
+      var fetchPromise = fetch(apiUrl, controller ? { signal: controller.signal } : {});
+
+      var timeoutPromise = new Promise(function(_, reject) {
+        timeoutId = setTimeout(function() {
+          if (controller) controller.abort();
+          reject(new Error('Request timed out'));
+        }, 15000);
+      });
+
+      return Promise.race([fetchPromise, timeoutPromise])
         .then(function(response) {
+          clearTimeout(timeoutId);
           if (response.status === 429 && attempt < MAX_RETRIES) {
             var retryAfter = parseInt(response.headers.get('Retry-After'), 10);
             var delay = (retryAfter && retryAfter > 0)
@@ -273,6 +296,7 @@ title: Publications
           });
         })
         .catch(function(err) {
+          clearTimeout(timeoutId);
           handleFetchFailure(err);
         });
     }
