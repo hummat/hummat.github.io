@@ -287,8 +287,6 @@
 
       return Promise.race([fetchPromise, timeoutPromise])
         .then((response) => {
-          clearTimeout(timeoutId);
-
           if (response.status === 429 && attempt < MAX_RETRIES) {
             const retryAfter = Number.parseInt(response.headers.get("Retry-After"), 10);
             const delay =
@@ -305,15 +303,23 @@
             throw new Error(`Semantic Scholar API error: ${response.status}`);
           }
 
-          return response.json().then((data) => {
-            writeCache(authorId, data);
-            updateProfileLink(data && data.url);
-            renderPublications(data);
-          });
+          return response.json();
         })
         .catch((error) => {
-          clearTimeout(timeoutId);
           handleFetchFailure(error);
+          return null;
+        })
+        .then((data) => {
+          if (!data) {
+            return;
+          }
+
+          writeCache(authorId, data);
+          updateProfileLink(data && data.url);
+          renderPublications(data);
+        })
+        .finally(() => {
+          clearTimeout(timeoutId);
         });
     }
 

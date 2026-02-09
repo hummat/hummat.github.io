@@ -102,6 +102,7 @@
 
   function init() {
     if (!window.jQuery) {
+      console.warn("jquery-enhancements.js: jQuery not loaded; features disabled.");
       return;
     }
 
