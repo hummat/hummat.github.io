@@ -32,7 +32,7 @@ Let's look at a couple of examples. The simplest (an therefore the one we will s
 
 Did you guess the meaning correctly? Or was it the financial institution or place to sit? The point is, of course, that you couldn't have known without the context of the entire sentence, as many words are ambiguous. It doesn't stop there though. Even the sentence is ambiguous if your goal is to determine the book title or author who wrote it. To do so, you might need a paragraph, a page or even an entire chapter of context. In machine learning lingo, such broad context is commonly called a _long-range dependency_. Here is another one. Pay attention to the meaning of the word _it_:
 
-![](https://assets.hummat.com/images/attention/it.gif)
+![Animated sentence where the word 'it' changes meaning depending on whether 'tired' or 'wide' follows](https://assets.hummat.com/images/attention/it.gif)
 
 Seeing _tired_, we know _it_ must refer to the animal, as roads are seldom so while it's the opposite for _wide_[^2].
 
@@ -56,7 +56,7 @@ Below, there are two more examples of increasing dimensionality (use the little 
 
 Again, context doesn't stop there. To correctly place a pixel as belonging to, say, an eye, you need the surrounding pixels making up the eye. To place the eye as coming from an adult or a child you make use of the information stored in the pixels around the eye. Such inference can potentially go on indefinitely, but it's usually restricted by the size of the depicted scene or the resolution of the image. Okay, you might think, so is more information always better? No.
 
-![](https://assets.hummat.com/images/attention/knowledge.gif)
+![Animated image where hidden information becomes visible when surrounding context is removed](https://assets.hummat.com/images/attention/knowledge.gif)
 
 Finding the hidden information in the image above is trivial if the surrounding context is removed (to be precise, it's not the _absence_ of context, as all pixels are still there, but the _contrast_ between signal and noise, percieved as difference between gray and colored pixels). Clearly, it's not a simple as having no context at all or all of it but rather which portion of the provided information we pay _attention_ to.
 

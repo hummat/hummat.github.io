@@ -37,7 +37,7 @@ How do we get training data for these tasks? Well, depending at where you work a
 
 Apart from fatiguing fellow human beings by forcing them to do such boring work, they also get tired and make mistakes resulting in wrong class labels, too large or small bounding boxes and forgotten objects. You probably see where this is going: What if we could automate this task by generating training data with pixel-perfect annotations in huge quantities? Let's explore the potential and accompanying difficulties of this idea through a running example: _The cup_.
 
-![](https://assets.hummat.com/images/cup/cup_photo.jpg)
+![Photograph of the cup used as running example throughout this article](https://assets.hummat.com/images/cup/cup_photo.jpg)
 
 By the end of this article, we want to be able to detect the occurrence and position of this cup in real photographs (and maybe even do segmentation and pose estimation) without hand-annotating even a single training datum.
 
