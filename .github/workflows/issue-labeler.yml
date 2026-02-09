@@ -45,10 +45,27 @@ jobs:
             }
 
             if (labels.length > 0) {
+              const existingLabels = await github.paginate(github.rest.issues.listLabelsForRepo, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100
+              });
+              const existingLabelNames = new Set(existingLabels.map((label) => label.name));
+              const validLabels = labels.filter((label) => existingLabelNames.has(label));
+              const missingLabels = labels.filter((label) => !existingLabelNames.has(label));
+
+              if (missingLabels.length > 0) {
+                console.log(`Skipping missing labels: ${missingLabels.join(', ')}`);
+              }
+
+              if (validLabels.length === 0) {
+                return;
+              }
+
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                labels: labels
+                labels: validLabels
               });
             }

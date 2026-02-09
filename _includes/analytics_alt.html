@@ -1,13 +1,3 @@
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-
-  gtag("config", "{{ site.google_analytics }}");
-</script>
+{% if site.google_analytics %}
+<meta name="google-analytics-id" content="{{ site.google_analytics | escape }}" />
+{% endif %}

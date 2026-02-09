@@ -30,6 +30,9 @@ npm run lint:scss
 # JavaScript
 npm run lint:js
 
+# JavaScript unit tests
+npm run test:js
+
 # Format all (writes changes)
 npm run format
 
@@ -50,7 +53,7 @@ Excluded from linters: `_site/`, `figures/`, `images/`, `data/`
 The repo uses `core.hooksPath = .githooks/`. On every commit:
 
 1. **lint-staged** runs linters on staged files only (fast feedback)
-2. **R2 upload** pushes any files in `_assets/` to Cloudflare R2
+2. **R2 upload** pushes staged files in `_assets/` to Cloudflare R2 (`R2_UPLOAD_ALL=1` opt-in uploads all)
 
 To set up hooks after cloning:
 
@@ -64,10 +67,10 @@ lint-staged config lives in `package.json` under the `"lint-staged"` key. It run
 
 `.github/workflows/lint.yml` runs on PRs to `netlify`:
 
-| Job     | What it does                                          |
-| ------- | ----------------------------------------------------- |
-| `lint`  | markdownlint, stylelint, eslint, prettier (Node-only) |
-| `build` | Jekyll build + HTMLProofer (needs lint to pass first) |
+| Job     | What it does                                                                    |
+| ------- | ------------------------------------------------------------------------------- |
+| `lint`  | workflow script tests, JS unit tests, markdownlint, stylelint, eslint, prettier |
+| `build` | Jekyll build + HTMLProofer (needs lint to pass first)                           |
 
 Stale runs are auto-cancelled when a new push arrives (`cancel-in-progress`).
 
@@ -77,7 +80,7 @@ Assets are stored in Cloudflare R2, not in the repo. The pre-commit hook handles
 
 ```bash
 # Upload assets with an otherwise empty commit
-git commit --allow-empty -m "Upload new assets"
+R2_UPLOAD_ALL=1 git commit --allow-empty -m "Upload new assets"
 ```
 
 See `ASSETS.md` for full details on asset management.

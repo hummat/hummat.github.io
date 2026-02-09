@@ -109,7 +109,7 @@ end
 
 The number behind each plugin is its version, which should match the GitHub pages [dependency version](https://pages.github.com/versions/) to make sure that your offline site looks and works identical to the one processed by GitHub once you go online. Now, head into the [`_config.yml`](https://github.com/hummat/hummat.github.io/blob/master/_config.yml) file and add/change `markdown: kramdown`, which is the processor used by GitHub to convert your markdown into HTML.
 
-Afterwards, or if you have used a template, run `bundle exec jekyll serve`. If you get errors, run `bundle update` and try again. You should now be able to open your GitHub page in your browser by navigating to [http://127.0.0.1:4000/](http://127.0.0.1:4000/).
+Afterwards, or if you have used a template, run `bundle exec jekyll serve`. If you get errors, run `bundle update` and try again. You should now be able to open your GitHub page in your browser by navigating to `http://127.0.0.1:4000/`.
 
 #### Files and directories
 
@@ -213,8 +213,8 @@ It stores the interactive figure inside HTML file which you can then include in 
     <div class="text">An interactive visualization! Wow!</div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
