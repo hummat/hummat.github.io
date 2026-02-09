@@ -21,7 +21,7 @@ while IFS= read -r line; do
     name="${BASH_REMATCH[1]}"
   elif [[ "$line" =~ ^\ \ color:\ \"(.+)\"$ ]]; then
     color="${BASH_REMATCH[1]}"
-  elif [[ "$line" =~ ^\ \ description:\ \"(.+)\"$ ]]; then
+  elif [[ "$line" =~ ^\ \ description:\ \"(.*)\"$ ]]; then
     description="${BASH_REMATCH[1]}"
 
     # Try to update existing label, create if it doesn't exist

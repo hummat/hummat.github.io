@@ -74,8 +74,8 @@ We could now snap an artificial image (i.e. a _render_) of the cup model to get 
   <div class="text"><b>Final result:</b>The cup rendered on a random background with correct lighting.</div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -108,8 +108,8 @@ While simple, the result is unconvincing due to differences in lighting: the obj
   <img src="https://assets.hummat.com/images/cup/basic/rgb_0064.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -146,8 +146,8 @@ This is what BlenderProc builds on to provide functions to place objects, lights
     <img src="https://assets.hummat.com/images/cup/room/rgb_0004.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -180,8 +180,8 @@ Here is a little entertaining anecdote: Do you see how the cup stands tilted to 
     <img src="https://assets.hummat.com/images/cup/pose/rgb_0004.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -208,8 +208,8 @@ Another problem you might have noticed is the white background. Detecting object
     <img src="https://assets.hummat.com/images/cup/textures/rgb_0004.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -236,8 +236,8 @@ Next, we introduce clutter. Due to shadows and sudden changes in color and other
     <img src="https://assets.hummat.com/images/cup/clutter/rgb_0004.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -281,8 +281,8 @@ With this you will get results like the ones seen below.
   <img src="https://assets.hummat.com/images/cup/scene/rgb_0004.jpg">
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -309,8 +309,8 @@ When saving the render, we have the option to not only store the color image, bu
   <div class="text"><b>Segmentation:</b> Finally, and most importantly for our application, we can obtain pixel perfect semantic segmentation masks. They look a bit boring in our case as there is only a single object of interest while everything else is considered background. Instance segmentation masks can also be generated if needed.</div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 
@@ -376,8 +376,8 @@ Training takes only a couple of minutes on this small dataset (though longer tra
   <div class="text"><b>Mess:</b> Throwing a large pile of different things together reveals the (over) generalization capabilities of our model on cup-like objects while very different objects get ignored as desired.</div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 

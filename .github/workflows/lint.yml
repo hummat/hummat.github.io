@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [netlify]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -22,6 +25,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Workflow scripts
+        run: npm run test:workflow-scripts
+
+      - name: JavaScript tests
+        run: npm run test:js
+
       - name: Markdown
         run: npm run lint:md
 
@@ -33,6 +42,9 @@ jobs:
 
       - name: Prettier
         run: npm run format:check
+
+      - name: npm audit (prod deps)
+        run: npm audit --omit=dev
 
   build:
     name: Build & HTML check
@@ -52,6 +64,10 @@ jobs:
           bundler-cache: true
 
       - run: npm ci
+
+      - name: bundle-audit
+        continue-on-error: true
+        run: bundle exec bundle-audit check --update
 
       - name: Jekyll build
         run: bundle exec jekyll build

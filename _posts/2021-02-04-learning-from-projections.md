@@ -34,7 +34,7 @@ Coincidentally, this last example, photography, is the basis for many projection
 
 As a result, there is a huge body of research on how to extract the most information per pixel while at the same time reducing the computational overhead, giving rise to effective and efficient models that can often run in real-time, which is crucial for many real world applications. Thus, it is tempting to make use of this mature approach and translating it to three dimensions. The main advantages are a structured representation which allows to apply our beloved convolutions while also being computationally more efficient, as there is less data to be processed.
 
-So how does this actually work? Below you see the same dragon statue introduced above (taken from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/)), both as an actual object in 3D space as well as its 2D projection as seen from the position of the black dot (marked "eye").
+So how does this actually work? Below you see the same dragon statue introduced above (taken from [The Stanford 3D Scanning Repository](https://graphics.stanford.edu/data/3Dscanrep/)), both as an actual object in 3D space as well as its 2D projection as seen from the position of the black dot (marked "eye").
 
 <div data-include="https://assets.hummat.com/figures/projection.html"></div>
 

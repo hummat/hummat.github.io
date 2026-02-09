@@ -52,7 +52,7 @@ A standard convolutional layer is defined by the number of input channels, e.g. 
 </figure>
 </div>
 
-The idea of sliding a small network over the input, as shown in fig. 2 (b), initially introduced in the [Network in Network paper](https://arxiv.org/pdf/1312.4400.pdf%20http://arxiv.org/abs/1312.4400.pdf), seems quite intuitive. If you were to actually implement this though, you would notice that it's a non-trivial task, because both "sliding" and "only being partially connected" are not part of the standard repertoire of a fully connected layer. Instead, let's try to express a fully connected layer as a convolution, which slides and partially connects natively. To do so, we have two options:
+The idea of sliding a small network over the input, as shown in fig. 2 (b), initially introduced in the [Network in Network paper](https://arxiv.org/abs/1312.4400), seems quite intuitive. If you were to actually implement this though, you would notice that it's a non-trivial task, because both "sliding" and "only being partially connected" are not part of the standard repertoire of a fully connected layer. Instead, let's try to express a fully connected layer as a convolution, which slides and partially connects natively. To do so, we have two options:
 
 1. Using one filter per input pixel with one large kernel ($28\times28$) per input channel (figure 3).
 2. Using one filter per input pixel with one small kernel ($1\times1$) per input channel _and_ pixel (figure 5).

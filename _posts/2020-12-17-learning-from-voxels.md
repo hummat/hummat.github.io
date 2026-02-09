@@ -18,7 +18,7 @@ Welcome to part two of this four part series on learning from 3D data. In the pr
 
 ## Minecraft
 
-If you haven't come across voxel grids before, simply think _Minecraft_. In a voxel grid, everything is made up of equally sized cubes, the voxels. Below you see the same object---the _Stanford Bunny_ from [The Stanford 3D Scanning Repository](http://graphics.stanford.edu/data/3Dscanrep/)---represented as a point cloud (left) and inside a voxel grid (right)[^1]. More precisely, the second representation is referred to as _occupancy grid_, where only the occupied voxels are displayed. This is easy to obtain from other representations like point clouds by storing a binary variable for each voxel, setting it to $1$ for each voxel which contains at least one point. This corresponds to a black and white image in the 2D domain, i.e. there is a single channel (as opposed to three for the amount of red, green and blue in each pixel) and there are only two _"colors"_, or states, `black` ($0$) and `white` ($1$).
+If you haven't come across voxel grids before, simply think _Minecraft_. In a voxel grid, everything is made up of equally sized cubes, the voxels. Below you see the same object---the _Stanford Bunny_ from [The Stanford 3D Scanning Repository](https://graphics.stanford.edu/data/3Dscanrep/)---represented as a point cloud (left) and inside a voxel grid (right)[^1]. More precisely, the second representation is referred to as _occupancy grid_, where only the occupied voxels are displayed. This is easy to obtain from other representations like point clouds by storing a binary variable for each voxel, setting it to $1$ for each voxel which contains at least one point. This corresponds to a black and white image in the 2D domain, i.e. there is a single channel (as opposed to three for the amount of red, green and blue in each pixel) and there are only two _"colors"_, or states, `black` ($0$) and `white` ($1$).
 You can drag to rotate and zoom in to reveal individual points and voxels.
 
 <a name="figure"></a>
@@ -82,7 +82,7 @@ In this section, we will see how voxel grids have been used in the literature an
 
 ### Let's do the obvious: VoxNet
 
-So you have some 3D data lying around and now you want to extract some information from it, say classify objects in it. Assuming you have successfully transformed your 3D data into a voxel representation, now what? On images you'd now what to do: Apply some off-the-shelf deep neural network architecture, maybe pretrained on ImageNet, and you're mostly done. Now extend your 2D to 3D convolutions, stack some of them and throw in some fully connected layers and voila, [_VoxNet_](http://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf) is born.
+So you have some 3D data lying around and now you want to extract some information from it, say classify objects in it. Assuming you have successfully transformed your 3D data into a voxel representation, now what? On images you'd now what to do: Apply some off-the-shelf deep neural network architecture, maybe pretrained on ImageNet, and you're mostly done. Now extend your 2D to 3D convolutions, stack some of them and throw in some fully connected layers and voila, [_VoxNet_](https://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf) is born.
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">

@@ -14,7 +14,7 @@ update: 2024-12-09
 
 # {{ page.title }}
 
-You might be wondering if this article can possibly contain anything new for you. You already studied the [illustrated](https://jalammar.github.io/illustrated-transformer) and [annotated](http://nlp.seas.harvard.edu/2018/04/03/attention.html) Transformer, the [original paper](https://arxiv.org/abs/1706.03762) and everything from GPT-[1](https://openai.com/blog/language-unsupervised)-[2](https://openai.com/blog/better-language-models)-[3](https://arxiv.org/abs/2005.14165) to [BERT](https://arxiv.org/abs/1810.04805) and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here. But the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has the potential to further clarify and solidify some of these truly interesting and general concepts.
+You might be wondering if this article can possibly contain anything new for you. You already studied the [illustrated](https://jalammar.github.io/illustrated-transformer) and [annotated](https://nlp.seas.harvard.edu/2018/04/03/attention.html) Transformer, the [original paper](https://arxiv.org/abs/1706.03762) and everything from GPT-[1](https://openai.com/blog/language-unsupervised)-[2](https://openai.com/blog/better-language-models)-[3](https://arxiv.org/abs/2005.14165) to [BERT](https://arxiv.org/abs/1810.04805) and beyond. Well, if you have, it could indeed be that there is nothing _fundamentally_ new for you to be found here. But the goal to weave all this information into one coherent story and provide further context across dimensions and domains with a focus on attention itself instead of the scaffolding erected around it referred to as _The Transformer_ has the potential to further clarify and solidify some of these truly interesting and general concepts.
 
 ### Notation
 
@@ -242,7 +242,7 @@ In the case of convolutional layers multi-head attention can be interpreted as a
 
 ## Credits
 
-A huge thanks to Jay Alammar ([The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)) and Peter Bloem ([Transformers from Scratch](http://peterbloem.nl/blog/transformers)) for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article. I also want to thank all researchers, authors and creators listed in the references for their great ideas and content.
+A huge thanks to Jay Alammar ([The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer)) and Peter Bloem ([Transformers from Scratch](https://peterbloem.nl/blog/transformers)) for their excellent blog posts and videos on the subject which formed the basis of my understanding and this article. I also want to thank all researchers, authors and creators listed in the references for their great ideas and content.
 
 ## References
 
@@ -256,8 +256,8 @@ A huge thanks to Jay Alammar ([The Illustrated Transformer](https://jalammar.git
 | [6]  | [Self-Attention](https://www.youtube.com/watch?v=KmAISyVvE1Y)                                                                           |
 | [7]  | [Transformers](https://www.youtube.com/watch?v=oUhGZMCTHtI)                                                                             |
 | [8]  | [Famous Transformers](https://www.youtube.com/watch?v=MN__lSncZBs)                                                                      |
-| [9]  | [Transformers from Scratch](http://peterbloem.nl/blog/transformers)                                                                     |
-| [10] | [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                      |
+| [9]  | [Transformers from Scratch](https://peterbloem.nl/blog/transformers)                                                                    |
+| [10] | [The Annotated Transformer](https://nlp.seas.harvard.edu/2018/04/03/attention.html)                                                     |
 | [11] | [Visualizing a NMT Model](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention) |
 | [12] | [Transformer (Google AI Blog)](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)                                 |
 | [13] | [Attention is all you need (video)](https://www.youtube.com/watch?v=rBCqOTEfxvg)                                                        |

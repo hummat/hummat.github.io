@@ -1,37 +1,8 @@
 {% if page.mathjax %}
+<script src="{{ site.baseurl }}/assets/js/mathjax-config.js"></script>
 <script
-  async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"
+  integrity="sha384-vi9R4hb1goLJPJDHY+dOmXxcY3HGv6tJIwHxy5JunOTxJGHbsSuubPgl++SNxYYi"
+  crossorigin="anonymous"
 ></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    Tex: {
-      equationNumbers: {
-        autoNumber: "AMS"
-      }
-    },
-    jax: ["input/TeX", "output/CommonHTML"],
-    tex2jax: {
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      inlineMath: [ ['$','$'], ['\\(','\\)'] ],
-      displayMath: [ ['$$', '$$'], ['\\[','\\]'] ],
-      processEscapes: true
-    },
-    CommonHTML: {
-      linebreaks: {
-        automatic: true
-      }
-    },
-    "HTML-CSS": {
-      linebreaks: {
-        automatic: true
-      }
-    },
-    SVG: {
-      linebreaks: {
-        automatic: true
-      }
-    }
-  });
-</script>
 {% endif %}

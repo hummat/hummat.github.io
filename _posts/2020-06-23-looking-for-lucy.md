@@ -176,19 +176,9 @@ Play with the numbers if you like, to get an intuition about how things change:
     <input type="text" id="likelihood" placeholder="likelihood"/>
     <input type="text" id="prior" placeholder="prior"/>
     <input type="text" id="evidence" placeholder="evidence"/>
-    <button onclick="compare()">Calculate</button>
+    <button type="button" data-action="calculate-posterior">Calculate</button>
 </div>
 <p>Posterior: <span id="posterior">53</span>%</p>
-
-<script>
-    function compare(){
-        var likelihood = parseFloat(document.getElementById('likelihood').value);
-        var prior = parseFloat(document.getElementById('prior').value);
-        var evidence = parseFloat(document.getElementById('evidence').value);
-        var posterior = (likelihood * prior) / evidence * 100;
-        document.getElementById('posterior').innerHTML = posterior.toFixed(2);
-	};
-</script>
 
 Finally, the YouTuber 3Blue1Brown made a [fantastic video](https://www.youtube.com/watch?v=HZGCoVF3YvM) about Bayes’ theorem in a visual manner[^10], so I highly recommend checking it out if you’re still a bit confused.
 
