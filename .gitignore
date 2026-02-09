@@ -49,6 +49,7 @@ QWEN.md
 .gemini/
 .claude/
 .mcp.json
+.playwright/
 
 # R2 Migration (Removed from Git)
 images/
