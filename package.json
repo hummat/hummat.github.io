@@ -6,7 +6,7 @@
   "scripts": {
     "lint:md": "markdownlint \"**/*.md\" --ignore _site --ignore node_modules",
     "lint:scss": "stylelint \"style.scss\" \"_sass/**/*.scss\"",
-    "lint:js": "eslint --ext .js,.html _includes _layouts assets/js tests/js",
+    "lint:js": "eslint --ext .js,.html _includes _layouts assets/js tests/js --max-warnings=0",
     "format": "prettier --write \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
     "format:check": "prettier --check \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
     "test:js": "node --test tests/js/*.test.js",
@@ -19,7 +19,7 @@
     "eslint-plugin-html": "^7.1.0",
     "jquery": "^3.7.1",
     "jsdom": "^24.1.3",
-    "lighthouse-mcp": "git+https://github.com/priyankark/lighthouse-mcp.git",
+    "lighthouse-mcp": "^0.1.9",
     "lint-staged": "^15.2.0",
     "markdownlint-cli": "^0.41.0",
     "prettier": "^3.2.5",
@@ -31,7 +31,7 @@
   "lint-staged": {
     "*.md": "markdownlint --ignore _site --ignore node_modules",
     "*.scss": "stylelint",
-    "*.{js,html}": "eslint --ext .js,.html",
+    "*.{js,html}": "eslint --ext .js,.html --max-warnings=0",
     "*.{md,html,scss,js,json,yml,yaml}": "prettier --check --ignore-path .prettierignore"
   }
 }

@@ -59,3 +59,5 @@ words: 1000
 - Don't edit `_site/`; change source files and let Jekyll regenerate
 - Preserve behavior of JS helpers (`popup.html`, `slideshow*.html`, `jquery.html`)
 - Assets go to Cloudflare R2, not the repo (see `ASSETS.md`)
+- **Playwright MCP**: Use `browser_navigate` + `browser_snapshot`/`browser_take_screenshot` for visual verification of the local site (`http://127.0.0.1:4000/`). Requires `--headless` explicitly on Linux; bundled Firefox only (Chromium unavailable on Arch)
+- **Lighthouse MCP**: Use `run_audit` for full audits (performance, accessibility, best-practices, SEO) or `get_performance_score` for a quick score. Proactively run after layout/style/JS changes to catch regressions

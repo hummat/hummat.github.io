@@ -16,9 +16,10 @@ module.exports = {
     Plotly: "readonly",
   },
   rules: {
-    "no-unused-vars": ["warn", { args: "none" }],
+    eqeqeq: ["error", "always", { null: "ignore" }],
+    "no-unused-vars": ["error", { args: "none" }],
     "no-console": "off",
-    "prefer-const": "warn",
+    "prefer-const": "error",
   },
   overrides: [
     {
