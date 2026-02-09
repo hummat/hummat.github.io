@@ -28,11 +28,11 @@ It all begins with a little entity making up most of the (digital) world around 
 
 Let's look at a couple of examples. The simplest (an therefore the one we will see most frequently throughout the article) is the word. Try to guess the meaning of the word below, then hover over it with your mouse (or tap on it) to reveal the context:
 
-<img class="img-animate" src="https://assets.hummat.com/images/attention/bank.png">
+<img class="img-animate" src="https://assets.hummat.com/images/attention/bank.png" alt="The word 'bank' shown in isolation; hover to reveal the disambiguating sentence context">
 
 Did you guess the meaning correctly? Or was it the financial institution or place to sit? The point is, of course, that you couldn't have known without the context of the entire sentence, as many words are ambiguous. It doesn't stop there though. Even the sentence is ambiguous if your goal is to determine the book title or author who wrote it. To do so, you might need a paragraph, a page or even an entire chapter of context. In machine learning lingo, such broad context is commonly called a _long-range dependency_. Here is another one. Pay attention to the meaning of the word _it_:
 
-![](https://assets.hummat.com/images/attention/it.gif)
+![Animated sentence where the word 'it' changes meaning depending on whether 'tired' or 'wide' follows](https://assets.hummat.com/images/attention/it.gif)
 
 Seeing _tired_, we know _it_ must refer to the animal, as roads are seldom so while it's the opposite for _wide_[^2].
 
@@ -56,7 +56,7 @@ Below, there are two more examples of increasing dimensionality (use the little 
 
 Again, context doesn't stop there. To correctly place a pixel as belonging to, say, an eye, you need the surrounding pixels making up the eye. To place the eye as coming from an adult or a child you make use of the information stored in the pixels around the eye. Such inference can potentially go on indefinitely, but it's usually restricted by the size of the depicted scene or the resolution of the image. Okay, you might think, so is more information always better? No.
 
-![](https://assets.hummat.com/images/attention/knowledge.gif)
+![Animated image where hidden information becomes visible when surrounding context is removed](https://assets.hummat.com/images/attention/knowledge.gif)
 
 Finding the hidden information in the image above is trivial if the surrounding context is removed (to be precise, it's not the _absence_ of context, as all pixels are still there, but the _contrast_ between signal and noise, percieved as difference between gray and colored pixels). Clearly, it's not a simple as having no context at all or all of it but rather which portion of the provided information we pay _attention_ to.
 
@@ -76,7 +76,7 @@ For a long time, the predominant method used to model natural language was the _
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/attention/rnn_unrolled.png">
+  <img src="https://assets.hummat.com/images/attention/rnn_unrolled.png" alt="Unrolled recurrent neural network processing input elements sequentially while retaining hidden state">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>An unrolled RNN:</b> Input elements $\boldsymbol{x}_t$ are processed sequentially while context is retained in the hidden states $\boldsymbol{h}_t$. Taken from [<a href="#ref1">1</a>].</figcaption>
 </figure>
 </div>
@@ -90,7 +90,7 @@ However, there are at least two tricks to aggregate long-range dependencies usin
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img width="400" style="margin-left: auto; margin-right: auto;" src="https://assets.hummat.com/images/attention/1d_conv.png">
+  <img width="400" style="margin-left: auto; margin-right: auto;" src="https://assets.hummat.com/images/attention/1d_conv.png" alt="Stacked 1D convolutional layers with growing receptive field highlighted in red">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Receptive field:</b> The receptive field (red) is the range of context aggregated into the current representation. It increases with the number of stacked convolutional layers. Adapted from [<a href="#ref2">2</a>].</figcaption>
 </figure>
 </div>
@@ -99,7 +99,7 @@ Now, for large inputs (a long text, a high resolution image, a dense point cloud
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/attention/wavenet.gif">
+  <img src="https://assets.hummat.com/images/attention/wavenet.gif" alt="Animated WaveNet architecture using stacked dilated convolutions for large receptive fields">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>WaveNet:</b> Using dilated convolutions, long sequences can be processed efficiently while retaining a large receptive field. Taken from [<a href="#ref3">3</a>].</figcaption>
 </figure>
 </div>
@@ -108,7 +108,7 @@ Moving to the image domain, there is no fundamentally new idea here as vision mo
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/attention/dilated.gif">
+  <img src="https://assets.hummat.com/images/attention/dilated.gif" alt="Animated 2D dilated convolution showing increasing dilation factors">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Dilation in 2D:</b> Concepts like strided and dilated convolutions work identically in one, two or three dimensions. Taken from [<a href="#ref4">4</a>].</figcaption>
 </figure>
 </div>
@@ -123,7 +123,7 @@ Adding a third dimension, things get more interesting again, as the computationa
     {% if page.slow %}
     <div data-include="https://assets.hummat.com/figures/bunny_with_spheres.html"></div>
     {% else %}
-    <img src="https://assets.hummat.com/images/bunny.png">
+    <img src="https://assets.hummat.com/images/bunny.png" alt="Stanford Bunny point cloud with context regions defined by farthest point sampling">
     {% endif %}
     <div class="text" style="text-align: left; bottomt: -60px; width: 90%;"><b>Point context:</b> Defining context regions using farthest point sampling and ball queries.</div>
   </div>
@@ -132,7 +132,7 @@ Adding a third dimension, things get more interesting again, as the computationa
     {% if page.slow %}
     <div data-include="https://assets.hummat.com/figures/3d_conv.html"></div>
     {% else %}
-    <img src="https://assets.hummat.com/images/3d_conv.png">
+    <img src="https://assets.hummat.com/images/3d_conv.png" alt="3D convolution kernel sliding over a voxel grid">
     {% endif %}
     <div class="text" style="text-align: left; bottom: -60px; width: 90%;"><b>Convolutions in 3D:</b> Adding a dimension drastically increases the computational burden of convolutions, making them cumbersome in the 3D domain.</div>
   </div>
@@ -141,7 +141,7 @@ Adding a third dimension, things get more interesting again, as the computationa
     {% if page.slow %}
     <div data-include="https://assets.hummat.com/figures/graph.html"></div>
     {% else %}
-    <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="https://assets.hummat.com/images/mesh.png">
+    <img width="220" style="margin-left: auto; margin-right: auto; display: block;" src="https://assets.hummat.com/images/mesh.png" alt="Triangle mesh of the Happy Buddha where connectivity provides graph context">
     {% endif %}
     <div class="text" style="text-align: left; bottom: -60px; width: 90%;"><b>Graph context:</b> A mesh can be interpreted as a graph where context is expressed through connectivity.</div>
   </div>

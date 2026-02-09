@@ -86,7 +86,7 @@ So you have some 3D data lying around and now you want to extract some informati
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/voxnet.png">
+  <img src="https://assets.hummat.com/images/voxnet.png" alt="VoxNet architecture diagram showing 3D convolutional and fully connected layers">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>VoxNet</b> [<a href="https://dimatura.net/publications/voxnet_maturana_scherer_iros15.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -107,7 +107,7 @@ The authors of [_OctNet_](https://openaccess.thecvf.com/content_cvpr_2017/papers
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/octree.png">
+  <img src="https://assets.hummat.com/images/octree.png" alt="Octree data structure recursively subdividing 3D space into eight octants">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Octree</b> [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Riegler_OctNet_Learning_Deep_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -116,7 +116,7 @@ In our case, information can be a point from a point cloud or a face, vertex or 
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/octnet.png">
+  <img src="https://assets.hummat.com/images/octnet.png" alt="OctNet using octree-based adaptive resolution for efficient 3D convolutions">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>OctNet</b> [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Riegler_OctNet_Learning_Deep_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>

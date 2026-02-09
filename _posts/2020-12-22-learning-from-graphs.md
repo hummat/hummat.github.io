@@ -61,7 +61,7 @@ To take advantage of the structure inherent in meshes, the creators of MeshNet d
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/meshnet_features.png">
+  <img src="https://assets.hummat.com/images/meshnet_features.png" alt="MeshNet spatial and structural feature extraction from mesh faces">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>MeshNet features</b> [<a href="https://arxiv.org/abs/1811.11424">source</a>]</figcaption>
 </figure>
 </div>
@@ -76,7 +76,7 @@ Similar to the previous architecture, this one is also specifically designed to 
 
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/meshcnn.png">
+  <img src="https://assets.hummat.com/images/meshcnn.png" alt="MeshCNN edge-based features and mesh pooling operations">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>MeshCNN features (a) and pooling (b, c)</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 </div>
@@ -85,14 +85,14 @@ The convolution is defined similarly to MeshNet over the participating edges. To
 
 <div style="text-align: center">
 <figure style="width: 20%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/meshcnn_conv.png">
+  <img src="https://assets.hummat.com/images/meshcnn_conv.png" alt="MeshCNN convolution operation on mesh edges">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Convolution</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 <figure style="width: 15%; display: inline-block;">
   <figcaption style="text-align: left;  line-height: 1.2em;"></figcaption>
 </figure>
 <figure style="width: 25%; display: inline-block">
-<img src="https://assets.hummat.com/images/meshcnn_features.png">
+<img src="https://assets.hummat.com/images/meshcnn_features.png" alt="MeshCNN edge features: inner angles, dihedral angle, and edge length ratios">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Edge Features</b> [<a href="https://arxiv.org/abs/1809.05910">source</a>]</figcaption>
 </figure>
 </div>
@@ -107,7 +107,7 @@ In contrast to other works, including those featured above, DGCNN creates its ow
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/dgcnn_features.png">
+  <img src="https://assets.hummat.com/images/dgcnn_features.png" alt="DGCNN EdgeConv operation computing pairwise edge features from dynamic k-nearest neighbor graphs">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>DGCNN EdgeConv</b> [<a href="https://arxiv.org/abs/1801.07829">source</a>]</figcaption>
 </figure>
 </div>

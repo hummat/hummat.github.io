@@ -28,7 +28,7 @@ As the name suggests, a point cloud is an agglomeration of points in three dimen
 From the given perspective, there is not a lot to see or understand. Now, if you haven't already, try zooming out using your mouse wheel (or fingers). As you might notice, a distinctive shape emerges, namely that of the _Happy Buddha_ from [The Stanford 3D Scanning Repository](https://graphics.stanford.edu/data/3Dscanrep/), where the color of each point encodes the distance from the viewer (depth). Here is an image of it from the front:
 
 <div style="text-align:center;">
-  <img src="https://assets.hummat.com/images/happy_buddha.jpg" style="max-height:700px">
+  <img src="https://assets.hummat.com/images/happy_buddha.jpg" style="max-height:700px" alt="Front view of the Happy Buddha statue from the Stanford 3D Scanning Repository">
 </div>
 
 ## Images vs. point clouds
