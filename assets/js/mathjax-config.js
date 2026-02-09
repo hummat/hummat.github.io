@@ -1,12 +1,5 @@
 window.MathJax = {
-  TeX: {
-    equationNumbers: {
-      autoNumber: "AMS",
-    },
-  },
-  jax: ["input/TeX", "output/CommonHTML"],
-  tex2jax: {
-    skipTags: ["script", "noscript", "style", "textarea", "pre"],
+  tex: {
     inlineMath: [
       ["$", "$"],
       ["\\(", "\\)"],
@@ -16,20 +9,17 @@ window.MathJax = {
       ["\\[", "\\]"],
     ],
     processEscapes: true,
+    processEnvironments: true,
+    tags: "ams",
   },
-  CommonHTML: {
-    linebreaks: {
-      automatic: true,
-    },
+  chtml: {
+    matchFontHeight: true,
   },
-  "HTML-CSS": {
+  output: {
+    displayOverflow: "linebreak",
     linebreaks: {
-      automatic: true,
-    },
-  },
-  SVG: {
-    linebreaks: {
-      automatic: true,
+      inline: true,
+      width: "100%",
     },
   },
 };
