@@ -12,7 +12,13 @@
     />
 
     {% if page.plotly %}
-    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    <script
+      defer
+      src="https://cdn.plot.ly/plotly-2.35.2.min.js"
+      integrity="sha384-cCVCZkAjYNxaYKbM8lsArLznDF/SvMFr1jcZrvOpSTCa0W40ZAdLzHCEulnUa5i7"
+      crossorigin="anonymous"
+      charset="utf-8"
+    ></script>
     {% endif %} {% include jquery.html %} {% include mathjax.html %} {% include analytics_alt.html
     %} {%- seo -%}
 
