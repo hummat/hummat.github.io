@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  const DEFAULT_INCLUDE_HEIGHT = 560;
   const TRUSTED_INCLUDE_HOSTS = new Set(["assets.hummat.com", window.location.hostname]);
 
   function toggleGif($img) {
@@ -21,12 +20,6 @@
   function stopGif($img) {
     const src = $img.attr("src") || "";
     $img.attr("src", src.replace(".gif", ".png"));
-  }
-
-  function parseIncludeHeight(element) {
-    const raw = element.getAttribute("data-include-height");
-    const parsed = Number.parseInt(raw || "", 10);
-    return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_INCLUDE_HEIGHT;
   }
 
   function getSafeIncludeUrl(raw) {
@@ -57,27 +50,12 @@
     return parsed;
   }
 
-  function replaceIncludeWithIframe(element, includeUrl) {
-    const frame = document.createElement("iframe");
-    const fallbackClassName = element.className ? ` ${element.className}` : "";
-    const height = parseIncludeHeight(element);
-
-    frame.className = `embedded-include${fallbackClassName}`;
-    frame.src = includeUrl.toString();
-    frame.loading = "lazy";
-    frame.referrerPolicy = "no-referrer";
-    frame.sandbox = "allow-scripts allow-popups";
-    frame.title = element.getAttribute("data-include-title") || "Embedded interactive content";
-    frame.style.width = "100%";
-    frame.style.minHeight = `${height}px`;
-    frame.style.border = "0";
-
-    const inlineStyle = element.getAttribute("style");
-    if (inlineStyle) {
-      frame.setAttribute("style", `${inlineStyle}; min-height:${height}px; border:0;`);
-    }
-
-    element.replaceWith(frame);
+  function loadTrustedInclude($target, includeUrl) {
+    $target.load(includeUrl.toString(), function (_responseText, status) {
+      if (status === "error") {
+        $target.text("Embedded content could not be loaded.");
+      }
+    });
   }
 
   function initAnimatedImages($) {
@@ -118,7 +96,7 @@
         return;
       }
 
-      replaceIncludeWithIframe(this, includeUrl);
+      loadTrustedInclude($(this), includeUrl);
     });
   }
 
