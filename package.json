@@ -15,6 +15,7 @@
     "test:html": "bundle exec htmlproofer _site --disable-external --allow-hash-href --allow-missing-href --ignore-missing-alt --no-check-internal-hash --ignore-status-codes 999 --ignore-urls \"/^/images//\""
   },
   "devDependencies": {
+    "@playwright/mcp": "^0.0.64",
     "eslint": "^8.57.0",
     "eslint-plugin-html": "^7.1.0",
     "jquery": "^3.7.1",

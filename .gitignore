@@ -50,6 +50,7 @@ QWEN.md
 .claude/
 .mcp.json
 .playwright/
+.codex/
 
 # R2 Migration (Removed from Git)
 images/
