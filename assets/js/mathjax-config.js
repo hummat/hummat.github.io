@@ -15,4 +15,11 @@ window.MathJax = {
   chtml: {
     matchFontHeight: true,
   },
+  output: {
+    displayOverflow: "linebreak",
+    linebreaks: {
+      inline: true,
+      width: "100%",
+    },
+  },
 };
