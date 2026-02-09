@@ -5,8 +5,13 @@ layout: default
 <article class="post">
   <div class="entry">{{ content }}</div>
   <div class="date noprint">
-    {% if page.update %} Last updated on {{ page.update | date: "%B %e, %Y" }} {% else %} Written on
-    {{ page.date | date: "%B %e, %Y" }} {% endif %}
+    {% if page.update %} Last updated on
+    <time datetime="{{ page.update | date_to_xmlschema }}"
+      >{{ page.update | date: "%B %e, %Y" }}</time
+    >
+    {% else %} Written on
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %e, %Y" }}</time>
+    {% endif %}
   </div>
   {% include disqus.html %}
 </article>
