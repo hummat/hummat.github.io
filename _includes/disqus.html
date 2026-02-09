@@ -1,19 +1,6 @@
 {% if site.disqus and page.comments != false %}
 <div class="comments noprint">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-    var disqus_shortname = "{{ site.disqus }}";
-
-    (function () {
-      var dsq = document.createElement("script");
-      dsq.type = "text/javascript";
-      dsq.async = true;
-      dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-      (
-        document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]
-      ).appendChild(dsq);
-    })();
-  </script>
+  <div id="disqus_thread" data-disqus-shortname="{{ site.disqus | escape }}"></div>
   <noscript
     >Please enable JavaScript to view the
     <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript

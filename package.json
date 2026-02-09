@@ -6,11 +6,12 @@
   "scripts": {
     "lint:md": "markdownlint \"**/*.md\" --ignore _site --ignore node_modules",
     "lint:scss": "stylelint \"style.scss\" \"_sass/**/*.scss\"",
-    "lint:js": "eslint --ext .js,.html _includes _layouts",
+    "lint:js": "eslint --ext .js,.html _includes _layouts assets/js",
     "format": "prettier --write \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
     "format:check": "prettier --check \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
+    "test:workflow-scripts": "node --test .github/scripts/*.test.cjs",
     "test:site": "bundle exec jekyll build",
-    "test:html": "bundle exec htmlproofer _site --disable-external --allow-hash-href --allow-missing-href --no-enforce-https --ignore-missing-alt --no-check-internal-hash --ignore-status-codes 999 --ignore-urls \"/^/images//\""
+    "test:html": "bundle exec htmlproofer _site --disable-external --allow-hash-href --allow-missing-href --ignore-missing-alt --no-check-internal-hash --ignore-status-codes 999 --ignore-urls \"/^/images//\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",

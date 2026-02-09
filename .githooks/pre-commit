@@ -28,10 +28,27 @@ if [[ ! -d "$ASSETS_DIR" ]]; then
   exit 0
 fi
 
-# Find files to upload (excluding .uploaded and hidden files)
-files=$(find "$ASSETS_DIR" -type f ! -path "$UPLOADED_DIR/*" ! -name ".*" 2>/dev/null || true)
+# Build upload list.
+# Default: staged files only (prevents uploading unrelated draft assets).
+# Opt-in full scan: R2_UPLOAD_ALL=1 git commit ...
+files=()
+if [[ "${R2_UPLOAD_ALL:-0}" == "1" ]]; then
+  while IFS= read -r -d '' file; do
+    files+=("$file")
+  done < <(find "$ASSETS_DIR" -type f ! -path "$UPLOADED_DIR/*" ! -path "*/.*" -print0 2>/dev/null)
+else
+  while IFS= read -r -d '' file; do
+    # Exclude uploaded and hidden paths.
+    if [[ "$file" == "$UPLOADED_DIR/"* || "$file" == */.* ]]; then
+      continue
+    fi
+    # Handle removed/renamed paths safely.
+    [[ -f "$file" ]] || continue
+    files+=("$file")
+  done < <(git diff --cached --name-only --diff-filter=ACMR -z -- "$ASSETS_DIR")
+fi
 
-if [[ -z "$files" ]]; then
+if [[ ${#files[@]} -eq 0 ]]; then
   exit 0
 fi
 
@@ -47,7 +64,7 @@ echo "Uploading assets to R2..."
 mkdir -p "$UPLOADED_DIR"
 
 # Upload each file
-for file in $files; do
+for file in "${files[@]}"; do
   # Get relative path within _assets (e.g., images/photo.jpg)
   rel_path="${file#$ASSETS_DIR/}"
   dest_dir=$(dirname "$rel_path")

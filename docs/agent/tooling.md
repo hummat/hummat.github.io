@@ -50,7 +50,7 @@ Excluded from linters: `_site/`, `figures/`, `images/`, `data/`
 The repo uses `core.hooksPath = .githooks/`. On every commit:
 
 1. **lint-staged** runs linters on staged files only (fast feedback)
-2. **R2 upload** pushes any files in `_assets/` to Cloudflare R2
+2. **R2 upload** pushes staged files in `_assets/` to Cloudflare R2 (`R2_UPLOAD_ALL=1` opt-in uploads all)
 
 To set up hooks after cloning:
 
@@ -77,7 +77,7 @@ Assets are stored in Cloudflare R2, not in the repo. The pre-commit hook handles
 
 ```bash
 # Upload assets with an otherwise empty commit
-git commit --allow-empty -m "Upload new assets"
+R2_UPLOAD_ALL=1 git commit --allow-empty -m "Upload new assets"
 ```
 
 See `ASSETS.md` for full details on asset management.

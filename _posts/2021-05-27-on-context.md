@@ -48,8 +48,8 @@ Below, there are two more examples of increasing dimensionality (use the little 
     <div data-include="https://assets.hummat.com/figures/happy_buddha.html"></div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 <br/>
@@ -146,8 +146,8 @@ Adding a third dimension, things get more interesting again, as the computationa
     <div class="text" style="text-align: left; bottom: -60px; width: 90%;"><b>Graph context:</b> A mesh can be interpreted as a graph where context is expressed through connectivity.</div>
   </div>
 
-<a class="prev" onclick="plusSlides(-1, this.parentNode)">&#10094;</a>
-<a class="next" onclick="plusSlides(1, this.parentNode)">&#10095;</a>
+<a class="prev" data-slide-step="-1">&#10094;</a>
+<a class="next" data-slide-step="1">&#10095;</a>
 
 </div>
 <br/>

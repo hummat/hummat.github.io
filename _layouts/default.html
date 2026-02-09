@@ -1,25 +1,28 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>
-      {% if page.title %}{{ page.title }} – {% endif %}{{ site.title }} – {{ site.description }}
-    </title>
-
     {% include meta.html %}
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="{{ site.name }} - {{ site.description }}"
+      title="{{ site.title | escape }} - {{ site.description | strip_html | strip_newlines | escape }}"
       href="{{ site.baseurl }}/feed.xml"
     />
 
     {% if page.plotly %}
-    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-    {% endif %} {% include jquery.html %} {% include mathjax.html %} {%- seo -%} {% if
-    site.google_analytics and jekyll.environment == 'production' %} {% include analytics_alt.html %}
-    {% endif %}
+    <script
+      src="https://cdn.plot.ly/plotly-2.35.2.min.js"
+      integrity="sha384-cCVCZkAjYNxaYKbM8lsArLznDF/SvMFr1jcZrvOpSTCa0W40ZAdLzHCEulnUa5i7"
+      crossorigin="anonymous"
+      charset="utf-8"
+    ></script>
+    {% endif %} {% include jquery.html %} {% include mathjax.html %} {% include analytics_alt.html
+    %} {%- seo -%}
+
+    <script src="{{ site.baseurl }}/assets/js/privacy-consent.js" defer></script>
+    <script src="{{ site.baseurl }}/assets/js/post-interactions.js" defer></script>
   </head>
 
   <body>
@@ -72,6 +75,7 @@
       </div>
     </footer>
 
-    {% include popup.html %} {% include slideshow.html %} {% include slideshow2.html %}
+    {% include cookie-consent.html %} {% include popup.html %} {% include slideshow.html %} {%
+    include slideshow2.html %}
   </body>
 </html>

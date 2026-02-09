@@ -27,6 +27,9 @@ GEM
     base64 (0.2.0)
     benchmark (0.4.0)
     bigdecimal (3.1.8)
+    bundler-audit (0.9.3)
+      bundler (>= 1.2.0)
+      thor (~> 1.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -57,6 +60,8 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
+    faraday-retry (2.4.0)
+      faraday (~> 2.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -325,6 +330,7 @@ GEM
     simpleidn (0.2.3)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    thor (1.5.0)
     traces (0.18.2)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
@@ -354,6 +360,8 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  bundler-audit
+  faraday-retry
   github-pages
   html-proofer
   jekyll-feed

@@ -11,6 +11,10 @@
   color: "5319E7"
   description: "Site feature request"
 
+- name: "type:technical"
+  color: "BFDADC"
+  description: "Technical debt, maintenance, internal improvements"
+
 # Category labels (for post ideas)
 - name: "category:learning"
   color: "FBCA04"
@@ -66,6 +70,35 @@
   color: "008672"
   description: "Speed, SEO, accessibility"
 
+# Technical area labels
+- name: "area:build"
+  color: "ededed"
+  description: ""
+
+- name: "area:content"
+  color: "ededed"
+  description: ""
+
+- name: "area:ui"
+  color: "ededed"
+  description: ""
+
+- name: "area:security"
+  color: "ededed"
+  description: ""
+
+- name: "area:seo"
+  color: "ededed"
+  description: ""
+
+- name: "area:quality"
+  color: "ededed"
+  description: ""
+
+- name: "area:accessibility"
+  color: "ededed"
+  description: ""
+
 # Status labels (optional)
 - name: "status:planned"
   color: "C2E0C6"
@@ -74,6 +107,15 @@
 - name: "status:in-progress"
   color: "FEF2C0"
   description: "Currently being worked on"
+
+# General labels
+- name: "enhancement"
+  color: "ededed"
+  description: ""
+
+- name: "docs"
+  color: "ededed"
+  description: ""
 
 # PR labels
 - name: "wrong-base-branch"

@@ -176,6 +176,52 @@ article p {
   }
 }
 
+.embedded-include {
+  display: block;
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+}
+
+.cookie-consent {
+  position: fixed;
+  z-index: 1200;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0.9rem 1rem;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.cookie-consent p {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cookie-consent-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cookie-consent-actions button {
+  border: 1px solid #d9d9d9;
+  background: #f6f6f6;
+  color: #222;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
+.cookie-consent-actions button:hover {
+  background: #ececec;
+}
+
 .tags .tag {
   display: inline-block;
   color: rgba(0, 0, 0, 0.67);

@@ -61,7 +61,7 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
 8. [Slate Star Codex](https://slatestarcodex.com/) - _A blog about science, medicine, philosophy, politics, and futurism._
 9. [Khan Academy](https://www.khanacademy.org/) - _Free, world‑class education for anyone, anywhere._
 10. [from Data to Viz](https://www.data-to-viz.com/#explore) - _Decision tree that leads you to the most appropriate graph for your data._
-11. [Arxiv-Sanity](http://arxiv-sanity.com/) - _Arxive in better: Search and find research relevant to you._
+11. [Arxiv-Sanity](https://arxiv-sanity.com/) - _Arxive in better: Search and find research relevant to you._
 
 ## Machine Learning, Data Science & AI
 
@@ -71,8 +71,8 @@ While there is a mind boggling amount of great stuff out there, it is hidden by 
    - [A Visual Exploration of Gaussian Processes](https://distill.pub/2019/visual-exploration-gaussian-processes/)
 2. [Brandon Rohrer](https://www.youtube.com/brandonrohrer) - _Mainly machine learning videos._
    - [How Neural Networks Work](https://www.youtube.com/playlist?list=PLVZqlMpoM6kaJX_2lLKjEhWI0NlqHfqzp)
-3. [R2D3](http://www.r2d3.us) - _An experiment in expressing statistical thinking with interactive design._
-   - A visual introduction to machine learning [[1](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/), [2](http://www.r2d3.us/visual-intro-to-machine-learning-part-2/)]
+3. [R2D3](https://www.r2d3.us) - _An experiment in expressing statistical thinking with interactive design._
+   - A visual introduction to machine learning [[1](https://www.r2d3.us/visual-intro-to-machine-learning-part-1/), [2](https://www.r2d3.us/visual-intro-to-machine-learning-part-2/)]
 4. [colah’s blog](https://colah.github.io/) - _I want to understand things clearly, and explain them well._
 5. [Quora: The Kernel Trick](https://www.quora.com/q/rrfsinhyglsnclow/The-Kernel-Trick) - _The ONLY explanation of the kernel trick that finally made it click._
 6. [Sebastian Ruder](https://ruder.io/) - _Blog about machine learning, deep learning, and natural language processing._

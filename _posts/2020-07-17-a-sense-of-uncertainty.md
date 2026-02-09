@@ -97,9 +97,9 @@ Below are some examples of data with low data uncertainty---the images are of go
 </div>
 
 <div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" data-slide-to="1"></span>
+  <span class="dot" data-slide-to="2"></span>
+  <span class="dot" data-slide-to="3"></span>
 </div>
 
 Finally, both uncertainty flavors can be combined into an overall uncertainty about your decision: the _predictive uncertainty_. This is usually what one refers to when speaking about the topic of uncertainty and it is often simpler to obtain than the former two.
