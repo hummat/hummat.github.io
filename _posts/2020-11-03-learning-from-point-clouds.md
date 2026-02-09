@@ -61,7 +61,7 @@ Another idea would be, to _"slide"_ a network with $3$ inputs, one for each spat
 
 <div style="text-align: center">
 <figure style="width: 90%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_mlp.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_mlp.png" alt="Diagram of a shared MLP sliding over each point in the point cloud with three inputs per point">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 1:</b> A "shared" MLP with three inputs ($x,y,z$ coordinates) "sliding" over each point in the point cloud.</figcaption>
 </figure>
 </div>
@@ -72,7 +72,7 @@ On the input layer, we can replace our fully connected layer from figure 1 with 
 
 <div style="text-align: center">
 <figure style="width: 80%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv2.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv2.png" alt="Diagram of 1x3 convolutions replacing the shared MLP in PointNet">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 2:</b> The "shared" MLP from before is replace by $1\times3$ convolutions.</figcaption>
 </figure>
 </div>
@@ -81,7 +81,7 @@ We could also use a second approach of employing $1\times1$ convolutions, which 
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv1.png">
+  <img src="https://assets.hummat.com/images/fc_vs_conv/pointnet_conv1.png" alt="Diagram of 1x1 convolutions mimicking a shared MLP in PointNet">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 3:</b> The "shared" MLP is mimicked by $1\times1$ convolutions inside the network (shown on the input here though).</figcaption>
 </figure>
 </div>
@@ -90,7 +90,7 @@ If we now have a look at the entire network architecture as presented in the pap
 
 <div style="text-align: center">
 <figure style="width: 100%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/pointnet.png">
+  <img src="https://assets.hummat.com/images/pointnet.png" alt="PointNet architecture diagram showing classification and segmentation networks">
   <figcaption style="text-align: left; line-height: 1.2em;"><b>Fig. 4:</b> PointNet as presented in the original paper. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>
@@ -102,7 +102,7 @@ This has the added advantage that the network is pushed to reduce each object to
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/pointnet_critical_points.png">
+  <img src="https://assets.hummat.com/images/pointnet_critical_points.png" alt="PointNet critical points showing object skeletons that determine classification">
   <figcaption style="text-align: left;  line-height: 1.2em;"><b>Fig. 5:</b> The minimum (critical) and maximum (upper-bound) number of points which don't change PointNets classification results. [<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Qi_PointNet_Deep_Learning_CVPR_2017_paper.pdf">source</a>]</figcaption>
 </figure>
 </div>

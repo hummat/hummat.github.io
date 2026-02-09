@@ -22,7 +22,7 @@ banner: https://assets.hummat.com/images/my-banner.jpg
 ```
 
 ```html
-<img src="https://assets.hummat.com/images/example.png" />
+<img src="https://assets.hummat.com/images/example.png" alt="Example image" />
 <div data-include="https://assets.hummat.com/figures/my-plot.html"></div>
 ```
 

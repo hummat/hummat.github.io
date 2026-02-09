@@ -203,7 +203,7 @@ It stores the interactive figure inside HTML file which you can then include in 
 <div class="slideshow-container">
   <div class="mySlides fade">
     <div class="numbertext">1 / 2</div>
-    <img src="https://assets.hummat.com/images/2dgauss.png" style="width:100%">
+    <img src="https://assets.hummat.com/images/2dgauss.png" style="width:100%" alt="Static 2D Gaussian distribution surface plot">
     <div class="text">A normal image. Boring!</div>
   </div>
 

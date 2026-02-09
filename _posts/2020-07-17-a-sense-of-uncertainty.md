@@ -63,7 +63,7 @@ Usually, uncertainty is put into two broad categories which makes it easier to t
 [^1]: Or _epistemic uncertainty_.
 
 <div style="text-align:center">
-  <img src="https://assets.hummat.com/images/deterministic_nn.png">
+  <img src="https://assets.hummat.com/images/deterministic_nn.png" alt="Diagram of a standard neural network with specific scalar weights on each connection">
   <figcaption>A standard neural network with specific weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
 
@@ -72,7 +72,7 @@ This is equivalent to an old person having figured out the answers to all the im
 [^2]: Within the limited pool of possibilities granted to it during its design, captured by the choice of possible probability distributions used for modeling the likelihood of the weights.
 
 <div style="text-align:center">
-  <img src="https://assets.hummat.com/images/bayesian_nn.png">
+  <img src="https://assets.hummat.com/images/bayesian_nn.png" alt="Diagram of a Bayesian neural network with probability distributions over each weight">
   <figcaption>A Bayesian neural network with distributions over weights [<a href="https://arxiv.org/abs/1505.05424">source</a>].</figcaption>
 </div>
 
@@ -84,15 +84,15 @@ Below are some examples of data with low data uncertainty---the images are of go
 
 <div class="slideshow-container">
   <div class="mySlides fade">
-    <img src="https://assets.hummat.com/images/jaguar_leopard.jpg" style="width:100%">
+    <img src="https://assets.hummat.com/images/jaguar_leopard.jpg" style="width:100%" alt="Side-by-side comparison of a jaguar and a leopard">
   </div>
 
   <div class="mySlides fade">
-    <img src="https://assets.hummat.com/images/turtle_turtois.png" style="width:100%">
+    <img src="https://assets.hummat.com/images/turtle_turtois.png" style="width:100%" alt="Side-by-side comparison of a turtle and a tortoise">
   </div>
 
   <div class="mySlides fade">
-    <img src="https://assets.hummat.com/images/hare_rabbit.jpg" style="width:100%">
+    <img src="https://assets.hummat.com/images/hare_rabbit.jpg" style="width:100%" alt="Side-by-side comparison of a hare and a rabbit">
   </div>
 </div>
 

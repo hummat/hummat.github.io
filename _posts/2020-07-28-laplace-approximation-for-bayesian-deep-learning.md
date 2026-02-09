@@ -178,7 +178,7 @@ $$
 The weight samples $W_t$ can be drawn efficiently from our posterior s.t. $W_t\sim\mathcal{N}(W^\star,\hat{F}^{-1})$. We then load them into our network, perform a standard forward pass on the new input to obtain the output and repeat this a couple of times. By averaging the output over all evaluations, we obtain the final result. In the limit, approaching an infinite number of weight samples, we reclaim the solution of the integral, but in practice, around $30$ such samples already lead to significantly improved results as we will see in the next section.
 
 <div style="text-align:center">
-  <img src="https://assets.hummat.com/images/bayesian_inference.jpg">
+  <img src="https://assets.hummat.com/images/bayesian_inference.jpg" alt="Diagram showing approximate Bayesian inference: weight samples drawn from the posterior are loaded into the network and predictions are averaged">
   <figcaption>Approximate Bayesian inference through sampling. [<a href="https://arxiv.org/abs/1812.01719v5">source</a>].</figcaption>
 </div>
 
@@ -242,11 +242,11 @@ What we want in these settings is an algorithm that provides correct predictions
 
 <div style="text-align: center;">
 <figure style="width: 35%; display: inline-block;">
-    <img src='/images/imagenet.jpg'/>
+    <img src='/images/imagenet.jpg' alt="Photograph of an object from the ImageNet dataset"/>
     <figcaption>A "normal" input.</figcaption>
 </figure>
 <figure style="width: 30%; display: inline-block">
-    <img src='/images/art.jpg'/>
+    <img src='/images/art.jpg' alt="Artistic painting used as out-of-distribution input"/>
     <figcaption>A strange input.</figcaption>
 </figure>
 </div>

@@ -56,7 +56,7 @@ In the seminal _Multi-view Convolutional Neural Networks for 3D Shape Recognitio
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/multi-view.png">
+  <img src="https://assets.hummat.com/images/multi-view.png" alt="Multiple 2D views of a 3D object rendered from 12 different viewpoints">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Multiple views</b> [<a href="https://arxiv.org/abs/1505.00880">source</a>]</figcaption>
 </figure>
 </div>
@@ -65,7 +65,7 @@ As in standard 2D object classification, they then used a convolutional neural n
 
 <div style="text-align: center">
 <figure style="width: 70%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/mvcnn.png">
+  <img src="https://assets.hummat.com/images/mvcnn.png" alt="Multi-view CNN architecture processing multiple views through shared CNNs with max pooling">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>The model</b> [<a href="https://arxiv.org/abs/1505.00880">source</a>]</figcaption>
 </figure>
 </div>
@@ -76,7 +76,7 @@ A similar idea was used in _Multi-View 3D Object Detection Network for Autonomou
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/mv3d.png">
+  <img src="https://assets.hummat.com/images/mv3d.png" alt="Multi-view 3D object detection network fusing LiDAR bird's eye view, front view, and RGB image">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>3D object detection</b> [<a href="https://arxiv.org/abs/1611.07759">source</a>]</figcaption>
 </figure>
 </div>
@@ -89,7 +89,7 @@ While not an officially recognised category, projecting 3D objects onto geometri
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/deeppano.png">
+  <img src="https://assets.hummat.com/images/deeppano.png" alt="DeepPano cylindrical projection of a 3D object for panoramic shape recognition">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Cylindrical projection</b> [<a href="https://ieeexplore.ieee.org/document/7273863">source</a>]</figcaption>
 </figure>
 </div>
@@ -98,7 +98,7 @@ Now, you might wonder, if one can use object panoramas, why not use 360° views?
 
 <div style="text-align: center">
 <figure style="width: 95%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/spherical_cnn.png">
+  <img src="https://assets.hummat.com/images/spherical_cnn.png" alt="Spherical projection of a 3D object cut into stripes and fed to a CNN">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>Spherical projection</b> [<a href="https://ieeexplore.ieee.org/document/8374611">source</a>]</figcaption>
 </figure>
 </div>
@@ -107,7 +107,7 @@ Finally, in a similar approach as the previous one, the authors of _Deep Learnin
 
 <div style="text-align: center">
 <figure style="width: 60%; display: inline-block;">
-  <img src="https://assets.hummat.com/images/geometry_image.png">
+  <img src="https://assets.hummat.com/images/geometry_image.png" alt="Geometry image pipeline: 3D object projected onto sphere then mapped to 2D plane">
   <figcaption style="text-align: center; line-height: 1.2em;"><b>From object to sphere to plane</b> [<a href="https://engineering.purdue.edu/cdesign/wp/wp-content/uploads/2016/12/Deep-Learning-3D-shape-Surfaces-Using-Geometry-Images.pdf">source</a>]</figcaption>
 </figure>
 </div>
