@@ -30,6 +30,9 @@ npm run lint:scss
 # JavaScript
 npm run lint:js
 
+# JavaScript unit tests
+npm run test:js
+
 # Format all (writes changes)
 npm run format
 
@@ -64,10 +67,10 @@ lint-staged config lives in `package.json` under the `"lint-staged"` key. It run
 
 `.github/workflows/lint.yml` runs on PRs to `netlify`:
 
-| Job     | What it does                                          |
-| ------- | ----------------------------------------------------- |
-| `lint`  | markdownlint, stylelint, eslint, prettier (Node-only) |
-| `build` | Jekyll build + HTMLProofer (needs lint to pass first) |
+| Job     | What it does                                                                    |
+| ------- | ------------------------------------------------------------------------------- |
+| `lint`  | workflow script tests, JS unit tests, markdownlint, stylelint, eslint, prettier |
+| `build` | Jekyll build + HTMLProofer (needs lint to pass first)                           |
 
 Stale runs are auto-cancelled when a new push arrives (`cancel-in-progress`).
 

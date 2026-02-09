@@ -28,6 +28,9 @@ jobs:
       - name: Workflow scripts
         run: npm run test:workflow-scripts
 
+      - name: JavaScript tests
+        run: npm run test:js
+
       - name: Markdown
         run: npm run lint:md
 
