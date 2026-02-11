@@ -52,30 +52,41 @@
     window.gtag("config", analyticsId);
   }
 
-  function loadDisqus(shortname) {
-    if (!shortname || document.getElementById("disqus-embed-loader")) {
+  function loadUtterances(thread) {
+    if (!thread || document.getElementById("utterances-embed-loader")) {
       return;
     }
 
-    const dsq = document.createElement("script");
-    dsq.id = "disqus-embed-loader";
-    dsq.type = "text/javascript";
-    dsq.async = true;
-    dsq.src = `https://${shortname}.disqus.com/embed.js`;
-    dsq.setAttribute("data-timestamp", String(Date.now()));
+    const repo = (thread.getAttribute("data-utterances-repo") || "").trim();
+    if (!repo) {
+      return;
+    }
 
-    (document.head || document.body).appendChild(dsq);
+    const issueTerm = (thread.getAttribute("data-utterances-issue-term") || "pathname").trim();
+    const label = (thread.getAttribute("data-utterances-label") || "").trim();
+    const theme = (thread.getAttribute("data-utterances-theme") || "preferred-color-scheme").trim();
+
+    const script = document.createElement("script");
+    script.id = "utterances-embed-loader";
+    script.src = "https://utteranc.es/client.js";
+    script.async = true;
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    if (label) {
+      script.setAttribute("label", label);
+    }
+    script.setAttribute("theme", theme);
+    script.setAttribute("crossorigin", "anonymous");
+
+    thread.appendChild(script);
   }
 
   function applyOptionalServices() {
     const analyticsId = getAnalyticsId();
-    const disqusThread = document.getElementById("disqus_thread");
-    const disqusShortname = disqusThread
-      ? (disqusThread.getAttribute("data-disqus-shortname") || "").trim()
-      : "";
+    const utterancesThread = document.getElementById("utterances_thread");
 
     loadAnalytics(analyticsId);
-    loadDisqus(disqusShortname);
+    loadUtterances(utterancesThread);
   }
 
   function initConsentBanner() {
@@ -85,8 +96,8 @@
     }
 
     const analyticsId = getAnalyticsId();
-    const disqusThread = document.getElementById("disqus_thread");
-    const hasOptionalServices = Boolean(analyticsId || disqusThread);
+    const utterancesThread = document.getElementById("utterances_thread");
+    const hasOptionalServices = Boolean(analyticsId || utterancesThread);
 
     if (!hasOptionalServices) {
       return;

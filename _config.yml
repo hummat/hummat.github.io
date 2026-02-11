@@ -45,9 +45,17 @@ footer-links:
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
 
-# Enter your Disqus shortname (not your username) to enable commenting on posts
-# You can find your shortname on the Settings page of your Disqus account
-disqus: hummat-github-io
+# Comments provider configuration.
+# Supported provider:
+# - utterances (GitHub Issues-based comments)
+comments:
+  provider: utterances
+
+utterances:
+  repo: hummat/hummat.github.io
+  issue_term: pathname
+  label: comments
+  theme: preferred-color-scheme
 
 # Enter your Google Analytics GA4 measurement ID (e.g. G-XXXXXXXXXX) to activate tracking.
 # Leave empty to disable analytics.

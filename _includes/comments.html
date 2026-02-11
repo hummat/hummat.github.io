@@ -1,0 +1,13 @@
+{% if page.comments != false %} {% assign comments_provider = site.comments.provider | default: ""
+%} {% if comments_provider == "utterances" and site.utterances.repo %}
+<div class="comments noprint">
+  <div
+    id="utterances_thread"
+    data-utterances-repo="{{ site.utterances.repo | escape }}"
+    data-utterances-issue-term="{{ site.utterances.issue_term | default: 'pathname' | escape }}"
+    data-utterances-label="{{ site.utterances.label | default: '' | escape }}"
+    data-utterances-theme="{{ site.utterances.theme | default: 'preferred-color-scheme' | escape }}"
+  ></div>
+  <noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+{% endif %} {% endif %}
