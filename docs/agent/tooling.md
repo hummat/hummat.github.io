@@ -46,7 +46,11 @@ npm run test:site
 npm run test:html
 ```
 
-Excluded from linters: `_site/`, `figures/`, `images/`, `data/`
+Linting scope notes:
+
+- Markdown docs lint uses strict rules and excludes `_site/`, `node_modules/`, `_posts/`, `_drafts/`.
+- Post and draft markdown is linted separately with a relaxed legacy profile to catch actionable issues (e.g. broken/empty links) without forcing large historical rewrites.
+- SCSS/JS linters still exclude generated/asset-heavy paths such as `_site/`, `figures/`, `images/`, `data/`.
 
 ## Pre-commit Hooks
 
