@@ -33,7 +33,7 @@
 
 - **Posts**: `_posts/YYYY-MM-DD-kebab-title.md` with YAML front matter
 - **Drafts**: `_drafts/slug.md` (no date prefix); preview with `--drafts`
-- **Config**: `_config.yml` for site metadata, plugins, analytics, Disqus
+- **Config**: `_config.yml` for site metadata, plugins, analytics, comments provider
 - **Assets**: stored in Cloudflare R2; see `ASSETS.md`
 
 ## Key Files

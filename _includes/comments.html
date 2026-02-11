@@ -1,0 +1,31 @@
+{% if page.comments != false %} {% assign comments_provider = site.comments.provider | default: ""
+%} {% if comments_provider == "utterances" and site.utterances.repo %}
+<div class="comments noprint">
+  <div id="comments-consent-gate" class="comments-consent-gate">
+    <p>
+      Comments are powered by GitHub (utterances) and load third-party content from
+      <code>utteranc.es</code>. Click to load comments.
+    </p>
+    <div class="comments-consent-actions">
+      <button type="button" data-comments-action="accept">Load comments</button>
+    </div>
+  </div>
+
+  <p id="comments-consent-manage" class="comments-consent-manage" hidden>
+    Comments are loaded.
+    <button type="button" class="comments-link-button" data-comments-action="revoke">
+      Disable comments
+    </button>
+  </p>
+
+  <div
+    id="utterances_thread"
+    data-utterances-repo="{{ site.utterances.repo | escape }}"
+    data-utterances-issue-term="{{ site.utterances.issue_term | default: 'pathname' | escape }}"
+    data-utterances-label="{{ site.utterances.label | default: '' | escape }}"
+    data-utterances-theme="{{ site.utterances.theme | default: 'preferred-color-scheme' | escape }}"
+    hidden
+  ></div>
+  <noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+{% endif %} {% endif %}
