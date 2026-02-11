@@ -56,10 +56,10 @@ comments:
 giscus:
   repo: hummat/hummat.github.io
   repo_id: MDEwOlJlcG9zaXRvcnkyNjM2MDE4OTY=
-  category: General
-  category_id: DIC_kwDOD7Y-6M4C1Coy
+  category: Announcements
+  category_id: DIC_kwDOD7Y-6M4C1Cox
   mapping: pathname
-  strict: "0"
+  strict: "1"
   reactions_enabled: "1"
   emit_metadata: "0"
   input_position: top
