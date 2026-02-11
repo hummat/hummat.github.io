@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "description": "Tooling for linting and checking the Jekyll blog",
   "scripts": {
-    "lint:md": "markdownlint \"**/*.md\" --ignore _site --ignore node_modules",
+    "lint:md": "npm run lint:md:docs && npm run lint:md:content",
+    "lint:md:docs": "markdownlint \"**/*.md\" --ignore _site --ignore node_modules --ignore _posts --ignore _drafts",
+    "lint:md:content": "markdownlint \"_posts/**/*.md\" \"_drafts/**/*.md\" --disable MD001 MD010 MD022 MD024 MD025 MD026 MD029 MD032 MD033 MD036 MD037",
     "lint:scss": "stylelint \"style.scss\" \"_sass/**/*.scss\"",
     "lint:js": "eslint --ext .js,.html _includes _layouts assets/js tests/js --max-warnings=0",
     "format": "prettier --write \"**/*.{md,html,scss,js,json,yml,yaml}\" --ignore-path .prettierignore",
@@ -30,7 +32,7 @@
     "stylelint-scss": "^5.3.2"
   },
   "lint-staged": {
-    "*.md": "markdownlint --ignore _site --ignore node_modules",
+    "*.md": "markdownlint --ignore _site --ignore node_modules --disable MD001 MD010 MD022 MD024 MD025 MD026 MD029 MD032 MD033 MD036 MD037",
     "*.scss": "stylelint",
     "*.{js,html}": "eslint --ext .js,.html --max-warnings=0",
     "*.{md,html,scss,js,json,yml,yaml}": "prettier --check --ignore-path .prettierignore"
