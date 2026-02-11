@@ -48,6 +48,11 @@ jobs:
                   issue_number: issueNumber
                 });
 
+                if (issue.pull_request) {
+                  console.log(`Skipping #${issueNumber}: reference is a pull request`);
+                  continue;
+                }
+
                 if (issue.state === 'open') {
                   await github.rest.issues.update({
                     owner: context.repo.owner,

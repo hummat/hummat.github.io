@@ -1,4 +1,6 @@
 .claude/
+.mcp.json
+.playwright/
 _site/
 node_modules/
 figures/
