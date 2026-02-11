@@ -1,10 +1,11 @@
 {% if page.comments != false %} {% assign comments_provider = site.comments.provider | default: ""
-%} {% if comments_provider == "utterances" and site.utterances.repo %}
+%} {% if comments_provider == "giscus" and site.giscus.repo and site.giscus.repo_id and
+site.giscus.category and site.giscus.category_id %}
 <div class="comments noprint">
   <div id="comments-consent-gate" class="comments-consent-gate">
     <p>
-      Comments are powered by GitHub (utterances) and load third-party content from
-      <code>utteranc.es</code>. Click to load comments.
+      Comments are powered by GitHub Discussions (giscus) and load third-party content from
+      <code>giscus.app</code>. Click to load comments.
     </p>
     <div class="comments-consent-actions">
       <button type="button" data-comments-action="accept">Load comments</button>
@@ -19,11 +20,18 @@
   </p>
 
   <div
-    id="utterances_thread"
-    data-utterances-repo="{{ site.utterances.repo | escape }}"
-    data-utterances-issue-term="{{ site.utterances.issue_term | default: 'pathname' | escape }}"
-    data-utterances-label="{{ site.utterances.label | default: '' | escape }}"
-    data-utterances-theme="{{ site.utterances.theme | default: 'preferred-color-scheme' | escape }}"
+    id="giscus_thread"
+    data-giscus-repo="{{ site.giscus.repo | escape }}"
+    data-giscus-repo-id="{{ site.giscus.repo_id | escape }}"
+    data-giscus-category="{{ site.giscus.category | escape }}"
+    data-giscus-category-id="{{ site.giscus.category_id | escape }}"
+    data-giscus-mapping="{{ site.giscus.mapping | default: 'pathname' | escape }}"
+    data-giscus-strict="{{ site.giscus.strict | default: '0' | escape }}"
+    data-giscus-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' | escape }}"
+    data-giscus-emit-metadata="{{ site.giscus.emit_metadata | default: '0' | escape }}"
+    data-giscus-input-position="{{ site.giscus.input_position | default: 'top' | escape }}"
+    data-giscus-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' | escape }}"
+    data-giscus-lang="{{ site.giscus.lang | default: 'en' | escape }}"
     hidden
   ></div>
   <noscript>Please enable JavaScript to view comments.</noscript>

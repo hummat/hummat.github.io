@@ -53,19 +53,19 @@
     window.gtag("config", analyticsId);
   }
 
-  function removeUtterances(thread) {
+  function removeGiscus(thread) {
     if (!thread) {
       return;
     }
 
     const embeddedElements = thread.querySelectorAll(
-      "script#utterances-embed-loader, iframe.utterances-frame"
+      "script#giscus-embed-loader, iframe.giscus-frame"
     );
     embeddedElements.forEach((element) => {
       element.remove();
     });
 
-    const detachedFrames = document.querySelectorAll("iframe.utterances-frame");
+    const detachedFrames = document.querySelectorAll("iframe.giscus-frame");
     detachedFrames.forEach((frame) => {
       frame.remove();
     });
@@ -73,30 +73,42 @@
     thread.hidden = true;
   }
 
-  function loadUtterances(thread) {
-    if (!thread || document.getElementById("utterances-embed-loader")) {
+  function loadGiscus(thread) {
+    if (!thread || document.getElementById("giscus-embed-loader")) {
       return;
     }
 
-    const repo = (thread.getAttribute("data-utterances-repo") || "").trim();
-    if (!repo) {
+    const repo = (thread.getAttribute("data-giscus-repo") || "").trim();
+    const repoId = (thread.getAttribute("data-giscus-repo-id") || "").trim();
+    const category = (thread.getAttribute("data-giscus-category") || "").trim();
+    const categoryId = (thread.getAttribute("data-giscus-category-id") || "").trim();
+    if (!repo || !repoId || !category || !categoryId) {
       return;
     }
 
-    const issueTerm = (thread.getAttribute("data-utterances-issue-term") || "pathname").trim();
-    const label = (thread.getAttribute("data-utterances-label") || "").trim();
-    const theme = (thread.getAttribute("data-utterances-theme") || "preferred-color-scheme").trim();
+    const mapping = (thread.getAttribute("data-giscus-mapping") || "pathname").trim();
+    const strict = (thread.getAttribute("data-giscus-strict") || "0").trim();
+    const reactionsEnabled = (thread.getAttribute("data-giscus-reactions-enabled") || "1").trim();
+    const emitMetadata = (thread.getAttribute("data-giscus-emit-metadata") || "0").trim();
+    const inputPosition = (thread.getAttribute("data-giscus-input-position") || "top").trim();
+    const theme = (thread.getAttribute("data-giscus-theme") || "preferred_color_scheme").trim();
+    const lang = (thread.getAttribute("data-giscus-lang") || "en").trim();
 
     const script = document.createElement("script");
-    script.id = "utterances-embed-loader";
-    script.src = "https://utteranc.es/client.js";
+    script.id = "giscus-embed-loader";
+    script.src = "https://giscus.app/client.js";
     script.async = true;
-    script.setAttribute("repo", repo);
-    script.setAttribute("issue-term", issueTerm);
-    if (label) {
-      script.setAttribute("label", label);
-    }
-    script.setAttribute("theme", theme);
+    script.setAttribute("data-repo", repo);
+    script.setAttribute("data-repo-id", repoId);
+    script.setAttribute("data-category", category);
+    script.setAttribute("data-category-id", categoryId);
+    script.setAttribute("data-mapping", mapping);
+    script.setAttribute("data-strict", strict);
+    script.setAttribute("data-reactions-enabled", reactionsEnabled);
+    script.setAttribute("data-emit-metadata", emitMetadata);
+    script.setAttribute("data-input-position", inputPosition);
+    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-lang", lang);
     script.setAttribute("crossorigin", "anonymous");
 
     thread.hidden = false;
@@ -118,7 +130,7 @@
   }
 
   function initCommentsConsent() {
-    const thread = document.getElementById("utterances_thread");
+    const thread = document.getElementById("giscus_thread");
     if (!thread) {
       return;
     }
@@ -141,9 +153,9 @@
     });
 
     if (shouldLoadComments) {
-      loadUtterances(thread);
+      loadGiscus(thread);
     } else {
-      removeUtterances(thread);
+      removeGiscus(thread);
     }
 
     commentsRoot.addEventListener("click", (event) => {
@@ -161,10 +173,10 @@
           manage,
           thread,
         });
-        loadUtterances(thread);
+        loadGiscus(thread);
       } else if (action === "revoke") {
         writePreference(COMMENTS_CONSENT_KEY, CONSENT_DECLINED);
-        removeUtterances(thread);
+        removeGiscus(thread);
         setCommentsUiState({
           loaded: false,
           gate,

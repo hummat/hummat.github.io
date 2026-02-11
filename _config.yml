@@ -47,15 +47,22 @@ footer-links:
 
 # Comments provider configuration.
 # Supported provider:
-# - utterances (GitHub Issues-based comments)
+# - giscus (GitHub Discussions-based comments)
 comments:
-  provider: utterances
+  provider: giscus
 
-utterances:
+giscus:
   repo: hummat/hummat.github.io
-  issue_term: pathname
-  label: comments
-  theme: preferred-color-scheme
+  repo_id: MDEwOlJlcG9zaXRvcnkyNjM2MDE4OTY=
+  category: General
+  category_id: DIC_kwDOD7Y-6M4C1Coy
+  mapping: pathname
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: top
+  theme: preferred_color_scheme
+  lang: en
 
 # Enter your Google Analytics GA4 measurement ID (e.g. G-XXXXXXXXXX) to activate tracking.
 # Leave empty to disable analytics.
