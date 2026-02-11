@@ -222,6 +222,40 @@ article p {
   background: #ececec;
 }
 
+.comments-consent-gate {
+  border: 1px solid #d9d9d9;
+  background: #fafafa;
+  padding: 0.8rem 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.comments-consent-gate p {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.comments-consent-manage {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.comments-link-button {
+  margin-left: 0.35rem;
+  border: 0;
+  background: none;
+  color: $blue;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.comments-link-button:hover {
+  color: darken($blue, 10%);
+}
+
 .tags .tag {
   display: inline-block;
   color: rgba(0, 0, 0, 0.67);

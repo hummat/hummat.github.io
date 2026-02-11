@@ -2,7 +2,21 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { createDom, runBrowserScript, flushMicrotasks } = require("./test-utils");
 
-test("consent banner loads analytics and utterances only after accept", async () => {
+function commentsFixtureHtml() {
+  return (
+    '<div class="comments">' +
+    '<div id="comments-consent-gate">' +
+    '<button type="button" data-comments-action="accept">Load comments</button>' +
+    "</div>" +
+    '<p id="comments-consent-manage" hidden>' +
+    '<button type="button" data-comments-action="revoke">Disable comments</button>' +
+    "</p>" +
+    '<div id="utterances_thread" data-utterances-repo="hummat/hummat.github.io" data-utterances-issue-term="pathname" data-utterances-label="comments" data-utterances-theme="preferred-color-scheme" hidden></div>' +
+    "</div>"
+  );
+}
+
+test("cookie banner controls analytics only", async () => {
   const dom = createDom({
     headHtml: '<meta name="google-analytics-id" content="G-TEST1234">',
     bodyHtml:
@@ -10,7 +24,7 @@ test("consent banner loads analytics and utterances only after accept", async ()
       '<button type="button" data-consent-action="accept">Accept</button>' +
       '<button type="button" data-consent-action="decline">Decline</button>' +
       "</div>" +
-      '<div id="utterances_thread" data-utterances-repo="hummat/hummat.github.io" data-utterances-issue-term="pathname" data-utterances-label="comments" data-utterances-theme="preferred-color-scheme"></div>',
+      commentsFixtureHtml(),
   });
   Object.defineProperty(dom.window.document, "readyState", {
     configurable: true,
@@ -34,12 +48,74 @@ test("consent banner loads analytics and utterances only after accept", async ()
   const gaScript = dom.window.document.getElementById("ga4-loader");
   const utterancesScript = dom.window.document.getElementById("utterances-embed-loader");
   assert.ok(gaScript);
-  assert.ok(utterancesScript);
+  assert.equal(utterancesScript, null);
   assert.match(gaScript.src, /googletagmanager\.com/);
-  assert.match(utterancesScript.src, /utteranc\.es\/client\.js/);
+  assert.equal(banner.hidden, true);
+});
+
+test("comments load only after explicit click and persist preference", async () => {
+  const dom = createDom({
+    bodyHtml: '<div id="cookie-consent-banner" hidden></div>' + commentsFixtureHtml(),
+  });
+  Object.defineProperty(dom.window.document, "readyState", {
+    configurable: true,
+    get: () => "complete",
+  });
+
+  runBrowserScript(dom, "assets/js/privacy-consent.js");
+  await flushMicrotasks();
+
+  const gate = dom.window.document.getElementById("comments-consent-gate");
+  const manage = dom.window.document.getElementById("comments-consent-manage");
+  const thread = dom.window.document.getElementById("utterances_thread");
+
+  assert.equal(gate.hidden, false);
+  assert.equal(manage.hidden, true);
+  assert.equal(thread.hidden, true);
+  assert.equal(dom.window.document.getElementById("utterances-embed-loader"), null);
+
+  const loadButton = gate.querySelector('[data-comments-action="accept"]');
+  loadButton.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true }));
+  await flushMicrotasks();
+
+  const utterancesScript = dom.window.document.getElementById("utterances-embed-loader");
+  assert.ok(utterancesScript);
+  assert.equal(dom.window.localStorage.getItem("hummat-comments-consent-v1"), "accepted");
+  assert.equal(gate.hidden, true);
+  assert.equal(manage.hidden, false);
+  assert.equal(thread.hidden, false);
   assert.equal(utterancesScript.getAttribute("repo"), "hummat/hummat.github.io");
   assert.equal(utterancesScript.getAttribute("issue-term"), "pathname");
   assert.equal(utterancesScript.getAttribute("label"), "comments");
   assert.equal(utterancesScript.getAttribute("theme"), "preferred-color-scheme");
-  assert.equal(banner.hidden, true);
+});
+
+test("comments revoke disables embed and updates preference", async () => {
+  const dom = createDom({
+    bodyHtml: '<div id="cookie-consent-banner" hidden></div>' + commentsFixtureHtml(),
+  });
+  Object.defineProperty(dom.window.document, "readyState", {
+    configurable: true,
+    get: () => "complete",
+  });
+  dom.window.localStorage.setItem("hummat-comments-consent-v1", "accepted");
+
+  runBrowserScript(dom, "assets/js/privacy-consent.js");
+  await flushMicrotasks();
+
+  const manage = dom.window.document.getElementById("comments-consent-manage");
+  const thread = dom.window.document.getElementById("utterances_thread");
+  const revokeButton = manage.querySelector('[data-comments-action="revoke"]');
+
+  assert.equal(manage.hidden, false);
+  assert.equal(thread.hidden, false);
+  assert.ok(dom.window.document.getElementById("utterances-embed-loader"));
+
+  revokeButton.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true }));
+  await flushMicrotasks();
+
+  assert.equal(dom.window.localStorage.getItem("hummat-comments-consent-v1"), "declined");
+  assert.equal(dom.window.document.getElementById("utterances-embed-loader"), null);
+  assert.equal(thread.hidden, true);
+  assert.equal(manage.hidden, true);
 });

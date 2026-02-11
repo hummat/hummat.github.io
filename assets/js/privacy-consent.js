@@ -2,20 +2,21 @@
   "use strict";
 
   const CONSENT_KEY = "hummat-cookie-consent-v1";
+  const COMMENTS_CONSENT_KEY = "hummat-comments-consent-v1";
   const CONSENT_ACCEPTED = "accepted";
   const CONSENT_DECLINED = "declined";
 
-  function readConsent() {
+  function readPreference(key) {
     try {
-      return localStorage.getItem(CONSENT_KEY);
+      return localStorage.getItem(key);
     } catch (_err) {
       return null;
     }
   }
 
-  function writeConsent(value) {
+  function writePreference(key, value) {
     try {
-      localStorage.setItem(CONSENT_KEY, value);
+      localStorage.setItem(key, value);
     } catch (_err) {
       // Ignore storage failures.
     }
@@ -52,6 +53,26 @@
     window.gtag("config", analyticsId);
   }
 
+  function removeUtterances(thread) {
+    if (!thread) {
+      return;
+    }
+
+    const embeddedElements = thread.querySelectorAll(
+      "script#utterances-embed-loader, iframe.utterances-frame"
+    );
+    embeddedElements.forEach((element) => {
+      element.remove();
+    });
+
+    const detachedFrames = document.querySelectorAll("iframe.utterances-frame");
+    detachedFrames.forEach((frame) => {
+      frame.remove();
+    });
+
+    thread.hidden = true;
+  }
+
   function loadUtterances(thread) {
     if (!thread || document.getElementById("utterances-embed-loader")) {
       return;
@@ -78,15 +99,80 @@
     script.setAttribute("theme", theme);
     script.setAttribute("crossorigin", "anonymous");
 
+    thread.hidden = false;
     thread.appendChild(script);
   }
 
-  function applyOptionalServices() {
-    const analyticsId = getAnalyticsId();
-    const utterancesThread = document.getElementById("utterances_thread");
+  function setCommentsUiState({ loaded, gate, manage, thread }) {
+    if (gate) {
+      gate.hidden = loaded;
+    }
 
-    loadAnalytics(analyticsId);
-    loadUtterances(utterancesThread);
+    if (manage) {
+      manage.hidden = !loaded;
+    }
+
+    if (thread) {
+      thread.hidden = !loaded;
+    }
+  }
+
+  function initCommentsConsent() {
+    const thread = document.getElementById("utterances_thread");
+    if (!thread) {
+      return;
+    }
+
+    const commentsRoot = thread.closest(".comments");
+    const gate = document.getElementById("comments-consent-gate");
+    const manage = document.getElementById("comments-consent-manage");
+    if (!commentsRoot || !gate) {
+      return;
+    }
+
+    const commentsConsent = readPreference(COMMENTS_CONSENT_KEY);
+    const shouldLoadComments = commentsConsent === CONSENT_ACCEPTED;
+
+    setCommentsUiState({
+      loaded: shouldLoadComments,
+      gate,
+      manage,
+      thread,
+    });
+
+    if (shouldLoadComments) {
+      loadUtterances(thread);
+    } else {
+      removeUtterances(thread);
+    }
+
+    commentsRoot.addEventListener("click", (event) => {
+      const actionButton = event.target.closest("button[data-comments-action]");
+      if (!actionButton) {
+        return;
+      }
+
+      const action = actionButton.getAttribute("data-comments-action");
+      if (action === "accept") {
+        writePreference(COMMENTS_CONSENT_KEY, CONSENT_ACCEPTED);
+        setCommentsUiState({
+          loaded: true,
+          gate,
+          manage,
+          thread,
+        });
+        loadUtterances(thread);
+      } else if (action === "revoke") {
+        writePreference(COMMENTS_CONSENT_KEY, CONSENT_DECLINED);
+        removeUtterances(thread);
+        setCommentsUiState({
+          loaded: false,
+          gate,
+          manage,
+          thread,
+        });
+      }
+    });
   }
 
   function initConsentBanner() {
@@ -96,16 +182,15 @@
     }
 
     const analyticsId = getAnalyticsId();
-    const utterancesThread = document.getElementById("utterances_thread");
-    const hasOptionalServices = Boolean(analyticsId || utterancesThread);
+    const hasAnalytics = Boolean(analyticsId);
 
-    if (!hasOptionalServices) {
+    if (!hasAnalytics) {
       return;
     }
 
-    const consent = readConsent();
+    const consent = readPreference(CONSENT_KEY);
     if (consent === CONSENT_ACCEPTED) {
-      applyOptionalServices();
+      loadAnalytics(analyticsId);
       return;
     }
 
@@ -121,19 +206,24 @@
 
       const action = actionButton.getAttribute("data-consent-action");
       if (action === "accept") {
-        writeConsent(CONSENT_ACCEPTED);
-        applyOptionalServices();
+        writePreference(CONSENT_KEY, CONSENT_ACCEPTED);
+        loadAnalytics(analyticsId);
       } else if (action === "decline") {
-        writeConsent(CONSENT_DECLINED);
+        writePreference(CONSENT_KEY, CONSENT_DECLINED);
       }
 
       banner.hidden = true;
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initConsentBanner);
-  } else {
+  function initPrivacyControls() {
     initConsentBanner();
+    initCommentsConsent();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPrivacyControls);
+  } else {
+    initPrivacyControls();
   }
 })();
