@@ -48,6 +48,8 @@ footer-links:
 # Comments provider configuration.
 # Supported provider:
 # - giscus (GitHub Discussions-based comments)
+# - utterances (GitHub Issues-based comments)
+# - disqus (Disqus-hosted comments)
 comments:
   provider: giscus
 
@@ -63,6 +65,16 @@ giscus:
   input_position: top
   theme: preferred_color_scheme
   lang: en
+
+utterances:
+  repo: hummat/hummat.github.io
+  issue_term: pathname
+  label: comments
+  theme: preferred-color-scheme
+
+# Set to your Disqus shortname when using comments.provider: disqus.
+# Example: disqus: my-site-shortname
+disqus:
 
 # Enter your Google Analytics GA4 measurement ID (e.g. G-XXXXXXXXXX) to activate tracking.
 # Leave empty to disable analytics.

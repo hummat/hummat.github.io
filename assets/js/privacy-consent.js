@@ -53,6 +53,33 @@
     window.gtag("config", analyticsId);
   }
 
+  function resolveCommentsThread() {
+    return (
+      document.getElementById("giscus_thread") ||
+      document.getElementById("utterances_thread") ||
+      document.getElementById("disqus_thread")
+    );
+  }
+
+  function resolveCommentsProvider(thread) {
+    if (!thread) {
+      return "";
+    }
+
+    if (thread.id === "giscus_thread") {
+      return "giscus";
+    }
+    if (thread.id === "utterances_thread") {
+      return "utterances";
+    }
+    if (thread.id === "disqus_thread") {
+      return "disqus";
+    }
+
+    const containerProvider = thread.closest(".comments")?.getAttribute("data-comments-provider");
+    return containerProvider || "";
+  }
+
   function removeGiscus(thread) {
     if (!thread) {
       return;
@@ -115,6 +142,134 @@
     thread.appendChild(script);
   }
 
+  function removeUtterances(thread) {
+    if (!thread) {
+      return;
+    }
+
+    const embeddedElements = thread.querySelectorAll(
+      "script#utterances-embed-loader, iframe.utterances-frame"
+    );
+    embeddedElements.forEach((element) => {
+      element.remove();
+    });
+
+    const detachedFrames = document.querySelectorAll("iframe.utterances-frame");
+    detachedFrames.forEach((frame) => {
+      frame.remove();
+    });
+
+    thread.hidden = true;
+  }
+
+  function loadUtterances(thread) {
+    if (!thread || document.getElementById("utterances-embed-loader")) {
+      return;
+    }
+
+    const repo = (thread.getAttribute("data-utterances-repo") || "").trim();
+    if (!repo) {
+      return;
+    }
+
+    const issueTerm = (thread.getAttribute("data-utterances-issue-term") || "pathname").trim();
+    const label = (thread.getAttribute("data-utterances-label") || "").trim();
+    const theme = (thread.getAttribute("data-utterances-theme") || "preferred-color-scheme").trim();
+
+    const script = document.createElement("script");
+    script.id = "utterances-embed-loader";
+    script.src = "https://utteranc.es/client.js";
+    script.async = true;
+    script.setAttribute("repo", repo);
+    script.setAttribute("issue-term", issueTerm);
+    if (label) {
+      script.setAttribute("label", label);
+    }
+    script.setAttribute("theme", theme);
+    script.setAttribute("crossorigin", "anonymous");
+
+    thread.hidden = false;
+    thread.appendChild(script);
+  }
+
+  function removeDisqus(thread) {
+    if (!thread) {
+      return;
+    }
+
+    const embeddedElements = thread.querySelectorAll("script#disqus-embed-loader");
+    embeddedElements.forEach((element) => {
+      element.remove();
+    });
+
+    const detachedFrames = document.querySelectorAll("iframe[src*='disqus.com']");
+    detachedFrames.forEach((frame) => {
+      frame.remove();
+    });
+
+    const detachedScripts = document.querySelectorAll("script[src*='disqus.com']");
+    detachedScripts.forEach((script) => {
+      if (script.id !== "disqus-embed-loader") {
+        script.remove();
+      }
+    });
+
+    const comments = thread.querySelectorAll("*");
+    comments.forEach((element) => {
+      element.remove();
+    });
+
+    thread.hidden = true;
+  }
+
+  function loadDisqus(thread) {
+    if (!thread || document.getElementById("disqus-embed-loader")) {
+      return;
+    }
+
+    const shortname = (thread.getAttribute("data-disqus-shortname") || "").trim();
+    if (!shortname) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "disqus-embed-loader";
+    script.src = `https://${shortname}.disqus.com/embed.js`;
+    script.async = true;
+    script.setAttribute("data-timestamp", String(Date.now()));
+
+    thread.hidden = false;
+    thread.appendChild(script);
+  }
+
+  function removeProviderEmbed(provider, thread) {
+    if (provider === "giscus") {
+      removeGiscus(thread);
+      return;
+    }
+    if (provider === "utterances") {
+      removeUtterances(thread);
+      return;
+    }
+    if (provider === "disqus") {
+      removeDisqus(thread);
+    }
+  }
+
+  function loadProviderEmbed(provider, thread) {
+    if (provider === "giscus") {
+      loadGiscus(thread);
+      return;
+    }
+    if (provider === "utterances") {
+      loadUtterances(thread);
+      return;
+    }
+    if (provider === "disqus") {
+      loadDisqus(thread);
+    }
+  }
+
   function setCommentsUiState({ loaded, gate, manage, thread }) {
     if (gate) {
       gate.hidden = loaded;
@@ -130,8 +285,13 @@
   }
 
   function initCommentsConsent() {
-    const thread = document.getElementById("giscus_thread");
+    const thread = resolveCommentsThread();
     if (!thread) {
+      return;
+    }
+
+    const provider = resolveCommentsProvider(thread);
+    if (!provider) {
       return;
     }
 
@@ -153,9 +313,9 @@
     });
 
     if (shouldLoadComments) {
-      loadGiscus(thread);
+      loadProviderEmbed(provider, thread);
     } else {
-      removeGiscus(thread);
+      removeProviderEmbed(provider, thread);
     }
 
     commentsRoot.addEventListener("click", (event) => {
@@ -173,10 +333,10 @@
           manage,
           thread,
         });
-        loadGiscus(thread);
+        loadProviderEmbed(provider, thread);
       } else if (action === "revoke") {
         writePreference(COMMENTS_CONSENT_KEY, CONSENT_DECLINED);
-        removeGiscus(thread);
+        removeProviderEmbed(provider, thread);
         setCommentsUiState({
           loaded: false,
           gate,
