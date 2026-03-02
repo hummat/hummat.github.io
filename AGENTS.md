@@ -10,6 +10,7 @@ Read relevant `docs/agent/` files before proceeding:
 - `content.md` — **read before writing posts** (front matter, categories, interactive content)
 - `architecture.md` — read before modifying layouts/structure
 - `tooling.md` — read before building, linting, or managing assets
+- `infrastructure.md` — read before touching DNS, hosting, SSL, or deployment config
 
 **New posts/features:** Always read and follow `docs/agent/workflow.md` first. Create a labeled GitHub issue before implementing.
 
