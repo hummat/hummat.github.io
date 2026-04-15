@@ -72,3 +72,5 @@ data/
 
 # Asset upload staging (entire folder gitignored - hook uploads to R2)
 _assets/
+
+.claude/settings.local.json
