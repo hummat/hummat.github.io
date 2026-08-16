@@ -46,6 +46,7 @@ _posts/.ztr-directory
 CLAUDE.md
 GEMINI.md
 QWEN.md
+HANDOFF.md
 .gemini/
 .claude/
 .mcp.json
