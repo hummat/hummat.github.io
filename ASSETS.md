@@ -32,11 +32,16 @@ banner: https://assets.hummat.com/images/my-banner.jpg
 
 A pre-commit hook automatically uploads assets to R2 when you commit.
 
-1. **Enable the hook** (one-time setup):
+1. **No setup needed.** `core.hooksPath` is set globally by the dotfiles repo
+   (`~/git/private/system_setup.zsh` §8a) to a hooks directory that runs its own
+   policy and then chains to this repo's `.githooks/<name>`, so `pre-commit` fires
+   here without any per-repo configuration.
 
-   ```bash
-   git config core.hooksPath .githooks
-   ```
+   Do **not** run `git config core.hooksPath .githooks`, which earlier versions of
+   this file recommended. Git honours one hooks directory per repo, so a local
+   setting wins over the global one and silently disables the commit-msg policy
+   that rejects AI attribution trailers. Verify with `git config core.hooksPath`:
+   it should print the path inside `private`, not `.githooks`.
 
 2. **Add files to the upload folder** (gitignored, won't be committed):
 

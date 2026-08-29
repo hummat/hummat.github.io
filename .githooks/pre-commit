@@ -9,7 +9,8 @@
 #   - Run git commit — this hook uploads them to R2
 #   - Files are moved to _assets/.uploaded/ after successful upload
 #
-# Setup: git config core.hooksPath .githooks
+# Setup: none. A global core.hooksPath (set by the dotfiles repo) chains to this
+# file. Do not set core.hooksPath locally; that would disable the global policy.
 
 set -euo pipefail
 
