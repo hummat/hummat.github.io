@@ -1,0 +1,54 @@
+{% assign viewer_alt = include.alt | default: "Interactive 3D Gaussian splat" %} {% assign
+viewer_focal_distance = include.focal_distance | default: 5.0 %} {% assign viewer_aperture_angle =
+include.aperture_angle | default: 0.02 %}
+
+<figure
+  class="spark-viewer"
+  data-spark-viewer
+  data-spark-state="idle"
+  data-spark-url="{{ include.url | escape }}"
+  data-spark-url-unfiltered="{{ include.unfiltered_url | escape }}"
+  data-spark-alt="{{ viewer_alt | escape }}"
+  data-spark-focal-distance="{{ viewer_focal_distance }}"
+  data-spark-aperture-angle="{{ viewer_aperture_angle }}"
+  aria-busy="false"
+>
+  <div class="spark-viewer__stage">
+    {% if include.poster %}
+    <img
+      class="spark-viewer__poster"
+      src="{{ include.poster | escape }}"
+      alt="{{ viewer_alt | escape }}"
+      loading="lazy"
+    />
+    {% endif %}
+    <div class="spark-viewer__controls">
+      <button class="spark-viewer__control" type="button" data-spark-toggle hidden>
+        Show unfiltered
+      </button>
+      <button class="spark-viewer__control" type="button" data-spark-fullscreen>Fullscreen</button>
+    </div>
+    <div class="spark-viewer__veil">
+      <div class="spark-viewer__panel">
+        <span class="spark-viewer__eyebrow">Interactive splat</span>
+        <button class="spark-viewer__button" type="button" data-spark-load>
+          Load interactive view
+        </button>
+        <p
+          class="spark-viewer__message"
+          data-spark-message
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+        <span class="spark-viewer__hint" data-spark-hint>Drag to orbit · Scroll to zoom</span>
+      </div>
+    </div>
+    <noscript>
+      <p class="spark-viewer__noscript">This interactive view requires JavaScript.</p>
+    </noscript>
+  </div>
+  {% if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>

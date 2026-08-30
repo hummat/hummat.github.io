@@ -122,9 +122,10 @@ Before committing:
 
 ## Common Issues
 
-| Issue                         | Solution                                         |
-| ----------------------------- | ------------------------------------------------ |
-| Build fails with Liquid error | Check template syntax in `_includes/` or post    |
-| Missing image                 | Verify R2 upload; check URL path                 |
-| MathJax not rendering         | Add `mathjax: true` to front matter              |
-| Plotly chart not loading      | Add `jquery: true` and verify `data-include` URL |
+| Issue                               | Solution                                                                                                   |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Build fails with Liquid error       | Check template syntax in `_includes/` or post                                                              |
+| Missing image                       | Verify R2 upload; check URL path                                                                           |
+| MathJax not rendering               | Add `mathjax: true` to front matter                                                                        |
+| Plotly chart not loading            | Add `jquery: true` and verify `data-include` URL                                                           |
+| Draft link 404s after editing draft | Draft dates come from file mtime, so `touch`/re-save changes the draft URL. Verify the link after editing. |

@@ -140,6 +140,8 @@ plugins:
 
 include:
   - _redirects
+  # Keep staged splats available for local draft previews before the R2 upload.
+  - _assets
 
 # Exclude these files from your production _site
 exclude:
