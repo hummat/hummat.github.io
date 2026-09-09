@@ -11,6 +11,11 @@ include.aperture_angle | default: 0.02 %}
   data-spark-alt="{{ viewer_alt | escape }}"
   data-spark-focal-distance="{{ viewer_focal_distance }}"
   data-spark-aperture-angle="{{ viewer_aperture_angle }}"
+  data-spark-blur-mode="{{ include.blur_mode | escape }}"
+  data-spark-blur-center="{{ include.blur_center | escape }}"
+  data-spark-blur-radius="{{ include.blur_radius | escape }}"
+  data-spark-blur-transition="{{ include.blur_transition | escape }}"
+  data-spark-blur-strength="{{ include.blur_strength | escape }}"
   aria-busy="false"
 >
   <div class="spark-viewer__stage">
@@ -26,7 +31,114 @@ include.aperture_angle | default: 0.02 %}
       <button class="spark-viewer__control" type="button" data-spark-toggle hidden>
         Show unfiltered
       </button>
+      <button
+        class="spark-viewer__control"
+        type="button"
+        data-spark-blur-toggle
+        aria-expanded="false"
+      >
+        Background blur
+      </button>
       <button class="spark-viewer__control" type="button" data-spark-fullscreen>Fullscreen</button>
+    </div>
+    <div class="spark-viewer__blur-panel" data-spark-blur-panel hidden>
+      <div class="spark-viewer__blur-group">
+        <label class="spark-viewer__blur-label">
+          <span class="spark-viewer__blur-title">Blur mode</span>
+          <select class="spark-viewer__blur-select" data-spark-blur-mode-select>
+            <option value="camera">Camera depth of field</option>
+            <option value="sphere">Sphere background blur</option>
+            <option value="off">Off</option>
+          </select>
+        </label>
+      </div>
+
+      <fieldset class="spark-viewer__blur-fieldset" data-spark-blur-sphere-fields>
+        <legend class="spark-viewer__blur-legend">Sphere settings</legend>
+        <p class="spark-viewer__blur-note">Source coordinates; Z is up.</p>
+
+        <div class="spark-viewer__blur-grid">
+          <label class="spark-viewer__blur-label">
+            <span class="spark-viewer__blur-title">Center X</span>
+            <input class="spark-viewer__blur-input" type="number" step="any" data-spark-blur-cx />
+          </label>
+          <label class="spark-viewer__blur-label">
+            <span class="spark-viewer__blur-title">Center Y</span>
+            <input class="spark-viewer__blur-input" type="number" step="any" data-spark-blur-cy />
+          </label>
+          <label class="spark-viewer__blur-label">
+            <span class="spark-viewer__blur-title">Center Z</span>
+            <input class="spark-viewer__blur-input" type="number" step="any" data-spark-blur-cz />
+          </label>
+        </div>
+
+        <label class="spark-viewer__blur-label">
+          <span class="spark-viewer__blur-range-header">
+            <span class="spark-viewer__blur-title">Sharp radius</span>
+            <span class="spark-viewer__blur-value" data-spark-blur-radius-val></span>
+          </span>
+          <input
+            class="spark-viewer__blur-range"
+            type="range"
+            min="1"
+            max="200"
+            step="1"
+            data-spark-blur-radius-range
+          />
+        </label>
+
+        <label class="spark-viewer__blur-label">
+          <span class="spark-viewer__blur-range-header">
+            <span class="spark-viewer__blur-title">Transition width</span>
+            <span class="spark-viewer__blur-value" data-spark-blur-trans-val></span>
+          </span>
+          <input
+            class="spark-viewer__blur-range"
+            type="range"
+            min="1"
+            max="200"
+            step="1"
+            data-spark-blur-trans-range
+          />
+        </label>
+
+        <label class="spark-viewer__blur-label">
+          <span class="spark-viewer__blur-range-header">
+            <span class="spark-viewer__blur-title">Blur strength</span>
+            <span class="spark-viewer__blur-value" data-spark-blur-strength-val></span>
+          </span>
+          <input
+            class="spark-viewer__blur-range"
+            type="range"
+            min="0"
+            max="24"
+            step="0.5"
+            data-spark-blur-strength-range
+          />
+        </label>
+
+        <label class="spark-viewer__blur-checkbox-label">
+          <input class="spark-viewer__blur-checkbox" type="checkbox" data-spark-blur-guide-check />
+          <span>Show sphere guides</span>
+        </label>
+        <p class="spark-viewer__blur-note">Inner sphere: sharp. Outer sphere: full blur.</p>
+
+        <button
+          class="spark-viewer__control spark-viewer__blur-reset"
+          type="button"
+          data-spark-blur-reset
+        >
+          Reset sphere
+        </button>
+      </fieldset>
+
+      <div
+        class="spark-viewer__blur-status"
+        data-spark-blur-status
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
     </div>
     <div class="spark-viewer__veil">
       <div class="spark-viewer__panel">

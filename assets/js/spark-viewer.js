@@ -22,11 +22,48 @@
     return modulesPromise;
   }
 
+  function parseStrictFinite(value) {
+    if (value === undefined || value === null) {
+      return null;
+    }
+    const str = String(value).trim();
+    if (str === "") {
+      return null;
+    }
+    const num = Number(str);
+    return Number.isFinite(num) ? num : NaN;
+  }
+
+  function parseAuthoredCenter(value) {
+    if (value === undefined || value === null) {
+      return null;
+    }
+    const str = String(value).trim();
+    if (str === "") {
+      return null;
+    }
+    const parts = str.split(",");
+    if (parts.length !== 3) {
+      return NaN;
+    }
+    const coords = parts.map((p) => {
+      const s = p.trim();
+      if (s === "") {
+        return NaN;
+      }
+      const n = Number(s);
+      return Number.isFinite(n) ? n : NaN;
+    });
+    if (coords.some((n) => !Number.isFinite(n))) {
+      return NaN;
+    }
+    return coords;
+  }
+
   function readNumber(value, fallback) {
     const number = Number.parseFloat(value);
     return Number.isFinite(number) ? number : fallback;
   }
-
   function supportsWebGL2() {
     const canvas = document.createElement("canvas");
     return Boolean(canvas.getContext("webgl2"));
@@ -139,8 +176,9 @@
     controls.minDistance = Math.max(0.1, cameraDistance * 0.25);
     controls.maxDistance = Math.max(10, cameraDistance * 4);
     controls.update();
-  }
 
+    return { center: center.clone(), radius };
+  }
   function createCanvas(viewer, alt) {
     const canvas = document.createElement("canvas");
     canvas.className = "spark-viewer__canvas";
@@ -154,6 +192,629 @@
   // frame can be torn down and its GPU memory and WebGL context freed.
   const resources = new WeakMap();
 
+  // WeakMap keyed by viewer figure, holding a Map keyed by asset URL.
+  // Each resolved setting is { mode, center: [x, y, z], radius, transition, strength, showGuide, invalidAuthored, defaults: {...} }
+  const blurSettings = new WeakMap();
+
+  function getViewerBlurMap(viewer) {
+    let map = blurSettings.get(viewer);
+    if (!map) {
+      map = new Map();
+      blurSettings.set(viewer, map);
+    }
+    return map;
+  }
+
+  function resolveBlurSetting(viewer, url, bounds) {
+    const map = getViewerBlurMap(viewer);
+    const existing = map.get(url);
+    if (existing) {
+      return existing;
+    }
+
+    const defaultCenter = [bounds.center.x, bounds.center.y, bounds.center.z];
+    const defaultRadius = 0.5 * bounds.radius;
+    const defaultTransition = 0.25 * bounds.radius;
+    const defaultStrength = 12;
+    const defaultShowGuide = true;
+
+    let invalidAuthored = false;
+    let mode = "camera";
+    const rawMode = viewer.dataset.sparkBlurMode;
+    if (rawMode && rawMode.trim() !== "") {
+      const trimmedMode = rawMode.trim();
+      if (["camera", "sphere", "off"].includes(trimmedMode)) {
+        mode = trimmedMode;
+      } else {
+        invalidAuthored = true;
+      }
+    }
+
+    let center = [...defaultCenter];
+    const authoredCenter = parseAuthoredCenter(viewer.dataset.sparkBlurCenter);
+    if (Number.isNaN(authoredCenter)) {
+      invalidAuthored = true;
+    } else if (Array.isArray(authoredCenter)) {
+      center = authoredCenter;
+    }
+
+    let radius = defaultRadius;
+    const authoredRadius = parseStrictFinite(viewer.dataset.sparkBlurRadius);
+    if (Number.isNaN(authoredRadius) || (authoredRadius !== null && authoredRadius <= 0)) {
+      invalidAuthored = true;
+    } else if (authoredRadius !== null) {
+      radius = authoredRadius;
+    }
+
+    let transition = defaultTransition;
+    const authoredTrans = parseStrictFinite(viewer.dataset.sparkBlurTransition);
+    if (Number.isNaN(authoredTrans) || (authoredTrans !== null && authoredTrans <= 0)) {
+      invalidAuthored = true;
+    } else if (authoredTrans !== null) {
+      transition = authoredTrans;
+    }
+
+    let strength = defaultStrength;
+    const authoredStrength = parseStrictFinite(viewer.dataset.sparkBlurStrength);
+    if (
+      Number.isNaN(authoredStrength) ||
+      (authoredStrength !== null && (authoredStrength < 0 || authoredStrength > 24))
+    ) {
+      invalidAuthored = true;
+    } else if (authoredStrength !== null) {
+      strength = authoredStrength;
+    }
+
+    const defaults = {
+      center: [...defaultCenter],
+      radius: defaultRadius,
+      transition: defaultTransition,
+      strength: defaultStrength,
+      showGuide: defaultShowGuide,
+    };
+
+    if (invalidAuthored) {
+      mode = "camera";
+      center = [...defaultCenter];
+      radius = defaultRadius;
+      transition = defaultTransition;
+      strength = defaultStrength;
+    }
+
+    const setting = {
+      mode,
+      center,
+      radius,
+      transition,
+      strength,
+      showGuide: defaultShowGuide,
+      invalidAuthored,
+      defaults,
+    };
+
+    map.set(url, setting);
+    return setting;
+  }
+
+  function installSphereBlur(THREE, spark) {
+    const material = spark.material;
+    const vtx = material.vertexShader;
+    const frg = material.fragmentShader;
+
+    const vtxMainTarget = "void main() {";
+    const vtxBlurTarget = "float fullBlurAmount = blurAmount;";
+    const vtxDetOrigTarget = "float detOrig = a * d - b * b;";
+    const vtxBlurAdjustTarget = "float blurAdjust = sqrt(max(0.0, detOrig / det));";
+    const vtxAlphaCutTarget = "rgba.a *= blurAdjust;\n    if (rgba.a < minAlpha) {";
+    const frgMainTarget = "void main() {";
+    const frgAlphaCutTarget = "if (rgba.a < minAlpha)";
+
+    function countOccurrences(src, target) {
+      let count = 0;
+      let pos = 0;
+      while ((pos = src.indexOf(target, pos)) !== -1) {
+        count++;
+        pos += target.length;
+      }
+      return count;
+    }
+
+    if (
+      countOccurrences(vtx, vtxMainTarget) !== 1 ||
+      countOccurrences(vtx, vtxBlurTarget) !== 1 ||
+      countOccurrences(vtx, vtxDetOrigTarget) !== 1 ||
+      countOccurrences(vtx, vtxBlurAdjustTarget) !== 1 ||
+      countOccurrences(vtx, vtxAlphaCutTarget) !== 1 ||
+      countOccurrences(frg, frgMainTarget) !== 1 ||
+      countOccurrences(frg, frgAlphaCutTarget) !== 1
+    ) {
+      throw new Error("Unsupported Spark shader for spherical background blur");
+    }
+
+    const vtxUniformsDecl = `
+uniform bool sphereBlurEnabled;
+uniform vec3 sphereBlurCenterView;
+uniform float sphereBlurRadius;
+uniform float sphereBlurTransition;
+uniform float sphereBlurSigma;
+flat out float vSphereMinAlpha;
+`;
+    let patchedVtx = vtx.replace(
+      vtxMainTarget,
+      `${vtxUniformsDecl}\nvoid main() {\n    vSphereMinAlpha = minAlpha;\n`
+    );
+
+    const vtxBlurCalc = `
+    float fullBlurAmount = blurAmount;
+    float extraVariance = 0.0;
+    if (sphereBlurEnabled) {
+        float distance = length(viewCenter - sphereBlurCenterView);
+        float t = clamp((distance - sphereBlurRadius) / sphereBlurTransition, 0.0, 1.0);
+        float weight = t * t * (3.0 - 2.0 * t);
+        float sigma = sphereBlurSigma * weight;
+        extraVariance = sigma * sigma;
+    }
+`;
+    patchedVtx = patchedVtx.replace(vtxBlurTarget, vtxBlurCalc);
+
+    const vtxBaselineDet = `
+    float baselineDet = (a + fullBlurAmount) * (d + fullBlurAmount) - b * b;
+    fullBlurAmount += extraVariance;
+    float detOrig = a * d - b * b;
+`;
+    patchedVtx = patchedVtx.replace(vtxDetOrigTarget, vtxBaselineDet);
+
+    const vtxAdjustWithCutoff = `
+    float blurAdjust = sqrt(max(0.0, detOrig / det));
+    if (sphereBlurEnabled && baselineDet > 0.0 && det > 0.0) {
+        vSphereMinAlpha = minAlpha * sqrt(clamp(baselineDet / det, 0.0, 1.0));
+    }
+`;
+    patchedVtx = patchedVtx.replace(vtxBlurAdjustTarget, vtxAdjustWithCutoff);
+
+    patchedVtx = patchedVtx.replace(
+      vtxAlphaCutTarget,
+      "rgba.a *= blurAdjust;\n    if (rgba.a < vSphereMinAlpha) {"
+    );
+
+    const frgVaryingDecl = `
+flat in float vSphereMinAlpha;
+`;
+    let patchedFrg = frg.replace(frgMainTarget, `${frgVaryingDecl}\nvoid main() {`);
+    patchedFrg = patchedFrg.replace(frgAlphaCutTarget, "if (rgba.a < vSphereMinAlpha)");
+
+    material.vertexShader = patchedVtx;
+    material.fragmentShader = patchedFrg;
+
+    const uniforms = {
+      sphereBlurEnabled: { value: false },
+      sphereBlurCenterView: { value: new THREE.Vector3() },
+      sphereBlurRadius: { value: 0 },
+      sphereBlurTransition: { value: 1 },
+      sphereBlurSigma: { value: 0 },
+    };
+    Object.assign(material.uniforms, uniforms);
+    material.needsUpdate = true;
+
+    return uniforms;
+  }
+
+  function supportsFloatColorBuffer(renderer) {
+    const gl = renderer.getContext();
+    return Boolean(gl && gl.getExtension("EXT_color_buffer_float"));
+  }
+
+  function createBlurTarget(THREE, renderer) {
+    if (!supportsFloatColorBuffer(renderer)) {
+      return null;
+    }
+
+    const gl = renderer.getContext();
+    const size = new THREE.Vector2();
+    renderer.getDrawingBufferSize(size);
+    const width = Math.max(Math.floor(size.x), 1);
+    const height = Math.max(Math.floor(size.y), 1);
+
+    const target = new THREE.WebGLRenderTarget(width, height, {
+      type: THREE.HalfFloatType,
+      format: THREE.RGBAFormat,
+      colorSpace: THREE.NoColorSpace,
+      minFilter: THREE.NearestFilter,
+      magFilter: THREE.NearestFilter,
+      depthBuffer: false,
+      stencilBuffer: false,
+      generateMipmaps: false,
+      samples: 0,
+    });
+
+    const previousTarget = renderer.getRenderTarget();
+    renderer.setRenderTarget(target);
+    const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+    renderer.setRenderTarget(previousTarget);
+
+    if (status !== gl.FRAMEBUFFER_COMPLETE) {
+      target.dispose();
+      return null;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array([-1, -1, 0, 3, -1, 0, -1, 3, 0]);
+    const uvs = new Float32Array([0, 0, 2, 0, 0, 2]);
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("uv", new THREE.BufferAttribute(uvs, 2));
+
+    const copyMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        sourceTexture: { value: target.texture },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = vec4(position.xy, 0.0, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D sourceTexture;
+        varying vec2 vUv;
+        void main() {
+          gl_FragColor = texture2D(sourceTexture, vUv);
+        }
+      `,
+      depthTest: false,
+      depthWrite: false,
+      blending: THREE.NoBlending,
+      toneMapped: false,
+    });
+
+    const mesh = new THREE.Mesh(geometry, copyMaterial);
+    mesh.frustumCulled = false;
+
+    const copyScene = new THREE.Scene();
+    copyScene.add(mesh);
+    const copyCamera = new THREE.Camera();
+
+    function setSize(newWidth, newHeight) {
+      target.setSize(newWidth, newHeight);
+      const prev = renderer.getRenderTarget();
+      renderer.setRenderTarget(target);
+      const valid = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+      renderer.setRenderTarget(prev);
+      return valid;
+    }
+
+    function dispose() {
+      target.dispose();
+      geometry.dispose();
+      copyMaterial.dispose();
+    }
+
+    return {
+      target,
+      copyScene,
+      copyCamera,
+      setSize,
+      dispose,
+    };
+  }
+
+  function createCircleGeometry(THREE, segments) {
+    const points = [];
+    for (let i = 0; i <= segments; i++) {
+      const theta = (i / segments) * Math.PI * 2;
+      points.push(new THREE.Vector3(Math.cos(theta), Math.sin(theta), 0));
+    }
+    return new THREE.BufferGeometry().setFromPoints(points);
+  }
+
+  function createWireSphereGuide(THREE, circleGeometry, colorHex, opacity) {
+    const group = new THREE.Group();
+    const material = new THREE.LineBasicMaterial({
+      color: colorHex,
+      transparent: true,
+      opacity,
+      depthTest: false,
+      depthWrite: false,
+    });
+
+    const lineXY = new THREE.Line(circleGeometry, material);
+    lineXY.renderOrder = 999;
+
+    const lineXZ = new THREE.Line(circleGeometry, material);
+    lineXZ.rotation.x = Math.PI / 2;
+    lineXZ.renderOrder = 999;
+
+    const lineYZ = new THREE.Line(circleGeometry, material);
+    lineYZ.rotation.y = Math.PI / 2;
+    lineYZ.renderOrder = 999;
+
+    group.add(lineXY, lineXZ, lineYZ);
+    return { group, material };
+  }
+
+  function syncBlurPanelUI(viewer, setting, bounds, hasFloatTarget) {
+    const panel = viewer.querySelector("[data-spark-blur-panel]");
+    if (!panel) {
+      return;
+    }
+
+    const modeSelect = panel.querySelector("[data-spark-blur-mode-select]");
+    const sphereOption = modeSelect ? modeSelect.querySelector('option[value="sphere"]') : null;
+    const fieldset = panel.querySelector("[data-spark-blur-sphere-fields]");
+    const cx = panel.querySelector("[data-spark-blur-cx]");
+    const cy = panel.querySelector("[data-spark-blur-cy]");
+    const cz = panel.querySelector("[data-spark-blur-cz]");
+    const radiusRange = panel.querySelector("[data-spark-blur-radius-range]");
+    const radiusVal = panel.querySelector("[data-spark-blur-radius-val]");
+    const transRange = panel.querySelector("[data-spark-blur-trans-range]");
+    const transVal = panel.querySelector("[data-spark-blur-trans-val]");
+    const strengthRange = panel.querySelector("[data-spark-blur-strength-range]");
+    const strengthVal = panel.querySelector("[data-spark-blur-strength-val]");
+    const guideCheck = panel.querySelector("[data-spark-blur-guide-check]");
+    const statusMsg = panel.querySelector("[data-spark-blur-status]");
+
+    if (sphereOption) {
+      sphereOption.disabled = !hasFloatTarget;
+    }
+
+    if (!hasFloatTarget && setting.mode === "sphere") {
+      setting.mode = "camera";
+    }
+
+    if (modeSelect) {
+      modeSelect.value = setting.mode;
+    }
+
+    if (fieldset) {
+      fieldset.disabled = setting.mode !== "sphere";
+    }
+
+    const step = bounds ? Math.max(bounds.radius / 100, 0.001) : 0.01;
+
+    if (cx) {
+      cx.step = String(step);
+      cx.value = String(setting.center[0]);
+    }
+    if (cy) {
+      cy.step = String(step);
+      cy.value = String(setting.center[1]);
+    }
+    if (cz) {
+      cz.step = String(step);
+      cz.value = String(setting.center[2]);
+    }
+
+    if (bounds) {
+      const radiusPercent = Math.max(1, Math.round((setting.radius / bounds.radius) * 100));
+      if (radiusRange) {
+        if (radiusPercent > 200) {
+          radiusRange.max = String(radiusPercent);
+        } else {
+          radiusRange.max = "200";
+        }
+        radiusRange.value = String(radiusPercent);
+      }
+      if (radiusVal) {
+        radiusVal.textContent = `${setting.radius.toFixed(3)} (${radiusPercent}%)`;
+      }
+
+      const transPercent = Math.max(1, Math.round((setting.transition / bounds.radius) * 100));
+      if (transRange) {
+        if (transPercent > 200) {
+          transRange.max = String(transPercent);
+        } else {
+          transRange.max = "200";
+        }
+        transRange.value = String(transPercent);
+      }
+      if (transVal) {
+        transVal.textContent = `${setting.transition.toFixed(3)} (${transPercent}%)`;
+      }
+    }
+
+    if (strengthRange) {
+      strengthRange.value = String(setting.strength);
+    }
+    if (strengthVal) {
+      strengthVal.textContent = `${setting.strength.toFixed(1)} px`;
+    }
+
+    if (guideCheck) {
+      guideCheck.checked = Boolean(setting.showGuide);
+    }
+
+    if (statusMsg) {
+      if (!hasFloatTarget) {
+        statusMsg.hidden = false;
+        statusMsg.textContent =
+          "Sphere blur requires floating-point render targets on this device.";
+      } else if (setting.invalidAuthored) {
+        statusMsg.hidden = false;
+        statusMsg.textContent = "Invalid background blur settings; using camera depth of field.";
+      } else {
+        statusMsg.hidden = true;
+        statusMsg.textContent = "";
+      }
+    }
+  }
+
+  let blurPanelIdSeq = 0;
+
+  function wireBlurPanel(viewer) {
+    const toggle = viewer.querySelector("[data-spark-blur-toggle]");
+    const panel = viewer.querySelector("[data-spark-blur-panel]");
+    if (!toggle || !panel) {
+      return;
+    }
+
+    blurPanelIdSeq += 1;
+    const panelId = `spark-blur-panel-${blurPanelIdSeq}`;
+    panel.id = panelId;
+    toggle.setAttribute("aria-controls", panelId);
+    toggle.setAttribute("aria-expanded", "false");
+
+    const modeSelect = panel.querySelector("[data-spark-blur-mode-select]");
+    const cx = panel.querySelector("[data-spark-blur-cx]");
+    const cy = panel.querySelector("[data-spark-blur-cy]");
+    const cz = panel.querySelector("[data-spark-blur-cz]");
+    const radiusRange = panel.querySelector("[data-spark-blur-radius-range]");
+    const radiusVal = panel.querySelector("[data-spark-blur-radius-val]");
+    const transRange = panel.querySelector("[data-spark-blur-trans-range]");
+    const transVal = panel.querySelector("[data-spark-blur-trans-val]");
+    const strengthRange = panel.querySelector("[data-spark-blur-strength-range]");
+    const strengthVal = panel.querySelector("[data-spark-blur-strength-val]");
+    const guideCheck = panel.querySelector("[data-spark-blur-guide-check]");
+    const resetBtn = panel.querySelector("[data-spark-blur-reset]");
+    const fieldset = panel.querySelector("[data-spark-blur-sphere-fields]");
+
+    function getActiveState() {
+      const entry = resources.get(viewer);
+      const url = viewer.dataset.sparkUrl;
+      const map = blurSettings.get(viewer);
+      const setting = map ? map.get(url) : null;
+      return { entry, url, setting, bounds: entry?.bounds };
+    }
+
+    toggle.addEventListener("click", () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      if (open && modeSelect) {
+        modeSelect.focus();
+      }
+    });
+
+    panel.addEventListener("pointerdown", (e) => e.stopPropagation());
+    panel.addEventListener("mousedown", (e) => e.stopPropagation());
+    panel.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
+    panel.addEventListener("wheel", (e) => e.stopPropagation());
+    panel.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        panel.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      } else {
+        e.stopPropagation();
+      }
+    });
+
+    if (modeSelect) {
+      modeSelect.addEventListener("change", () => {
+        const { setting } = getActiveState();
+        if (!setting) {
+          return;
+        }
+        setting.mode = modeSelect.value;
+        if (fieldset) {
+          fieldset.disabled = setting.mode !== "sphere";
+        }
+      });
+    }
+
+    function handleCenterInput() {
+      const { setting } = getActiveState();
+      if (!setting || !cx || !cy || !cz) {
+        return;
+      }
+      const x = Number(cx.value);
+      const y = Number(cy.value);
+      const z = Number(cz.value);
+      if (Number.isFinite(x) && Number.isFinite(y) && Number.isFinite(z)) {
+        setting.center = [x, y, z];
+        cx.setCustomValidity("");
+        cy.setCustomValidity("");
+        cz.setCustomValidity("");
+      } else {
+        if (!Number.isFinite(x)) {
+          cx.setCustomValidity("Please enter a valid finite number");
+        }
+        if (!Number.isFinite(y)) {
+          cy.setCustomValidity("Please enter a valid finite number");
+        }
+        if (!Number.isFinite(z)) {
+          cz.setCustomValidity("Please enter a valid finite number");
+        }
+      }
+    }
+
+    if (cx) {
+      cx.addEventListener("input", handleCenterInput);
+    }
+    if (cy) {
+      cy.addEventListener("input", handleCenterInput);
+    }
+    if (cz) {
+      cz.addEventListener("input", handleCenterInput);
+    }
+
+    if (radiusRange) {
+      radiusRange.addEventListener("input", () => {
+        const { setting, bounds } = getActiveState();
+        if (!setting || !bounds) {
+          return;
+        }
+        const percent = Number(radiusRange.value);
+        setting.radius = (percent / 100) * bounds.radius;
+        if (radiusVal) {
+          radiusVal.textContent = `${setting.radius.toFixed(3)} (${percent}%)`;
+        }
+      });
+    }
+
+    if (transRange) {
+      transRange.addEventListener("input", () => {
+        const { setting, bounds } = getActiveState();
+        if (!setting || !bounds) {
+          return;
+        }
+        const percent = Number(transRange.value);
+        setting.transition = (percent / 100) * bounds.radius;
+        if (transVal) {
+          transVal.textContent = `${setting.transition.toFixed(3)} (${percent}%)`;
+        }
+      });
+    }
+
+    if (strengthRange) {
+      strengthRange.addEventListener("input", () => {
+        const { setting } = getActiveState();
+        if (!setting) {
+          return;
+        }
+        setting.strength = Number(strengthRange.value);
+        if (strengthVal) {
+          strengthVal.textContent = `${setting.strength.toFixed(1)} px`;
+        }
+      });
+    }
+
+    if (guideCheck) {
+      guideCheck.addEventListener("change", () => {
+        const { setting } = getActiveState();
+        if (!setting) {
+          return;
+        }
+        setting.showGuide = guideCheck.checked;
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        const { setting, bounds, entry } = getActiveState();
+        if (!setting || !setting.defaults || !bounds) {
+          return;
+        }
+        setting.center = [...setting.defaults.center];
+        setting.radius = setting.defaults.radius;
+        setting.transition = setting.defaults.transition;
+        setting.strength = setting.defaults.strength;
+        setting.showGuide = setting.defaults.showGuide;
+        const hasFloat = entry ? supportsFloatColorBuffer(entry.renderer) : true;
+        syncBlurPanelUI(viewer, setting, bounds, hasFloat);
+      });
+    }
+  }
   // One splat downloads and compiles at a time: fifteen figures entering the
   // viewport together would otherwise contend for bandwidth and GPU memory.
   const loadQueue = [];
@@ -171,11 +832,32 @@
       entry.controls.dispose();
       entry.splat.dispose();
       entry.spark.dispose();
+      if (entry.innerGuide) {
+        entry.innerGuide.material.dispose();
+      }
+      if (entry.outerGuide) {
+        entry.outerGuide.material.dispose();
+      }
+      if (entry.circleGeometry) {
+        entry.circleGeometry.dispose();
+      }
+      if (entry.liveBlurTarget && entry.liveBlurTarget.current) {
+        entry.liveBlurTarget.current.dispose();
+        entry.liveBlurTarget.current = null;
+      }
       entry.renderer.dispose();
       if (entry.renderer.forceContextLoss) {
         entry.renderer.forceContextLoss();
       }
       entry.canvas.remove();
+    }
+    const panel = viewer.querySelector("[data-spark-blur-panel]");
+    if (panel) {
+      panel.hidden = true;
+    }
+    const toggle = viewer.querySelector("[data-spark-blur-toggle]");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
     }
     setState(viewer, "idle", "");
   }
@@ -228,6 +910,10 @@
     let splat;
     let resizeObserver;
     let canvas;
+    let innerGuide;
+    let outerGuide;
+    let circleGeometry;
+    const liveBlurTarget = { current: null };
 
     try {
       const { OrbitControls, SparkRenderer, SplatMesh, THREE } = await loadModules();
@@ -260,6 +946,16 @@
       });
       scene.add(spark);
 
+      const sphereUniforms = installSphereBlur(THREE, spark);
+
+      circleGeometry = createCircleGeometry(THREE, 64);
+      innerGuide = createWireSphereGuide(THREE, circleGeometry, 0xe6b86a, 0.85);
+      outerGuide = createWireSphereGuide(THREE, circleGeometry, 0xf2eadc, 0.4);
+      innerGuide.group.visible = false;
+      outerGuide.group.visible = false;
+      scene.add(innerGuide.group);
+      scene.add(outerGuide.group);
+
       splat = new SplatMesh({
         onProgress: (event) => updateProgress(viewer, event),
         url,
@@ -271,7 +967,16 @@
       controls.dampingFactor = 0.08;
 
       await splat.initialized;
-      frameSplat(THREE, splat, camera, controls, focalDistance);
+      const bounds = frameSplat(THREE, splat, camera, controls, focalDistance);
+
+      const hasFloatTarget = supportsFloatColorBuffer(renderer);
+      const blurSetting = resolveBlurSetting(viewer, url, bounds);
+
+      const sourceCenterVec = new THREE.Vector3();
+      const worldCenterVec = new THREE.Vector3();
+      const viewCenterVec = new THREE.Vector3();
+
+      syncBlurPanelUI(viewer, blurSetting, bounds, hasFloatTarget);
 
       const resize = () => {
         const width = Math.max(stage.clientWidth, 1);
@@ -279,6 +984,21 @@
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
+
+        if (liveBlurTarget.current) {
+          const drawingSize = new THREE.Vector2();
+          renderer.getDrawingBufferSize(drawingSize);
+          const valid = liveBlurTarget.current.setSize(
+            Math.max(Math.floor(drawingSize.x), 1),
+            Math.max(Math.floor(drawingSize.y), 1)
+          );
+          if (!valid) {
+            liveBlurTarget.current.dispose();
+            liveBlurTarget.current = null;
+            blurSetting.mode = "camera";
+            syncBlurPanelUI(viewer, blurSetting, bounds, false);
+          }
+        }
       };
 
       resize();
@@ -289,15 +1009,102 @@
         window.addEventListener("resize", resize);
       }
 
+      const panel = viewer.querySelector("[data-spark-blur-panel]");
+
       renderer.setAnimationLoop(function animate() {
         controls.update();
-        // Keep the depth-of-field focal plane on the orbit target so the
-        // subject stays sharp while zooming; the background stays blurred.
-        spark.focalDistance = camera.position.distanceTo(controls.target);
-        renderer.render(scene, camera);
+
+        const map = blurSettings.get(viewer);
+        const currentSetting = (map && map.get(url)) || blurSetting;
+
+        if (currentSetting.mode === "camera") {
+          spark.apertureAngle = apertureAngle;
+          spark.focalDistance = camera.position.distanceTo(controls.target);
+          sphereUniforms.sphereBlurEnabled.value = false;
+        } else if (currentSetting.mode === "sphere") {
+          spark.apertureAngle = 0;
+          sphereUniforms.sphereBlurEnabled.value = currentSetting.strength > 0;
+        } else {
+          // "off"
+          spark.apertureAngle = 0;
+          sphereUniforms.sphereBlurEnabled.value = false;
+        }
+
+        if (currentSetting.mode === "sphere") {
+          splat.updateMatrixWorld(true);
+          sourceCenterVec.set(
+            currentSetting.center[0],
+            currentSetting.center[1],
+            currentSetting.center[2]
+          );
+          worldCenterVec.copy(sourceCenterVec).applyMatrix4(splat.matrixWorld);
+
+          const worldRadius = currentSetting.radius * splat.scale.x;
+          const worldTransition = currentSetting.transition * splat.scale.x;
+
+          camera.updateMatrixWorld();
+          viewCenterVec.copy(worldCenterVec).applyMatrix4(camera.matrixWorldInverse);
+
+          sphereUniforms.sphereBlurCenterView.value.copy(viewCenterVec);
+          sphereUniforms.sphereBlurRadius.value = worldRadius;
+          sphereUniforms.sphereBlurTransition.value = Math.max(worldTransition, 1e-5);
+          sphereUniforms.sphereBlurSigma.value =
+            currentSetting.strength * renderer.getPixelRatio() * (spark.focalAdjustment || 1.0);
+
+          const panelOpen = panel && !panel.hidden;
+          const showGuides = Boolean(panelOpen && currentSetting.showGuide);
+          innerGuide.group.visible = showGuides;
+          outerGuide.group.visible = showGuides;
+          if (showGuides) {
+            innerGuide.group.position.copy(worldCenterVec);
+            innerGuide.group.scale.setScalar(Math.max(worldRadius, 1e-4));
+
+            outerGuide.group.position.copy(worldCenterVec);
+            outerGuide.group.scale.setScalar(Math.max(worldRadius + worldTransition, 1e-4));
+          }
+        } else {
+          innerGuide.group.visible = false;
+          outerGuide.group.visible = false;
+        }
+
+        const useFloatTarget = Boolean(
+          currentSetting.mode === "sphere" && currentSetting.strength > 0
+        );
+
+        if (useFloatTarget) {
+          if (!liveBlurTarget.current) {
+            liveBlurTarget.current = createBlurTarget(THREE, renderer);
+            if (!liveBlurTarget.current) {
+              currentSetting.mode = "camera";
+              syncBlurPanelUI(viewer, currentSetting, bounds, false);
+              renderer.setRenderTarget(null);
+              renderer.render(scene, camera);
+              return;
+            }
+          }
+          renderer.setRenderTarget(liveBlurTarget.current.target);
+          renderer.render(scene, camera);
+          renderer.setRenderTarget(null);
+          renderer.render(liveBlurTarget.current.copyScene, liveBlurTarget.current.copyCamera);
+        } else {
+          renderer.setRenderTarget(null);
+          renderer.render(scene, camera);
+        }
       });
 
-      resources.set(viewer, { renderer, controls, spark, splat, resizeObserver, canvas });
+      resources.set(viewer, {
+        renderer,
+        controls,
+        spark,
+        splat,
+        resizeObserver,
+        canvas,
+        bounds,
+        innerGuide,
+        outerGuide,
+        circleGeometry,
+        liveBlurTarget,
+      });
       setState(viewer, "ready", "");
       // The viewer may have scrolled out of the frame while its splat was
       // still downloading; discard it instead of rendering offscreen.
@@ -317,6 +1124,19 @@
       }
       if (spark) {
         spark.dispose();
+      }
+      if (innerGuide) {
+        innerGuide.material.dispose();
+      }
+      if (outerGuide) {
+        outerGuide.material.dispose();
+      }
+      if (circleGeometry) {
+        circleGeometry.dispose();
+      }
+      if (liveBlurTarget.current) {
+        liveBlurTarget.current.dispose();
+        liveBlurTarget.current = null;
       }
       if (renderer) {
         renderer.setAnimationLoop(null);
@@ -411,6 +1231,7 @@
       const loadButton = viewer.querySelector("[data-spark-load]");
       if (loadButton) {
         loadButton.addEventListener("click", () => {
+          onScreen.add(viewer);
           viewer.dataset.sparkUnload = "false";
           enqueueLoad(viewer);
         });
@@ -419,10 +1240,12 @@
       wireFullscreen(viewer);
       wireToggle(viewer);
 
+      wireBlurPanel(viewer);
       if (observer) {
         observer.observe(viewer);
       } else {
         // No IntersectionObserver: load on demand only, never unload.
+        onScreen.add(viewer);
         enqueueLoad(viewer);
       }
     });
