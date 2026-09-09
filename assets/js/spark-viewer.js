@@ -265,14 +265,6 @@
       strength = authoredStrength;
     }
 
-    const defaults = {
-      center: [...defaultCenter],
-      radius: defaultRadius,
-      transition: defaultTransition,
-      strength: defaultStrength,
-      showGuide: defaultShowGuide,
-    };
-
     if (invalidAuthored) {
       mode = "camera";
       center = [...defaultCenter];
@@ -280,6 +272,14 @@
       transition = defaultTransition;
       strength = defaultStrength;
     }
+
+    const defaults = {
+      center: [...center],
+      radius,
+      transition,
+      strength,
+      showGuide: defaultShowGuide,
+    };
 
     const setting = {
       mode,
@@ -574,14 +574,17 @@ flat in float vSphereMinAlpha;
     if (cx) {
       cx.step = String(step);
       cx.value = String(setting.center[0]);
+      cx.setCustomValidity("");
     }
     if (cy) {
       cy.step = String(step);
       cy.value = String(setting.center[1]);
+      cy.setCustomValidity("");
     }
     if (cz) {
       cz.step = String(step);
       cz.value = String(setting.center[2]);
+      cz.setCustomValidity("");
     }
 
     if (bounds) {
@@ -717,24 +720,15 @@ flat in float vSphereMinAlpha;
       if (!setting || !cx || !cy || !cz) {
         return;
       }
-      const x = Number(cx.value);
-      const y = Number(cy.value);
-      const z = Number(cz.value);
-      if (Number.isFinite(x) && Number.isFinite(y) && Number.isFinite(z)) {
-        setting.center = [x, y, z];
-        cx.setCustomValidity("");
-        cy.setCustomValidity("");
-        cz.setCustomValidity("");
-      } else {
-        if (!Number.isFinite(x)) {
-          cx.setCustomValidity("Please enter a valid finite number");
-        }
-        if (!Number.isFinite(y)) {
-          cy.setCustomValidity("Please enter a valid finite number");
-        }
-        if (!Number.isFinite(z)) {
-          cz.setCustomValidity("Please enter a valid finite number");
-        }
+      const inputs = [cx, cy, cz];
+      const center = inputs.map((input) => input.valueAsNumber);
+      inputs.forEach((input, index) => {
+        input.setCustomValidity(
+          Number.isFinite(center[index]) ? "" : "Please enter a valid finite number"
+        );
+      });
+      if (center.every(Number.isFinite)) {
+        setting.center = center;
       }
     }
 
